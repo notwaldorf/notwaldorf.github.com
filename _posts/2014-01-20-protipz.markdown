@@ -1,0 +1,113 @@
+---
+layout: post
+title: (Potentially) neat C++ protipz
+category: posts
+---
+Disclaimer: these aren't new protipz. I didn't make them up. They're actually straight out of the Chromium code [style](http://www.chromium.org/developers/coding-style), they're pretty trivial and you might already use them. But just in case you're not a Chromium committer (the outrage), or are fairly new at C++ and want to make your code less suck, here they are. I think they're neat.
+
+## Copy constructors and their brethren
+You know that scene from The Fly when Jeff Goldblum, having not screwed up teleporting a small baboon, decides he 
+should totally teleport himself? But then he screws that up (because software), manages to turn himself into a giant terrifying fly (because David Cronenberg) and continues to give me nightmares as an adult. 
+
+That’s exactly how I feel about copy constructors. You can absolutely get them right, but they’re a [pain](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Copy_Constructors#Copy_Constructors), and among other crimes they're committing, they're sometimes deceivingly slow. The point is, most of the time you don’t even need them. I mean, Jeff Goldblum teleported himself like three meters away. Couldn’t he have just walked?
+
+What we tend to do instead is convince the compiler to get annoyed with us if we try to use a copy constructor. This is easy because the compiler <3s being annoyed with us. So we can [define](https://code.google.com/p/chromium/codesearch#chromium/src/base/macros.h&l=28) a nice macro (stay with me) that adds a private declaration, but doesn’t implement it:
+
+{% highlight python %}
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+TypeName(const TypeName&);   \
+void operator=(const TypeName&)
+{% endhighlight %}
+
+Which you would then use in your private section of your class, like so:
+{% highlight c++ %}
+class Hooman {
+ public:
+  Hooman();
+  ~Hooman();
+ private:
+  DISALLOW_COPY_AND_ASSIGN(Hooman);
+};
+{% endhighlight %}
+
+Now, when you try to be ambitious and clone Jeff Goldblum,
+{% highlight c++ %}
+Hooman jeffGoldblum;
+Hooman teleportedJeffGoldblum = jeffGoldblum;
+{% endhighlight %}
+
+Clang will tell you something like "error: calling a private constructor of class ‘Hooman’". Other compilers might tell you other things, but they’ll generally have the same annoyed tone. Now would be a good time to apologize to your compiler for all the silly things you’ve done in the past.
+
+## Digression on macros
+My C++ motto is “Yes, but just don’t”. Yes, macros are weird and evil and if you use them incorrectly you will open the hellmouth. So try not to. We will use macros in a civilized way in here, and if you’re writing something like `#define TRUE FALSE` we will all agree that it was an uncivilized thing to do and it's your turn to tell Buffy about the hellmouth.
+
+## Debug checks
+The Chromium code is peppered with these things we call [DCHECKs](https://code.google.com/p/chromium/codesearch#chromium/src/base/logging.h&l=734). They’re asserts that run only in debug builds, so that you will catch bad scenarios in development and testing but you won’t give the user a panic attack in production. Ideally, we all have 100% test coverage that we run in debug mode (because it's obviously sooper fast), so we detect all of the herp derps and nothing ever goes wrong in production. Ideally.
+
+My favourite usage of dchecks is to make sure that I’m not accidentally breaking code by adding new values to an enum, and have them be unintentionally handled by catch-all blocks.
+
+Let’s pretend we have this enum:
+{% highlight c++ %}
+enum THINGS_TO_WEAR {
+  SOCKS,
+  HAT
+};
+{% endhighlight %}
+
+Which we would use for dressing up in the morning like so:
+{% highlight c++ %}
+if (thing == SOCKS) {
+  // Put on feet.
+} else {
+  DCHECK(thing == HAT);  // <-- The important bit.
+  // Put on head.
+}
+{% endhighlight %}
+
+This way, if later on someone adds `PANTS` to `THINGS_TO_WEAR` and ends up calling this code with `thing = PANTS`, the runtime will meep and I won’t have accidentally put my pants on my head. See what I did there? (If you were bothered that the enum wasn't sorted alphabetically, now you know why. Let's move on.)
+
+You can also do this with a similar [NOTREACHED()](https://code.google.com/p/chromium/codesearch#chromium/src/base/logging.h&l=783) assert, to make sure your new values are not caught by a default switch case.
+{% highlight c++ %}
+switch (thing) {
+  case SOCKS:
+    // Put on feet. 
+    break;
+  case HAT:
+    // Put on head.
+    break;
+  default:
+    NOTREACHED();  // MEEP.
+  break;
+{% endhighlight %}
+
+## Unnamed namespaces
+This is an unnamed namespace, which I am declaring in a `.cc` file, and it is the coolest:
+{% highlight c++ %}
+namespace {
+  bool MyAmazingHelperFunction() { ... }
+} 
+{% endhighlight %}
+
+Reasons why it's the coolest are:
+ 
+* This function is available only inside this `.cc` file so it doesn't make your class obese.
+* You don't have to remember which of the 3+ meanings of `static` you're referring to when defining a file scoped static variable. This means you're playing by the "Yes, but don't" rules of having fun with C++, which don't give you headaches.
+* If you care about this sort of thing, your function name gets a nicer mangled name.
+
+It's basically just that second bullet though. 
+
+## Forward declarations >> Includes
+This is probaby the most boring of all the topics, but the most useful one. Having a header file include everything but the kitchen sink is a little unfortunate. Your compiler is unhappy because it needs to open all those files, which in turn will make you unhappy, because every time you touch a header file, it will trigger seventy billion other files to feel like they need to be recompiled. Ain't nobody got time for that.
+
+Instead, what we can do is forward declare the class (`class Foo`) in the `.h` file, and include it (`#include "Foo.h"`) in the `.cc` file. That basically means you're promising the compiler this type exists, and that you will tell it what the type looks like when it (the compiler) needs it. If the compiler needs to use the type and you haven't included it, I promise you it will meep.
+
+But because this is C++, the rules of this game are a little tricky, and will sometimes get you into an argument with the compiler. The question I try to answer is "Does the compiler need to know the size or contents of the class `Foo`?"
+
+* If the answer is yes, and the compiler cares (e.g. inheriting from/making a member of that incomplete type), then you won't be able to forward declare it. You have to do the promising and the explaining in the same place, so might as well just include the file.
+* If the answer is no, and the compiler doesn't care (e.g. you're declaring but not defining functions that use the incomplete type), then forward declare it away! 
+
+This means you have to be a little careful when including the type in the `.cc` file. If there are two types that are called the exact same thing and you include the wrong header, you'll have a bad time. So, you know, just don't. :)
+
+### <3
+That's it, that's all. Go forth and write nicer C++ code. 
+

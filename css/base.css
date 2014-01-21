@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-family: 'Open Sans', Helvetica, serif;
   margin: 0;
   -webkit-font-smoothing: antialiased; }
 
@@ -12,7 +12,7 @@ a {
   left: 15px;
   top: 15px;
   width: 80px;
-  font-family: Helvetica, sans-serif; }
+  font-family: 'Oswald', Helvetica, , sans-serif; }
   .sidebar a {
     text-decoration: none; }
   .sidebar img {
@@ -21,19 +21,19 @@ a {
   .sidebar .avatar {
     padding: 0;
     margin-left: 2px;
-    border-radius: 5px; }
+    border-radius: 8px; }
   .sidebar .name {
     text-transform: uppercase;
     margin: 10px 0 20px 0; }
     .sidebar .name #fname {
       padding-left: 1px;
-      font-size: 23px;
+      font-size: 13px;
       letter-spacing: 5px;
-      color: black; }
+      color: black; 
+      font-weight: bold;}
     .sidebar .name #lname {
-      font-size: 17px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-size: 11px;
+      letter-spacing: 0px;
       color: black; }
   .sidebar .meta a {
     margin-left: 0px;
@@ -41,11 +41,11 @@ a {
     .sidebar .meta a:hover {
       color: #227ce8; }
   .sidebar .meta {
-    margin-left: 4px; }
+    margin-left: 20px; }
   .sidebar .meta .icon {
     margin-right: 6px; }
   .sidebar .sections {
-    margin: 15px 0 0 0; }
+    margin: 10px 0 0 20px; }
     .sidebar .sections a {
       padding: 3px 0;
       color: black;
@@ -68,28 +68,29 @@ a {
   margin-bottom: 50px; }
   .content h1 {
     color: #333;
-    font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+    font-family: 'Oswald', Helvetica, sans-serif;
     font-weight: 400; }
   .content h1 a {
     color: #111;
-    text-decoration: none; }
+    text-decoration: none;
+    font-weight: 700; }
   .content h2 {
     color: #333;
-    font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+    font-family: 'Oswald', Helvetica, sans-serif;
     font-weight: 400; }
   .content h2 a {
     color: #111;
     text-decoration: none; }
   .content h3 {
     color: #333;
-    font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+    font-family: 'Oswald', Helvetica, sans-serif;
     font-weight: 400; }
   .content h3 a {
     color: #111;
     text-decoration: none; }
   .content h4 {
     color: #333;
-    font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+    font-family: 'Oswald', Helvetica, sans-serif;
     font-weight: 400; }
   .content h4 a {
     color: #111;
@@ -113,7 +114,7 @@ a {
     .content p code {
       font-size: 12px;
       background-color: #eeeeee;
-      border: 1px solid #777777;
+      border: 1px solid #dddddd;
       border-radius: 3px;
       padding: 2px 3px; }
   .content img {
@@ -123,9 +124,8 @@ a {
   .content hr {
     border: 0;
     height: 6px;
-    background-image: url("/images/hr.png");
-    background-repeat: repeat-x;
-    margin: 2em 3em; }
+    border-bottom: 1px solid #ddd;
+    margin: 5px 0; }
   .content li {
     margin-bottom: 10px;
     line-height: 1.4em; }
@@ -145,21 +145,21 @@ a {
       font-style: normal; }
   .content .byline {
     margin-bottom: 17px;
-    font-family: "Yanone Kaffeesatz", Helvetica, sans-serif;
+    font-family: 'Oswald', Helvetica, sans-serif;
     padding-left: 0px;
-    font-size: 17px;
+    font-size: 14px;
     color: #777; }
   .content .aside {
     background-color: #eeeeee;
     padding: 14px;
     font-size: 14px;
     margin: 5px 0 15px 0;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open Sans', Helvetica, , sans-serif;
     line-height: 1.6em; }
   .content .listing {
     margin: 10px 0 0 0;
     padding: 0;
-    font-family: Helvetica, sans-serif; }
+    font-family: 'Open Sans', Helvetica, , sans-serif; }
     .content .listing ul {
       margin: 0;
       padding: 0; }
@@ -168,8 +168,7 @@ a {
       list-style: none;
       padding: 5px 3px;
       margin: 0;
-      color: #777777;
-      border-bottom: 1px solid #eee; }
+      color: #777777; }
     .content .listing li span {
       float: right; }
     .content .listing a {
@@ -179,7 +178,7 @@ a {
   .content .meta {
     margin: 30px 0;
     padding: 10px 0;
-    font-family: Helvetica, sans-serif; }
+    font-family: 'Open Sans', Helvetica, , sans-serif; }
     .content .meta p {
       line-height: 1.4;
       font-size: 14px;
@@ -200,7 +199,7 @@ a {
     margin-right: 10px;
     padding: 5px 15px;
     border: 1px solid #000;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open Sans', Helvetica, , sans-serif;
     font-size: 12px;
     font-weight: bold; }
   .content .talk-design .color .white {
