@@ -4,9 +4,9 @@ permalink: /posts/:title
 rdiscount:
   extensions: [smart]
 
-name: Monica Dinosaurescu
-url: http://www.google.com
-description: A fantastic blog that is fantastic.
+name: Monica
+url: http://notwaldorf.github.io
+description: A wild blog appears.
 twitter: notwaldorf
 github: notwaldorf
 gravatar_url: /images/panda.jpg
