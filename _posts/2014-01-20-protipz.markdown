@@ -3,11 +3,11 @@ layout: post
 title: (Potentially) neat C++ protipz
 category: posts
 ---
-Disclaimer: these aren't new protipz. I didn't make them up. They're actually straight out of the Chromium code [style](http://www.chromium.org/developers/coding-style), they're pretty trivial and you might already use them. But just in case you're not a Chromium committer (the outrage), or are fairly new at C++ and want to make your code less suck, here they are. I think they're neat.
+Disclaimer: these aren't new protipz. I didn't make them up. They're actually straight out of the Chromium code [style](http://www.chromium.org/developers/coding-style), they're pretty trivial, and you might already use them. But just in case you're not a Chromium committer (the outrage), or are fairly new at C++ and want to make your code less suck, here they are. I think they're neat.
 
 ## Copy constructors and their brethren
 You know that scene from The Fly when Jeff Goldblum, having not screwed up teleporting a small baboon, decides he 
-should totally teleport himself? But then he screws that up (because software), manages to turn himself into a giant terrifying fly (because David Cronenberg) and continues to give me nightmares as an adult. 
+should totally teleport himself? But then he screws that up (because software), manages to turn himself into a giant terrifying fly (because David Cronenberg), and continues to give me nightmares as an adult. 
 
 That’s exactly how I feel about copy constructors. You can absolutely get them right, but they’re a [pain](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Copy_Constructors#Copy_Constructors), and among other crimes they're committing, they're sometimes deceivingly slow. The point is, most of the time you don’t even need them. I mean, Jeff Goldblum teleported himself like three meters away. Couldn’t he have just walked?
 
