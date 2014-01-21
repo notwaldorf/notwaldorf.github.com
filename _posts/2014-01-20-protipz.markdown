@@ -33,7 +33,7 @@ class Hooman {
 Now, when you try to be ambitious and clone Jeff Goldblum,
 {% highlight c++ %}
 Hooman jeffGoldblum;
-Hooman teleportedJeffGoldblum = jeffGoldblum;
+Hooman teleportedJeffGoldblum(jeffGoldblum);
 {% endhighlight %}
 
 Clang will tell you something like "error: calling a private constructor of class ‘Hooman’". Other compilers might tell you other things, but they’ll generally have the same annoyed tone. Now would be a good time to apologize to your compiler for all the silly things you’ve done in the past.
