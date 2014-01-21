@@ -77,7 +77,8 @@ switch (thing) {
     break;
   default:
     NOTREACHED();  // MEEP.
-  break;
+    break;
+}
 {% endhighlight %}
 
 ## Unnamed namespaces
