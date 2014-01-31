@@ -99,7 +99,7 @@ a {
     font-size: 36px;
     margin: 18px 0 5px 0; }
   .content h2 {
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 15px; }
   .content h3 {
     color: #777;
@@ -120,7 +120,11 @@ a {
   .content img {
     padding: 3px;
     border: 1px solid #eeeeee;
-    max-width: 100%; }
+    max-width: 100%; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .content hr {
     border: 0;
     height: 6px;
@@ -193,7 +197,7 @@ a {
     .content .meta .copy {
       padding-left: 60px; }
     .content .meta iframe {
-      padding-left: 5px; }
+      padding-left: 0px; }
   .content .talk-design .color div {
     float: left;
     margin-right: 10px;
@@ -204,3 +208,5 @@ a {
     font-weight: bold; }
   .content .talk-design .color .white {
     color: #fff; }
+
+}
