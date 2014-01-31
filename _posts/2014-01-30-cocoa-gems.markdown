@@ -22,7 +22,7 @@ All of them live in the [Chromium](http://www.chromium.org/Home) code zoo now. T
 ## NSButton with custom padding
 By default, if you have an NSButton that has an image and a title, these will be squished right next to each other. This doesn't always look very pretty. By default, we get the thing on the left. We want the thing on the right.
 
-![NSButton with padding](/images/2014-01-29-button-padding.png)
+![NSButton with padding](/images/2014-01-30-button-padding.png)
 
 The way we're going to fix this is by creating a custom `NSButtonCell`, and overriding its `-drawTitle` method (I actually mean `-drawTitle:withFrame:inView:`, but I'm going to keep dropping the other parameters to make things look less scary. You can find everything in the [docs](https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/classes/NSButtonCell_Class/Reference/Reference.html), which are quite lovely). 
 
