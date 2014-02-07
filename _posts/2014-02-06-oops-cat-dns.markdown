@@ -17,14 +17,16 @@ Let me try to explain.
 You know how DNS works. You give a server a human readable hostname, like `www.google.com`, and it gives you back the IP address (like `74.125.226.113`) where the thing you are looking for actually lives. Here's pretty much how it goes.
 
 * You type in `www.google.com`. We're off to the races!
-* This goes to a _recursive caching name server_, which has a list of hints, such as addresses of _root_ name serves, and most likely a cache of popular requests. If you didn't specify one (like I'm doing with cat DNS), it probably comes from your ISP. Let's say it doesn't have an answer cached, so it responds with the address of a _root_ nameserver.
+* This goes to a _recursive caching name server_, which, after doing some work, will give you the IP you need. This name server has a list of hints, such as addresses of _root_ name serves, and most likely a cache of popular requests. Let's say it doesn't have an answer cached, which means it will go ask a _root_ nameserver.
 * A _root_ nameserver might not know the IP of your service, but knows the IP of the top level domain you need to speak to (in this case, the .com one). It also responds with 'I don't know, but I bet you this other IP does'
-* The top level domain server (e.g. the .com one) knows you want something about google, so it will tell you where the google _authoritative_ name server is. 
-* The _authoritative_ name server is the best. It knows things without having to ask anyone else. The google authoritative name server is going to give you the IP you want. Bingo bango, sugar in the gas tank.
+* The top level domain server (e.g. the .com one) knows you want something about `google.com`, so it will tell you where the google _authoritative_ name server is. 
+* The _authoritative_ name server is the best. It knows things without having to ask anyone else. The google authoritative name server is going to report back with the IP you want. Bingo bango, sugar in the gas tank. 
+* The caveat here is that you have to ask it only about things it knows about. If you end up asking a google authoritative server about `notwaldorf.github.com`, it's most likely going to apologize politely and tell you it doesn't know.
+* Addendum: @pphaneuf says this is technically incorrect (which is the best kind of incorrect) because all non recursive servers are authoritative about _something_. The `.com` one is authoritative about who you need to talk to when you want `*.com`. @@pphaneuf also writes DNSes for google though, so his level of knowledge is over 9000.
 
-Finally, this is mostly a lie, as in real life all of these servers do a lot of caching. Imagine doing this 4+ step dance every time someone typed `www.google.com` in their browser. IMAGINE. 
+Finally, this is mostly a lie, as in real life all of these _recursive_ servers that you hit first do a lot of caching. Imagine doing this 4+ step dance every time someone typed `www.google.com` in their browser. IMAGINE. 
 
-Cat DNS is technically a _recursive caching_ name server (because it's the first one you hit), a _root_ one, and an _authoritative_ one, because it has the truth (cats). Cat DNS knows everything: it's cats. Cats, cats, cats. This also means it should be super simple to implement.
+Cat DNS is technically a _recursive caching_ name server (because it's the first one you hit), a _root_ one, and an _authoritative_ one, mostly authoritative about cats. Cat DNS knows everything: it's cats. Cats, cats, cats. This also means it should be super simple to implement.
 
 ## Some code deets
 Things communicate with DNS servers over UDP on port 53. A couple of things:
