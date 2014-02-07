@@ -22,7 +22,7 @@ You know how DNS works. You give a server a human readable hostname, like `www.g
 * The top level domain server (e.g. the .com one) knows you want something about `google.com`, so it will tell you where the google _authoritative_ name server is. 
 * The _authoritative_ name server is the best. It knows things without having to ask anyone else. The google authoritative name server is going to report back with the IP you want. Bingo bango, sugar in the gas tank. 
 * The caveat here is that you have to ask it only about things it knows about. If you end up asking a google authoritative server about `notwaldorf.github.com`, it's most likely going to apologize politely and tell you it doesn't know.
-* Addendum: @pphaneuf says this is technically incorrect (which is the best kind of incorrect) because all non recursive servers are authoritative about _something_. The `.com` one is authoritative about who you need to talk to when you want `*.com`. @@pphaneuf also writes DNSes for google though, so his level of knowledge is over 9000.
+* Addendum: @pphaneuf says this is technically incorrect (which is the best kind of incorrect) because all non recursive servers are authoritative about _something_. The `.com` one is authoritative about who you need to talk to when you want `*.com`. @pphaneuf also writes DNSes for a living though, so his level of knowledge is over 9000.
 
 Finally, this is mostly a lie, as in real life all of these _recursive_ servers that you hit first do a lot of caching. Imagine doing this 4+ step dance every time someone typed `www.google.com` in their browser. IMAGINE. 
 
