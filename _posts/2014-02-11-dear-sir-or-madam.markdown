@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dear sir or madam: the bookmarklet you didn't know you needed
+title: "Dear sir or madam: the bookmarklet you didn't know you needed"
 category: posts
 ---
 
