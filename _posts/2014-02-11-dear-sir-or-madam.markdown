@@ -9,8 +9,8 @@ Do you sometimes feel the internet is holding you hostage? Don't you wish the in
 ![screenshot](http://i.imgur.com/Hbcj9jE.png)
 
 ## How to use
-Make a bookmark out of this <a href="javascript:var i,s,ss=['http://notwaldorf.github.io/dear-sir-or-madam/ransom-it.js','http://code.jquery.com/jquery-1.10.1.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);">link</a>.
-Then go to a non-https webpage, and hit that bookmarklet. Then, wait a bit. Then, BAM. Ransomified.
+Bookmark this: <a href="javascript:var i,s,ss=['http://notwaldorf.github.io/dear-sir-or-madam/ransom-it.js','http://code.jquery.com/jquery-1.10.1.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);">ransomify!</a>.
+Then go to a non-https webpage, and hit that bookmark. Then, wait a bit. Then, BAM. Ransomified.
 
 ## Disclaimers? Disclaimers!
 This doesn't work with https websites at the moment (or possibly forever). Also, I wrote most of it in bed, at 7am, after insufficient levels of caffeine, so you can count on this being top drawer code. It's not the fastest it can be, but it's definitely not the n^2 abomination I wrote in the first iteration either.
