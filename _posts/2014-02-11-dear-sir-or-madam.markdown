@@ -13,4 +13,4 @@ Make a bookmark out of this <a href="javascript:var i,s,ss=['http://notwaldorf.g
 Then go to a non-https webpage, and hit that bookmarklet. Then, wait a bit. Then, BAM. Ransomified.
 
 ## Disclaimers? Disclaimers!
-This doesn't work with https websites at the moment (or possibly forever). Also, I wrote the code at 7am, after very little sleep, so you can count on it being high quality. It's not the fastest it can be, but it's definitely not the n^2 abomination I wrote in the first iteration either. 
+This doesn't work with https websites at the moment (or possibly forever). Also, I wrote most of it in bed, at 7am, after insufficient levels of caffeine, so you can count on this being top drawer code. It's not the fastest it can be, but it's definitely not the n^2 abomination I wrote in the first iteration either.
