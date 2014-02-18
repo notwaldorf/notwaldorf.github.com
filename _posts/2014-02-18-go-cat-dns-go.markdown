@@ -25,6 +25,13 @@ Go in your browser to `www.google.com` and wait a bit. You should see a cat. Go 
 Do not panic. While I recommend you don't look at the source because it's gross, if you do look at the source, you'll notice all it does is resolve any hostname to `54.197.244.191`, which is a magical place on the internet that has cats. You could also resolve everything to localhost, and serve your own cats on an http server on port 80. But then you'd have to store your own cats locally, and that is animal cruelty. Thankfully, for now, while that magical static IP exists, you don't have to. 
 That's it, that's all. 
 
+## I NEED TO KNOW MORE
+Here's the little [summary](http://notwaldorf.github.io/posts/oops-cat-dns/) I wrote originally about how DNS servers work. Basically, cat-dns ends up doing this:
+* gruesomely parse the query from the client. I used [this](http://www.zytrax.com/books/dns/ch15/) as a reference on what each of the fields in the message sections are, because the spec itself is very dry. This was the worst part, because the message sections are sequences of bits that don't add up to bytes on any sane boundary, so you have to work with bit arrays, which is nobody's idea of fun. Anyway, a spec is a spec.
+* assemble the DNS answer. The answer is mostly the same for each query -- the only thing that changes is the content of the query (i.e. the hostname you requested). And you copy that from the query, so it's not a big deal.
+* always returns `54.197.244.191` as the resolved IP, unless you're requesting `imgur.com`. Then it gives you an actual IP for imgur that I got from `nslookup`. Imgur stores our cats, so we need to be able to get to them. :)
+
+
 ### = ^_^ =
 
 
