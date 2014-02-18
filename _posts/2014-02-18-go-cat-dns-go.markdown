@@ -22,7 +22,7 @@ While you're playing with this, pretty much nothing on your computer that requir
 Go in your browser to `www.google.com` and wait a bit. You should see a cat. Go to a different website. Another cat. Congratulations. Your internet is now all cats.
 
 ## Wait, what?
-Do not panic. While I recommend you don't look at the source because it's gross, if you do look at the source, you'll notice all it does is resolve any hostname to `54.197.244.191`, which is a magical place on the internet that has cats. My friend [@eigma](https://github.com/cpatulea/cats) is hosting it, so please try not to kill all the cat bandwith at once. You could also resolve everything to localhost, and serve your own for now cats on an http server on port 80. But then you'd have to store your own cats locally, and that is animal cruelty. Thankfully, for now, while that magical static IP exists, you don't have to. 
+Do not panic. While I recommend you don't look at the source because it's gross, if you do look at the source, you'll notice all it does is resolve any hostname to `54.197.244.191`, which is a magical place on the internet that has cats. My friend [@eigma](https://github.com/cpatulea/cats) made it, and is hosting it, so please try not to kill all the cat bandwith at once. You could also resolve everything to localhost, and serve your own for now cats on an http server on port 80. But then you'd have to store your own cats locally, and that is animal cruelty. Thankfully, for now, while that magical static IP exists, you don't have to. 
 That's it, that's all. 
 
 ## I NEED TO KNOW MORE
