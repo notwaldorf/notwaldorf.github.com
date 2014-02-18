@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cat-DNS: the DNS server that resolves everything to cats"
+title: "Cat-DNS: a DNS server that resolves everything to cats"
 category: posts
 ---
 The internet needs more cats. DNS servers are the authority on all things internet. Therefore, the best DNS server is the one that resolves everthing to cats. Guess what kind of DNS server this is (Hint: it's the cat kind).
