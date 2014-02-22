@@ -9,7 +9,7 @@ Do you sometimes feel the internet is holding you hostage? Don't you wish the in
 ![screenshot](http://i.imgur.com/Hbcj9jE.png)
 
 ## How to use
-Bookmark this by dragging it to your bookmark bar: <a href="javascript:var i,s,ss=['//raw2.github.com/notwaldorf/dear-sir-or-madam/master/ransom-it.js','//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);">ransomify!</a>.
+Bookmark this by dragging it to your bookmark bar: <a href="javascript:var i,s,ss=['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js','//raw2.github.com/notwaldorf/dear-sir-or-madam/master/ransom-it.js'];for(i=0;i!=ss.length;i++){s=document.createElement('script');s.src=ss[i];document.body.appendChild(s);}void(0);">ransomify!</a>.
 Then go to a non-https webpage, and hit that bookmark. Then, wait a bit. Then, BAM. Ransomified.
 
 ## Disclaimers? Disclaimers!
