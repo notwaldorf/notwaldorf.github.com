@@ -45,7 +45,7 @@ class Array
 end
 {% endhighlight %}
 
-And we can write glorious code that would make Quebec proud:
+And we can write glorious code that would make Quebec proud
 {% highlight ruby %}
 def articles_aleatoires(matrice)
 	matrice.echantillon(1 + rand(matrice.compte))
