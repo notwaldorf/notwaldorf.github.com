@@ -1,0 +1,143 @@
+---
+layout: post
+title: "Ruby for Canadians: an instruction manual"
+category: posts
+draft: true
+---
+One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code.
+
+## There's no such thing as 'too polite'
+Ruby lets you open your classes and teach your fellow programmers some basic manners:
+{% highlight ruby %}
+class Object
+	def please
+		return self
+	end
+	alias_method :eh, :please
+	alias_method :eh?, :please
+	alias_method :pardon, :please
+	alias_method :pardon?, :please
+end
+module Kernel
+	alias_method :sane_puts, :puts
+	alias_method :giver, :puts
+	def puts(s)
+    	sane_puts "If you don't mind, " + s
+    end
+end
+{% endhighlight %}
+
+Now you can write correct and civilized code like you've always wanted:
+{% highlight ruby %}
+giver "maple syrup".please.reverse.eh?
+# If you don't mind, purys elpam
+{% endhighlight %}
+
+## Don't forget about Quebec
+Ruby is the first language to pioneer French as the one true language. We have translated all the methods in `Array` and stored them in a dictionary called `translations`, that contains entries of the form `:english_foo => :french_foo`. A small iteration,
+{% highlight ruby %}
+class Array
+	Array.instance_methods(false).each do |f|
+		if translations.key?(f)
+			alias_method translations[f], f
+		end
+	end
+end
+{% endhighlight %}
+
+And we can write glorious code that would make Quebec proud:
+{% highlight ruby %}
+def articles_aleatoires(matrice)
+	matrice.echantillon(1 + rand(matrice.compte))
+end
+{% endhighlight %}
+
+## Canadian slang
+Fans of [Bob and Doug McKenzie](http://en.wikipedia.org/wiki/Bob_and_Doug_McKenzie) can breathe a sigh of relief to know that Ruby speaks the language of the Great White North, eh?
+
+{% highlight ruby %}
+class Exception
+	alias :sane_to_s :to_s
+	def to_s
+		sane_to_s + ". Take off, hoser."
+	end
+end
+# >> raise ArgumentError
+# ArgumentError: uncaught throw ArgumentError. Take off, hoser.
+{% endhighlight %}
+
+## Digression for non-Canadians
+Of course, you can use this idea of open classes for truly magical features. Good code is nothing if not mildly interesting.
+{% highlight ruby %}
+class Fixnum
+  alias :sane_equals :==
+  def ==(x)
+    not self.sane_equals(x)
+  end
+end
+# >> 4 == 4
+# => false 
+# >> 4 == 5
+# => true
+{% endhighlight %}
+
+## Unicode
+This is where this post starts being less Canadian and more flat out crazy.
+
+Ruby is down with Unicode in identifiers. That's because Ruby is down with pretty much everything. The only thing I have yet to convince Ruby to do is to let me alias keywords, and I'm pretty sure that's just because I haven't tried hard enough.
+
+If you add a comment to gently nudge at an encoding, you too can write this production ready code:
+{% highlight ruby %}
+# encoding: utf-8
+class Object
+	def ☢
+		return sane_puts "BOOM"
+	end
+end
+{% endhighlight %}
+
+Guess what calling ☢ will do. GUESS.
+
+Unicode can fill your boring, profesh code with whimsy: 
+{% highlight ruby %}
+if ☆ == ☂
+    puts ☎
+end
+{% endhighlight %}
+
+Our advanced readers can also define a function named U+00A0, the non-breaking space, as seen [here](http://www.rubyinside.com/the-split-is-not-enough-whitespace-shenigans-for-rubyists-5980.html). 
+
+## Bare words
+We all know that Ruby has bare words from Gary Bernhardt's [Wat](https://www.destroyallsoftware.com/talks/wat) talk, but did you know Ruby also allows you to have bare words as function names? Because that's totally a thing you'd want. Thanks to [Richo Healey](http://99designs.com/tech-blog/blog/2012/10/30/abusing-ruby-for-fun-and-profit/) for the example:
+
+{% highlight ruby %}
+self.instance_exec do
+def method_missing(sym, *args)
+  # Splat args if passed in from a parent call
+  if args.length == 1 && args[0].is_a?(Array) && args[0][0].class == NameError
+    args = args[0]
+  end
+  method_names, arguments = args.partition { |a| a.class == NameError }
+  method([sym.to_s, *method_names.map(&:name)].join(" ")).call(*arguments)
+rescue NameError => e
+  return [e, *arguments]
+end
+end
+{% endhighlight %}
+
+Defining such a function doesn't even look that improper, which is why I recommend moving the above code into a separate .rb file, deep at the bottom of a folder barrel. 
+{% highlight ruby %}
+self.class.send(:define_method, :"take off") do
+	puts "♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪"
+end
+{% endhighlight %}
+
+This leads to the most excellent of results, and a job well done:
+{% highlight ruby %}
+take off
+# >> If you don't mind, ♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪
+# => nil 
+{% endhighlight %}
+
+## <3
+Canadians, I can only hope that this code will improve the quality of your programming lives. Next on our agenda: convincing the W3C that 'colour' and 'grey' are the only appropriate spellings in California Style Sheets.
