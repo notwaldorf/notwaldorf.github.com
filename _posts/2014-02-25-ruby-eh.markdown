@@ -144,7 +144,7 @@ take off
 as long as -> { i < 10 }, -> { puts i += 1 }
 {% endhighlight %}
 
-However, being practical and sane isn't the Canadian way; politeness is. If it were, most Canadians wouldn't live in a place where 11 months of the year the air hurts your face. We don't stand for useful applications of bare functions, and nor should you.
+However, being practical and sane isn't the Canadian way. If it were, most Canadians wouldn't live in a place where 11 months of the year the air hurts your face. We don't stand for useful applications of bare functions, and nor should you.
 
 ## <3
 Next on our agenda: convincing the W3C that the California Style Sheets spelling of 'colour' and 'grey' is the only appropriate one. Do not lose faith, Canadians. Now that the rest of the world has accepted curling as a sport, they're ready to accept anything.
