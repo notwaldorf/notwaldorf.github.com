@@ -2,7 +2,6 @@
 layout: post
 title: "Ruby for Canadians: an instruction manual"
 category: posts
-draft: true
 ---
 One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code.
 
