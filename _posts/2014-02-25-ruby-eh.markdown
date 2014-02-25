@@ -11,18 +11,18 @@ Ruby lets you open your classes and teach your fellow programmers some basic man
 {% highlight ruby %}
 class Object
   def please
-		self
+    self
   end
-	alias_method :eh, :please
-	alias_method :eh?, :please
-	alias_method :pardon, :please
-	alias_method :pardon?, :please
+  alias_method :eh, :please
+  alias_method :eh?, :please
+  alias_method :pardon, :please
+  alias_method :pardon?, :please
 end
 module Kernel
-	alias_method :sane_puts, :puts
-	alias_method :giver, :puts
-	def puts(s)
-    	sane_puts "If you don't mind, " + s
+  alias_method :sane_puts, :puts
+  alias_method :giver, :puts
+  def puts(s)
+      sane_puts "If you don't mind, " + s
     end
 end
 {% endhighlight %}
@@ -37,18 +37,18 @@ giver "maple syrup".please.reverse.eh?
 Ruby is the first language to pioneer French as the one true language. We have translated all the methods in `Array` and stored them in a dictionary called `translations`, that contains entries of the form `:english_foo => :french_foo`. A small iteration,
 {% highlight ruby %}
 class Array
-	Array.instance_methods(false).each do |f|
-		if translations.key?(f)
-			alias_method translations[f], f
-		end
-	end
+  Array.instance_methods(false).each do |f|
+    if translations.key?(f)
+      alias_method translations[f], f
+    end
+  end
 end
 {% endhighlight %}
 
 And we can write glorious code that would make Quebec proud
 {% highlight ruby %}
 def articles_aleatoires(matrice)
-	matrice.echantillon(1 + rand(matrice.compte))
+  matrice.echantillon(1 + rand(matrice.compte))
 end
 {% endhighlight %}
 
@@ -57,10 +57,10 @@ Fans of [Bob and Doug McKenzie](http://en.wikipedia.org/wiki/Bob_and_Doug_McKenz
 
 {% highlight ruby %}
 class Exception
-	alias :sane_to_s :to_s
-	def to_s
-		sane_to_s + ". Take off, hoser."
-	end
+  alias :sane_to_s :to_s
+  def to_s
+    sane_to_s + ". Take off, hoser."
+  end
 end
 # >> raise ArgumentError
 # ArgumentError: uncaught throw ArgumentError. Take off, hoser.
@@ -90,9 +90,9 @@ If you add a comment to gently nudge at an encoding, you too can write this prod
 {% highlight ruby %}
 # encoding: utf-8
 class Object
-	def ☢
-		sane_puts "BOOM"
-	end
+  def ☢
+    sane_puts "BOOM"
+  end
 end
 {% endhighlight %}
 
@@ -128,7 +128,7 @@ end
 Defining such a function doesn't even look that improper, which is why I recommend moving the above code into a separate .rb file, deep at the bottom of a folder barrel. 
 {% highlight ruby %}
 self.class.send(:define_method, :"take off") do
-	puts "♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪"
+  puts "♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪"
 end
 {% endhighlight %}
 
