@@ -139,5 +139,12 @@ take off
 # => nil 
 {% endhighlight %}
 
+[Nik Markwell](https://github.com/duckinator) has a neat implementation of a saner, more [constrained](https://gist.github.com/duckinator/d08df4d312139a447738) version of this, which ends up looking like
+{% highlight ruby %}
+as long as -> { i < 10 }, -> { puts i+=1 }
+{% endhighlight %}
+
+However, being practical and sane isn't the Canadian way; politeness is. If it were, most Canadians wouldn't live in a place where 11 months of the year the air hurts your face. We don't stand for useful applications of bare functions, and nor should you.
+
 ## <3
 Canadians, I can only hope that this code will improve the quality of your programming lives. Next on our agenda: convincing the W3C that 'colour' and 'grey' are the only appropriate spellings in California Style Sheets.
