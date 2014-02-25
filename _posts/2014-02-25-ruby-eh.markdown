@@ -3,9 +3,7 @@ layout: post
 title: "Ruby for Canadians: an instruction manual"
 category: posts
 ---
-One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code.
-
-[Here](https://github.com/notwaldorf/ruby-eh) it is on github.
+One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code. [Here](https://github.com/notwaldorf/ruby-eh) are the codes, for your perusal.
 
 ## There's no such thing as 'too polite'
 Ruby lets you open your classes and teach your fellow programmers some basic manners:
