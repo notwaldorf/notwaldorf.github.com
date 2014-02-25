@@ -16,12 +16,14 @@ title: "Blorg"
   <hr/>
   {% endif %}
 
-  {% for post in site.posts limit:1 %}
+  {% for post in site.posts limit:2 %}
+  {% unless post.draft %}
    <h1><a href="{{ page.url }}">{{ post.title }}</a></h1>
     <section class="byline">
       {{ post.date | date: "%B %e, %Y" }}
     </section>
     {{ post.content }}
+  {% endunless %}
   {% endfor %}
 
 </section>
