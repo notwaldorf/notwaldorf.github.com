@@ -50,6 +50,8 @@ And we can write glorious code that would make Quebec proud
 def articles_aleatoires(matrice)
   matrice.echantillon(1 + rand(matrice.compte))
 end
+articles_aleatoires [1,2,3,4,5]
+# => [1, 2]
 {% endhighlight %}
 
 ## Canadian slang
