@@ -10,9 +10,9 @@ One of the hardships about being Canadian is that most programming languages are
 Ruby lets you open your classes and teach your fellow programmers some basic manners:
 {% highlight ruby %}
 class Object
-	def please
-		return self
-	end
+  def please
+		self
+  end
 	alias_method :eh, :please
 	alias_method :eh?, :please
 	alias_method :pardon, :please
@@ -91,7 +91,7 @@ If you add a comment to gently nudge at an encoding, you too can write this prod
 # encoding: utf-8
 class Object
 	def ☢
-		return sane_puts "BOOM"
+		sane_puts "BOOM"
 	end
 end
 {% endhighlight %}
