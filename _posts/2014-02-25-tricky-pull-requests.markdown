@@ -41,7 +41,7 @@ This will look at the diff between master (which is in the future), and your wor
 * hit *s* to split the hunks into smaller hunks
 * hit *y* or *n* to pick or skip a hunk.
 
-If you've touched any files, it's a good time for your familiar `git add/git commit` dance.
+If you've touched any files, it would be a good time to do your familiar `git add/git commit` dance.
 
 ## Merge the upstream changes in
 <pre>
@@ -51,7 +51,7 @@ git merge upstream/master  # Some wild upstream changes appear in git log.
 
 ## ♫ ♪ T-t-t-test your cha-an-ges ♫ ♪
 
-## Upload your change
+## Upload your branch
 This is the last step. If you want, you can rename your branch before uploading it. I usually do, because my original branch names tend to be silly. After this, you can go and look at your branch in GitHub and be delighted with the progress you've made. Time to send out that pull request!
 
 <pre>
