@@ -2,9 +2,8 @@
 layout: post
 title: "Ruby for Canadians: an instruction manual"
 category: posts
-draft: true
 ---
-One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code.
+One of the hardships about being Canadian is that most programming languages are quite simply, rude. Descriptions like 'imperative' and 'declarative' are enough to fill even the most impolite of Canadians with a vague sense of discomfort. Fear no more! Ruby is the sort of language that addresses all these concerns, and adds a familiar, maple-syrupy feel to your code. [Here](https://github.com/notwaldorf/ruby-eh) are the codes, for your perusal.
 
 ## There's no such thing as 'too polite'
 Ruby lets you open your classes and teach your fellow programmers some basic manners:
@@ -50,6 +49,8 @@ And we can write glorious code that would make Quebec proud
 def articles_aleatoires(matrice)
   matrice.echantillon(1 + rand(matrice.compte))
 end
+articles_aleatoires [1,2,3,4,5]
+# => [1, 2]
 {% endhighlight %}
 
 ## Canadian slang
@@ -139,5 +140,12 @@ take off
 # => nil 
 {% endhighlight %}
 
+[Nik Markwell](https://github.com/duckinator) has a neat implementation of a saner, more [constrained](https://gist.github.com/duckinator/d08df4d312139a447738) version of this, which ends up looking like
+{% highlight ruby %}
+as long as -> { i < 10 }, -> { puts i += 1 }
+{% endhighlight %}
+
+However, being practical and sane isn't the Canadian way. If it were, most Canadians wouldn't live in a place where 11 months of the year the air hurts your face. We don't stand for useful applications of bare functions, and nor should you.
+
 ## <3
-Canadians, I can only hope that this code will improve the quality of your programming lives. Next on our agenda: convincing the W3C that 'colour' and 'grey' are the only appropriate spellings in California Style Sheets.
+Next on our agenda: convincing the W3C that the California Style Sheets spelling of 'colour' and 'grey' is the only appropriate one. Do not lose faith, Canadians. Now that the rest of the world has accepted curling as a sport, they're ready to accept anything.
