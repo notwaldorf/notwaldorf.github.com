@@ -10,7 +10,7 @@ In case you have doubts about the likelihood of this scenario, we're talking abo
 
 Because you're a good open sorcerer, you might, at some point, want to send a pull request to fix a thing in the original repo. If you're anything like I am, you are now in a bit of a terrible situation because your fork's tip of tree has advanced and diverged quite a bit from the upstream repo, so any pull requests you send out will be polluted with code that doesn't belong in them.
 
-At this point, you probably have some regrets. Let's not dwell on them. Here's the set of steps that will help you navigate this minefield you find yourself in. They're not special; I just couldn't find them all in one place, and wanted a summary for the future.
+At this point, you probably have some regrets. Let's not dwell on them. Here's the set of steps that will help you navigate this minefield you find yourself in. They're not special; I just couldn't find them all in one place, and wanted a summary for the future. [Kamal](https://twitter.com/kmrhb) figured most of this out, because he is a git wizard, while I am, most definitely, not.
 
 ## Set up your upstream 
 If `git remote` doesn't show you a branch called `upstream`, you need to add one:
