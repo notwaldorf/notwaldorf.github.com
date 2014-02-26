@@ -5,7 +5,15 @@ body {
   -webkit-font-smoothing: antialiased; }
 
 a {
-  color: #227ce8; }
+  color: #227ce8; 
+}
+
+pre {
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  padding: 20px;
+}
 
 .sidebar {
   position: fixed;
