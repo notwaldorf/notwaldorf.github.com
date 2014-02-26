@@ -2,7 +2,6 @@
 layout: post
 title: "When pull requests get tricky"
 category: posts
-draft: true
 ---
 
 Imagine this: you have forked a repo a long time ago and have since been in a happily committed relationship with the master branch, modifying files and committing from the hip.
