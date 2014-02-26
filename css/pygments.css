@@ -1,20 +1,7 @@
-.highlight {
-  margin: 0 0 1.2em 0;  /* match <p>  */
-  background-color: #eee;
-  font-size: 14px;
-  padding: 0px 15px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  overflow: hidden;
-  text-shadow: none;
-  color: #111;
-}
 .hightlight code{
   float: left;
 }
-.highlight:hover {
-  overflow: auto;
-}
+
 .highlight .hll { background-color: #ffffcc }
 .highlight .c { color: #888888 } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
