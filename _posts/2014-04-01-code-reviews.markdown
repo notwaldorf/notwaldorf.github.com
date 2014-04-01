@@ -2,7 +2,6 @@
 layout: post
 title: "Code reviews for fun and profit"
 category: posts
-draft: true
 ---
 
 ## Stats: a preamble
@@ -56,7 +55,7 @@ My favourite reviewer used to leave pretty vague comments when the general appro
 ## How to level up as a code reviewer
 First, become comfortable with the style guide. The first thing you should do for every review is go through all of the new code, and find all the nits. Is the indentation ok? Do the variable names follow the naming convention? Have new functions or parameters been documented correctly?
 
-Once you're done with that, ask yourself if you understand what the code does. If you can't, that's a big red flag. Does the new code make sense where it is? Should it be in a different class? Should it be a class or a helper function? Is this code duplicated anywhere else?
+Once you're done with that, ask yourself if you understand what the code does. If you can't, the next person won't either. It's easy to think you're dumb and the code is great, but that's almost never true. Does the new code make sense where it is? Should it be in a different class? Should it be a class or a helper function? Is this code duplicated anywhere else?
 
 Make sure that if the code can be tested (this, sadly, isn't always true), it is tested. Don't be afraid to ask for tests if they're not there.
 
