@@ -2,7 +2,6 @@
 layout: post
 title: "Presentation slides and writer's block"
 category: posts
-draft: true
 ---
 I am the poster child for writer's block. I can't write the `#ifdef` header guard correctly for a brand new C++ class, I don't remember the order of the `public static void main args` incantation in Java, and for the life of me, I can't start working on an empty presentation. Not even if you promise me pizza. (Please promise me pizza though.)
 
