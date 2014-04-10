@@ -25,7 +25,7 @@ I mean, definitely include cat gifs, but that time isn't now. I'm pretty sure "b
 
 I've sorted this out by having a really basic presentation [template](/includes/skeletor.pdf), affectionately named Skeletor, that I only use when I work on the content. It's got a font that doesn't make me angry, a really basic colour scheme, and I can distinguish between title and filler slides.
 
-<script async class="speakerdeck-embed" data-id="37416630a2e901311a744eb53c3a6292" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<div style="height:200px;"><script async class="speakerdeck-embed" data-id="37416630a2e901311a744eb53c3a6292" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script></div>
 
 Then, I dump the stewed outline into this presentation -- the titles, the bullets, the question marks -- and do a dry-run. So that the rehearsal is actually useful, you should probably make sure your (entirely empty) presenter's notes are visible and editable. If you don't use presenter's notes, I don't know even know how you exist. Get some paper.
 
