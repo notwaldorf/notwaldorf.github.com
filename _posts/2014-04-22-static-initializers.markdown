@@ -64,10 +64,10 @@ static int y = 0;
 // Below, both the pointer and the chars in the string are const, so the
 // compiler will treat this as a compile-time constant. So this is ok
 // because both the thing before and after the = sign are constant.
-static const char const[] panda = "happy panda";
+static const char panda[] = "happy panda";
 
 // This, however, calls a constructor, so it's not ok.
-static const char* sad_panda("sad panda");
+static const std::string sad_panda = "sad panda";
 
 static int a = 0;  
 // This is not ok, because the thing after the = sign isn't a const,
@@ -79,7 +79,6 @@ static int b = a;
 static Muppet waldorf;
 {% endhighlight %}
 
-
 ## Them's the breaks
 There's a couple of ways in which you can fix this, some better than others:
 
@@ -90,10 +89,10 @@ There's a couple of ways in which you can fix this, some better than others:
 That last bullet sounds like black magic, so here's an example. This is the static initializer that we are trying to fix. Convince yourself that this code is no good:
 {% highlight c++ %}
 namespace {
-const char* bucket[] = {"apples", "pears", "meerkats"};  
+static const std::string bucket[] = {"apples", "pears", "meerkats"};
 }
 
-const char* GetBucketThing(int i) {
+const std::string GetBucketThing(int i) {
   return bucket[i];
 }
 {% endhighlight %}
