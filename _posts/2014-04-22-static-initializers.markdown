@@ -13,12 +13,12 @@ We're going to be talking about static class objects, or objects defined in a gl
 
 {% highlight c++ %}
 namespace {
-static const char* kSquirrel = "sad squirrel";
+static const std::string kSquirrel = "sad squirrel";
 static const Superhero batman;
 }
 // or
 class Foo {
-  static const char* panda_ = "also a sad panda";  
+  static const std::string panda_ = "also a sad panda";  
 }
 {% endhighlight %}
 
