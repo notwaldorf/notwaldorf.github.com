@@ -22,7 +22,7 @@ class Foo {
 }
 {% endhighlight %}
 
-_Static initialization_ is the dance we do when creating these objects. This is not a dance we do when we initialize things with _constant_ data (like `static int x = 42`); the compiler sees that the thing after the `=` is constant and can't change, so it can inline it. However, if you try to initialize a variable by running code (e.g. `static int x = foo()`), then this is not a constant anymore, and it will result in a static initializer. Because this looks involved, the compiler promises you to run all the static initializers before the body of `main()` is executed. That, unfortunately, doesn't mean much.
+_Static initialization_ is the dance we do when creating these objects. This is not a dance we do when we initialize things with _constant_ data (like `static int x = 42`); the compiler sees that the thing after the `=` is constant and can't change, so it can inline it. However, if you try to initialize a variable by running code (e.g. `static int x = foo()`), then this is not a constant anymore, and it will result in a static initializer. In C++11, I think `constexpr` will let you hint to the compiler that the thing after the equal is a constant expression, if it is that, so it can inline it. I don't get to use a lot of C++11, so this is still about nightmares of C++ past, and I don't think `constexpr` will do away with all of the murders anyway. Finally, the compiler promises you to run all the static initializers before the body of `main()` is executed. That, unfortunately, doesn't mean much.
 
 ## Why static initializers are bad news bears
 As Douglas Adams, the inventor of C++ said, static initializers have "made a lot of people very angry and been widely regarded as a bad move". Apart from being hard to spell, they tend to throw up on your shoes:
@@ -43,8 +43,9 @@ static Superhero robin = batman.getSidekick();
   // In y.cpp:
   static Superhero robin(batman.getSidekick());
   // If that wasn't believable, imagine it was something like:
-  // static Superhero robin(BestSuperhero::batman);
-  // and you call batman.getSidekick() in robin's constructor.
+  // static Superhero robin(BestSuperhero::batman); 
+  // where BestSuperhero is a namespace or a static class and 
+  // you call batman.getSidekick() in robin's constructor.
   {% endhighlight %}
   Yup. That's it. Whether `x.cpp` or `y.cpp` gets compiled first is not defined (because C++), which means if `y.cpp` gets compiled first, `batman` hasn't been constructed. You know what happens when you call `getSidekick()` on an uninitialized object? Regrets happen.
 
