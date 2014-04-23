@@ -6,7 +6,7 @@ draft: true
 ---
 But only if your family is code.
 
-So this is a bit of a terrible blog post because a) it's about a really obscure atrocity that happens in C++ (as opposed to the other atrocities that happen in C++ on the regs) and b) there's not enough funnies in the world to make up for it. I recommend skipping it if you've just eaten, are feeling light-headed, or don't want to make eye contact with C++. As a general policy, you should probably never make eye contact with C++. It can smell fear.
+So this is a bit of a terrible blog post because a) it's about a really obscure atrocity that happens in C++ (as opposed to the common atrocities that happen in C++ on the regs) and b) there are not enough funnies in the world to make up for it. I recommend skipping it if you've just eaten, are feeling light-headed, or don't want to make eye contact with C++. As a general policy, you should probably never make eye contact with C++. It can smell fear.
 
 ## Programmer, meet static initializers
 We're going to be talking about static class objects, or objects defined in a global/unnamed namespace, such as these fellas:
@@ -16,13 +16,13 @@ namespace {
 static const char* kSquirrel = "sad squirrel";
 static const Superhero batman;
 }
-
+// or
 class Foo {
   static const char* panda_ = "also a sad panda";  
 }
 {% endhighlight %}
 
-_Static initialization_ is the dance we do when creating these objects. This is not a dance we care about when we initialize things with _constant_ data (like `static int x = 42`); the compiler sees that the thing after the `=` is constant and can't change, so it can inline it. However, if you try to initialize a variable (even a primitive) by running code, then this is not a constant anymore, and it will result in a static initializer. The compile will promise you, however, to run all the  static initializers before the body of `main()` is executed. That, unfortunately, doesn't mean much.
+_Static initialization_ is the dance we do when creating these objects. This is not a dance we do when we initialize things with _constant_ data (like `static int x = 42`); the compiler sees that the thing after the `=` is constant and can't change, so it can inline it. However, if you try to initialize a variable by running code (e.g. `static int x = foo()`), then this is not a constant anymore, and it will result in a static initializer. Because this looks involved, the compiler promises you to run all the static initializers before the body of `main()` is executed. That, unfortunately, doesn't mean much.
 
 ## Why static initializers are bad news bears
 As Douglas Adams, the inventor of C++ said, static initializers have "made a lot of people very angry and been widely regarded as a bad move". Apart from being hard to spell, they tend to throw up on your shoes:
@@ -43,7 +43,7 @@ static Superhero robin = batman.getSidekick();
   // In y.cpp:
   static Superhero robin(batman.getSidekick());
   {% endhighlight %}
-  Yup. That's it. Whether `x.cpp` or `y.cpp` gets compiled first is not defined, which means if `y.cpp` gets compiled first, `batman` hasn't been constructed. You know what happens when you call `getSidekick()` on an uninitialized object? Regrets happen.
+  Yup. That's it. Whether `x.cpp` or `y.cpp` gets compiled first is not defined (because C++), which means if `y.cpp` gets compiled first, `batman` hasn't been constructed. You know what happens when you call `getSidekick()` on an uninitialized object? Regrets happen.
 
   * We're not done yet. Why have insanely terrible code when you can have insanely terrible EXPENSIVE code! Evan Martin has a really, really good [post](http://neugierig.org/software/chromium/notes/2011/08/static-initializers.html) about this, but the tl;dr is that because the static initializers need to happen before `main()`, that code needs to be paged, which leads to disk seeks, which leads to awful startup performance. Seriously, read Evan's post because it's amazing.
 
@@ -63,12 +63,12 @@ static int y = 0;
 // because both the thing before and after the = sign are constant.
 static const char const[] panda = "happy panda";
 
-// This, however, calls a constructor, so it's not ok:
+// This, however, calls a constructor, so it's not ok.
 static const char* sad_panda("sad panda");
 
 static int a = 0;  
 // This is not ok, because the thing after the = sign isn't a const,
-// so it can change before b is initialized (I'll explain this too.)
+// so it can change before b is initialized.
 static int b = a;  
 
 // This has to call the Muppet() constructor, and who knows what that
@@ -80,8 +80,8 @@ static Muppet waldorf;
 ## Them's the breaks
 There's a couple of ways in which you can fix this, some better than others:
 
-  * The best static initializer is no static initializer, so try const'ing all your things away. This will take you as far as defining an array of strings, for which you can't pray the initializer away. (Trivia: Praying The Const Away™ is what I call a `const_cast`)
-  * Place all your globals in the same compilation unit (i.e. a massive `constants.cpp` file). You can certainly try this, but if your project is the giant Snuffleupagus that Chrome is, you will be laughed at
+  * The best static initializer is no static initializer, so try const-ing all your things away. This will take you as far as defining an array of strings, for which you can't pray the initializer away. (Trivia: Praying The Const Away™ is what I call a `const_cast`)
+  * Place all your globals in the same compilation unit (i.e. a massive `constants.cpp` file). You can certainly try this, but if your project is the giant Snuffleupagus that Chrome is, you might be laughed at
   * Place the static globals inside the function that needs them (or, if they're the village bicycle, make a getter for them), and define them as function-static variables. Then you know they will be initialized only once, the first time that function is called. Whenever it is called
 
 That last bullet sounds like black magic, so here's an example. This is the static initializer that we are trying to fix. Convince yourself that this code is no good:
@@ -93,7 +93,6 @@ const char* bucket[] = {"apples", "pears", "meerkats"};
 const char* GetBucketThing(int i) {
   return bucket[i];
 }
-
 {% endhighlight %}
 
 We can fix it by moving `bucket` into `GetBucketThing()`:
@@ -106,6 +105,8 @@ std::string GetBucketThing(int i) {
   return bucket[i];
 }
 {% endhighlight %}
+
+Yup. That's pretty much it. If you want more reading on the topic, here's a neat chromium-dev [thread](https://groups.google.com/a/chromium.org/forum/#!topic/chromium-dev/p6h3HC8Wro4) discussing this in more details (and talking about when these static globals are actually cleaned up).
 
 # ❤︎
 I don't know why you've made it this far. Maybe you thought there was going to be a joke or a prize at the end. There isn't. There's just this gif, and you could've just scrolled down for it.
