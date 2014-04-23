@@ -42,6 +42,9 @@ static Superhero robin = batman.getSidekick();
 
   // In y.cpp:
   static Superhero robin(batman.getSidekick());
+  // If that wasn't believable, imagine it was something like:
+  // static Superhero robin(BestSuperhero::batman);
+  // and you call batman.getSidekick() in robin's constructor.
   {% endhighlight %}
   Yup. That's it. Whether `x.cpp` or `y.cpp` gets compiled first is not defined (because C++), which means if `y.cpp` gets compiled first, `batman` hasn't been constructed. You know what happens when you call `getSidekick()` on an uninitialized object? Regrets happen.
 
