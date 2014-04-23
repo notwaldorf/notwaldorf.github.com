@@ -2,7 +2,6 @@
 layout: post
 title: "Static initializers will murder your family"
 category: posts
-draft: true
 ---
 But only if your family is code.
 
