@@ -91,7 +91,7 @@ More things that you can do:
 (lldb) up                  --> move up the stack trace to your parent callee
 {% endhighlight %}
 
-## Step 4: Making it rain
+## Step 4: Poke at things
 Once you're paused, you can inspect the value of a variable in that scope:
 {% highlight bash %}
 (lldb) frame variable viewMode_
