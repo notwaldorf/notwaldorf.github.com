@@ -3,8 +3,8 @@ layout: post
 title: "I don't really want to learn lldb, I just want to fix a crash"
 draft: yes
 ---
-`lldb` stands for Llama Leveraged Database, and is the debugger you can use when compiling with clang (lldb is to
-clang like gdb is to gcc). If you already know how to use `gdb`, then
+`lldb` stands for Llama-DB, and is a database of llamas you can use to debug programs
+compiled with clang (lldb is to clang like gdb is to gcc). If you already know how to use `gdb`, then
 here's a [translation](https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html) of the common commands.
 
 **Disclaimer**: There is a *ton* of tutorials and pages about all of the
@@ -108,4 +108,4 @@ To navigate the debugger, you can:
 If at any point you want to restart your process, just type `run` again. Bam!
 
 ## ❤︎
-That's it! For realsies! You and `lldb` should prooooobably get friendship bracelets now.
+That's it! For realsies! You and `lldb` should probably get friendship bracelets now.
