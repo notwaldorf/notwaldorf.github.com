@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Presenter notes that don't suck"
-notdraft: true
 ---
 You've given a talk. It went great, and now everyone wants to see the slides. Hurray! Before we do anything else: give yourself a high-five. Giving a talk is hard, and you did it! This is something to be proud about.
 
