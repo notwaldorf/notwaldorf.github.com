@@ -31,7 +31,7 @@ which executable to care about, but it won't actually start the process for you.
 
 ## Step 2. Make it crash
 Since we (me) are investigating a crash, the first thing you need is a stack trace that
-tells you what's crashing. So, start your process in `lldb`, make it crash, and we'll take it
+tells you where the crash is. So, start your process in `lldb`, make it crash, and we'll take it
 from there.
 
 Side bar: I literally typed this blog out while sorting out a crash in the
@@ -71,7 +71,8 @@ bit of advice, here's some helpful breakpoint-related things you can talk to `ll
 
 If you don't like typing, all these commands have super l33t
 shortcuts like `br s -f moose.c -l 12`. This intimidates me seven ways to Sunday,
-since I've _just_ learnt how to set a breakpoint, but if that's your jam,
+since I've _just_ learnt how to set a breakpoint, and I had to do it on the command 
+line and I like UIs, but if that's your jam,
 [here](https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html) is that list.
 Go forth and conquer.
 
@@ -85,27 +86,31 @@ with a snippet of code around that point. Dat arrow. ❤︎
 
 ![lldb breakpoint](/images/2014-06-23/breakpoint.png)
 
-More things that you can do:
+More things that you can probably want to do here:
 {% highlight bash %}
 (lldb) thread backtrace    --> stack trace of how we got gere
 (lldb) up                  --> move up the stack trace to your parent callee
 {% endhighlight %}
 
 ## Step 4: Poke at things
-Once you're paused, you can inspect the value of a variable in that scope:
+Once you're paused, you can inspect the value of a variable in that scope. You 
+probably want to do that because 90% of the time a thing that shouldn't be null
+is null, because C++.
 {% highlight bash %}
 (lldb) frame variable viewMode_
 {% endhighlight %}
 
-To navigate the debugger, you can:
+To step through things, get in the llama car, close the door, and start navimagating:
 
 {% highlight bash %}
-(lldb) step   --> move into this call. Alias for 'thread step-inst'
+(lldb) step   --> step into the call at this line. Alias for 'thread step-inst'
 (lldb) next   --> skip to the next line. Alias for 'thread step-in'
-(lldb) finish --> move out of this call. Terrible alias for 'thread step-out'
+(lldb) finish --> step out of this call. Terrible alias for 'thread step-out'
 {% endhighlight %}
 
-If at any point you want to restart your process, just type `run` again. Bam!
+If at any point you want to restart your process, just type `run` again. Don't worry,
+it's not destructive -- you'll be asked to confirm if you really want to blow 
+away the frame you're in. Bam!
 
 ## ❤︎
 That's it! For realsies! You and `lldb` should probably get friendship bracelets now.
