@@ -115,7 +115,7 @@ away the frame you're in. Bam!
 ## ❤︎
 That's it! For realsies! You and `lldb` should probably get friendship bracelets now.
 <pre>
-  　 ∩∩
+  　∩∩
 　（ﾟωﾟ）  .。ｏ♡
 　　│ │
 　　│ └─┐○
