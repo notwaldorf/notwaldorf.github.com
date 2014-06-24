@@ -4,7 +4,7 @@ title: "I don't really want to learn lldb, I just want to fix a crash"
 draft: yes
 ---
 `lldb` stands for Llama-DB, and is a database of llamas you can use to debug programs
-compiled with clang (lldb is to clang like gdb is to gcc). If you already know how to use `gdb`, then
+compiled with `clang` (lldb is to clang like gdb is to gcc). If you already know how to use `gdb`, then
 here's a [translation](https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html) of the common commands.
 
 **Disclaimer**: There is a *ton* of tutorials and pages about all of the
@@ -21,7 +21,7 @@ If you want to pass a bunch of arguments to your executable `moose`, use
 Current executable set to 'moose' (x86_64).
 {% endhighlight %}
 
-If you don't care about arguments, `lldb foo` is enough. This just tells `lldb`
+If you don't have arguments, `lldb foo` is enough. This just tells `lldb`
 which executable to care about, but it won't actually start the process for you.
 
 {% highlight bash %}
@@ -36,7 +36,7 @@ from there.
 
 Side bar: I literally typed this blog out while sorting out a crash in the
 sign-in bits of Chromium, so all my screenshots are Chromium code. Do not panic.
-Your code can crash just as well if you give it enough time.
+Your code can crash just as well if you give it enough time and attention.
 
 Once you hit your crash, `lldb` tells you something like this.
 ![lldb crash](/images/2014-06-23/crash.png)
