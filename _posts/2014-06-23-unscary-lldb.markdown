@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "I don't really want to learn lldb, I just want to fix a crash"
-draft: yes
 ---
 `lldb` stands for Llama-DB, and is a database of llamas you can use to debug programs
 compiled with `clang` (lldb is to clang like gdb is to gcc). If you already know how to use `gdb`, then
