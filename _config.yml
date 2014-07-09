@@ -4,7 +4,7 @@ permalink: /posts/:title
 rdiscount:
   extensions: [smart]
 
-name: Monica Dinosaurescu
+name: Monica Dinculescu
 url: http://notwaldorf.github.io
 description: A wild blog appears.
 twitter: notwaldorf
