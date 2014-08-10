@@ -4,10 +4,9 @@ title: "Cat-DNS: learning about DNS with cats"
 draft: true
 ---
 
-I talked about Cat-DNS at Cascadia.js, and it was awesome. There is a video! Of me talking! On the internet! 
-What a future we live in.
+I talked about [Cat-DNS](https://github.com/notwaldorf/cat-dns) at [Cascadia.js](http://2014.cascadiajs.com/), and it wasn't terrible! There is a video. Of me talking! On the internet! What a future we live in.
 
-## The tl; dr
+## The TL; DR
 The internet needs more cats. DNS servers are the authority on all things internet. 
 Therefore, the best DNS server is the one that resolves everything to cats. This talk is about that.
 
