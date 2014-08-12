@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Cat-DNS: learning about DNS with cats"
-draft: true
 ---
 
 I talked about [Cat-DNS](https://github.com/notwaldorf/cat-dns) at [Cascadia.js](http://2014.cascadiajs.com/), and it wasn't terrible! There is a video. Of me talking! On the internet! What a future we live in.
