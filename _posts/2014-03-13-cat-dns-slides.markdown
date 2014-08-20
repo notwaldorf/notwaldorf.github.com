@@ -2,6 +2,7 @@
 layout: post
 title: "Cat-DNS: now a presentation with slides"
 category: posts
+draft: true
 ---
 
 This Tuesday I gave my first talk in something like 4 years. I do a fair bit of
