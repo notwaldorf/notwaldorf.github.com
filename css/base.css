@@ -2,10 +2,11 @@
 body {
   font-family: 'Open Sans', Helvetica, serif;
   margin: 0;
+  margin-top: 50px;
   -webkit-font-smoothing: antialiased; }
 
 a {
-  color: #227ce8; 
+  color: #227ce8;
 }
 
 pre {
@@ -16,10 +17,9 @@ pre {
 }
 
 .sidebar {
-  position: fixed;
-  left: 15px;
-  top: 15px;
-  width: 80px;
+  position: absolute;
+  margin-left: 50px;
+  width: 150px;
   font-family: 'Oswald', Helvetica, , sans-serif; }
   .sidebar a {
     text-decoration: none; }
@@ -29,7 +29,7 @@ pre {
   .sidebar .avatar {
     padding: 0;
     margin-left: 2px;
-    border-radius: 8px; }
+    border-radius: 80px; }
   .sidebar .name {
     text-transform: uppercase;
     margin: 10px 0 20px 0; }
@@ -37,7 +37,7 @@ pre {
       padding-left: 1px;
       font-size: 13px;
       letter-spacing: 5px;
-      color: black; 
+      color: black;
       font-weight: bold;}
     .sidebar .name #lname {
       font-size: 11px;
@@ -49,11 +49,11 @@ pre {
     .sidebar .meta a:hover {
       color: #227ce8; }
   .sidebar .meta {
-    margin-left: 10px; }
+    margin-left: 35px; }
   .sidebar .meta .icon {
     margin-right: 6px; }
   .sidebar .sections {
-    margin: 10px 0 0 20px; }
+    margin: 20px 0 0 60px; }
     .sidebar .sections a {
       padding: 3px 0;
       color: black;
@@ -71,7 +71,7 @@ pre {
 
 .content {
   max-width: 650px;
-  margin-left: 170px;
+  margin-left: 250px;
   margin-right: 20px;
   margin-bottom: 50px; }
   .content h1 {
@@ -108,19 +108,21 @@ pre {
     margin: 18px 0 5px 0; }
   .content h2 {
     font-size: 25px;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    margin-top: 40px;}
   .content h3 {
     color: #777;
     font-size: 25px;
     padding-bottom: 5px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    margin-top: 40px;}
   .content p {
     font-size: 16px;
     margin-top: 0;
     margin-bottom: 1.2em;
-    line-height: 1.7em; }
+    line-height: 30px; }
     .content p code {
-      font-size: 12px;
+      font-size: 13px;
       background-color: #eeeeee;
       border: 1px solid #dddddd;
       border-radius: 3px;
@@ -128,7 +130,7 @@ pre {
   .content img {
     padding: 3px;
     border: 1px solid #eeeeee;
-    max-width: 100%; 
+    max-width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -156,17 +158,20 @@ pre {
       color: #111;
       font-style: normal; }
   .content .byline {
-    margin-bottom: 17px;
-    font-family: 'Oswald', Helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: 'Open Sans', Helvetica, sans-serif;
     padding-left: 0px;
-    font-size: 14px;
-    color: #777; }
+    font-size: 10px;
+    color: #777;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
   .content .aside {
     background-color: #eeeeee;
     padding: 14px;
     font-size: 14px;
     margin: 5px 0 15px 0;
-    font-family: 'Open Sans', Helvetica, , sans-serif;
+    font-family: 'Open San', Helvetica, , sans-serif;
     line-height: 1.6em; }
   .content .listing {
     margin: 10px 0 0 0;
