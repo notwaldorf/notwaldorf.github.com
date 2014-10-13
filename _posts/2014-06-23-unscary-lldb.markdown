@@ -70,7 +70,7 @@ bit of advice, here's some helpful breakpoint-related things you can talk to `ll
 
 If you don't like typing, all these commands have super l33t
 shortcuts like `br s -f moose.c -l 12`. This intimidates me seven ways to Sunday,
-since I've _just_ learnt how to set a breakpoint, and I had to do it on the command 
+since I've _just_ learnt how to set a breakpoint, and I had to do it on the command
 line and I like UIs, but if that's your jam,
 [here](https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html) is that list.
 Go forth and conquer.
@@ -92,7 +92,7 @@ More things that you can probably want to do here:
 {% endhighlight %}
 
 ## Step 4: Poke at things
-Once you're paused, you can inspect the value of a variable in that scope. You 
+Once you're paused, you can inspect the value of a variable in that scope. You
 probably want to do that because 90% of the time a thing that shouldn't be null
 is null, because C++.
 {% highlight bash %}
@@ -108,10 +108,10 @@ To step through things, get in the llama car, close the door, and start navimaga
 {% endhighlight %}
 
 If at any point you want to restart your process, just type `run` again. Don't worry,
-it's not destructive -- you'll be asked to confirm if you really want to blow 
+it's not destructive -- you'll be asked to confirm if you really want to blow
 away the frame you're in. Bam!
 
-## ❤︎
+### ❤︎
 That's it! For realsies! You and `lldb` should probably get friendship bracelets now.
 <pre>
   　∩∩

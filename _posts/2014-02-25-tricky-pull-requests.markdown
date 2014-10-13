@@ -12,14 +12,14 @@ Because you're a good open sorcerer, you might, at some point, want to send a pu
 
 At this point, you probably have some regrets. Let's not dwell on them. Here's the set of steps that will help you navigate this minefield you find yourself in. They're not special; I just couldn't find them all in one place, and wanted a summary for the future. [Kamal](https://twitter.com/kmrhb) figured most of this out, because he is a git wizard, while I am, most definitely, not.
 
-## Set up your upstream 
+## Set up your upstream
 If `git remote` doesn't show you a branch called `upstream`, you need to add one:
 <pre>
 git remote add upstream https://github.com/user/repo_you_forked.git
 </pre>
 
 ## Set up a clean branch for your fix
-Step into your tardis and branch from when you were last in sync with the upstream. In my case, this was when I initially created my fork. 
+Step into your tardis and branch from when you were last in sync with the upstream. In my case, this was when I initially created my fork.
 A dull perusing of `git log` or `git reflog` should point you to the right sha. Then,
 
 <pre>
@@ -28,9 +28,9 @@ git reset --hard sha_from_the_past
 </pre>
 
 ## Get your changes in
-Here you have two options. If your changes are tiny, or you know exactly what they are, you can just manually reapply them. And by that I mean copy paste the changes into the right files, like a barbarian. For the record, this is my preferred approach. I am a barbarian. I live in the git stone age. 
+Here you have two options. If your changes are tiny, or you know exactly what they are, you can just manually reapply them. And by that I mean copy paste the changes into the right files, like a barbarian. For the record, this is my preferred approach. I am a barbarian. I live in the git stone age.
 
-Alternatively, you can go the fancy route with 
+Alternatively, you can go the fancy route with
 
 <pre>
 git checkout -p master file_to_modify
@@ -58,7 +58,4 @@ This is the last step. If you want, you can rename your branch before uploading 
 git push origin pr_branch:possibly_new_branch_name
 </pre>
 
-## Hope this helped!
-
-
-
+### Hope this helped!

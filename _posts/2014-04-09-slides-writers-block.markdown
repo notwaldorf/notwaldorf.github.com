@@ -35,5 +35,4 @@ Guess who has a non-empty presentation now, with slides and content? GUESS. (Hin
 
 Now go fix them fonts.
 
-## ❤︎
-
+### ♬♪♫ ヾ(*・。・)ﾉ ♬♪♫
