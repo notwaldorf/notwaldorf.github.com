@@ -6,12 +6,15 @@ body {
 
 .top-line {
   border-top: 5px solid #7ccdea;
-  margin-bottom: 50px;
   position:fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
+}
+
+.container {
+  padding-top: 50px;
 }
 
 a {
@@ -177,7 +180,7 @@ pre {
       font-style: normal; }
   .content .byline {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-family: 'Open Sans', Helvetica, sans-serif;
     padding-left: 0px;
     font-size: 10px;
@@ -189,7 +192,7 @@ pre {
     padding: 14px;
     font-size: 14px;
     margin: 5px 0 15px 0;
-    font-family: 'Open San', Helvetica, , sans-serif;
+    font-family: 'Open Sans', Helvetica, , sans-serif;
     line-height: 1.6em; }
   .content .listing {
     margin: 10px 0 0 0;
@@ -205,6 +208,10 @@ pre {
       margin: 0;
       color: #777777; }
     .content .listing li span {
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       float: right; }
     .content .listing a {
       color: black;
