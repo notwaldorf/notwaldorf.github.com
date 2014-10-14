@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased; }
 
 .top-line {
-  border-top: 5px solid #7ccdea;
+  border-top: 8px solid #7ccdea;
   position:fixed;
   top: 0;
   left: 0;
