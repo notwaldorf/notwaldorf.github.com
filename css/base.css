@@ -49,7 +49,7 @@ pre {
   .sidebar .avatar {
     padding: 0;
     margin-left: 2px;
-    border-radius: 80px; }
+    border-radius: 50%; }
   .sidebar .name {
     text-transform: uppercase;
     margin: 10px 0 20px 0; }
@@ -71,7 +71,9 @@ pre {
   .sidebar .meta {
     margin-left: 35px; }
   .sidebar .meta .icon {
-    margin-right: 6px; }
+    margin-right: 6px; 
+    font-size: 20px;
+  }
   .sidebar .sections {
     margin: 20px 0 0 60px; }
     .sidebar .sections a {
