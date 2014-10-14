@@ -35,7 +35,7 @@ pre {
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   margin-left: 50px;
   width: 150px;
   font-family: 'Oswald', Helvetica, , sans-serif; }
