@@ -23,8 +23,36 @@ a {
 	-moz-transition: color .3s ease-in-out;
   text-decoration: none;
 }
+
 a:hover {
-  color: #7ccdea;
+  -webkit-animation: zomg 0.5s infinite;
+  -moz-animation: zomg 0.5s infinite;
+  animation: zomg 0.5s infinite;
+}
+
+@-webkit-keyframes zomg {
+  0%, 100% { color: #7ccdea; }
+  16%      { color: #0074D9; }
+  32%      { color: #2ECC40; }
+  48%      { color: #FFDC00; }
+  64%      { color: #B10DC9; }
+  80%      { color: #FF4136; }
+}
+@-moz-keyframes zomg {
+  0%, 100% { color: #7ccdea; }
+  16%      { color: #0074D9; }
+  32%      { color: #2ECC40; }
+  48%      { color: #FFDC00; }
+  64%      { color: #B10DC9; }
+  80%      { color: #FF4136; }
+}
+@keyframes zomg {
+  0%, 100% { color: #7ccdea; }
+  16%      { color: #0074D9; }
+  32%      { color: #2ECC40; }
+  48%      { color: #FFDC00; }
+  64%      { color: #B10DC9; }
+  80%      { color: #FF4136; }
 }
 
 pre {
@@ -66,13 +94,11 @@ pre {
   .sidebar .meta a {
     margin-left: 0px;
     color: black; }
-    .sidebar .meta a:hover {
-      color: #ff487a; }
   .sidebar .meta {
-    margin-left: 35px; 
+    margin-left: 35px;
     margin-top: 10px; }
   .sidebar .meta .icon {
-    margin-right: 6px; 
+    margin-right: 6px;
     font-size: 20px;
   }
   .sidebar .sections {
@@ -83,8 +109,6 @@ pre {
       font-weight: bold;
       font-size: 14px;
       display: block; }
-      .sidebar .sections a:hover {
-        color: #ff487a; }
     .sidebar .sections ul {
       margin: 0;
       padding: 0; }
@@ -220,8 +244,6 @@ pre {
       color: black;
       padding-bottom: 2px;
       border-bottom: 1px dotted #ddd; }
-    .content .listing a:hover {
-      color: #ff487a; }
   .content .meta {
     margin: 30px 0;
     padding: 10px 0;
@@ -251,5 +273,4 @@ pre {
     font-weight: bold; }
   .content .talk-design .color .white {
     color: #fff; }
-
 }
