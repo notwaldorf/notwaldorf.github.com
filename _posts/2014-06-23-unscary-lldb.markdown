@@ -87,7 +87,7 @@ with a snippet of code around that point. Dat arrow. ❤︎
 
 More things that you can probably want to do here:
 {% highlight bash %}
-(lldb) thread backtrace    --> stack trace of how we got gere
+(lldb) thread backtrace    --> stack trace of how we got here
 (lldb) up                  --> move up the stack trace to your parent callee
 {% endhighlight %}
 
