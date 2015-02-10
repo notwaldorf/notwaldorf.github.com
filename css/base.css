@@ -178,7 +178,7 @@ pre {
       background-color: #d5eff9;
       border-radius: 3px;
       padding: 2px 3px; }
-  .content img {
+  .content img:not(.emoji) {
     padding: 3px;
     max-width: 100%;
     display: block;
