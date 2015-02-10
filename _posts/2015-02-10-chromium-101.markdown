@@ -9,8 +9,8 @@ and my [slides]() by themselves look like cold-medicine induced hallucinations
 (which, to be fair, they were). So instead, here is a blog post that will take you
 through literally every step from "checking out the code" to "landing the code in the Chromium repo".
 
-**Warning**: this is a long post. The bug you're fixing is silly, but will get
-you actually writing Chromium code. If you want a
+**Warning**: this is a long post. The bug we're fixing is silly, but will get
+us actually writing Chromium code. If you want a
 real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list.
 
 ## Get your computer ready
@@ -18,10 +18,10 @@ real good-first-bug to fix after this, [here](https://code.google.com/p/chromium
 Chrome is giant. It needs a beefy machine (we recommend a 64-bit OS, with at least 8GB of RAM. A separate SSD to hold/build your code will make your life infinitely more pleasant). Even then, building Chromium from scratch is slow. Snails run the half mile faster. This is something you might as well get used to now.
 
 We have a pretty solid set of [instructions](http://www.chromium.org/developers/how-tos/get-the-code) on
-how to get everything setup. I promise you this page has been reviewed a billion times, it's up to date,
+how to get everything set up. I promise you this page has been reviewed a billion times, it's up to date,
 and every step in it is important. Don't skip steps because you think you don't need them. You do.
 
-However, I'll tell you about the custom things that I use that aren't on that page, which make my life pretty sweet. They all live [here](https://github.com/notwaldorf/not-quite-dotfiles/blob/master/chrome).
+However, I'll tell you about the custom things that I use that aren't on that page, which make my life pretty sweet. They all live [here](https://github.com/notwaldorf/not-quite-dotfiles/blob/master/chrome#L15).
 
  - I always build `Release` builds, because they're faster. This means I don't get as many debug symbols as I would like. That's fine for me, because I'm a chicken
  and pretty scared of `lldb`
@@ -53,7 +53,7 @@ We're going to add a button to Chrome. For realsies. It will be in this bubble h
 ![before our change](/images/chromium/before.png#float-left =250x)
 ![after our change](/images/chromium/after.png =250x)
 
-(side note: if you don't see that button in your dev build of Chromium, launch it with --enable-new-avatar-menu. The UI is enabled by default on all of the Chromes through an experiment, and experiments don't run on dev builds)
+(side note: if you don't see that button in your dev build of Chromium, launch it with --enable-new-avatar-menu. The UI is enabled by default on all of the Chromes through a server side flag, and that bit of magic doesn't run on dev builds)
 
 I chose this dialog because the easiest way to find your way through code is if there's a string you can search for. Also I wrote this bubble, so yolo.
 
@@ -102,11 +102,10 @@ does the following:
   and `y=a billion` is the top of the screen, and we always draw bottom to top.
   Say it with me, "because Cocoa".
   - `-hoverButtonWithRect:` is a utility function that draws a fancy button with a text,
-  and image, and an action selector (Cocoa for click handler). You should look at it. :)
+  an image, and an action selector (that's Cocoa for "click handler")
   - If we're allowed to display the lock button, it creates and draws `lockButton`.
-  Spoilers: `displayLock` is false unless you do some chrome gymnastics. Figuring this out
-  is an exercise left to the reader :)
-  - if we're allowed (we are) to display the incognito button, create and draw it.
+  Spoilers: `displayLock` is `false` unless you do some Chrome gymnastics I honestly don't recommend, because they're way less fun than they sound
+  - if we're allowed (we are) to display the incognito button, create and draw it
   - create and draw a button whose string is "Exit Guest" if we're a Guest session, or "Switch person"
   otherwise.
   - After we draw each button, we incremented the drawing rectangle's `y` value by
@@ -143,11 +142,11 @@ Because the stars aligned and the tidal waves were going our way, we had all
 of the `.h` header files included for this to work. Compile it, run it, and
 get a pony!
 
-## Send it for review
+## Send your code for review
 We're pretty proud of this, so we're ready to send it for review!
-Run `git commit -am "added pony button"` to commit this file, and `git cl upload` to upload it to [codereview](https://codereview.chromium.org/)
+Run `git commit -am "added pony button"` to commit this file, and `git cl upload` to upload it to [codereview](https://codereview.chromium.org/).
 
-In your git cl upload, write a meaningful description, a bug number, and how to
+In your `git cl upload` message, write a meaningful description, a bug number, and how to
 test this. This is what I would write:
 
 ![cl description](/images/chromium/cl_description.png)
@@ -155,19 +154,19 @@ test this. This is what I would write:
 And if that goes well, this is what your CL (stands for change-list. Comes from the dark days of Perforce) should look like on the site!
 ![cl on codereview](/images/chromium/codereview_1.png)
 
-If you want to test that your CL didn't break anything, run `git cl try`. This will look at what your code touches
-#### 3. Sending it for review
+If you want to test that your CL didn't break anything, run `git cl try`. This will look at what your code touches and run a whole bunch of tests on a whole bunch of platforms.
+
 In Chromium, code lands only after it's been `LGTM-ed` --someone reviews it and
 gives you the thumbs up. If you don't know who to send it to review, pick someone
 from your file's OWNERS. In this case, look at the OWNERS file in `chrome/browser/ui/cocoa`. Owners are people who are responsible for the code,
 so they tend to know it best. If they're too busy for a review or aren't
 entirely familiar with your particular part of the code, they can direct you to
-a better reviewer. You probably wo
+a better reviewer.
 
-#### 4. Landing your first CL!
+## Landing your first CL!
 When your CL is reviewed and ready to go, all you have to do is check that "Commit" checkbox, and the commit-queue bots will take care of it.
 
-#### 5. Oh noes, TROUBLE.
+#### Oh noes, TROUBLE.
 Sometimes, something goes wrong. Your bots could come up red, and then you'll
 get an email from the `commit-bot` telling you your CL couldn't land, because
 some tests turned out red. This is totally fine -- you didn't break anything yet!
@@ -177,8 +176,7 @@ and you need to rebase, or maybe you've just encountered a flaky test and don't 
 
 Sometimes you'll even get to break the tree. I recently tried to land a change
 where all my bots were green, and as soon as the change landed, it broke everything. It happens. You can revert your CL if you realize this in time, or that days sheriff will do it for you (in this case, be nice to the sheriff and
-apologize a bit). In this case, you'll probably have a bit more work to do
-to fix the CL. Remember: if you're stuck, ask for help!
+apologize a bit). Remember: if you're stuck, ask for help!
 
-### <3
-Good luck! If you do end up sending a CL to Chromium, send me an email or a tweet. I'd love to see it!
+### ❤︎
+Good luck! If you do end up sending a CL to Chromium, send me an [email](mailto:noms@chromium.org) or a [tweet](https://twitter.com/notwaldorf). I'd love to see it!
