@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Contributing to Chromium: a guide"
+title: "Contributing to Chromium: an illustrated guide"
 draft: true
 ---
 
