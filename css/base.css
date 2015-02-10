@@ -174,10 +174,9 @@ pre {
     margin-bottom: 1.2em;
     line-height: 25px;
     }
-    .content p code {
+    .content code {
       font-size: 13px;
-      background-color: #eeeeee;
-      border: 1px solid #dddddd;
+      background-color: #d5eff9;
       border-radius: 3px;
       padding: 2px 3px; }
   .content img {
