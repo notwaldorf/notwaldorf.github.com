@@ -1,0 +1,185 @@
+---
+layout: post
+title: "Contributing to Chromium: a guide"
+draft: true
+---
+
+I gave a talk about how to get started working on Chromium, but it wasn't recorded,
+and my [slides]() by themselves look like cold-medicine induced hallucinations
+(which, to be fair, they were). So instead, here is a blog post that will take you
+through literally every step from "checking out the code" to "sending a bug fix
+for review".
+
+**Warning**: this is a long post. The bug you're fixing is silly, but will get
+you actually writing Chromium code. If you want a
+real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list.
+
+
+## Get your computer ready
+
+Chrome is giant. It needs a beefy machine (we recommend a 64-bit OS, with at least 8GB of RAM. A separate SSD to hold/build your code will make your life infinitely more pleasant). Even then, buiding Chromium from scratch is slow. This is something you might as well get used to now.
+
+We have a pretty solid set of [instructions](http://www.chromium.org/developers/how-tos/get-the-code) on
+how to get everything setup. I promise you this page has been reviewed a billion times, it's up to date,
+and every step on it needs to be run. Don't skip steps because you think you don't need them. You do.
+
+I won't repeat what that page says, but I'll tell you things that I use that aren't on that page, that make my life nice. They all live [here](https://github.com/notwaldorf/not-quite-dotfiles/blob/master/chrome)
+ - I always build `Release` builds, because they're faster. This means I don't get as many debug symbols as I would like. That's fine for me, because I'm a chicken
+ and pretty scared of `lldb`
+ - I've added `component=shared_library` (so that incremental builds are super fast. Trust me, add this) and `dcheck_always_on=1` so that even though I have
+ a `Release` build, debug asserts still get hit.
+ - I have a fancy set of [aliases](https://github.com/notwaldorf/not-quite-dotfiles/blob/master/chrome) like `make_` and `go_`, so that I don't have to
+ remember about which flags I want to run Chrome with.
+
+## Get your body ready
+Chromium has a [code style](http://www.chromium.org/developers/coding-style). Do
+not panic if your first review will have 20 comments that are code style nits. It's
+absolutely normal, and nobody thinks less of you. On the contrary, we try to be
+extra picky with new people, so that they learn everything as quick as possible.
+
+Chromium is hard. I've been working on it for two years, and it's still hard.
+There's a lot of code, and you'll spend a fair bit of time looking for the right
+bit of code you care about. Don't be afraid to ask questions if you're stuck. It took me *forever* not to be scared of asking questions, but it turns out all the
+people that told me that everyone is nice and helpful were right: everyone IS nice
+and helpful, because at some point they were you, and the code was as scary then as it is now.
+  - IRC: `#chromium`
+  - mailing list: `chromium-dev@google.com`. Search it for past questions. Many have been asked
+  - if you're still stuck and panicked, email [me](mailto:noms@chromium.org). I might not know the answer, and I might be super busy, but I promise to be nice and help if I can.
+
+
+## OMG let's write some code!
+
+We're going to add a button to Chrome. For realsies. It will be in this bubble here, and it will open [http://canihaveapony.com/](http://canihaveapony.com/) in a new tab. This is the before & after:
+
+![before our change](/images/chromium/before.png#float-left =250x)
+![after our change](/images/chromium/after.png =250x)
+
+(side note: if you don't see that button in your dev build of Chrome, start it with --enable-new-avatar-menu. The UI is enabled by default on all of the Chromes
+through an experiment, and experiments don't run on dev builds)
+
+I chose this dialog because the easiest way to find your way through Chrome code is if there's a string you can search for. Also I wrote this bubble so yolo.
+
+#### 1. Find the code
+If you [codesearch](https://code.google.com/p/chromium/codesearch) "Switch Person" (codesearch is always your first step), the results look like this:
+![switch person results](/images/chromium/codesearch_1.png)
+
+First, `generated_resources.grd` is where most of the
+strings in Chrome live. Because they all live in a giant place, this makes
+internationalization super easy -- you hand out that file to translators, they
+give you back the same file in a different language, and at startup, Chrome
+decides which file to load, based on its locale. Bingo bango, localized UI.
+
+Some of the results have `accessible_name` in them, which means that they're accessibility strings, and we don't care about that right now. `IDS_PROFILES_SWITCH_USERS_BUTTON` looks promising though, so let's see where it's used.
+![string id results](/images/chromium/codesearch_2.png)
+
+Apart from the `generated_resources.grd` results from before, we have two new files!:
+  - `chrome/browser/ui/views/profiles/profile_chooser_view.cc` -- This is in a `ui`
+  subfolder, which means it's a UI related file, so probably a dialog or a bubble. On
+  top of that, it's in a `views` folder, which means it's a Windows/Linux UI.
+  Writing native UI for Windows and Linux is absolutely horrible, so the kind Chrome folks have written a [framework](http://www.chromium.org/developers/design-documents/chromeviews) on top of that.
+  - `chrome/browser/ui/cocoa/profiles/profile_chooser_controller.mm` -- The `.mm` is
+  a dead give-away this is a Mac UI file. On OSX we write our UI in Objective-C and
+  that is that.
+
+I'm doing this demo on the Mac, so let's look at `profile_chooser_controller.mm`. I've
+written both of these files, so I promise you they're SUPER similar.
+
+
+#### 2. Adding a button
+
+Ok, so here's how I would start reading this code: This is a button that
+lives in a method called `-createOptionsViewWithRect`. This method is called by
+`-buildProfileChooserView`, which in turn is called by `-initMenuContentsWithView`. You
+can go up the rabbit hole for days, but the basic idea is that this is clearly the place where we
+draw things in this bubble.
+
+If we look at `-createOptionsViewWithRect` in particular, it
+does the following:
+  - creates a drawing rectangle that's of a fixed width and fixed height. This is the
+  size of each button in the bubble. If you're not familiar with Cocoa (who can blame you),
+  the way this works is that we draw everything at
+  absolute coordinates. We're basically going to keep this viewport fixed, and just
+  change the `y` coordinate at which we're drawing. Also, `y=0` is the bottom of the screen,
+  and `y=a billion` is the top of the screen, and we always draw bottom to top.
+  Say it with me, "because Cocoa".
+  - `-hoverButtonWithRect` is a utility function that draws a fancy button with a text,
+  and image, and an action selector (Cocoa for click handler). You should look at it. :)
+  - If we're allowed to display the lock button, it creates and draws `lockButton`.
+  Spoilers: `displayLock` is false unless you do some chrome gymnastics. Figuring this out
+  is an exercise left to the reader :)
+  - if we're allowed (we are) to display the incognito button, create and draw it.
+  - create and draw a button whose string is "Exit Guest" if we're a Guest session, or "Switch person"
+  otherwise.
+  - After we draw each button, we incremented the drawing rectangle's `y` value by
+  the height of the button. See how we're drawing everything bottom to top? Yeah. That's a thing.
+
+Hey! We should do the same thing! Let's add a Pony button right below the
+`switchUsersButton`! The highlighted bits are the new code.
+
+![code for the new button](/images/chromium/code_button.png)
+
+The code I just wrote says that when you click on the `ponyButton`, we call a method called `-goPoniesGo`. Well, we better write this, so that we can actually test our code. It will only log something to the console for now.
+
+![logging code for the pony method](/images/chromium/pony_code_1.png)
+
+If you build and run this, your bubble should look like the "after" image above,
+and clicking the button should spew things on the console.
+
+
+#### 3. Making the button go
+This bit is a leap of faith. We want to open a URL in a new tab, but we don't
+really know how. If you search for things like `open in new tab`, you can hope
+to hit some comments, but `tab` is going to hit a looooot of code in a browser.
+The file that you're looking for is `chrome/browser/ui/singleton_tabs.cc`, and
+it has a super duper method called `chrome::ShowSingletonTab`, which does
+exactly what we want. I would have found this, for example, by checking how the
+"Settings" menu in the hot dog menu opens the "chrome://settings" tab. It will take some digging.
+
+If you don't know how to use this, I would `codesearch` again for different
+uses of the function. In particular, this case is pretty easy, and we can write
+
+![logging code for the pony method](/images/chromium/pony_code_2.png)
+
+Because the stars aligned and the tidal waves were going our way, we had all
+of the `.h` header files included for this to work. Compile it, run it, and
+get a pony!
+
+## Send it for review
+We're pretty proud of this, so we're ready to send it for review!
+Run `git commit -am "added pony button"` to commit this file, and `git cl upload` to upload it to [codereview](https://codereview.chromium.org/)
+
+In your git cl upload, write a meaningful description, a bug number, and how to
+test this. This is what I would write:
+
+![cl description](/images/chromium/cl_description.png)
+
+And if that goes well, this is what your CL (stands for change-list. Comes from the dark days of Perforce) should look like on the site!
+![cl on codereview](/images/chromium/codereview_1.png)
+
+If you want to test that your CL didn't break anything, run `git cl try`. This will look at what your code touches
+#### 3. Sending it for review
+In Chromium, code lands only after it's been `LGTM-ed` --someone reviews it and
+gives you the thumbs up. If you don't know who to send it to review, pick someone
+from your file's OWNERS. In this case, look at the OWNERS file in `chrome/browser/ui/cocoa`. Owners are people who are responsible for the code,
+so they tend to know it best. If they're too busy for a review or aren't
+entirely familiar with your particular part of the code, they can direct you to
+a better reviewer. You probably wo
+
+#### 4. Landing your first CL!
+When your CL is reviewed and ready to go, all you have to do is check that "Commit" checkbox, and the commit-queue bots will take care of it.
+
+#### 5. Oh noes, TROUBLE.
+Sometimes, something goes wrong. Your bots could come up red, and then you'll
+get an email from the `commit-bot` telling you your CL couldn't land, because
+some tests turned out red. This is totally fine -- you didn't break anything yet!
+Either your tests are actually broken, or some code got committed before you
+and you need to rebase, or maybe you've just encountered a flaky test and don't need to do anything. You can go back to your CL, fix your tests, and re-check the
+"Commit" box.
+
+Sometimes you'll even get to break the tree. I recently tried to land a change
+where all my bots were green, and as soon as the change landed, it broke everything. It happens. You can revert your CL if you realize this in time, or that days sheriff will do it for you (in this case, be nice to the sheriff and
+apologize a bit). In this case, you'll probably have a bit more work to do
+to fix the CL. Remember: if you're stuck, ask for help! 
+
+### <3
+Good luck! If you do end up sending a CL to Chromium, send me an email or a tweet. I'd love to see it!
