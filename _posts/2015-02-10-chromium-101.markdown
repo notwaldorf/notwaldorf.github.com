@@ -52,8 +52,7 @@ and helpful, because at some point they were you, the code was as scary then as 
 
 We're going to add a button to Chrome. It's going to be the best thing ever (second to a freshly opened can of Pringles). For realsies. It will be in this bubble here, and it will open [http://canihaveapony.com/](http://canihaveapony.com/) (you're welcome) in a new tab. This is the before and after:
 
-![before our change](/images/chromium/before.png#float-left =250x)
-![after our change](/images/chromium/after.png =250x)
+![before and after](/images/chromium/before_after.png)
 
 (side note: if you don't see that button in your dev build of Chromium, launch it with `--enable-new-avatar-menu`. The UI is enabled by default on all of the released Chromes through a server side flag, but that bit of magic doesn't run on dev builds, so you need to turn it on yourself)
 
