@@ -95,8 +95,8 @@ does the following:
 
   - creates a drawing rectangle that's of a fixed width and fixed height. This is the
   size of each of those buttons. If you're not familiar with Cocoa (who can blame you),
-  the way this works is that we draw everything at
-  absolute coordinates. We're basically going to keep this rectangle fixed, and just
+  the way this works is that we draw everything in
+  relative coordinates. We're basically going to keep this rectangle fixed, and just
   change the `y` coordinate at which we're drawing. Also: `y=0` is the bottom of the screen,
   and `y=a billion` is the top of the screen, and we always draw bottom to top.
   Say it with me, "because Cocoa".
