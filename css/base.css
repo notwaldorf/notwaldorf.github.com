@@ -59,6 +59,25 @@ img[src$='#float-right'] { float:right;}
   80%      { color: #FF4136; }
 }
 
+@-webkit-keyframes avatarzomg {
+  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); }
+  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); }
+  50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg); }
+  75%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(90deg); }
+}
+@-moz-keyframes avatarzomg {
+  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); }
+  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); }
+  50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg); }
+  75%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(90deg); }
+}
+@keyframes avatarzomg {
+  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); }
+  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); }
+  50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg); }
+  75%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(90deg); }
+}
+
 pre {
   background-color: #eeeeee;
   border: 1px solid #dddddd;
@@ -83,7 +102,10 @@ pre {
     margin-left: 2px;
     border-radius: 50%; }
   .sidebar .avatar:hover {
-      -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg);  }
+    -webkit-animation: avatarzomg 0.9s infinite;
+    -moz-animation: avatarzomg 0.9s infinite;
+    animation: avatarzomg 0.9s infinite;
+  }
   .sidebar .name {
     text-transform: uppercase;
     margin: 10px 0 20px 0; }
