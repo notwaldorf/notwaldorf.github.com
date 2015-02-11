@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Contributing to Chromium: an illustrated guide"
-draft: true
 ---
 
 I gave a talk about how to get started contributing to Chromium, but it wasn't recorded,
