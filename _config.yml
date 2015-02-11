@@ -1,11 +1,12 @@
-markdown: rdiscount
-pygments: true
+markdown: redcarpet
+redcarpet:
+    extensions: [with_toc_data]
 permalink: /posts/:title
-rdiscount:
-  extensions: [smart]
+gems:
+  - jemoji
 
 name: Monica Dinculescu
-url: http://notwaldorf.github.io
+url: http://meowni.ca
 description: A wild blog appears.
 twitter: notwaldorf
 gravatar_url: https://s.gravatar.com/avatar/053e75a5b48b44d6dd0612795dfb326d
