@@ -80,10 +80,9 @@ a:hover {
 }
 
 pre {
-  background-color: #eeeeee;
-  border: 1px solid #dddddd;
+  background-color: #d5eff9;
   border-radius: 3px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .sidebar {
