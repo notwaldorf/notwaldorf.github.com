@@ -63,7 +63,7 @@ First things first: *always* create a new branch for every bug/feature/bit of co
 on the master branch is bad news bears: 1) it's very unlikely you're working on one thing at a time, 2) pulling new code from the remote master to your local repo becomes an adventure. .**TL; DR**: don't work on master evar. So,
 
 ```
-(´ ▽｀).。ｏ♡ src on master ❥ git checkout -b add-pony-button
+(´ ▽｀).。ｏ♡ src on master ❥ git checkout -b add-pony-button origin/master
 Branch add-pony-button set up to track local branch master by rebasing.
 Switched to a new branch 'add-pony-button'
 (´ ▽｀).。ｏ♡ src on add-pony-button ❥ 
