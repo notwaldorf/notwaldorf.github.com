@@ -64,7 +64,7 @@ on the master branch is bad news bears: 1) it's very unlikely you're working on 
 
 ```
 (´ ▽｀).。ｏ♡ src on master ❥ git checkout -b add-pony-button origin/master
-Branch add-pony-button set up to track local branch master by rebasing.
+Branch add-pony-button set up to track remote branch master from origin by rebasing.
 Switched to a new branch 'add-pony-button'
 (´ ▽｀).。ｏ♡ src on add-pony-button ❥ 
 ```
