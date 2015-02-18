@@ -167,6 +167,8 @@ so they tend to know it best. If they're too busy for a review or aren't
 entirely familiar with your particular part of the code, they can direct you to
 a better reviewer.
 
+(Side note: please don't *actually* send this pony code out for review. People will be very confused, and not necessarily amused.)
+
 ## Ship it, squirrel! :shipit:
 When your CL is reviewed and ready to go, all you have to do is check the "Commit" checkbox, and the commit-queue bots will take care of it. This means that they will run a whole bunch of unit tests again, and if they all pass (or "come up green"), merge your code into the current master branch.
 
