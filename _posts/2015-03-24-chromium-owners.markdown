@@ -2,7 +2,7 @@
 layout: post
 title: Why Chromium has code owners
 category: posts
----
+---sp
 My favourite thing about the Chromium code is this [enum](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/chrome_browser_main_mac.mm&l=44) of cats and all the comments in that file. My second favourite thing is `OWNER` files. Guess what this post is about (hint: it's not about cats NOT EVERYTHING IS ABOUT CATS, OK?)
 
 ## Why should you care?
@@ -18,10 +18,10 @@ Realtalk: being an owner means that people will send you a lot of code to review
 Basically:
 
   * People will ask you general questions when they're stuck. It's totally fine not to know the answer -- you'll probably at least know who to point them at.
-  * Whenever shit hits the fan and it's on your turf of code, if no obvious culprit is to be found, you win the lottery and get to fix it. Spoiler: this sometimes means fixing things that you didn't actually break. Currently, I'm on day 6 of this giant yak shave that I won by fixing a random crash. Regrets, I am them.
+  * Whenever shit hits the fan and it's on your turf of code, if no obvious culprit is to be found, you win the lottery and get to fix it. Spoilers: this sometimes means fixing things that you didn't actually break. Currently, I'm on day 6 of this giant yak shave that I won by fixing a random crash. Regrets, I am them.
   * You get to live the dream and be picky about code. Don't like a method's name? A particular comment? Think that there's a bit of a refactor needed to make this better? You get to ask for it, and guess what: people usually have to listen. 
 
-👉 Developers trust owners to not be insane. Owners trust developers not to try to land stuff behind their back. This is why it works. 👈
+👉 Developers trust owners to not be insane. Owners trust developers not to try to commit stuff behind their back. This is why it works. 👈
 
 ## What it means for developers
 First, when you're stuck, you know who to ask questions (an owner!). Second, in order for you to commit any code, you need to get the owners' approval for your changes.
@@ -35,7 +35,7 @@ If you want to implement owner files for your projects (YAY!), you need to do a 
 
   * Add some sort of presubmit check so that people can't commit code without getting all their ducks in a row. If you give people a chance to merge code under the radar, they will. So, don't.
   * Here's the Chromium [script](https://code.google.com/p/chromium/codesearch#chromium/src/PRESUBMIT.py&l=996). It will probably most likely not work out of the box, but it could be a useful starting point. 
-  * Create OWNER files in all the directories that makes sense. Here are [all](https://code.google.com/p/chromium/codesearch#search/&q=OWNERS&type=cs&sq=package:chromium) the Chromium ones.
+  * Create OWNER files in all the directories that makes sense. Format them in a way that scripts can read them. Here are [all](https://code.google.com/p/chromium/codesearch#search/&q=OWNERS&type=cs&sq=package:chromium) the Chromium ones.
   * Owner files can have rules [per subdirectory](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/profiles/OWNERS&l=1) but also [per file](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/profiles/OWNERS&l=15). For really tedious file changes (like build files), any committer can be an owner using [wildcards](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/common/OWNERS&l=4)).
   * Make sure the owner files are up to date: when people leave teams, remove them. When people start becoming friendly with an area of code, let them know that ownership is an option.
   * Watch how your code gets better over time.
