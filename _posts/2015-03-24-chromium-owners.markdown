@@ -39,6 +39,6 @@ If you want to implement owner files for your projects (YAY!), you need to do a 
   - Make sure the owner files are up to date: when people leave teams, remove them. When people start becoming friendly with an area of code, let them know that ownership is an option.
   - Watch how your code gets better over time.
 
-#�❤️
+# ❤︎
 
 
