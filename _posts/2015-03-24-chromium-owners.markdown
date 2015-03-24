@@ -2,7 +2,6 @@
 layout: post
 title: Why Chromium has code owners
 category: posts
-draft: true
 ---
 My favourite thing about the Chromium code is this [enum](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/chrome_browser_main_mac.mm&l=44) of cats and all the comments in that file. My second favourite thing is `OWNER` files. Guess what this post is about (hint: it's not about cats NOT EVERYTHING IS ABOUT CATS, OK?)
 
