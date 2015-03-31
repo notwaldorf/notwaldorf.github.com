@@ -10,7 +10,7 @@ through every step from "checking out the code" to "landing the code in the Chro
 
 **Warning**: this is a long post. The bug we're fixing is silly, but will get
 us writing actual Chromium code. If you want a
-real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list.
+real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list. Usually unassigned bugs (with no owner) are free for the taking, but it can also happen that a bug will be assigned to a human who is not actually working on it. Check the activity on it -- if there haven't been any activities in a while, leave a message on the bug or ping the owner and tell them you'd like to work on it! 
 
 ## Get your computer ready
 
