@@ -25,7 +25,8 @@ So what happens if you _do_ want to style `<shiny-button>`? What if it's a perfe
 respectable button, but it uses Helvetica as its font and you really need it to be Comic Sans because Helvetica is so 2014?
 
 You can always style the _host_ of the element. Think of the host as literally
-the castle walls; you can throw tomatoes at it to paint it
+the castle walls; you can throw tomatoes at it to paint it:
+
 ```css
 shiny-button {
   color: white;
@@ -63,9 +64,9 @@ longer need to know _how_ that element is implemented. You are given the list of
 From now on, these examples use Polymer, which is what I work on, and what I use to
 write custom elements.
 
-Let's say that we have a `<shiny-button>`. It's pretty silly and convoluted, because we have a lot of things to prove. The full code, if you want to play along is [here](http://jsbin.com/fipometato/edit?html,output):
+Let's say that we have a `<shiny-button>`. It's pretty silly and convoluted, because we have a lot of things to prove. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output):
 
-<a class="jsbin-embed" href="http://jsbin.com/fipometato/embed?html,output">Custom properties in Polymer on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
+<a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
 
 ## First, a shiny button
 So, here's our button. It has a bunch of nested divs. Everything inside `.container`,
@@ -75,16 +76,15 @@ including `.container` itself is inside the Shadow Castle, so it can't be reache
 <dom-module id="shiny-button">
   <template>
     <style>
-      :host        { display: inline-block; }
-      .container   { background-color: cornflowerblue; }
-      .icon        { color: red; }
+      :host        { display: inline-block; color: white;}
+      .container   { background-color: cornflowerblue; border-radius: 10px; }
+      .icon        { font-size: 20px; }
       .text-in-the-shadow-dom { font-weight: 900; }
     </style>
     <div class="container">
       <span class="icon">♡</span>
-      <span><content class="user-text"></span>
+      <span class="user-text"><content></content></span>
       <span class="text-in-the-shadow-dom">!!!</span>
-      <span class="icon">♡</span>
     </div>
   </template>
   <script>
@@ -96,31 +96,27 @@ including `.container` itself is inside the Shadow Castle, so it can't be reache
 <shiny-button>I am a button</shiny-button>
 ```
 
-And it looks like this <screenshot>. Pretty meh. We'll do better.
+And it looks like the thing on the left. Pretty meh. We'll do better. We'll style it
+to be the thing on the right, without any dragons.
+<img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 
 ## What can you style right now?
 We can only style the _host_ of the element -- this is everything outside the `.container` class.
 
 ```css
-shiny-button {
+shiny-button.fancy {
   font-family: "Lato";
   font-weight: 300;
   color: black;
 }
 ```
 
-To see the difference between the host and the container, we can give it a different
-background than the `.container`. The red corners we see are part of the host.
+To see the difference between the host and the container, we can give `shiny-button` above a different
+background than the `.container`. The red corners you see are part of the host:
 
-```css
-shiny-button {
-  background-color: red;
-}
-```
+<img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
 
-<screenshot>
-
-None of these snippets work, because these divs are well inside the castle:
+None of these styles will work, because these divs are well inside the castle:
 
 ```css
 shiny-button .container {
@@ -133,12 +129,12 @@ shiny-button .text-in-the-shadow-dom {
 ```
 
 ## And now: some bridges
-Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` are not a thing of style: they tell the Polymer parser this is a custom property, that needs to be treated specially. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy to know what you're styling. This is how we would define it inside the custom element:
+Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: they tell Polymer this is a custom property, that needs to be treated specially. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy to know what you're styling. This is how we would use a custom property, inside the custom element:
 
 ```css
 .container {
-  /* cornflowerblue is a default colour, in case the user doesn't provide one.
-   * you could omit it if it's being inherited from somewhere else */
+  /* cornflowerblue is a default colour, in case the user doesn't
+   * provide one. You could omit it if it's being inherited from above */
   background-color: var(--shiny-button-background, cornflowerblue);
 }
 ```
@@ -146,13 +142,13 @@ Let's define a variable for the button's background color, called `--shiny-butto
 And this is how you, the user of the element would use it for your custom style:
 
 ```css
-shiny-button {
-  --shiny-button-background: lavender;
+shiny-button.fancy {
+  --shiny-button-background: #E91E63;
 }
 ```
 
-You can add all sorts of hooks for these kinds of "one-off" custom properties, like colours, margins, or opacities. The thing is, even if you're super careful, you're probably not going to expose every CSS property for every single thing that should be styled. if you want your custom element to be
-super flexible, this can get pretty tedious. In that case, you can use a mixin, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element
+You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you might realize that there's too many of them to expose one by one. In that case, you can use a mixin, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
+
 ```css
 .icon {
     font-size: 20px;
@@ -163,16 +159,17 @@ super flexible, this can get pretty tedious. In that case, you can use a mixin, 
 But the user of the element could start adding things to the bag like this:
 
 ```css
-shiny-button {
+shiny-button.fancy {
   font-family: "Lato";
   font-weight: 300;
   color: black;
-  --shiny-button-background: lavender;
+  --shiny-button-background: #E91E63;
 
   /* this is the mixin! the colon and the semicolon are both important */
   --shiny-button-icon: {
     color: red;
     padding: 10px;
+    text-shadow: 0 1px 1px #880E4F;
   };
 }
 ```
