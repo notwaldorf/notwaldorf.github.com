@@ -125,7 +125,9 @@ shiny-button .text-in-the-shadow-dom {
 ```
 
 ## And now: some bridges
-Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: they tell Polymer this is a custom property, that needs to be treated specially. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy to know what you're styling. This is how we would use a custom property, inside the custom element:
+Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: it tells Polymer this is a custom property and it needs to be treated as such. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy for future-monica to know what she's styling.
+
+This is how we would use a custom property, inside the custom element:
 
 ```css
 .container {
@@ -139,11 +141,14 @@ And this is how you, the user of the element would use it for your custom style:
 
 ```css
 shiny-button.fancy {
+  /* see how much this looks like a normal css property? i.e.
+  background: #E91E63; */
   --shiny-button-background: #E91E63;
 }
 ```
 
-You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you might realize that there's too many of them to expose one by one. In that case, you can use a mixin, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
+
+You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you might realize that there's too many of them to expose one by one. In that case, you can use a _mixin_, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
 
 ```css
 .icon {
@@ -170,6 +175,7 @@ shiny-button.fancy {
 }
 ```
 
-That's it, that's all! wasn't that easy?
+That's it, that's all! We can style ALL the things now, AND get style encapsulation.
+What's next, being able to align things vertically in CSS?
 
-## :dragon:
+# ✨
