@@ -69,9 +69,9 @@ a:hover {
   75%      { filter: invert(10%) saturate(500%) hue-rotate(90deg); }
 }
 @keyframes avatarzomg {
-  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); 
+  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg);
   	             filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); 
+  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg);
   	             filter: invert(10%) saturate(500%) hue-rotate(180deg);}
   50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg);
   		     filter: invert(10%) saturate(300%) hue-rotate(300deg); }
@@ -80,9 +80,9 @@ a:hover {
 }
 
 pre {
-  background-color: #d5eff9;
   border-radius: 3px;
-  padding: 10px;
+  background: #f0f0f0;
+  padding: 13px;
 }
 
 .sidebar {
@@ -198,8 +198,8 @@ pre {
     line-height: 25px;
     }
     .content code {
-      font-size: 13px;
-      background-color: #d5eff9;
+      font-size: 14px;
+      background: #f0f0f0;
       border-radius: 3px;
       padding: 2px 3px; }
   .content img:not(.emoji) {
