@@ -60,12 +60,11 @@ CSS variables (aka custom properties) do exactly that. They're hooks that the de
 so that you can change that particular style. Now you, as the user of a custom element no
 longer need to know _how_ that element is implemented. You are given the list of things you can style, and you're set.
 
-The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output).
-
-<a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
+The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output) (there's an embedded JSBin at the bottom of this post, but you know, spoilers).
 
 ## First, a shiny button
-So, here's our button. It has a bunch of nested silly things, because why not. I didn't say I was a good CSS writer.
+So, here's our button. It has a bunch of nested silly things, because why not. Who knows how the native `<input>` actually looks like. Maybe it's `divs` all the way down. Maybe it's spiders. It's probably spiders.
+
 Everything inside `.container`, including `.container` itself is inside the Shadow Castle, so it can't be reached:
 
 ```html
@@ -93,10 +92,12 @@ Everything inside `.container`, including `.container` itself is inside the Shad
 ```
 The `<shiny-button`> looks like the thing on the left. Pretty meh. We'll do better. We'll style it
 to be the thing on the right, without any :dragon::dragon::dragon:.
+
 <img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 
 ## What can you style right now?
-We can only style the _host_ of the element -- this is everything outside the `.container` class.
+We can only style the _host_ of the element -- this is everything outside the `.container` class, but inside
+the shiny button. You know, the walls of the castle.
 
 ```css
 shiny-button.fancy {
@@ -112,20 +113,20 @@ the `.container`.
 
 <img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
 
-Of course, none of these styles will work, because these divs are well inside the castle:
+Of course, none of these styles will work, because these `divs` are well inside the castle:
 
 ```css
-shiny-button .container {
+shiny-button.fancy .container {
   color: red;
   background-color: pink;
 }
-shiny-button .text-in-the-shadow-dom {
+shiny-button.fancy .text-in-the-shadow-dom {
   font-weight: 300;
 }
 ```
 
 ## And now: some bridges
-Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: it tells Polymer this is a custom property and it needs to be treated as such. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy for future-monica to know what she's styling.
+Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: it tells Polymer this is a custom property and it needs to be treated as such. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy for future-me to know what she's styling.
 
 This is how we would use a custom property, inside the custom element:
 
@@ -136,8 +137,7 @@ This is how we would use a custom property, inside the custom element:
   background-color: var(--shiny-button-background, cornflowerblue);
 }
 ```
-
-And this is how you, the user of the element would use it for your custom style:
+You can think of `var` like an eval, which says "apply the value of this here custom property". And this is how you, the user of the element would use it for your custom style:
 
 ```css
 shiny-button.fancy {
@@ -148,7 +148,7 @@ shiny-button.fancy {
 ```
 
 
-You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you might realize that there's too many of them to expose one by one. In that case, you can use a _mixin_, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
+You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you will realize that if the thing that should be styled is too generic (the background container of the button) there's waaaaay too many CSS properties to expose one by one. In that case, you can use a _mixin_, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
 
 ```css
 .icon {
@@ -175,7 +175,15 @@ shiny-button.fancy {
 }
 ```
 
-That's it, that's all! We can style ALL the things now, AND get style encapsulation.
-What's next, being able to align things vertically in CSS?
+That's it, that's all! We can style ALL the things now, AND get style encapsulation,
+and not sacrifice any goats to dragons. Aren't web components amazing? (Yes they are).
 
-# ✨
+<br>
+
+Here's the JSBin if you want to play with it and, for fun, here are some
+custom properties [defined](https://github.com/PolymerElements/paper-checkbox/blob/master/paper-checkbox.css#L33) and [used](https://github.com/PolymerElements/paper-checkbox/blob/master/demo/index.html#L30) in a Polymer element.
+
+
+<a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
+
+# ✨✨✨
