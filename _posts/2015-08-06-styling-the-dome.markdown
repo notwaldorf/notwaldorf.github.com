@@ -10,15 +10,14 @@ opinion about style encapsulation. That opinion is basically "well, name your cl
 things happen. Know this: I come from C++, land of rules and disappointed compilers; this hand waviness drives me crazy.
 
 This matters because now you have to trust the people that write your css libraries
-to have common sense. If my website needs two kinds of fancy buttons, which live in  `shiny-button.css` and `bouncy-button.css`, both libraries
+to have common sense. If my website needs two kinds of fancy buttons, which live in  `shiny-button.css` and `bouncy-button.css`, which are both libraries
 written by silly people who want me to use the `.button` class to get their style,
 I'm hosed.
 
 ## Enter the Shadow DOM
-The [Shadow DOM](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) fixes this problem by building a little castle (a dome, get it?) around each custom element, locking in its implementation and styles. This is a proper castle, with a proper moat, so now styles can't get in and out of it. This means that if `<shiny-button>` was a custom element instead of a pile of css, its `.button` class was only relevant
-to it, and wouldn't stomp over `<bouncy-button>`'s similarly creatively named `.button` class.
+The [Shadow DOM](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) fixes this problem by building a little castle (a dome, get it?) around each custom element, locking in its implementation and styles. This is a proper castle, with a proper moat, so now styles can't get in and out of it. This means that if `<shiny-button>` was a custom element instead of a pile of CSS, its `.button` class was scoped to the element itself, and wouldn't stomp over `<bouncy-button>`'s similarly creatively named `.button` class.
 
-This shouldn't surprise you too much, as native elements have been doing this for years. `<input type=date>` styles the date picker somehow, but you've never worried what class names it might use to do so. You know why? Because you can't get to its castle, that's why.
+This shouldn't surprise you too much, as native elements have been doing this in secret for yeaaaaars. `<input type=date>` styles the date picker somehow, but you've never worried what class names it might use to do so. You know why? Because you can't get to its castle, that's why.
 
 ## The struggle is real
 So what happens if you _do_ want to style `<shiny-button>`? What if it's a perfectly
@@ -37,7 +36,7 @@ shiny-button {
 ```
 
 What you don't get to do is peek at the implementation of the `<shiny-button>` and decide you don't need one of the nested
-divs it uses. Again, these are the same rules that `<input type=date>` plays by: you can change the input's text to be red, but that date picker is what it is (hella ugly).
+`div`s it uses. Again, these are the same rules that `<input type=date>` plays by: you can change the `input`'s text to be red, but that date picker is what it is (hella ugly).
 
 When the Shadow DOM was first introduced, people anticipated this styling problem and took the "bring an AK-47 to a knife fight" approach by giving every developer [dragons](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/#toc-style-cat-hat). These dragons are called `/deep/` and `::shadow`, and let you cross the moat and tear the shit out of any castle. You
 could style anything you wanted in your custom element, because ain't nobody stopping
@@ -58,27 +57,24 @@ The correct answer to "say, how do I cross this moat?" isn't "lol a dragon".
 It's a bridge. We've been using bridges to cross waters for like 2000 years. Dragons aren't even real, man.
 
 CSS variables (aka custom properties) do exactly that. They're hooks that the developer of a `<shiny-button>` has left all over the code,
-so that you can style the relevant bits. Now you, as the user of a custom element no
+so that you can change that particular style. Now you, as the user of a custom element no
 longer need to know _how_ that element is implemented. You are given the list of things you can style, and you're set.
 
-From now on, these examples use Polymer, which is what I work on, and what I use to
-write custom elements.
-
-Let's say that we have a `<shiny-button>`. It's pretty silly and convoluted, because we have a lot of things to prove. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output):
+The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output).
 
 <a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
 
 ## First, a shiny button
-So, here's our button. It has a bunch of nested divs. Everything inside `.container`,
-including `.container` itself is inside the Shadow Castle, so it can't be reached:
+So, here's our button. It has a bunch of nested silly things, because why not. I didn't say I was a good CSS writer.
+Everything inside `.container`, including `.container` itself is inside the Shadow Castle, so it can't be reached:
 
 ```html
 <dom-module id="shiny-button">
   <template>
     <style>
-      :host        { display: inline-block; color: white;}
-      .container   { background-color: cornflowerblue; border-radius: 10px; }
-      .icon        { font-size: 20px; }
+      :host      { display: inline-block; color: white;}
+      .container { background-color: cornflowerblue; border-radius: 10px; }
+      .icon      { font-size: 20px; }
       .text-in-the-shadow-dom { font-weight: 900; }
     </style>
     <div class="container">
@@ -93,11 +89,10 @@ including `.container` itself is inside the Shadow Castle, so it can't be reache
 </dom-module>
 ...
 <!-- somewhere in an index.html, you'd use it like so: -->
-<shiny-button>I am a button</shiny-button>
+<shiny-button>hallo hai</shiny-button>
 ```
-
-And it looks like the thing on the left. Pretty meh. We'll do better. We'll style it
-to be the thing on the right, without any dragons.
+The `<shiny-button`> looks like the thing on the left. Pretty meh. We'll do better. We'll style it
+to be the thing on the right, without any :dragon::dragon::dragon:.
 <img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 
 ## What can you style right now?
@@ -111,12 +106,13 @@ shiny-button.fancy {
 }
 ```
 
-To see the difference between the host and the container, we can give `shiny-button` above a different
-background than the `.container`. The red corners you see are part of the host:
+To see the difference between the host and the container, we can give the button itself a different
+background than the `.container`. The red corners you see are part of the host; the blue parts are
+the `.container`.
 
 <img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
 
-None of these styles will work, because these divs are well inside the castle:
+Of course, none of these styles will work, because these divs are well inside the castle:
 
 ```css
 shiny-button .container {
