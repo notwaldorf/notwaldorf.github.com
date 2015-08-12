@@ -23,8 +23,9 @@ This shouldn't surprise you too much, as native elements have been doing this in
 So what happens if you _do_ want to style `<shiny-button>`? What if it's a perfectly
 respectable button, but it uses Helvetica as its font and you really need it to be Comic Sans because Helvetica is so 2014?
 
-You can always style the _host_ of the element. Think of the host as literally
-the castle walls; you can throw tomatoes at it to paint it:
+You can always style the _host_ of the element. Think of the host as the castle walls; it's like a div that holds in
+the contents of the custom element. It still plays by CSS rules, so some of the styles you set on the _host_ could
+actually trickle down to some child elements. For example:
 
 ```css
 shiny-button {
@@ -32,6 +33,9 @@ shiny-button {
   background-color: tomato;
   border-radius: 3px;
   width: 400px;
+  /* this will apply to any text in the button,
+   * unless a specific child overrides it */
+  font-size: 14px;
 }
 ```
 
@@ -54,7 +58,7 @@ So we deprecated `/deep/` and `::shadow` and web developers around the world pan
 
 ## Bridges instead of dragons
 The correct answer to "say, how do I cross this moat?" isn't "lol a dragon".
-It's a bridge. We've been using bridges to cross waters for like 2000 years. Dragons aren't even real, man.
+It's a bridge. We've been using bridges to cross waters for like 3000 years. Dragons aren't even real, man.
 
 CSS variables (aka custom properties) do exactly that. They're hooks that the developer of a `<shiny-button>` has left all over the code,
 so that you can change that particular style. Now you, as the user of a custom element no
@@ -126,9 +130,13 @@ shiny-button.fancy .text-in-the-shadow-dom {
 ```
 
 ## And now: some bridges
-Let's define a variable for the button's background color, called `--shiny-button-background`. The `--` is not a thing of style: it tells Polymer this is a custom property and it needs to be treated as such. The fact that I am starting all my variables with the name of the custom element _is_ a thing of style: they make it easy for future-me to know what she's styling.
+Let's define a variable for the button's background color, called `--shiny-button-background`. Some things:
 
-This is how we would use a custom property, inside the custom element:
+  * every Polymer custom property needs to start with a `--`, so that Polymer knows you're not just typing gibberish.
+  * I like to include the element name as a prefix to the custom property; I find it useful to remind me what I'm actually styling.
+  * I also like documenting these somewhere in a giant docs blurb. Polymer's [paper-checkbox](https://github.com/PolymerElements/paper-checkbox/blob/master/paper-checkbox.html#L34) is a nice example (because I wrote it, obvs).
+
+Now that we know a custom property is available, this is how we would use it, inside the custom element:
 
 ```css
 .container {
@@ -146,7 +154,6 @@ shiny-button.fancy {
   --shiny-button-background: #E91E63;
 }
 ```
-
 
 You can add all sorts of hooks for these kinds of "one-off" custom properties. Eventually you will realize that if the thing that should be styled is too generic (the background container of the button) there's waaaaay too many CSS properties to expose one by one. In that case, you can use a _mixin_, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:
 
@@ -174,6 +181,15 @@ shiny-button.fancy {
   };
 }
 ```
+Some tips:
+
+  * the mixin is only relevant to the selector it's being applied to (% CSS inheritance rules). As an element author
+  it's your responsability to name this mixin in a way that conveys this. In the example above, `--shiny-button-icon`
+  implies you're styling the icon of the button. If instead you're applying that style to the text, for example,
+  you're being a bad element author, and your users will be confused
+  * mixins aren't a panacea. If you look at the [paper-checkbox](https://github.com/PolymerElements/paper-checkbox/blob/master/paper-checkbox.html#L34)
+  example I mentioned before, you'll notice no mixins at all! This is because the element is fairly contained, and
+  there's only so many things you can possibly care about styling. That's when I tend to prefer individual custom properties vs a mixin.
 
 That's it, that's all! We can style ALL the things now, AND get style encapsulation,
 and not sacrifice any goats to dragons. Aren't web components amazing? (Yes they are).
