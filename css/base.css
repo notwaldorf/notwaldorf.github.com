@@ -134,6 +134,9 @@ ul {
   line-height: 25px;
 }
 
+.content ul {
+  margin-left: 20px;
+}
 .content li {
   margin-bottom: 10px;
   line-height: 1.7em;
