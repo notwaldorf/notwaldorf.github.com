@@ -21,7 +21,7 @@ This shouldn't surprise you too much, as native elements have been doing this in
 
 ## The struggle is real
 So what happens if you _do_ want to style `<shiny-button>`? What if it's a perfectly
-respectable button, but it uses Helvetica as its font and you really need it to be Comic Sans because Helvetica is so 2014?
+respectable button, but it uses Helvetica as its font and you really need it to be Comic Sans because Helvetica is _so_ 2014?
 
 You can always style the _host_ of the element. Think of the host as the castle walls; it's the thing that holds all the actual contents of the custom element. It still plays by CSS rules, so some of the styles you set on the _host_ could
 actually trickle down to some child elements. For example:
@@ -63,7 +63,7 @@ CSS variables (aka custom properties) do exactly that. They're hooks that the de
 so that you can change that particular style. Now you, as the user of a custom element no
 longer need to know _how_ that element is implemented. You are given the list of things you can style, and you're set.
 
-The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along is [here](http://jsbin.com/qubila/edit?html,output) (there's an embedded JSBin at the bottom of this post, but you know, spoilers).
+The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along, is [here](http://jsbin.com/qubila/edit?html,output) (there's an embedded JSBin at the bottom of this post, but you know, spoilers).
 
 ## First, a shiny button
 So, here's our button. It has a bunch of nested silly things, because why not. Who knows how the native `<input>` actually looks like. Maybe it's `divs` all the way down. Maybe it's spiders. It's probably spiders.
@@ -96,7 +96,7 @@ Everything inside `.container`, including `.container` itself is inside the Shad
 The `<shiny-button`> looks like the thing on the left. Pretty meh. We'll do better. We'll style it
 to be the thing on the right, without any :dragon::dragon::dragon:.
 
-<img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
+<img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="http://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 
 ## What can you style right now?
 We can only style the _host_ of the element -- this is everything outside the `.container` class, but inside
@@ -114,7 +114,7 @@ To see the difference between the host and the container, we can give the button
 background than the `.container`. The red corners you see are part of the host; the blue parts are
 the `.container`.
 
-<img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
+<img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="http://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
 
 Of course, none of these styles will work, because these `divs` are well inside the castle:
 
