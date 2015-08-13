@@ -58,19 +58,21 @@
         <img src="{{ site.gravatar_url }}?s=250" height="150" width="150" class="avatar" />
       </a>
 
-      <section class="meta">
-        <a href="https://github.com/{{ site.twitter }}" target="_blank"><i class="icon icon-github"></i></a>
-        <a href="https://twitter.com/{{ site.twitter }}" target="_blank"><i class="icon icon-twitter"></i></a>
-        <a href="https://{{ site.twitter }}.exposure.co" target="_blank"><i class="icon icon-camera-retro"></i></a>
-        <a href="/atom.xml"><i class="icon icon-rss"></i></a>
-      </section>
+      <div class="sidebar-text">
+        <section class="meta">
+          <a href="https://github.com/{{ site.twitter }}" target="_blank"><i class="icon icon-github"></i></a>
+          <a href="https://twitter.com/{{ site.twitter }}" target="_blank"><i class="icon icon-twitter"></i></a>
+          <a href="https://{{ site.twitter }}.exposure.co" target="_blank"><i class="icon icon-camera-retro"></i></a>
+          <a href="/atom.xml"><i class="icon icon-rss"></i></a>
+        </section>
 
-      <section class="sections">
-        <ul>
-          <li><a href="/about.html">about</a></li>
-          <li><a href="/">posts</a></li>
-        </ul>
-      </section>
+        <section class="sections">
+          <ul>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/">posts</a></li>
+          </ul>
+        </section>
+      </div>
     </section>
 
     {{ content }}
