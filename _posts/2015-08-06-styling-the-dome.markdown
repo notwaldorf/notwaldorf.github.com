@@ -96,7 +96,7 @@ Everything inside `.container`, including `.container` itself is inside the Shad
 The `<shiny-button`> looks like the thing on the left. Pretty meh. We'll do better. We'll style it
 to be the thing on the right, without any :dragon::dragon::dragon:.
 
-<img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="http://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
+<img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 
 ## What can you style right now?
 We can only style the _host_ of the element -- this is everything outside the `.container` class, but inside
@@ -114,7 +114,7 @@ To see the difference between the host and the container, we can give the button
 background than the `.container`. The red corners you see are part of the host; the blue parts are
 the `.container`.
 
-<img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="http://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
+<img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png">
 
 Of course, none of these styles will work, because these `divs` are well inside the castle:
 
