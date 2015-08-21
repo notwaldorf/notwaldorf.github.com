@@ -7,7 +7,7 @@ I gave a talk about how to get started contributing to Chromium, but it wasn't r
 and my [slides](https://speakerdeck.com/notwaldorf/contributing-to-chromium) by themselves look like cold-medicine induced hallucinations
 (which, to be fair, they were). So instead, here is a giant blog post that will take you
 through every step from "checking out the code" to "landing the code in the Chromium repo". It will also come in super handy for mild to moderate cases of insomnia.
-
+as
 **Warning**: this is a long post. The bug we're fixing is silly, but will get
 us writing actual Chromium code. If you want a
 real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list. Usually unassigned bugs (with no owner) are free for the taking, but it can also happen that a bug will be assigned to a human who is not actually working on it. Check the activity on it -- if there haven't been any activities in a while, leave a message on the bug or ping the owner and tell them you'd like to work on it!
@@ -82,7 +82,7 @@ decides which file to load based on its locale. Bingo bango, localized UI.
 
 Some of the results have `ACCESSIBLE_NAME` in them, which means that they're accessibility strings (hint: they're read out loud by VoiceOver apps). `IDS_PROFILES_SWITCH_USERS_BUTTON` looks promising though, so let's see where it's used.
 
-<a href="https://code.google.com/p/chromium/codesearch#search/&q=IDS_PROFILES_SWITCH_USERS_BUTTON&sq=package:chromium&type=cs"><img width="656" src="/images/chromium/codesearch_1.png" alt="The files that are relevant and appear in the search are 'profile_chooser_view.cc' and 'profile_chooser_controller.mm'"></a>
+<a href="https://code.google.com/p/chromium/codesearch#search/&q=IDS_PROFILES_SWITCH_USERS_BUTTON&sq=package:chromium&type=cs"><img width="656" src="/images/chromium/codesearch_2.png" alt="The files that are relevant and appear in the search are 'profile_chooser_view.cc' and 'profile_chooser_controller.mm'"></a>
 
 Aside from the `generated_resources.grd` results from before, we have _two_ new files!
 
