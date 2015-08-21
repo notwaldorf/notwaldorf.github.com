@@ -24,8 +24,9 @@
   <link rel="icon" type="image/png"  href="/images/favicon.png">
   <link href='http://fonts.googleapis.com/css?family=Oswald:400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Exo:200,300,400,500' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <!-- emoji rain -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="bower_components/emoji-rain/emoji-rain.html">
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', '{{ site.google_analytics_tracking_id }}']);
@@ -51,6 +52,7 @@
 
 -->
 <body>
+  <emoji-rain id="rainmaker"></emoji-rain>
   <div class="top-line"></div>
   <div class="container">
     <section class="sidebar">
@@ -70,6 +72,8 @@
           <ul>
             <li><a href="/about.html">about</a></li>
             <li><a href="/">posts</a></li>
+            <li><button onclick="rain(this)">🎉</button></li>
+
           </ul>
         </section>
       </div>
@@ -86,5 +90,16 @@
     </section>
   </container>
 </body>
-
+<script>
+var rainmaker = document.getElementById('rainmaker');
+function rain(button) {
+  if (rainmaker.active) {
+    rainmaker.stop();
+    button.innerHTML = "🎉";
+  } else {
+    rainmaker.start();
+    button.innerHTML = "☔️";
+  }
+}
+</script>
 </html>
