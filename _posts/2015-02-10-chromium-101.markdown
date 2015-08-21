@@ -10,7 +10,7 @@ through every step from "checking out the code" to "landing the code in the Chro
 
 **Warning**: this is a long post. The bug we're fixing is silly, but will get
 us writing actual Chromium code. If you want a
-real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list. Usually unassigned bugs (with no owner) are free for the taking, but it can also happen that a bug will be assigned to a human who is not actually working on it. Check the activity on it -- if there haven't been any activities in a while, leave a message on the bug or ping the owner and tell them you'd like to work on it! 
+real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list. Usually unassigned bugs (with no owner) are free for the taking, but it can also happen that a bug will be assigned to a human who is not actually working on it. Check the activity on it -- if there haven't been any activities in a while, leave a message on the bug or ping the owner and tell them you'd like to work on it!
 
 ## Get your computer ready
 
@@ -52,7 +52,7 @@ and helpful, because at some point they were you, the code was as scary then as 
 
 We're going to add a button to Chrome. It's going to be the best thing ever (second to a freshly opened can of Pringles). For realsies. It will be in this bubble here, and it will open [http://canihaveapony.com/](http://canihaveapony.com/) (you're welcome) in a new tab. This is the before and after:
 
-![before and after](/images/chromium/before_after.png)
+<img tabindex="0" width="656" src="/images/chromium/before_after.png" alt="The before image has 2 buttons in the Chrome profile menu, 'switch person' and 'go incognito'. The after image has a third button, 'Can I have a pony?', with a star icon, that has been inserted above the other 2 buttons.">
 
 (side note: if you don't see that button in your dev build of Chromium, launch it with `--enable-new-avatar-menu`. The UI is enabled by default on all of the released Chromes through a server side flag, but that bit of magic doesn't run on dev builds, so you need to turn it on yourself)
 
@@ -66,12 +66,13 @@ on the master branch is bad news bears: 1) it's very unlikely you're working on 
 (´ ▽｀).。ｏ♡ src on master ❥ git checkout -b add-pony-button origin/master
 Branch add-pony-button set up to track remote branch master from origin by rebasing.
 Switched to a new branch 'add-pony-button'
-(´ ▽｀).。ｏ♡ src on add-pony-button ❥ 
+(´ ▽｀).。ｏ♡ src on add-pony-button ❥
 ```
 
 #### 1. Find the code
-Hooman, meet [codesearch](https://code.google.com/p/chromium/codesearch). It's your best friend in Chromium. It knows where all the codes are and who they're called by, and where interfaces get implemented. I spend so much time with it, I'll probably send it a Valentine's Day card this year. Anyway, search for "Switch Person" in there, and get these results:
-![switch person results](/images/chromium/codesearch_1.png)
+Hooman, meet [codesearch](https://code.google.com/p/chromium/codesearch). It's your best friend in Chromium. It knows where all the codes are and who they're called by, and where interfaces get implemented. I spend so much time with it, I'll probably send it a Valentine's Day card this year. Anyway, search for "Switch Person" in there, and get these results
+
+<a href="https://code.google.com/p/chromium/codesearch#search/&q=%22switch%20person%22&sq=package:chromium&type=cs"><img width="656" src="/images/chromium/codesearch_1.png" alt="The search gives two results, described below"></a>
 
 First, `generated_resources.grd` is where most of the
 strings in Chrome live. A giant file makes
@@ -80,7 +81,8 @@ give you back the same file in a different language, and at startup, Chrome
 decides which file to load based on its locale. Bingo bango, localized UI.
 
 Some of the results have `ACCESSIBLE_NAME` in them, which means that they're accessibility strings (hint: they're read out loud by VoiceOver apps). `IDS_PROFILES_SWITCH_USERS_BUTTON` looks promising though, so let's see where it's used.
-![string id results](/images/chromium/codesearch_2.png)
+
+<a href="https://code.google.com/p/chromium/codesearch#search/&q=IDS_PROFILES_SWITCH_USERS_BUTTON&sq=package:chromium&type=cs"><img width="656" src="/images/chromium/codesearch_1.png" alt="The files that are relevant and appear in the search are 'profile_chooser_view.cc' and 'profile_chooser_controller.mm'"></a>
 
 Aside from the `generated_resources.grd` results from before, we have _two_ new files!
 
@@ -122,13 +124,14 @@ does the following:
 Hey! We should do the same thing! Let's add our `ponyButton` right below the
 `switchUsersButton` (which, again, means it's being drawn above it ARE YOU HAVING FUN YET???). The highlighted bits are the new code.
 
-![code for the new button](/images/chromium/code_button.png)
+<a href="https://gist.github.com/notwaldorf/9dda1a00709cc24a5b02#file-1-creating-a-pony-button-mm"><img width="656" src="/images/chromium/code_button.png" alt="Code showing how to instantiate a pony button"></a>
 
 The code we just wrote says that when you click on the `ponyButton`, we call a method called `-goPoniesGo:`. We should probably write it, so that we can actually test our code. It will only log something to the console for now, because logging code is the best code.
 
-![logging code for the pony method](/images/chromium/pony_code_1.png)
+<a href="https://gist.github.com/notwaldorf/9dda1a00709cc24a5b02#file-2-adding-the-go-ponies-go-handler-mm"><img width="656" src="/images/chromium/pony_code_1.png" alt="Code showing how to create the click handler, and add a logging statement to it"></a>
 
-If you build and run this, your bubble should look like the "after" image above,
+
+If you build and run this, your bubble should look like the "after" image described before,
 and clicking the button should spew things on the console.
 
 
@@ -142,7 +145,7 @@ If you don't know how to use `ShowSingletonTab()`, I would `codesearch` again fo
 uses of the function. This time, just by looking at the method signature, we
 can figure out we should write:
 
-![logging code for the pony method](/images/chromium/pony_code_2.png)
+<a href="https://gist.github.com/notwaldorf/9dda1a00709cc24a5b02#file-3-implementing-the-go-ponies-go-handler-mm"><img width="656" src="/images/chromium/pony_code_2.png" alt="Code showing how to add a line to the click handler to open a new tab"></a>
 
 Because the stars aligned and Mercury wasn't in retrograde, we had all
 of the `.h` header files already included for this to work. Compile it, run it, and get a pony!
@@ -154,10 +157,11 @@ Run `git commit -am "added pony button"` to commit this file, and `git cl upload
 In your `git cl upload` message, write a meaningful description, a crbug ID, and a blurb about how to
 test this. This is what I would write:
 
-![cl description](/images/chromium/cl_description.png)
+<a href="https://gist.github.com/notwaldorf/9dda1a00709cc24a5b02#file-4-sample-cl-description-text"><img width="656" src="/images/chromium/cl_description.png" alt="Sample CL description. It has a title which is less than 72 characters, a summary, a crbug id, and detailed testing instructions"></a>
 
-And if that goes well, this is what your CL (stands for change-list. Comes from the dark days of Perforce) should look like on the site!
-![cl on codereview](/images/chromium/codereview_1.png)
+And if that goes well, this is what your CL (stands for change-list. Comes from the dark days of Perforce) should look like on the site! (that CL doesn't exist anymore, but here's a [random](https://codereview.chromium.org/1042923003/) CL as an example)
+
+<a href="https://codereview.chromium.org/1042923003/"><img width="656" src="/images/chromium/codereview_1.png" alt="Sample CL as it renders on codereview"></a>
 
 If you want to test that your CL didn't break anything, run `git cl try`. This will look at what your code touches and run a whole bunch of tests on a whole bunch of platforms.
 
@@ -185,7 +189,7 @@ where all my bots were green and as soon as the change landed, it broke 165 test
 It happens. You can revert your CL if you realize this in time, or that day's sheriff might do it for you (especially if you're an external committer, aren't on IRC, etc). In this case, be nice to the sheriff and apologize a bit. Maybe send them a gif. Remember: if you're stuck, ask for help!
 
 ### Good first bugs
-We have a [list](https://code.google.com/p/chromium/issues/list?can=2&q=Hotlist%3DGoodFirstBug+&colspec=ID+Pri+M+Cr+Status+Owner+Summary+OS+Modified&x=m&y=releaseblock&cells=tiles) of bugs deemed as "good starter bugs". Sometimes they're more complicated that we thought, so don't panic if that's the case. It's not you, it's Chrome :). Protip: in the statuses, "Assigned" with a name in the owner means someone is actually looking at that issue, so it's probably not a great one to pick. 
+We have a [list](https://code.google.com/p/chromium/issues/list?can=2&q=Hotlist%3DGoodFirstBug+&colspec=ID+Pri+M+Cr+Status+Owner+Summary+OS+Modified&x=m&y=releaseblock&cells=tiles) of bugs deemed as "good starter bugs". Sometimes they're more complicated that we thought, so don't panic if that's the case. It's not you, it's Chrome :). Protip: in the statuses, "Assigned" with a name in the owner means someone is actually looking at that issue, so it's probably not a great one to pick.
 
 ### ❤︎
 That's it! That's how you commit code to Chromium! Good luck, and if you do end up landing a CL, send me an [email](mailto:noms@chromium.org) or a [tweet](https://twitter.com/notwaldorf). I'd love to see it!
