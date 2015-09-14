@@ -2,7 +2,6 @@
 layout: post
 title: "Styling the Shadow DOM or: a metaphor gone too far"
 category: posts
-draft: true
 ---
 
 One of the beefs (and there aren't many) that I have with CSS is that it has a very weak
