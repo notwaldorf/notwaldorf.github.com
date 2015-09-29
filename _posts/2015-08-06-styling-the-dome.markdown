@@ -199,4 +199,12 @@ and not sacrifice any goats to dragons. Aren't web components amazing? (Yes they
 Here's the JSBin if you want to play with it:
 <a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script>
 
+# Hear me talk about this
+I gave this talk at the Polymer [summit](https://www.polymer-project.org/summit). Hurray, the metaphor is spreading!
+
+## Video
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IbOaJwqLgog" frameborder="0" allowfullscreen></iframe>
+
+## Slides
+<script async class="speakerdeck-embed" data-id="9c0e7a1b528a4293b63e09f1e3c04044" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 # ✨✨✨
