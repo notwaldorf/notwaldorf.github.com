@@ -19,6 +19,10 @@ body {
   padding-top: 50px;
 }
 
+::selection {
+  background: #E0F7FA;
+}
+
 /**********************
  * Copy
  **********************/
@@ -48,21 +52,16 @@ h4 {
 }
 
 h2 {
+  font-size: 30px;
   margin: 50px 0 20px 0;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f5f5f5;
+  border-left: 5px solid #ff487a;
+  padding-left: 10px;
 }
 
 ul {
   margin: 0;
   padding: 0;
 }
-/*h3 {
-  font-size: 25px;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-  margin-top: 40px;}
-*/
 
 /**********************
  * Sidebar
@@ -285,18 +284,25 @@ a:hover {
 /**********************
  * Code
  *********************/
-pre {
-  border-radius: 3px;
+pre, code {
   background: #E0F7FA;
+  border-radius: 3px;
+}
+
+/* just the code blocks */
+pre {
   padding: 13px;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
+/* inline code */
 code {
   font-size: 14px;
   line-height: 1.5;
-  background: #E0F7FA;
-  border-radius: 3px;
   padding: 2px 3px;
+}
+
+h2 code {
+  font-size: 30px;
 }

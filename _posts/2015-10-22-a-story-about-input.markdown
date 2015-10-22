@@ -2,7 +2,6 @@
 layout: post
 title: "&lt;input&gt; I ♡ you, but you're bringing me down"
 category: posts
-draft: true
 ---
 Some people build furniture. Some people knit. Some people have hobbies that
 don't involve HTML specs from the 90s. I am not those people. So here's a story
@@ -44,7 +43,6 @@ both just hold text that someone else has entered:
 
 ```html
 <input value="batman">
-<br>
 <textarea rows="1">batman</textarea>
 ```
 
