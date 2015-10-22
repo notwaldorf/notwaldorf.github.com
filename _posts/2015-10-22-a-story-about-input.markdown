@@ -21,8 +21,9 @@ Input initially came along with 8 types: `text`, `password`, `checkbox`, `radio`
 Wait, did you say _image_? Yeah, let's talk about it.
 
 `<input type="image" src="cat.png">` is just an image. Unless you don't specify
-a `src` file, in which case it's just a textbox that says "Submit".
-Unless you're in Firefox, in which case it says "Submit Query". Unless you're in
+a `src` file, in which case it's an "image button" that says "Submit".
+Unless you're in Firefox, in which case it says "Submit Query" and looks like
+a label. Unless you're in
 IE in which case it doesn't say anything at all.
 
 ![input type=image with no source](/images/2015-10-22/type-image.png)
