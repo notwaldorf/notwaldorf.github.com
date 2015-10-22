@@ -287,7 +287,7 @@ a:hover {
  *********************/
 pre {
   border-radius: 3px;
-  background: #f0f0f0;
+  background: #E0F7FA;
   padding: 13px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -295,7 +295,8 @@ pre {
 
 code {
   font-size: 14px;
-  background: #f0f0f0;
+  line-height: 1.5;
+  background: #E0F7FA;
   border-radius: 3px;
   padding: 2px 3px;
 }
