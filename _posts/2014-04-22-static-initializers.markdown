@@ -42,8 +42,8 @@ static Superhero robin = batman.getSidekick();
   // In y.cpp:
   static Superhero robin(batman.getSidekick());
   // If that wasn't believable, imagine it was something like:
-  // static Superhero robin(BestSuperhero::batman); 
-  // where BestSuperhero is a namespace or a static class and 
+  // static Superhero robin(BestSuperhero::batman);
+  // where BestSuperhero is a namespace or a static class and
   // you call batman.getSidekick() in robin's constructor.
   {% endhighlight %}
   Yup. That's it. Whether `x.cpp` or `y.cpp` gets compiled first is not defined (because C++), which means if `y.cpp` gets compiled first, `batman` hasn't been constructed. You know what happens when you call `getSidekick()` on an uninitialized object? Regrets happen.
@@ -110,7 +110,7 @@ std::string GetBucketThing(int i) {
 
 Yup. That's pretty much it. If you want more reading on the topic, here's a neat chromium-dev [thread](https://groups.google.com/a/chromium.org/forum/#!topic/chromium-dev/p6h3HC8Wro4) discussing this in more details (and talking about when these static globals are actually cleaned up).
 
-# ❤︎
+## Mmmmkay.
 I don't know why you've made it this far. Maybe you thought there was going to be a joke or a prize at the end. There isn't. There's just this gif, and you could've just scrolled down for it.
 
 ![puppy](http://s3-ec.buzzfed.com/static/2014-04/enhanced/webdr08/3/11/anigif_enhanced-buzz-19981-1396540542-4.gif)

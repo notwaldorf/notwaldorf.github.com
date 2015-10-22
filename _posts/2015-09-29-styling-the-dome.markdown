@@ -207,4 +207,3 @@ I gave this talk at the Polymer [summit](https://www.polymer-project.org/summit)
 
 ## Slides
 <script async class="speakerdeck-embed" data-id="9c0e7a1b528a4293b63e09f1e3c04044" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
-# ✨✨✨

@@ -111,8 +111,8 @@ If at any point you want to restart your process, just type `run` again. Don't w
 it's not destructive -- you'll be asked to confirm if you really want to blow
 away the frame you're in. Bam!
 
-### ❤︎
-That's it! For realsies! You and `lldb` should probably get friendship bracelets now.
+### That's it!
+For realsies! You and `lldb` should probably get friendship bracelets now.
 <pre>
   　∩∩
 　（ﾟωﾟ）  .。ｏ♡

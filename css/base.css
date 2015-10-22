@@ -64,6 +64,30 @@ ul {
 }
 
 /**********************
+ * Footer
+ **********************/
+.footer {
+  padding: 50px 0;
+  color: #ff487a;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.footer > .thanks {
+  font-size: 12px;
+  letter-spacing: 2px;
+  float: left;
+}
+
+.thanks > .heart {
+  font-size: 20px;
+  vertical-align: middle;
+}
+.footer > .twitter {
+  float: right;
+}
+
+/**********************
  * Sidebar
  **********************/
 .sidebar {

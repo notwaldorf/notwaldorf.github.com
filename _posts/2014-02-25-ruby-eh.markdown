@@ -7,7 +7,8 @@ One of the hardships about being Canadian is that most programming languages are
 
 ## There's no such thing as 'too polite'
 Ruby lets you open your classes and teach your fellow programmers some basic manners:
-{% highlight ruby %}
+
+```ruby
 class Object
   def please
     self
@@ -24,17 +25,19 @@ module Kernel
       sane_puts "If you don't mind, " + s
     end
 end
-{% endhighlight %}
+```
 
 Now you can write correct and civilized code like you've always wanted:
-{% highlight ruby %}
+
+```ruby
 giver "maple syrup".please.reverse.eh?
 # If you don't mind, purys elpam
-{% endhighlight %}
+```
 
 ## Don't forget about Quebec
 Ruby is the first language to pioneer French as the one true language. We have translated all the methods in `Array` and stored them in a dictionary called `translations`, that contains entries of the form `:english_foo => :french_foo`. A small iteration,
-{% highlight ruby %}
+
+```ruby
 class Array
   Array.instance_methods(false).each do |f|
     if translations.key?(f)
@@ -42,21 +45,23 @@ class Array
     end
   end
 end
-{% endhighlight %}
+```
 
 And we can write glorious code that would make Quebec proud
-{% highlight ruby %}
+
+```ruby
 def articles_aleatoires(matrice)
   matrice.echantillon(1 + rand(matrice.compte))
 end
 articles_aleatoires [1,2,3,4,5]
 # => [1, 2]
-{% endhighlight %}
+```
 
 ## Canadian slang
 Fans of [Bob and Doug McKenzie](http://en.wikipedia.org/wiki/Bob_and_Doug_McKenzie) can breathe a sigh of relief to know that Ruby speaks the language of the Great White North, eh?
 
-{% highlight ruby %}
+
+```ruby
 class Exception
   alias :sane_to_s :to_s
   def to_s
@@ -65,11 +70,12 @@ class Exception
 end
 # >> raise ArgumentError
 # ArgumentError: uncaught throw ArgumentError. Take off, hoser.
-{% endhighlight %}
+```
 
 ## Digression for non-Canadians
 Of course, you can use this idea of open classes for truly magical features. Good code is nothing if not mildly interesting.
-{% highlight ruby %}
+
+```ruby
 class Fixnum
   alias :sane_equals :==
   def ==(x)
@@ -77,10 +83,10 @@ class Fixnum
   end
 end
 # >> 4 == 4
-# => false 
+# => false
 # >> 4 == 5
 # => true
-{% endhighlight %}
+```
 
 ## Unicode
 This is where this post starts being less Canadian and more flat out crazy.
@@ -88,30 +94,33 @@ This is where this post starts being less Canadian and more flat out crazy.
 Ruby is down with Unicode in identifiers. That's because Ruby is down with pretty much everything. The only thing I have yet to convince Ruby to do is to let me alias keywords, and I'm pretty sure that's just because I haven't tried hard enough.
 
 If you add a comment to gently nudge at an encoding, you too can write this production ready code:
-{% highlight ruby %}
+
+```ruby
 # encoding: utf-8
 class Object
   def ☢
     sane_puts "BOOM"
   end
 end
-{% endhighlight %}
+```
 
 Guess what calling ☢ will do. GUESS.
 
-Unicode can fill your boring, profesh code with whimsy: 
-{% highlight ruby %}
+Unicode can fill your boring, profesh code with whimsy:
+
+```ruby
 if ☆ == ☂
     puts ☎
 end
-{% endhighlight %}
+```
 
-Our advanced readers can also define a function named U+00A0, the non-breaking space, as seen [here](http://www.rubyinside.com/the-split-is-not-enough-whitespace-shenigans-for-rubyists-5980.html). 
+Our advanced readers can also define a function named U+00A0, the non-breaking space, as seen [here](http://www.rubyinside.com/the-split-is-not-enough-whitespace-shenigans-for-rubyists-5980.html).
 
 ## Bare words
 We all know that Ruby has bare words from Gary Bernhardt's [Wat](https://www.destroyallsoftware.com/talks/wat) talk, but did you know Ruby also allows you to have bare words as function names? Because that's totally a thing you'd want. Thanks to [Richo Healey](http://99designs.com/tech-blog/blog/2012/10/30/abusing-ruby-for-fun-and-profit/) for the example:
 
-{% highlight ruby %}
+
+```ruby
 self.instance_exec do
 def method_missing(sym, *args)
   # Splat args if passed in from a parent call
@@ -124,28 +133,31 @@ rescue NameError => e
   return [e, *arguments]
 end
 end
-{% endhighlight %}
+```
 
-Defining such a function doesn't even look that improper, which is why I recommend moving the above code into a separate .rb file, deep at the bottom of a folder barrel. 
-{% highlight ruby %}
+Defining such a function doesn't even look that improper, which is why I recommend moving the above code into a separate .rb file, deep at the bottom of a folder barrel.
+
+```ruby
 self.class.send(:define_method, :"take off") do
   puts "♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪"
 end
-{% endhighlight %}
+```
 
 This leads to the most excellent of results, and a job well done:
-{% highlight ruby %}
+
+```ruby
 take off
 # >> If you don't mind, ♫ ♪ Coo loo coo coo, coo coo coo coo ♬ ♪
-# => nil 
-{% endhighlight %}
+# => nil
+```
 
 [Nik Markwell](https://github.com/duckinator) has a neat implementation of a saner, more [constrained](https://gist.github.com/duckinator/d08df4d312139a447738) version of this, which ends up looking like
-{% highlight ruby %}
+
+```ruby
 as long as -> { i < 10 }, -> { puts i += 1 }
-{% endhighlight %}
+```
 
 However, being practical and sane isn't the Canadian way. If it were, most Canadians wouldn't live in a place where 11 months of the year the air hurts your face. We don't stand for useful applications of bare functions, and nor should you.
 
-## <3
-Next on our agenda: convincing the W3C that the California Style Sheets spelling of 'colour' and 'grey' is the only appropriate one. Do not lose faith, Canadians. Now that the rest of the world has accepted curling as a sport, they're ready to accept anything.
+## Next on our agenda
+Convincing the W3C that the California Style Sheets spelling of 'colour' and 'grey' is the only appropriate one. Do not lose faith, Canadians. Now that the rest of the world has accepted curling as a sport, they're ready to accept anything.

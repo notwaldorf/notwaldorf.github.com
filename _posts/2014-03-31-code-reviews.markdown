@@ -60,5 +60,3 @@ Once you're done with that, ask yourself if you understand what the code does. I
 Make sure that if the code can be tested (this, sadly, isn't always true), it is tested. Don't be afraid to ask for tests if they're not there.
 
 Finally, ask yourself if tomorrow you'd be comfortable fixing a bug in the code. If it looks scary or confusing to you, it will probably look scary or confusing to everybody else. Remember: only you can prevent forest fires!
-
-### ♡

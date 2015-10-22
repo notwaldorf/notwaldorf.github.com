@@ -40,5 +40,5 @@ What you get out of this is spectacularly annoying. I wrote some [code](http://o
 
 There, now you know. And knowing is half the battle.
 
-## ❤️
+## P.S.
 If you read this in the future and the future doesn't work like I said it does, either I was wrong (highly likely), or someone fixed something. Let me know and I can make updates.

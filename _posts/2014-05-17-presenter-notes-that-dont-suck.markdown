@@ -39,5 +39,5 @@ You can also go for a classic post-it, and slap it wherever you have space. The 
 
 <img src="/images/2014-05-17/post-it.png" alt="post-it note" style="width: 400px;"/>
 
-# ❤︎
+## Disclaimer
 I don't know which way is better; I think it will depend a lot on your slide deck design. I just wanted you to know that you don't have to let Keynote terrorize you with its horribly exported presenter notes. There are alternatives.

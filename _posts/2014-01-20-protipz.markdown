@@ -6,8 +6,8 @@ category: posts
 Disclaimer: these aren't new protipz. I didn't make them up. They're actually straight out of the Chromium code [style](http://www.chromium.org/developers/coding-style), they're pretty trivial, and you might already use them. But just in case you're not a Chromium committer (the outrage), or are fairly new at C++ and want to make your code less suck, here they are. I think they're neat.
 
 ## Copy constructors and their brethren
-You know that scene from The Fly when Jeff Goldblum, having not screwed up teleporting a small baboon, decides he 
-should totally teleport himself? But then he screws that up (because software), manages to turn himself into a giant terrifying fly (because David Cronenberg), and continues to give me nightmares as an adult. 
+You know that scene from The Fly when Jeff Goldblum, having not screwed up teleporting a small baboon, decides he
+should totally teleport himself? But then he screws that up (because software), manages to turn himself into a giant terrifying fly (because David Cronenberg), and continues to give me nightmares as an adult.
 
 That’s exactly how I feel about copy constructors. You can absolutely get them right, but they’re a [pain](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Copy_Constructors#Copy_Constructors), and among other crimes they're committing, they're sometimes deceivingly slow. The point is, most of the time you don’t even need them. I mean, Jeff Goldblum teleported himself like three meters away. Couldn’t he have just walked?
 
@@ -70,7 +70,7 @@ You can also do this with a similar [NOTREACHED()](https://code.google.com/p/chr
 {% highlight c++ %}
 switch (thing) {
   case SOCKS:
-    // Put on feet. 
+    // Put on feet.
     break;
   case HAT:
     // Put on head.
@@ -86,16 +86,16 @@ This is an unnamed namespace, which I am declaring in a `.cc` file, and it is th
 {% highlight c++ %}
 namespace {
   bool MyAmazingHelperFunction() { ... }
-} 
+}
 {% endhighlight %}
 
 Reasons why it's the coolest are:
- 
+
 * This function is available only inside this `.cc` file so it doesn't make your class obese.
 * You don't have to remember which of the 3+ meanings of `static` you're referring to when defining a file scoped static variable. This means you're playing by the "Yes, but don't" rules of having fun with C++, which don't give you headaches.
 * If you care about this sort of thing, your function name gets a nicer mangled name.
 
-It's basically just that second bullet though. 
+It's basically just that second bullet though.
 
 ## Forward declarations >> #includes
 This is probaby the most boring of all the topics, but the most useful one. Having a header file include everything but the kitchen sink is a little unfortunate. Your compiler is unhappy because it needs to open all those files, which in turn will make you unhappy, because every time you touch a header file, it will trigger seventy billion other files to feel like they need to be recompiled. Ain't nobody got time for that.
@@ -105,10 +105,9 @@ Instead, what we can do is forward declare the class (`class Foo;`) in the `.h` 
 But because this is C++, the rules of this game are a little tricky, and will sometimes get you into an argument with the compiler. The question I try to answer is "Does the compiler need to know the size or contents of the class `Foo`?"
 
 * If the answer is yes, and the compiler cares (e.g. inheriting from/making a member of that incomplete type), then you won't be able to forward declare it. You have to do the promising and the explaining in the same place, so might as well just include the file.
-* If the answer is no, and the compiler doesn't care (e.g. you're declaring but not defining functions that use the incomplete type), then forward declare it away! 
+* If the answer is no, and the compiler doesn't care (e.g. you're declaring but not defining functions that use the incomplete type), then forward declare it away!
 
 This means you have to be a little careful when including the type in the `.cc` file. If there are two types that are called the exact same thing and you include the wrong header, you'll have a bad time. So, you know, just don't. :)
 
-### <3
-That's it, that's all. Go forth and write nicer C++ code. 
-
+## That's it, that's all.
+Go forth and write nicer C++ code.

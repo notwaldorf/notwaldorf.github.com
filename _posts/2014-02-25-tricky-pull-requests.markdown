@@ -14,27 +14,28 @@ At this point, you probably have some regrets. Let's not dwell on them. Here's t
 
 ## Set up your upstream
 If `git remote` doesn't show you a branch called `upstream`, you need to add one:
-<pre>
+
+```
 git remote add upstream https://github.com/user/repo_you_forked.git
-</pre>
+```
 
 ## Set up a clean branch for your fix
 Step into your tardis and branch from when you were last in sync with the upstream. In my case, this was when I initially created my fork.
 A dull perusing of `git log` or `git reflog` should point you to the right sha. Then,
 
-<pre>
+```
 git checkout -b pr_branch
 git reset --hard sha_from_the_past
-</pre>
+```
 
 ## Get your changes in
 Here you have two options. If your changes are tiny, or you know exactly what they are, you can just manually reapply them. And by that I mean copy paste the changes into the right files, like a barbarian. For the record, this is my preferred approach. I am a barbarian. I live in the git stone age.
 
 Alternatively, you can go the fancy route with
 
-<pre>
+```
 git checkout -p master file_to_modify
-</pre>
+```
 
 This will look at the diff between master (which is in the future), and your working copy (we are in the past) and let you pick and choose individual hunks. Having taken a moment and appreciated how amazing this last sentence was, you can:
 
@@ -44,18 +45,19 @@ This will look at the diff between master (which is in the future), and your wor
 If you've touched any files, it would be a good time to do your familiar `git add/git commit` dance.
 
 ## Merge the upstream changes in
-<pre>
+```
 git fetch upstream  # You won't see any changes in git log. Don't panic yet.
 git merge upstream/master  # Some wild upstream changes appear in git log.
-</pre>
+```
 
 ## ♫ ♪ T-t-t-test your cha-an-ges ♫ ♪
 
 ## Upload your branch
 This is the last step. If you want, you can rename your branch before uploading it. I usually do, because my original branch names tend to be silly. After this, you can go and look at your branch in GitHub and be delighted with the progress you've made. Time to send out that pull request!
 
-<pre>
+```
 git push origin pr_branch:possibly_new_branch_name
-</pre>
+```
 
-### Hope this helped!
+<br>
+Hope this helped!
