@@ -48,7 +48,7 @@ both just hold text that someone else has entered:
 ```
 
 ## 1995-2011, the slow years
-In 2011, HTML4 only added `type="button"`. My favourite part about
+In 2011, [HTML4](http://www.w3.org/TR/html401/) only added `type="button"`. My favourite part about
 it is that with no custom styles, an `<input type="button">` and an
 `<input type="button" value="Submit">` on the same line, do not align vertically
 on Chrome/Safari.
@@ -57,7 +57,7 @@ on Chrome/Safari.
 src="/images/2015-10-22/button-align.png">
 
 ## Then everything got worse
-Later in 2011, the HTML5 spec added a billion new input types. It's now 2015, and
+Later in 2011, the [HTML5](http://www.w3.org/html/wg/drafts/html/master/Overview.html) spec added a billion new input types. It's now 2015, and
 most are not implemented. The TL; DR of the missing features is: `type=color` only
 [works](http://caniuse.com/#feat=input-color) on Firefox/Chrome, date/time
 inputs only [work](http://caniuse.com/#feat=input-datetime) on Chrome/Edge/iOS, and
@@ -75,7 +75,7 @@ impossible to get [rid](http://tjvantoll.com/2013/04/15/list-of-pseudo-elements-
 src="/images/2015-10-22/type-search.png">
 
 If you're on a lucky browser that does support `type="date"`, don't worry about
-styling the date picker -- there are 8 weirdo `::webkit` pseudo-selectors out there,
+styling the date picker &mdash; there are 8 weirdo `::webkit` pseudo-selectors out there,
 but they'll only let you [style](http://tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/)
 the input textbox, and not the actual date dropdown. CSS is bad for your health anyway.
 
@@ -83,7 +83,7 @@ the input textbox, and not the actual date dropdown. CSS is bad for your health 
 You see, I can justify CSS quirks. I worked on Chrome for 2 years,
 I work next to the Blink team now, I understand we're all writing different
 renderers and they all have their own CSS bugs. However, the `<input>` API isn't
-quirky -- it's literally just a jar of spiders, and the moment you open the jar,
+quirky &mdash; it's literally just a jar of spiders, and the moment you open the jar,
 it's too late. You're covered in spiders. Even your cat is a spider now. Better find
 some fire.
 
@@ -115,7 +115,7 @@ document.querySelector('input').selectionStart += 2;
 And advance the beginning of the text selection by 2 characters. Super pedestrian, except for
 the fact that the `selectionStart` &mdash; and brethren &mdash; attribute is only [available](
 https://html.spec.whatwg.org/multipage/forms.html#do-not-apply) for inputs
-of type `text`, `url` and `password` and just accessing it (not event setting it)
+of type `text`, `url` and `password` and just accessing it (not even setting it)
 throws an exception for all other types:
 
 ```
@@ -137,8 +137,8 @@ There's more. I'm sure there's more. The thing is, browsers have had [21 years](
 to sort out inputs, and they haven't even managed to agree on how to communicate
 "you haven't picked a file".
 
-Now imagine the future where web components are supported
-natively, and someone else is allowed to write a `<better-input>`, that is still
-encapsulated and not a div soup, but actually works. Imagine this `<better-input>`, whose
-`keypress` event works the [same](../keypress-is-bananas/) on all browsers, and which
-probably also knows how to bake a cherry pie. IMAGINE. ✨
+Now imagine the future where Web Components are supported
+natively, and someone else is allowed to write a `<better-input>`, an element
+that is a real, encapsulated DOM element, and not just a div soup. Imagine using this `<better-input>`
+that isn't implemented differently in each browser, that looks the same everywhere, and that
+probably also knows how to bake you a cherry pie. IMAGINE. ✨
