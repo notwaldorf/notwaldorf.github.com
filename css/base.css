@@ -75,17 +75,21 @@ ul {
   color: #ff487a;
   text-align: center;
   text-transform: uppercase;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .footer > .thanks {
-  font-size: 12px;
   letter-spacing: 2px;
   float: left;
 }
 
-.thanks > .heart {
-  font-size: 20px;
+.footer > span {
   vertical-align: middle;
+}
+
+.footer > .thanks .heart {
+  font-size: 20px;
 }
 .footer > .twitter {
   float: right;
