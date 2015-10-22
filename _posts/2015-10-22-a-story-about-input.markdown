@@ -16,7 +16,7 @@ spec was finally getting around to standardizing forms. 1995 was the year
 when `<input>` was born, and now that it's about old enough to drink, we need to have a talk.
 
 Input initially came along with 8 types: `text`, `password`, `checkbox`, `radio`, `image`, `hidden`,
-`submit` and `reset`, and in a separate RFC that followed, `file`.
+`submit` and `reset`, and in a separate [RFC](https://www.ietf.org/rfc/rfc1867.txt) that followed, `file`.
 
 Wait, did you say _image_? Yeah, let's talk about it.
 
@@ -79,7 +79,7 @@ styling the date picker -- there are 8 weirdo `::webkit` pseudo-selectors out th
 but they'll only let you [style](http://tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/)
 the input textbox, and not the actual date dropdown. CSS is bad for your health anyway.
 
-## Just when you thought it couldn't get any worse, JavaScript.
+## Just when you thought it couldn't get any worse, JavaScript
 You see, I can justify CSS quirks. I worked on Chrome for 2 years,
 I work next to the Blink team now, I understand we're all writing different
 renderers and they all have their own CSS bugs. However, the `<input>` API isn't
@@ -98,11 +98,12 @@ var textInput = document.querySelector('input[type="text"]');
 console.log(textInput.checked);  // prints false.
 textInput.checked = true;
 console.log(textInput.checked);  // prints true.
+// did not open the hellmouth.
 ```
 
 Cool. Cool cool cool.
 
-Inputs also havhave text, and text can be selected, so the `HTMLInputElement`
+Inputs also have text, and text can be selected, so the `HTMLInputElement`
 prototype also defines two properties,
 `selectionStart` and `selectionEnd` which are two numbers defining your selection
 range. So you can do:
@@ -128,11 +129,11 @@ Even though manually I can totally select that text:
 src="/images/2015-10-22/type-number.png">
 
 So in some cases, irrelevant properties can be interacted with, but in
-other cases they barf exceptions. Neat-o. That's just the kind of consistency
+other cases they open the hellmouth. Neat-o. That's just the kind of consistency
 I look for in an API.
 
 ## 🙈
-There's more. I'm sure there's more. The thing is, browsers have had 21 years
+There's more. I'm sure there's more. The thing is, browsers have had [21 years](http://www.martinrinehart.com/frontend-engineering/engineers/html/html-tag-history.html)
 to sort out inputs, and they haven't even managed to agree on how to communicate
 "you haven't picked a file".
 
