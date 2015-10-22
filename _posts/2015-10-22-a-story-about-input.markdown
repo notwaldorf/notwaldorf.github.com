@@ -50,7 +50,7 @@ both just hold text that someone else has entered:
 In 2011, [HTML4](http://www.w3.org/TR/html401/) only added `type="button"`. My favourite part about
 it is that with no custom styles, an `<input type="button">` and an
 `<input type="button" value="Submit">` on the same line, do not align vertically
-on Chrome/Safari.
+on Chrome/Safari/Edge.
 
 <img height="40px" alt="input type=button misalignment"
 src="/images/2015-10-22/button-align.png">
