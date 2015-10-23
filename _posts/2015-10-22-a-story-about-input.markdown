@@ -19,7 +19,8 @@ Input initially came along with 8 types: `text`, `password`, `checkbox`, `radio`
 
 Wait, did you say _image_? Yeah, let's talk about it.
 
-`<input type="image" src="cat.png">` is just an image. Unless you don't specify
+`<input type="image" src="cat.png">` looks like an image, but it's actually an image
+button that also submits the (x,y) coordinates of where you clicked on the image. Unless you don't specify
 a `src` file, in which case it's an "image button" that says "Submit".
 Unless you're in Firefox, in which case it says "Submit Query" and looks like
 a label. Unless you're in
@@ -35,8 +36,9 @@ Right, ok.
 
 ## And now, a `<textarea>` rant
 I always thought `input` and `textarea` came at later dates, and that explained
-why they're kind of insanely different.
-Turns out they were both children of the HTML2 spec,
+why they're kind of insanely different. This is kind of true, since `input` was
+around in Mosaic since at least 1993, and it was a fixed-up implementation of
+`ISINDEX`. However, on the record, they were both children of the HTML2 spec,
 which decided that `<input>` is a self closing tag and uses a `value` attribute,
 while `<textarea>` needs a closing tag and uses its contents, even though they
 both just hold text that someone else has entered:
@@ -45,6 +47,10 @@ both just hold text that someone else has entered:
 <input value="batman">
 <textarea rows="1">batman</textarea>
 ```
+
+Update: someone pointed out that `<textarea>` needs to support multilines,
+and newlines aren't allowed inside attributes values, which is why it needed
+to use its contents. Makes sense!
 
 ## 1995-2011, the slow years
 In 1999, [HTML4](http://www.w3.org/TR/html401/) only added `type="button"`. My favourite part about
