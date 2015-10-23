@@ -13,7 +13,7 @@
   float: right;
 }
 
-@media screen and (max-width:300px) {
+@media screen and (max-width:500px) {
   .sidebar .sidebar-text {
     display: none;
   }
