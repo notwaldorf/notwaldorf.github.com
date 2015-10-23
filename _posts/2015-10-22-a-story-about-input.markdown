@@ -47,7 +47,7 @@ both just hold text that someone else has entered:
 ```
 
 ## 1995-2011, the slow years
-In 2011, [HTML4](http://www.w3.org/TR/html401/) only added `type="button"`. My favourite part about
+In 1999, [HTML4](http://www.w3.org/TR/html401/) only added `type="button"`. My favourite part about
 it is that with no custom styles, an `<input type="button">` and an
 `<input type="button" value="Submit">` on the same line, do not align vertically
 on Chrome/Safari/Edge.
@@ -56,7 +56,7 @@ on Chrome/Safari/Edge.
 src="/images/2015-10-22/button-align.png">
 
 ## Then everything got worse
-Later in 2011, the [HTML5](http://www.w3.org/html/wg/drafts/html/master/Overview.html) spec added a billion new input types. It's now 2015, and
+Later, in 2011, the [HTML5](http://www.w3.org/html/wg/drafts/html/master/Overview.html) spec added a billion new input types. It's now 2015, and
 most are not implemented. The TL; DR of the missing features is: `type=color` only
 [works](http://caniuse.com/#feat=input-color) on Firefox/Chrome, date/time
 inputs only [work](http://caniuse.com/#feat=input-datetime) on Chrome/Edge/iOS, and
