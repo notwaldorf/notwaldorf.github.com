@@ -3,7 +3,9 @@ layout: post
 title: Why Chromium has code owners
 category: posts
 ---
-My favourite thing about the Chromium code is this [enum](https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/chrome_browser_main_mac.mm&l=44) of cats and all the comments in that file. My second favourite thing is `OWNER` files. Guess what this post is about (hint: it's not about cats NOT EVERYTHING IS ABOUT CATS, OK?)
+My favourite thing about the Chromium code is this [enum](https://chromium.googlesource.com/chromium/src/+/d413b2dcb54d523811d386f1ff4084f677a6d089/chrome/browser/chrome_browser_main_mac.mm#37) of cats and all the comments in that file. My second favourite thing is `OWNER` files. Guess what this post is about (hint: it's not about cats NOT EVERYTHING IS ABOUT CATS, OK?)
+
+Edit: In a clear and deliberate conspiracy, the cats have been removed from Chromium. Your new cool thing, while I'm looking for a cooler thing, should be  [pickles](https://code.google.com/p/chromium/codesearch#chromium/src/base/pickle.h&q=pickle&sq=package:chromium&type=cs&l=138)
 
 ## Why should you care?
 Owners in Chromium are people who own an area of code. This can be a small feature (the `chrome://settings` page) or a giant area (all of the Cocoa UI). You don't *have* to be an owner to be successful -- you get to be an owner because you *want* to. This usually means that you have contributed a lot to that particular nugget of code, have acquired a slightly unhealthy obsession for it (symptoms: if you've whispered "my precious" to a line of code in the last hour, you will make a great code owner one day), and generally care about its well being. I have been trying (unsuccessfully) for years to be an owner of pizza; hit me up if you have any leads.
