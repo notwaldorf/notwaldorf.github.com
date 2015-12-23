@@ -41,7 +41,7 @@ which reduced my options by like a billion percent, and I wanted to ship things.
 Polymer had all of that. So on April 15, I packed my cat and my books
 and moved to San Francisco.
 
-For now, Polymer is my dream job. I get to write code
+Polymer is my dream job. I get to write code
 that I'm genuinely passionate about. I get to try to change the web platform, and talk
 about why I think we're doing the right thing. Most importantly, I get to ship
 something everyday. It turns out that's a thing that matters to me a lot.
@@ -77,7 +77,7 @@ first ever podcast, [Hanselminutes](http://hanselminutes.com/499/understanding-w
 I discovered [#nailconf](https://www.instagram.com/p/9aW5ZxIrBu), which reassures me I can be a giant nerd and with pretty nails. I kept
 3 succulents alive, accidentally killed one, and resurrected a fig leaf tree. I saw my first live
 baseball and basketball matches. I bought a second
-[ukulele](https://www.instagram.com/p/-VIJ05orDH). I didn't spoil Star Wars for
+[ukulele](https://www.instagram.com/p/-VIJ05orDH). I didn't work on weekends. I didn't spoil Star Wars for
 anybody. I turned 30.
 
 ## 🎉
