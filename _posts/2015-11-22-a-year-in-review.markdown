@@ -2,7 +2,6 @@
 layout: post
 title: "2015: a year in review"
 category: posts
-draft: true
 ---
 I've never really done a year in review. One day, I'd like to [open source](https://github.com/una/personal-goals)
 my goals, but since I'm still a chicken, this is a baby step towards that. Plus, this is
