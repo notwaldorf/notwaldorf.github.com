@@ -67,6 +67,11 @@ I gave 5 different talks at 3 conferences and 2 meetups:
  - How I didn't fix emoji in Chrome, [slides](https://speakerdeck.com/notwaldorf/or-how-i-didnt-fix-emoji-in-chrome)
 
 <br>
+I wrote a blog post that a lot of people liked. Most importantly, this happened (#humblebrag):
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">I think <a href="https://t.co/eAoYZGWieP">https://t.co/eAoYZGWieP</a> by <a href="https://twitter.com/notwaldorf">@notwaldorf</a> may be the best thing I have ever read</p>&mdash; Jeff Atwood (@codinghorror) <a href="https://twitter.com/codinghorror/status/657371215800086529">October 23, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<br>
 I had my first ever interview, on [The Setup](https://usesthis.com/interviews/monica.dinculescu/). I spoke on my
 first ever podcast, [Hanselminutes](http://hanselminutes.com/499/understanding-web-components-and-polymer-with-monica-dinculescu).
 I discovered [#nailconf](https://www.instagram.com/p/9aW5ZxIrBu), which reassures me I can be a giant nerd and with pretty nails. I kept
