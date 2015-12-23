@@ -9,7 +9,7 @@ my goals, but since I'm still a chicken, this is a baby step towards that. Plus,
 one of the first years I'm really proud of, and things that you're proud of tend
 to live on the Internet, for posterity.
 
-Here's the TL; DR.
+Here's the TL; DR:
 
 <img alt="2015 contribution graph" src="https://cloud.githubusercontent.com/assets/1369170/11983456/85e214b2-a981-11e5-839e-924b058be802.png">
 
@@ -58,6 +58,7 @@ I shipped 5 dumb projects:
  - [muster](http://meowni.ca/muster/#6&23)
  - [is IE10 dead](http://meowni.ca/is-ie10-dead/)
 
+<br>
 I gave 5 different talks at 3 conferences and 2 meetups:
 
  - Contributing to Chromium, [slides](https://speakerdeck.com/notwaldorf/contributing-to-chromium)
@@ -66,6 +67,14 @@ I gave 5 different talks at 3 conferences and 2 meetups:
  - Input I <3 you but you're bringing me down, [slides](https://speakerdeck.com/notwaldorf/input-i-3-you-but-youre-bringing-me-down), [video](https://vimeo.com/144980655)
  - How I didn't fix emoji in Chrome, [slides](https://speakerdeck.com/notwaldorf/or-how-i-didnt-fix-emoji-in-chrome)
 
-I spoke on my first podcast, [Hanselminutes](http://hanselminutes.com/499/understanding-web-components-and-polymer-with-monica-dinculescu)
+<br>
+I had my first ever interview, on [The Setup](https://usesthis.com/interviews/monica.dinculescu/). I spoke on my
+first ever podcast, [Hanselminutes](http://hanselminutes.com/499/understanding-web-components-and-polymer-with-monica-dinculescu).
+I discovered [#nailconf](https://www.instagram.com/p/9aW5ZxIrBu), which reassures me I can be a giant nerd and with pretty nails. I kept
+3 succulents alive, accidentally killed one, and resurrected a fig leaf tree. I saw my first live
+baseball and basketball matches. I bought a second
+[ukulele](https://www.instagram.com/p/-VIJ05orDH). I didn't spoil Star Wars for
+anybody. I turned 30.
 
-## 🙈
+## 🎉
+See y'all next year, internet friends!
