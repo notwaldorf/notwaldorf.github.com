@@ -25,7 +25,7 @@ I think what burnt me out wasn't waking up to a stream of negative
 emails and tweets, it was knowing that there was absolutely nothing I could do about
 it other than wait.
 
-So I started working on dumb side projects to feel less miserable. I made a
+So I started working on dumb side projects to feel better. I made a
 [link aliaser](http://meowni.ca/meowto/). I bought [dumb](http://canihaveapony.com/)
 domains. I wrote [blog](http://meowni.ca/posts/chromium-101/) [posts](http://meowni.ca/posts/chromium-owners)
 about the only thing that I knew, which was working on Chromium.
@@ -45,6 +45,11 @@ Polymer is my dream job. I get to write code
 that I'm genuinely passionate about. I get to try to change the web platform, and talk
 about why I think we're doing the right thing. Most importantly, I get to ship
 something everyday. It turns out that's a thing that matters to me a lot.
+
+I miss working on Chromium. I miss C++ and the big-ness and complicated-ness
+that is working on a browser. It taught me that if I could find my way around
+the 7 million lines of code and actually do something useful, there's basically
+nothing that I can't do or learn. That's one of the best feelings.
 
 ## TL; DR.
 
