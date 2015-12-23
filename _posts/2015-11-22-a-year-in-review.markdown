@@ -28,7 +28,7 @@ it other than wait.
 So I started working on dumb side projects to feel less miserable. I made a
 [link aliaser](http://meowni.ca/meowto/). I bought [dumb](http://canihaveapony.com/)
 domains. I wrote [blog](http://meowni.ca/posts/chromium-101/) [posts](http://meowni.ca/posts/chromium-owners)
-about the only things that I knew, which were working on Chromium.
+about the only thing that I knew, which was working on Chromium.
 I noticed that not working on Chromium made me happy.
 
 So I bit the bullet, left Chromium, and joined Polymer.
@@ -74,9 +74,9 @@ I wrote a blog post that a lot of people liked. Most importantly, this happened 
 <br>
 I had my first ever interview, on [The Setup](https://usesthis.com/interviews/monica.dinculescu/). I spoke on my
 first ever podcast, [Hanselminutes](http://hanselminutes.com/499/understanding-web-components-and-polymer-with-monica-dinculescu).
-I discovered [#nailconf](https://www.instagram.com/p/9aW5ZxIrBu), which reassures me I can be a giant nerd and with pretty nails. I kept
+I discovered [#nailconf](https://www.instagram.com/p/9aW5ZxIrBu), which reassures me I can be both a giant nerd and have pretty nails. I kept
 3 succulents alive, accidentally killed one, and resurrected a fig leaf tree. I saw my first live
-baseball and basketball matches. I bought a second
+baseball and basketball games. I bought a second
 [ukulele](https://www.instagram.com/p/-VIJ05orDH). I didn't work on weekends. I didn't spoil Star Wars for
 anybody. I turned 30.
 
