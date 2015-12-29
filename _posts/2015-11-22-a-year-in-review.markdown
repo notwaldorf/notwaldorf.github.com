@@ -34,7 +34,7 @@ I noticed that not working on Chromium made me happy.
 So I bit the bullet, left Chromium, and joined Polymer.
 
 ## Joining Polymer
-Looking back, I picked Polymer for a bunch of dumb reasons that ended up working out
+Looking back, I picked Polymer for a bunch of silly reasons that ended up working out
 spectacularly well. I wanted to leave Montreal. I wanted to work on JavaScript,
 since it was the only thing keeping me going. I didn't want to commute to Mountain View,
 which reduced my options by like a billion percent, and I wanted to ship things.
@@ -53,7 +53,7 @@ nothing that I can't do or learn. That's one of the best feelings.
 
 ## TL; DR.
 
-I shipped 5 dumb projects:
+I shipped 5 projects:
 
  - [meowto](http://meowni.ca/meowto/)
  - [emoji-translate](http://meowni.ca/emoji-translate/)
