@@ -10,7 +10,7 @@ to live on the Internet, for posterity.
 
 Here's what my GitHub contributions say about it:
 
-<img alt="2015 contribution graph" src="https://cloud.githubusercontent.com/assets/1369170/12083982/8e44745e-b261-11e5-81ab-0b380eb4472e.png">
+<img alt="2015 contribution graph" src="https://cloud.githubusercontent.com/assets/1369170/12084003/d0f4558a-b261-11e5-84f4-d28e947dd75d.png">
 
 ## Burning out
 The year started off really poorly. My team had just shipped the new Profiles
