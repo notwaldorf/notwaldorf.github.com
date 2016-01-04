@@ -8,9 +8,9 @@ my goals, but since I'm still a chicken, this is a baby step towards that. Plus,
 one of the first years I'm really proud of, and things that you're proud of tend
 to live on the Internet, for posterity.
 
-Here's the TL; DR:
+Here's what my GitHub contributions say about it:
 
-<img alt="2015 contribution graph" src="https://cloud.githubusercontent.com/assets/1369170/11983456/85e214b2-a981-11e5-839e-924b058be802.png">
+<img alt="2015 contribution graph" src="https://cloud.githubusercontent.com/assets/1369170/12083982/8e44745e-b261-11e5-81ab-0b380eb4472e.png">
 
 ## Burning out
 The year started off really poorly. My team had just shipped the new Profiles
