@@ -33,6 +33,8 @@ means you can basically fix 3/4 problems with headphones 💖.
 After you've figured out which side of your headphones is broken, take the squishy earpad off and figure out how to get inside. Some headphones have little lever
 things you need to pop. Mine have 3 little screws. Unscrew them, and place them somewhere where your asshole cat can't eat them.
 
+This is what it looked like inside:
+![inside of the headphones](https://cloud.githubusercontent.com/assets/1369170/12541832/958b0672-c2d0-11e5-80f7-1526fa395c72.jpg)
 ## Step 2: the wires
 
 Hopefully just one of the wires came loose, so that you don't have to
@@ -41,13 +43,17 @@ If, like me, you have to cut the whole cable and resolder all of them, you proba
 I had this (if you look at the post-soldering photo, this might even make sense):
 
 ```
-[ ]         [ ]         [ ]   [ ]       soldered and taped
- |           |           |     |            |    |
- |           |           |     |            |    |
-fat-orange thin-orange   Ø fat-red     fat-blue thin-blue
+// i had a thicker and thinner cables.
+// thick-orange means the orange wire of the thick cable.
+// thin-orange is the orange wire of the thinner cable.
+    ------------- speaker ---------
+    [ ]         [ ]       [ ]    [ ]         soldered together
+     |           |         |      |              |        |
+     |           |         |      |              |        |
+thick-orange thin-orange   Ø thick-red     thick-blue thin-blue
 ```
 
-I also took a picture. It ended up being blurry and useless, so the written note was 👌.
+I also took a picture. It ended up being blurry and useless, so the written bit was 👌.
 
 ## Step 3: cut some wires
 
@@ -79,7 +85,7 @@ your new wires on. Here's what mine looked like post soldering. You'll notice
 it's messy and that nobody cares, because it's all hidden inside the headphones
 anyway. All you care about is your wire making contact with the speaker.
 
-![photo of speaker after soldering](https://cloud.githubusercontent.com/assets/1369170/12541489/b496118c-c2cc-11e5-9fff-e2ade59cf05e.jpg)
+![photo of speaker after soldering](https://cloud.githubusercontent.com/assets/1369170/12542003/6ee0c410-c2d2-11e5-9858-e801279b3ee7.jpg)
 
 ## Step 5: the reckoning
 You should plug in your headphones. If everything went great, then sound
@@ -98,4 +104,4 @@ style headphones.
 
 ## You did it! Yay!
 If everything went right, you've just fixed a pair of headphones.
-High five, friend; I'm proud of you! 👍💖
+High five, you hardware hacker you! I'm so proud! 👍💖
