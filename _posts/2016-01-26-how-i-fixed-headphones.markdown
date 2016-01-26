@@ -2,7 +2,6 @@
 layout: post
 title: "I fixed a pair of headphones with some soldering, and you can too!"
 category: posts
-draft: true
 ---
 Here's the thing: I have this [sweet pair of headphones](http://s3-us-west-2.amazonaws.com/hypebeast-wordpress/image/2008/07/ed-banger-wesc-headphones.jpg) that I got from a
 friend a gazillion years ago. I've always liked them because they were
@@ -97,8 +96,7 @@ it wasn't the wires after all 😓
 
 To be honest, the most annoying thing was putting the little earpads back. After serious
 struggling, I discovered there's a little wedge on the headphones base, where you can slip a bit of the earpad in,
-and then slide it all the way across. I think this is common for most earpad
-style headphones.
+and then slide it all the way across. Yours might have this too!
 
 ![photo of the earpad](https://cloud.githubusercontent.com/assets/1369170/12541481/90f804ba-c2cc-11e5-8f55-b97356c291f4.jpg)
 
