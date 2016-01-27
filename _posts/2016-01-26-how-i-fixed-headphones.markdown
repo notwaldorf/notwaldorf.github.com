@@ -95,6 +95,17 @@ If sound isn't coming out of them, it could be that
 your connection is loose and you need to debug your soldering (which means repeating step 4), or that
 it wasn't the wires after all 😓
 
+**Important bit I missed the first time:** The cable sits in a little rubber casing
+at the edge of the headphone like this:
+
+![cable rubber casing](https://cloud.githubusercontent.com/assets/1369170/12625281/f4b8189c-c4e7-11e5-898e-ac9d8ed5011c.jpg)
+
+When I first took apart the headphones, I thought it was annoying the cable was glued to this rubber casing, because it meant I couldn't use it, and had to find a new one (hoarding broken headphones helps with this). Spoilers: this was
+intentional. You should ALSO super glue your cable inside the
+rubber casing, or else when you invariably tug on the cable, it will totally
+break the soldering you just did. Possibly just before you're about to demo
+your amazing new fixed headphones to your friends.
+
 To be honest, the most annoying thing was putting the little earpads back. After serious
 struggling, I discovered there's a little wedge on the headphones base, where you can slip a bit of the earpad in,
 and then slide it all the way across. I think this is common for most earpad
