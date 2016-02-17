@@ -32,6 +32,8 @@ However, I'll tell you about the custom [things](https://github.com/notwaldorf/n
  - I use Atom, and have used Sublime as an editor. Last time I checked, XCode beach balled, huffing and puffing, when trying to load the code. Visual Studio works pretty well if you can stand Windows and its insane command prompt. You can use ctags if you want; I don't. I use a dumb editor, and find code through
 `git grep` and the Chromium [codesearch](https://code.google.com/p/chromium/codesearch), because I'm metal like that. You can use anything you want. Literally nobody cares.
 
+**Edit** (Feb 17, 2016): I wrote a detailed [answer](https://github.com/notwaldorf/ama/issues/34#issuecomment-185038702) that contains a whole bunch of extra tricks to make builds faster.
+
 ## Get your body ready
 Chromium has a [code style](http://www.chromium.org/developers/coding-style). Do
 not panic if your first review will have 20 comments that are code style nits. It's
