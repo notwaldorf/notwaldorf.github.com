@@ -8,11 +8,10 @@ and my [slides](https://speakerdeck.com/notwaldorf/contributing-to-chromium) by 
 (which, to be fair, they were). So instead, here is a giant blog post that will take you
 through every step from "checking out the code" to "landing the code in the Chromium repo". It will also come in super handy for mild to moderate cases of insomnia.
 
-If you want a TL;DR or a refresher of the commands you might needs, check out the [slides] (https://speakerdeck.com/notwaldorf/contributing-to-chromium). 
+If you just want a TL;DR or a refresher of the commands you might need, check out the [slides] (https://speakerdeck.com/notwaldorf/contributing-to-chromium). They're basically bullet points without the running commentary.
+
 **Warning**: this is a long post. The bug we're fixing is silly, but will get
-us writing actual Chromium code. 
-- 
-- If you want a
+us writing actual Chromium code. If you want a
 real good-first-bug to fix after this, [here](https://code.google.com/p/chromium/issues/list?q=Hotlist:GoodFirstBug) is a nice list. Usually unassigned bugs (with no owner) are free for the taking, but it can also happen that a bug will be assigned to a human who is not actually working on it. Check the activity on it -- if there haven't been any activities in a while, leave a message on the bug or ping the owner and tell them you'd like to work on it!
 
 ## Get your computer ready
