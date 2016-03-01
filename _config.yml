@@ -1,7 +1,7 @@
 markdown: redcarpet
 redcarpet:
     extensions: [with_toc_data]
-permalink: /posts/:title
+permalink: /posts/:title/
 gems:
   - jemoji
 
