@@ -105,7 +105,7 @@ Chrome's graphics engine. It is the one that paints the glyph on the screen.
 Fonts, boy, them's a pickle. There's basically one font per platform that
 actually knows how to draw emoji (unless you went out of your way to
 install extra ones). All the other fonts just rent the emoji from it.
-These fonts are AppleColorEmoji (OSX), Segoe UI Symbol/Emoji (Windows),
+These fonts are AppleColorEmoji (OS X), Segoe UI Symbol/Emoji (Windows),
 NotoColorEmoji (Android) and I don't know what Linux does, but it's probably
 black and white. I'm going to keep talking about the Apple one, because that's
 the code path I worked on in Chrome, but Windows works very similarly.
@@ -118,7 +118,7 @@ So let's say you have this:
 
 Skia will first look up the glyph corresponding to 😻 in the Comic Sans font.
 It won't find it, so it will first try the web `fallback` font, the default
-platform sans-serif (I think on OSX this is Helvetica, and it's probably
+platform sans-serif (I think on OS X this is Helvetica, and it's probably
 Arial on Windows). That also doesn't have the glyph (remember, only one font
 knows how to draw cats with heart eyes), so Skia will know to fallback to
 `AppleColorEmoji` by looking at the glyph: it's 32 bits, and it's in colour,
