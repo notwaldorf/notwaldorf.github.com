@@ -76,7 +76,7 @@ you'll notice something weird. Instead of getting a black thumbs up, or the Cana
 
 <img width="129" alt="a yellow thumbs up with a dark brown square; two boxes, each with the letters C and A; 4 separate heads in a line" src="https://cloud.githubusercontent.com/assets/1369170/14193347/def54478-f758-11e5-95ca-bc8b5988874c.png">
 
-Whoaaaa, what's going on there? (This is a trick question. I'ma tell you what's going on there)
+Whoaaaa, what's going on there? (This is a trick question. I'ma tell you what's going on there.)
 
 The [flags](http://unicode.org/reports/tr51/#Flags) are built around a weird (and annoying to implement) rule: the
 surrogate pairs (called `regional indicators`) spell out the country code (so
@@ -84,7 +84,7 @@ surrogate pairs (called `regional indicators`) spell out the country code (so
 they're made out a special emoji [base](http://unicode.org/reports/tr51/#Subject_Emoji_Modifiers) + one of the 6 special colour [modifiers](http://unicode.org/reports/tr51/#Emoji_Modifiers_Table). The couples/multi
 families are a [sequence](http://www.unicode.org/emoji/charts/emoji-zwj-sequences.html) of characters, that together makes one emoji.
 
-<h2 style="border-left-color:#f5db7f;">💰 So what does Chrome do?</h2>
+<h2 style="border-left-color:#a77be3;">👾 So what does Chrome do?</h2>
 Okay, cool! We figured out what code units we need for 🇨🇦, now, let's figure
 out how to render them!
 
@@ -100,7 +100,7 @@ top of each other, so that the spacing around the final glyph adds up.
 This glyph and its size/position then goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
 Chrome's graphics engine. It is the one that paints the glyph on the screen.
 
-<h2 style="border-left-color:#e2be78;">🎨 What about fonts?</h2>
+<h2 style="border-left-color:#5b86f7;">🖌 What about fonts?</h2>
 
 Fonts, boy, them's a pickle. There's basically one font per platform that
 actually knows how to draw emoji (unless you went out of your way to
@@ -140,6 +140,9 @@ them on top of each other. So that's why you get them separately. That's
 been fixed now! Yay!
 
 
-<h2 style="border-left-color:#ed2f20;">💥🙌✨</h2>
+<h2 style="border-left-color:#ed2f20;">💥🙌✨💝</h2>
 
-Congratulations! Now you too can be Nicolas Cage and shout at people about emoji trivia! Wasn't this fun?
+Congratulations! Now you too can be Nicolas Cage and shout at people about
+emoji trivia! Wasn't this fun?
+
+![nicolas cage y'all](https://media.giphy.com/media/RrVzUOXldFe8M/giphy.gif)
