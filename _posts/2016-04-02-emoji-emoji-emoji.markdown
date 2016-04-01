@@ -11,7 +11,8 @@ That's baaaasically me, if by "look for VX poison gas" you mean "nerd out on emo
 by "save San Francisco" you mean "and tell everyone about it".
 I mean, you clicked on this link, what did you think was going to happen?
 
-## 🍿 How did we get so lucky?
+
+<h2>🍿 How did we get so lucky?</h2>
 
 An [emoji](https://en.wikipedia.org/wiki/Emoji) is a coloured glyph. They appeared around 1999 in Japan, where each mobile carrier implemented their own variants, and people
 were sending them around in text messages. This was a bit of a mess, as
@@ -32,13 +33,13 @@ Open Circle Arrows With Circled One Overlay_, which shows true dedication to typ
 
 Emoji does not have a plural in Japanese, so stop trying to make emojis happen.
 
-## 🙀 What is an emoji even
+<h2 style="border-left-color:#fbcd46;">🙀 What is an emoji even</h2>
 
 Every emoji is represented by a `code point` (a hexadecimal number, zero-padded up to at least four digits, like U+26C4).
 Each [code point](https://en.wikipedia.org/wiki/Code_point), in turn, can be represented by one or more 16-bit `code unit`.
 
 Some emoji are boring (or in the [basic](https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane) unicode plane), which means one glyph is represented by one `code unit`.
- ☃ for example is `U+2603` (you'd write this as `\u2603` in the codes). In JavaScript, to find out how many code units represent an emoji, you can query it's length:
+ ☃ for example is `U+2603` (you'd write this as `\u2603` in the codes). In JavaScript, to find out how many code units represent an emoji, you can query its length:
 
 ```
 "☃".length    // returns 1
@@ -55,11 +56,12 @@ To find out what the code units actually are, you can look them up:
 
 Let's talk about panda! 🐼 lives in the "astral" plane (it's officially
 called a [supplementary](https://en.wikipedia.org/wiki/Plane_(Unicode)#Supplementary_Multilingual_Plane) plane, but that's boring), which means its
-code point has more than 4 digits, and is represented by _two_ code units. This
+code point has more than four digits, and is represented by _two_ code units. This
 is called a `surrogate pair`. As we saw above, 🐼 is made up of two
 surrogates, `U+D83D` and `U+DC3C`.
 
-## 🙋 What about emoji modifiers?
+<h2 style="border-left-color:#f19fd9;">🙋 What about emoji modifiers?</h2>
+
 🇨🇦 and 👍🏿 and 👨‍👨‍👧‍👧 are also
 "astral" plane emojis, only they're made out of 2+ surrogate pairs:
 
@@ -82,11 +84,11 @@ surrogate pairs (called `regional indicators`) spell out the country code (so
 they're made out a special emoji [base](http://unicode.org/reports/tr51/#Subject_Emoji_Modifiers) + one of the 6 special colour [modifiers](http://unicode.org/reports/tr51/#Emoji_Modifiers_Table). The couples/multi
 families are a [sequence](http://www.unicode.org/emoji/charts/emoji-zwj-sequences.html) of characters, that together makes one emoji.
 
-## 💰 So what does Chrome do?
+<h2 style="border-left-color:#f5db7f;">💰 So what does Chrome do?</h2>
 Okay, cool! We figured out what code units we need for 🇨🇦, now, let's figure
 out how to render them!
 
-First, Chrome uses a text shaper called [harfbuzz](https://harfbuzz.org/). Text shapers
+First, Chrome uses a text shaper called [harfbuzz](http://harfbuzz.org/). Text shapers
 take Unicode code points and convert them to glyphs -- and guess what we have! Unicode
 code points! The text shaper is the one that knows how to look at this stream
 of code units and surrogate pairs and figure out which are standalone, which
@@ -98,7 +100,8 @@ top of each other, so that the spacing around the final glyph adds up.
 This glyph and its size/position then goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
 Chrome's graphics engine. It is the one that paints the glyph on the screen.
 
-## 🎨 What about fonts?
+<h2 style="border-left-color:#e2be78;">🎨 What about fonts?</h2>
+
 Fonts, boy, them's a pickle. There's basically one font per platform that
 actually knows how to draw emoji (unless you went out of your way to
 install extra ones). All the other fonts just rent the emoji from it.
@@ -132,9 +135,11 @@ Atom is built on Chromium soooo it should work, right?
 Well as we know, software. This fallback logic I just mentioned was a bit
 broken pre Chrome 50 for flags and modifiers and complicated emoji like that.
 So Harfbuzz got as far as figuring out that there were two different glyphs,
-"thumbs up" and "skin color", but not how to get the correct glyph and draw
+"thumbs up" and "skin colour", but not how to get the correct glyph and draw
 them on top of each other. So that's why you get them separately. That's
 been fixed now! Yay!
 
-## 🙌✨💥
-Congratulations! Now you too can shout at people about emoji trivia! Wasn't this fun?
+
+<h2 style="border-left-color:#ed2f20;">💥🙌✨</h2>
+
+Congratulations! Now you too can be Nicolas Cage and shout at people about emoji trivia! Wasn't this fun?
