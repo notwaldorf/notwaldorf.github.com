@@ -16,7 +16,7 @@ I mean, you clicked on this link, what did you think was going to happen?
 
 An [emoji](https://en.wikipedia.org/wiki/Emoji) is a coloured glyph. They appeared around 1999 in Japan, where each mobile carrier implemented their own variants, and people
 were sending them around in text messages. This was a bit of a mess, as
-proprietary formats interacting with other proprietary formats was, so in 2000
+you can imagine proprietary formats interacting with other proprietary formats to be, so in 2000
 there was a proposal to standardize them. It wasn't until 2009, though, that emoji got specced
 in Unicode 5.2 <span style="color:#7ccdea;">#blessed</span>.
 
@@ -24,14 +24,14 @@ in Unicode 5.2 <span style="color:#7ccdea;">#blessed</span>.
 and name, which is a description/suggestion of what the
 emoji should look like. This is why 💁,for example, often gets in trouble for being
 labelled as _Information Desk Person_, but is actually just a sassy lady: it's the
-implementation of the emoji doesn't match its original description, not the
-other way around.
+implementation of the emoji that doesn't match its original description, not the
+other way around. If you take sassy lady away from me though, there will be words.
 
-My favourite is 🔂,
+My favourite description is
 _Clockwise Rightwards and Leftwards
-Open Circle Arrows With Circled One Overlay_, which shows true dedication to typing.
+Open Circle Arrows With Circled One Overlay_ (or 🔂 for short), which shows true dedication to typing.
 
-Emoji does not have a plural in Japanese, so stop trying to make emojis happen.
+Emoji does not have a plural in Japanese, so stop trying to make _emojis_ happen.
 
 <h2 style="border-left-color:#fbcd46;">🙀 What is an emoji even</h2>
 
@@ -60,6 +60,11 @@ code point has more than four digits, and is represented by _two_ code units. Th
 is called a `surrogate pair`. As we saw above, 🐼 is made up of two
 surrogates, `U+D83D` and `U+DC3C`.
 
+My favourite emoji (thank you for asking!) is the dancer from the Android set. Look
+at this blob. Look at all the shits it doesn't give. It's so happy. We should all be like this blob.
+
+<img width="60" alt="the dancer as implemented on android, a beautiful blob with a rose in its teeth" src="https://cloud.githubusercontent.com/assets/1369170/14198590/c07a7d14-f790-11e5-9d95-499731513ab3.png">
+
 <h2 style="border-left-color:#f19fd9;">🙋 What about emoji modifiers?</h2>
 
 🇨🇦 and 👍🏿 and 👨‍👨‍👧‍👧 are also
@@ -82,7 +87,7 @@ The [flags](http://unicode.org/reports/tr51/#Flags) are built around a weird (an
 surrogate pairs (called `regional indicators`) spell out the country code (so
 🇨🇦 is actually `[C][A]`). Skin colours are similar, but a little simpler:
 they're made out a special emoji [base](http://unicode.org/reports/tr51/#Subject_Emoji_Modifiers) + one of the 6 special colour [modifiers](http://unicode.org/reports/tr51/#Emoji_Modifiers_Table). The couples/multi
-families are a [sequence](http://www.unicode.org/emoji/charts/emoji-zwj-sequences.html) of characters, that together makes one emoji.
+families are a [sequence](http://www.unicode.org/emoji/charts/emoji-zwj-sequences.html) of characters, that together make one emoji.
 
 <h2 style="border-left-color:#a77be3;">👾 So what does Chrome do?</h2>
 Okay, cool! We figured out what code units we need for 🇨🇦, now, let's figure
@@ -98,7 +103,7 @@ up with the glyph and the position where to draw it. If you think about a couple
 top of each other, so that the spacing around the final glyph adds up.
 
 This glyph and its size/position then goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
-Chrome's graphics engine. It is the one that paints the glyph on the screen.
+Chrome's graphics engine. It is the one that paints the right glyph on the screen.
 
 <h2 style="border-left-color:#5b86f7;">🖌 What about fonts?</h2>
 
@@ -107,7 +112,7 @@ actually knows how to draw emoji (unless you went out of your way to
 install extra ones). All the other fonts just rent the emoji from it.
 These fonts are AppleColorEmoji (OS X), Segoe UI Symbol/Emoji (Windows),
 NotoColorEmoji (Android) and I don't know what Linux does, but it's probably
-black and white. I'm going to keep talking about the Apple one, because that's
+black and white and who cares, I hear you can run bash on Windows now. I'm going to keep talking about the Apple font, because that's
 the code path I worked on in Chrome, but Windows works very similarly.
 
 So let's say you have this:
@@ -134,9 +139,9 @@ Atom is built on Chromium soooo it should work, right?
 
 Well as we know, software. This fallback logic I just mentioned was a bit
 broken pre Chrome 50 for flags and modifiers and complicated emoji like that.
-So Harfbuzz got as far as figuring out that there were two different glyphs,
+So Chrome got as far as figuring out that there were two different glyphs,
 "thumbs up" and "skin colour", but not how to get the correct glyph and draw
-them on top of each other. So that's why you get them separately. That's
+them on top of each other. So that's why you got them separately. That's
 been fixed now! Yay!
 
 
