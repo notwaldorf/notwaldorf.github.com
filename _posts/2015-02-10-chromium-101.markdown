@@ -177,7 +177,7 @@ a better reviewer.
 
 (Side note: please don't *actually* send this pony code out for review. People will be very confused, and not necessarily amused.)
 
-## Ship it, squirrel! :shipit:
+## Ship it, squirrel! <img class="emoji" title=":shipit:" alt=":shipit:" src="https://assets-cdn.github.com/images/icons/emoji/shipit.png" height="30" width="30">
 When your CL is reviewed and ready to go, all you have to do is check the "Commit" checkbox, and the commit-queue bots will take care of it. This means that they will run a whole bunch of unit tests again, and if they all pass (or "come up green"), merge your code into the current master branch.
 
 #### Oh noes, TROUBLE

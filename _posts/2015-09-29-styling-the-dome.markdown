@@ -93,7 +93,7 @@ Everything inside `.container`, including `.container` itself is inside the Shad
 <shiny-button>hallo hai</shiny-button>
 ```
 The `<shiny-button`> looks like the thing on the left. Pretty meh. We'll do better. We'll style it
-to be the thing on the right, without any :dragon::dragon::dragon:.
+to be the thing on the right, without any 🐲🐲🐲.
 
 <img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png">
 

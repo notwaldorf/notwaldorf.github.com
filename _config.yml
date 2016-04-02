@@ -1,10 +1,4 @@
-markdown: redcarpet
-redcarpet:
-    extensions: [with_toc_data]
 permalink: /posts/:title/
-gems:
-  - jemoji
-
 name: Monica Dinculescu
 url: http://meowni.ca
 description: A wild blog appears.
