@@ -13,7 +13,7 @@ I mean, you clicked on this link, what did you think was going to happen?
 
 <h2>🍿 How did we get so lucky?</h2>
 
-An [emoji](https://en.wikipedia.org/wiki/Emoji) is a coloured glyph. They appeared around 1999 in Japan, where each mobile carrier implemented their own variants, and people
+An [emoji](https://en.wikipedia.org/wiki/Emoji) is a coloured [glyph](https://en.wikipedia.org/wiki/Glyph). They appeared around 1999 in Japan, where each mobile carrier implemented their own variants, and people
 were sending them around in text messages. This was a bit of a mess, as
 you can imagine proprietary formats interacting with other proprietary formats to be, so in 2000
 there was a proposal to standardize them. It wasn't until 2009, though, that emoji got specced
@@ -102,8 +102,8 @@ up with the glyph and the position where to draw it. If you think about a couple
 👩‍❤️‍👩, all surrogate pairs need to be drawn on
 top of each other, so that the spacing around the final glyph adds up.
 
-This glyph and its size/position eventually goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
-Chrome's graphics engine. It is the one that paints the right glyph on the screen.
+This glyph and its size/position eventually goes to [Skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
+Chrome's graphics engine. It is the one that paints the right thing on the screen ([here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/skia/src/ports/SkFontHost_mac.cpp&l=1257) is that code).
 
 <h2 style="border-left-color:#5b86f7;">🖌 What about fonts?</h2>
 
