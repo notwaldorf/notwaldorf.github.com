@@ -102,7 +102,7 @@ up with the glyph and the position where to draw it. If you think about a couple
 👩‍❤️‍👩, all surrogate pairs need to be drawn on
 top of each other, so that the spacing around the final glyph adds up.
 
-This glyph and its size/position then goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
+This glyph and its size/position eventually goes to [skia](https://en.wikipedia.org/wiki/Skia_Graphics_Engine),
 Chrome's graphics engine. It is the one that paints the right glyph on the screen.
 
 <h2 style="border-left-color:#5b86f7;">🖌 What about fonts?</h2>
@@ -121,16 +121,17 @@ So let's say you have this:
 <p style="font-family: 'Comic Sans MS', sans-serif;">😻</p>
 ```
 
-Skia will first look up the glyph corresponding to 😻 in the Comic Sans font.
+Chrome (specifically [Blink](https://en.wikipedia.org/wiki/Blink_(web_engine)) will first look up the glyph corresponding to 😻 in the Comic Sans font.
 It won't find it, so it will first try the web `fallback` font, the default
 platform sans-serif (I think on OS X this is Helvetica, and it's probably
 Arial on Windows). That also doesn't have the glyph (remember, only one font
-knows how to draw cats with heart eyes), so Skia will know to fallback to
+knows how to draw cats with heart eyes), so Chrome knows to fallback to
 `AppleColorEmoji` by looking at the glyph: it's 32 bits, and it's in colour,
 so it must be an emoji. [Here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/mac/FontCacheMac.mm&q=fontcachemac&sq=package:chromium&type=cs&l=91)'s the code
 where that happens.
 
-Cool, so now Skia knows to ask AppleColorEmoji for the cat, and paints it
+Cool, so now Chrome knows to ask AppleColorEmoji for the cat, takes that glyph,
+passes it to Skia, and paints it
 in the right position, and everything is fine. Cool cool cool.
 
 Remember though how in Atom, you see <img width="53" alt="a yellow thumbs up with a dark brown square" style="display:inline-block;" src="https://cloud.githubusercontent.com/assets/1369170/14195194/5704b2a2-f76b-11e5-922c-d4753861d55f.png">
