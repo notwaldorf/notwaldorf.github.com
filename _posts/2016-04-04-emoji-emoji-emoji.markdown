@@ -2,7 +2,6 @@
 layout: post
 title: "Emoji: how do you get from U+1F355 to 🍕?"
 category: posts
-draft: true
 ---
 
 You know that scene in The Rock where Nicolas Cage is super dreamy (like he is)
