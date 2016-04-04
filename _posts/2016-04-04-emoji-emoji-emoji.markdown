@@ -93,7 +93,8 @@ Okay, cool! We figured out what code units we need for 🇨🇦, now, let's figu
 out how to render them!
 
 First, Chrome uses a text shaper called [harfbuzz](http://harfbuzz.org/). Text shapers
-take Unicode code points and convert them to glyphs -- and guess what we have! Unicode
+take Unicode code points and convert them to glyph indices (basically saying "you're going to 
+have to draw glyphs 23 and 74") -- and guess what we have! Unicode
 code points! The text shaper is the one that knows how to look at this stream
 of code units and surrogate pairs and figure out which are standalone, which
 are weirdo flags, and which are modifiers. Once it's done with it, it comes
