@@ -92,7 +92,7 @@ families are a [sequence](http://www.unicode.org/emoji/charts/emoji-zwj-sequence
 Okay, cool! We figured out what code units we need for 🇨🇦, now, let's figure
 out how to render them!
 
-First, Chrome uses a text shaper called [harfbuzz](http://harfbuzz.org/). Text shapers
+First, Chrome uses a text shaper called [Harfbuzz](http://harfbuzz.org/). Text shapers
 take Unicode code points and convert them to glyph indices (basically saying "you're going to 
 have to draw glyphs 23 and 74") -- and guess what we have! Unicode
 code points! The text shaper is the one that knows how to look at this stream
@@ -121,7 +121,7 @@ So let's say you have this:
 <p style="font-family: 'Comic Sans MS', sans-serif;">😻</p>
 ```
 
-Chrome (specifically [Blink](https://en.wikipedia.org/wiki/Blink_(web_engine)) will first look up the glyph corresponding to 😻 in the Comic Sans font.
+Chrome (specifically [Blink](https://en.wikipedia.org/wiki/Blink_(web_engine))) will first look up the glyph corresponding to 😻 in the Comic Sans font.
 It won't find it, so it will first try the web `fallback` font, the default
 platform sans-serif (I think on OS X this is Helvetica, and it's probably
 Arial on Windows). That also doesn't have the glyph (remember, only one font
