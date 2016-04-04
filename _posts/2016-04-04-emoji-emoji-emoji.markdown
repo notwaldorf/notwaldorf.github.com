@@ -139,8 +139,8 @@ Atom is built on Chromium soooo it should work, right?
 Well as we know, software. This fallback logic I just mentioned was a bit
 broken pre Chrome 50 for flags and modifiers and complicated emoji like that.
 So Chrome got as far as figuring out that there were two different glyphs,
-"thumbs up" and "skin colour", but not how to get the correct glyph and draw
-them on top of each other. So that's why you got them separately. That's
+"thumbs up" and "skin colour", but not how to fallback to the correct font 
+and draw the compound "black thumbs up" glyph. So that's why you got them separately. That's
 been fixed now! Yay!
 
 
