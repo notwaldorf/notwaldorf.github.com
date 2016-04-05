@@ -35,7 +35,7 @@ Emoji does not have a plural in Japanese, so stop trying to make _emojis_ happen
 <h2 style="border-left-color:#fbcd46;">🙀 What is an emoji even</h2>
 
 Every emoji is represented by a `code point` (a hexadecimal number, zero-padded up to at least four digits, like U+26C4).
-Because all strings are internally represented in UTF-16, this means that each [code point](https://en.wikipedia.org/wiki/Code_point), in turn, can be represented by one or more 16-bit `code unit`.
+Because all JavaScript strings are internally (i.e. in browsers) represented in UTF-16, this means that each [code point](https://en.wikipedia.org/wiki/Code_point), in turn, can be represented by one or more 16-bit `code unit`.
 
 Some emoji are boring (or in the [basic](https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane) unicode plane), which means one glyph is represented by one `code unit`.
  ☃ for example is `U+2603` (you'd write this as `\u2603` in the codes). In JavaScript, to find out how many code units represent an emoji, you can query its length:
