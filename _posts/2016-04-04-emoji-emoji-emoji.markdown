@@ -128,7 +128,7 @@ Arial on Windows). That also doesn't have the glyph (remember, only one font
 knows how to draw cats with heart eyes), so Chrome knows to fallback to
 `AppleColorEmoji` by looking at the glyph: it's 32 bits and it has an emoji presentation,
 so it must be an emoji. [Here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/mac/FontCacheMac.mm&q=fontcachemac&sq=package:chromium&type=cs&l=91)'s the code
-where that happens (the real work is done [here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/SymbolsIterator.cpp&q=FontFallbackPriority::EmojiEmoji&sq=package:chromium&type=cs&l=23) and [here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/CharacterEmoji.cpp&l=95). This entire last file is pretty glorious and useful if you ever need to know if a thing is an emoji or not).
+where that happens (the real work is done [here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/SymbolsIterator.cpp&q=FontFallbackPriority::EmojiEmoji&sq=package:chromium&type=cs&l=23) and [here](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/text/CharacterEmoji.cpp&q=characteremoji.cpp&sq=package:chromium&type=cs&l=95). This entire last file is pretty glorious and useful if you ever need to know if a thing is an emoji or not).
 
 Cool, so now Chrome knows to ask AppleColorEmoji for the cat, takes that glyph,
 passes it to Skia, and paints it
