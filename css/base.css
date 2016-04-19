@@ -126,12 +126,13 @@ ul {
 }
 
 .sidebar .meta {
-  margin-left: 22px;
+  margin-left: 12px;
   margin-top: 10px;
 }
 
 .sidebar .meta .icon {
-  margin-right: 6px;
+  margin-left: 2px;
+  margin-right: 2px;
   font-size: 20px;
 }
 
