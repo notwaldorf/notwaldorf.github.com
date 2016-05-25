@@ -55,32 +55,31 @@
   <emoji-rain id="rainmaker"></emoji-rain>
   <div class="top-line"></div>
   <div class="container">
-    <section class="sidebar">
-      <a href="/">
+    <header class="sidebar">
+      <a href="/" title="Photo of my face" aria-label="Photo of my face">
         <img src="{{ site.gravatar_url }}?s=250" height="150" width="150" class="avatar" />
       </a>
 
       <div class="sidebar-text">
         <section class="meta">
-          <a href="https://github.com/{{ site.twitter }}" target="_blank"><i class="icon icon-github"></i></a>
-          <a href="https://twitter.com/{{ site.twitter }}" target="_blank"><i class="icon icon-twitter"></i></a>
-          <a href="https://dribbble.com/{{ site.twitter }}" target="_blank"><i class="icon icon-dribbble"></i></a>
-          <a href="https://{{ site.twitter }}.exposure.co" target="_blank"><i class="icon icon-camera-retro"></i></a>
-          <a href="/atom.xml"><i class="icon icon-rss"></i></a>
+          <a href="https://github.com/{{ site.twitter }}" target="_blank" title="Peep at my GitHub" aria-label="Peep at my GitHub"><i class="icon icon-github"></i></a>
+          <a href="https://twitter.com/{{ site.twitter }}" target="_blank" title="Follow me on twitter" aria-label="Follow me on Twitter"><i class="icon icon-twitter"></i></a>
+          <a href="https://dribbble.com/{{ site.twitter }}" target="_blank" title="Follow me on dribbble" aria-label="Follow me on dribbble"><i class="icon icon-dribbble"></i></a>
+          <a href="https://{{ site.twitter }}.exposure.co" target="_blank" title="Follow my photos on exposure.co" aria-label="Follow my photos on exposure.co"><i class="icon icon-camera-retro"></i></a>
+          <a href="/atom.xml" title="Atom RSS feed" aria-label="Atom RSS feed"><i class="icon icon-rss"></i></a>
         </section>
 
-        <section class="sections">
+        <nav class="sections">
           <ul>
             <li><a href="/about">about</a></li>
             <li><a href="/">posts</a></li>
             <!--<li><a href="/projects.html">projects</a></li>-->
             <li><a href="/talks">talks</a></li>
-            <li><button onclick="rain(this)">🎉</button></li>
-
+            <li><button onclick="rain(this)" title="emoji-rain" aria-label="emoji-rain">🎉</button></li>
           </ul>
-        </section>
+        </nav>
       </div>
-    </section>
+    </header>
 
     {{ content }}
 
@@ -88,9 +87,10 @@
       <div class="footer">
         <section class="thanks">
           <span>thanks for reading!</span>
-          <span><a href="#" class="heart">❤︎</a></span></section>
+          <span><a href="#" class="heart" aria-hidden="true">❤︎</a></span>
+        </section>
         <section class="twitter">
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf">Tweet</a>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!" aria-label="Tweet at me!">Tweet</a>
           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </section>
       </div>
