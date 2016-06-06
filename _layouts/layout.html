@@ -24,7 +24,20 @@
   <link href='http://fonts.googleapis.com/css?family=Oswald:400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <!-- emoji rain -->
-  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+  (function() {
+      if ('registerElement' in document
+          && 'import' in document.createElement('link')
+          && 'content' in document.createElement('template')) {
+        // platform is good!
+      } else {
+        // polyfill the platform!
+        var e = document.createElement('script');
+        e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+        document.body.appendChild(e);
+      }
+    })();
+  </script>
   <link rel="import" href="/bower_components/emoji-rain/emoji-rain.html">
   <script type="text/javascript">
 
