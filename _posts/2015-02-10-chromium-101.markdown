@@ -26,14 +26,15 @@ However, I'll tell you about the custom [things](https://github.com/notwaldorf/n
 
  - I always build `Release` builds, because they're faster. This means I don't get as many debug symbols as I would like. That's fine for me, because I'm a chicken
  and pretty scared of `lldb`, and I debug with `printfs` like this is the 80s anyway
- - I've added `component=shared_library` (so that incremental builds are super fast) and `dcheck_always_on=1` (so that even though I have
- a `Release` build, debug asserts still get hit) to my `GYP_DEFINES`.  [Here](http://www.chromium.org/developers/gyp-environment-variables) are all the ways in which you can set up your `GYP_DEFINES`. I use the `chromium.gyp_env` way on Windows (because I don't understand `PATH` variables) and the `Environment Variable` way on Mac/Linux, because I sort of understand `exports`. Realtalk, I really don't know any Windows, and I'm ok with that
+ - ~~I've added `component=shared_library` (so that incremental builds are super fast) and `dcheck_always_on=1` (so that even though I have
+ a `Release` build, debug asserts still get hit) to my `GYP_DEFINES`.  [Here](http://www.chromium.org/developers/gyp-environment-variables) are all the ways in which you can set up your `GYP_DEFINES`. I use the `chromium.gyp_env` way on Windows (because I don't understand `PATH` variables) and the `Environment Variable` way on Mac/Linux, because I sort of understand `exports`. Realtalk, I really don't know any Windows, and I'm ok with that~~. Chromium switched to `gn`; check [this](https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md#Faster-builds) out for how to enable the component build with `gn`. The bit about me not knowing any Windows is still true, though.
  - I have a fancy set of [aliases](https://github.com/notwaldorf/not-quite-dotfiles/blob/master/chrome#L15) like `make_` and `go_`, so that I don't have to
  remember about which flags I want to run Chrome with. They come in `doskey` variants on Windows
  - Don't use cygwin on Windows. It doesn't play nice with the `depot_tools`
  - I use Atom, and have used Sublime as an editor. Last time I checked, XCode beach balled, huffing and puffing, when trying to load the code. Visual Studio works pretty well if you can stand Windows and its insane command prompt. You can use ctags if you want; I don't. I use a dumb editor, and find code through
 `git grep` and the Chromium [codesearch](https://code.google.com/p/chromium/codesearch), because I'm metal like that. You can use anything you want. Literally nobody cares.
 
+**Edit** (Aug 9, 2016): Chromium just switched to `gn`, which means some of the comments below don't apply. Check these [mac build instructions](https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md) for how to make your build fast again, using `gn`.
 **Edit** (Feb 17, 2016): I wrote a detailed [answer](https://github.com/notwaldorf/ama/issues/34#issuecomment-185038702) that contains a whole bunch of extra tricks to make builds faster.
 
 ## Get your body ready
