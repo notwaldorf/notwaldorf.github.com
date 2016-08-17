@@ -1,20 +1,2076 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-@license
-Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><link rel="import" href="polymer-mini.html">
+<html><head><meta charset="UTF-8">
+</head><body><div hidden="" by-vulcanize=""><script>(function () {
+function resolve() {
+document.body.removeAttribute('unresolved');
+}
+if (window.WebComponents) {
+addEventListener('WebComponentsReady', resolve);
+} else {
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+resolve();
+} else {
+addEventListener('DOMContentLoaded', resolve);
+}
+}
+}());
+Polymer = {
+Settings: function () {
+var user = window.Polymer || {};
+location.search.slice(1).split('&').forEach(function (o) {
+o = o.split('=');
+o[0] && (user[o[0]] = o[1] || true);
+});
+var wantShadow = user.dom === 'shadow';
+var hasShadow = Boolean(Element.prototype.createShadowRoot);
+var nativeShadow = hasShadow && !window.ShadowDOMPolyfill;
+var useShadow = wantShadow && hasShadow;
+var hasNativeImports = Boolean('import' in document.createElement('link'));
+var useNativeImports = hasNativeImports;
+var useNativeCustomElements = !window.CustomElements || window.CustomElements.useNative;
+return {
+wantShadow: wantShadow,
+hasShadow: hasShadow,
+nativeShadow: nativeShadow,
+useShadow: useShadow,
+useNativeShadow: useShadow && nativeShadow,
+useNativeImports: useNativeImports,
+useNativeCustomElements: useNativeCustomElements
+};
+}()
+};
+(function () {
+var userPolymer = window.Polymer;
+window.Polymer = function (prototype) {
+var ctor = desugar(prototype);
+prototype = ctor.prototype;
+var options = { prototype: prototype };
+if (prototype.extends) {
+options.extends = prototype.extends;
+}
+Polymer.telemetry._registrate(prototype);
+document.registerElement(prototype.is, options);
+return ctor;
+};
+var desugar = function (prototype) {
+var base = Polymer.Base;
+if (prototype.extends) {
+base = Polymer.Base._getExtendedPrototype(prototype.extends);
+}
+prototype = Polymer.Base.chainObject(prototype, base);
+prototype.registerCallback();
+return prototype.constructor;
+};
+window.Polymer = Polymer;
+if (userPolymer) {
+for (var i in userPolymer) {
+Polymer[i] = userPolymer[i];
+}
+}
+Polymer.Class = desugar;
+}());
+Polymer.telemetry = {
+registrations: [],
+_regLog: function (prototype) {
+console.log('[' + prototype.is + ']: registered');
+},
+_registrate: function (prototype) {
+this.registrations.push(prototype);
+Polymer.log && this._regLog(prototype);
+},
+dumpRegistrations: function () {
+this.registrations.forEach(this._regLog);
+}
+};
+Object.defineProperty(window, 'currentImport', {
+enumerable: true,
+configurable: true,
+get: function () {
+return (document._currentScript || document.currentScript).ownerDocument;
+}
+});
+Polymer.RenderStatus = {
+_ready: false,
+_callbacks: [],
+whenReady: function (cb) {
+if (this._ready) {
+cb();
+} else {
+this._callbacks.push(cb);
+}
+},
+_makeReady: function () {
+this._ready = true;
+this._callbacks.forEach(function (cb) {
+cb();
+});
+this._callbacks = [];
+},
+_catchFirstRender: function () {
+requestAnimationFrame(function () {
+Polymer.RenderStatus._makeReady();
+});
+}
+};
+if (window.HTMLImports) {
+HTMLImports.whenReady(function () {
+Polymer.RenderStatus._catchFirstRender();
+});
+} else {
+Polymer.RenderStatus._catchFirstRender();
+}
+Polymer.ImportStatus = Polymer.RenderStatus;
+Polymer.ImportStatus.whenLoaded = Polymer.ImportStatus.whenReady;
+Polymer.Base = {
+__isPolymerInstance__: true,
+_addFeature: function (feature) {
+this.extend(this, feature);
+},
+registerCallback: function () {
+this._registerFeatures();
+this._doBehavior('registered');
+},
+createdCallback: function () {
+Polymer.telemetry.instanceCount++;
+this.root = this;
+this._doBehavior('created');
+this._initFeatures();
+},
+attachedCallback: function () {
+Polymer.RenderStatus.whenReady(function () {
+this.isAttached = true;
+this._doBehavior('attached');
+}.bind(this));
+},
+detachedCallback: function () {
+this.isAttached = false;
+this._doBehavior('detached');
+},
+attributeChangedCallback: function (name) {
+this._attributeChangedImpl(name);
+this._doBehavior('attributeChanged', arguments);
+},
+_attributeChangedImpl: function (name) {
+this._setAttributeToProperty(this, name);
+},
+extend: function (prototype, api) {
+if (prototype && api) {
+Object.getOwnPropertyNames(api).forEach(function (n) {
+this.copyOwnProperty(n, api, prototype);
+}, this);
+}
+return prototype || api;
+},
+mixin: function (target, source) {
+for (var i in source) {
+target[i] = source[i];
+}
+return target;
+},
+copyOwnProperty: function (name, source, target) {
+var pd = Object.getOwnPropertyDescriptor(source, name);
+if (pd) {
+Object.defineProperty(target, name, pd);
+}
+},
+_log: console.log.apply.bind(console.log, console),
+_warn: console.warn.apply.bind(console.warn, console),
+_error: console.error.apply.bind(console.error, console),
+_logf: function () {
+return this._logPrefix.concat([this.is]).concat(Array.prototype.slice.call(arguments, 0));
+}
+};
+Polymer.Base._logPrefix = function () {
+var color = window.chrome || /firefox/i.test(navigator.userAgent);
+return color ? [
+'%c[%s::%s]:',
+'font-weight: bold; background-color:#EEEE00;'
+] : ['[%s::%s]:'];
+}();
+Polymer.Base.chainObject = function (object, inherited) {
+if (object && inherited && object !== inherited) {
+if (!Object.__proto__) {
+object = Polymer.Base.extend(Object.create(inherited), object);
+}
+object.__proto__ = inherited;
+}
+return object;
+};
+Polymer.Base = Polymer.Base.chainObject(Polymer.Base, HTMLElement.prototype);
+if (window.CustomElements) {
+Polymer.instanceof = CustomElements.instanceof;
+} else {
+Polymer.instanceof = function (obj, ctor) {
+return obj instanceof ctor;
+};
+}
+Polymer.isInstance = function (obj) {
+return Boolean(obj && obj.__isPolymerInstance__);
+};
+Polymer.telemetry.instanceCount = 0;
+(function () {
+var modules = {};
+var lcModules = {};
+var findModule = function (id) {
+return modules[id] || lcModules[id.toLowerCase()];
+};
+var DomModule = function () {
+return document.createElement('dom-module');
+};
+DomModule.prototype = Object.create(HTMLElement.prototype);
+Polymer.Base.extend(DomModule.prototype, {
+constructor: DomModule,
+createdCallback: function () {
+this.register();
+},
+register: function (id) {
+var id = id || this.id || this.getAttribute('name') || this.getAttribute('is');
+if (id) {
+this.id = id;
+modules[id] = this;
+lcModules[id.toLowerCase()] = this;
+}
+},
+import: function (id, selector) {
+var m = findModule(id);
+if (!m) {
+forceDocumentUpgrade();
+m = findModule(id);
+}
+if (m && selector) {
+m = m.querySelector(selector);
+}
+return m;
+}
+});
+var cePolyfill = window.CustomElements && !CustomElements.useNative;
+document.registerElement('dom-module', DomModule);
+function forceDocumentUpgrade() {
+if (cePolyfill) {
+var script = document._currentScript || document.currentScript;
+var doc = script && script.ownerDocument;
+if (doc && !doc.__customElementsForceUpgraded) {
+doc.__customElementsForceUpgraded = true;
+CustomElements.upgradeAll(doc);
+}
+}
+}
+}());
+Polymer.Base._addFeature({
+_prepIs: function () {
+if (!this.is) {
+var module = (document._currentScript || document.currentScript).parentNode;
+if (module.localName === 'dom-module') {
+var id = module.id || module.getAttribute('name') || module.getAttribute('is');
+this.is = id;
+}
+}
+if (this.is) {
+this.is = this.is.toLowerCase();
+}
+}
+});
+Polymer.Base._addFeature({
+behaviors: [],
+_prepBehaviors: function () {
+if (this.behaviors.length) {
+this.behaviors = this._flattenBehaviorsList(this.behaviors);
+}
+this._prepAllBehaviors(this.behaviors);
+},
+_flattenBehaviorsList: function (behaviors) {
+var flat = [];
+behaviors.forEach(function (b) {
+if (b instanceof Array) {
+flat = flat.concat(this._flattenBehaviorsList(b));
+} else if (b) {
+flat.push(b);
+} else {
+this._warn(this._logf('_flattenBehaviorsList', 'behavior is null, check for missing or 404 import'));
+}
+}, this);
+return flat;
+},
+_prepAllBehaviors: function (behaviors) {
+for (var i = behaviors.length - 1; i >= 0; i--) {
+this._mixinBehavior(behaviors[i]);
+}
+for (var i = 0, l = behaviors.length; i < l; i++) {
+this._prepBehavior(behaviors[i]);
+}
+this._prepBehavior(this);
+},
+_mixinBehavior: function (b) {
+Object.getOwnPropertyNames(b).forEach(function (n) {
+switch (n) {
+case 'hostAttributes':
+case 'registered':
+case 'properties':
+case 'observers':
+case 'listeners':
+case 'created':
+case 'attached':
+case 'detached':
+case 'attributeChanged':
+case 'configure':
+case 'ready':
+break;
+default:
+if (!this.hasOwnProperty(n)) {
+this.copyOwnProperty(n, b, this);
+}
+break;
+}
+}, this);
+},
+_doBehavior: function (name, args) {
+this.behaviors.forEach(function (b) {
+this._invokeBehavior(b, name, args);
+}, this);
+this._invokeBehavior(this, name, args);
+},
+_invokeBehavior: function (b, name, args) {
+var fn = b[name];
+if (fn) {
+fn.apply(this, args || Polymer.nar);
+}
+},
+_marshalBehaviors: function () {
+this.behaviors.forEach(function (b) {
+this._marshalBehavior(b);
+}, this);
+this._marshalBehavior(this);
+}
+});
+Polymer.Base._addFeature({
+_getExtendedPrototype: function (tag) {
+return this._getExtendedNativePrototype(tag);
+},
+_nativePrototypes: {},
+_getExtendedNativePrototype: function (tag) {
+var p = this._nativePrototypes[tag];
+if (!p) {
+var np = this.getNativePrototype(tag);
+p = this.extend(Object.create(np), Polymer.Base);
+this._nativePrototypes[tag] = p;
+}
+return p;
+},
+getNativePrototype: function (tag) {
+return Object.getPrototypeOf(document.createElement(tag));
+}
+});
+Polymer.Base._addFeature({
+_prepConstructor: function () {
+this._factoryArgs = this.extends ? [
+this.extends,
+this.is
+] : [this.is];
+var ctor = function () {
+return this._factory(arguments);
+};
+if (this.hasOwnProperty('extends')) {
+ctor.extends = this.extends;
+}
+Object.defineProperty(this, 'constructor', {
+value: ctor,
+writable: true,
+configurable: true
+});
+ctor.prototype = this;
+},
+_factory: function (args) {
+var elt = document.createElement.apply(document, this._factoryArgs);
+if (this.factoryImpl) {
+this.factoryImpl.apply(elt, args);
+}
+return elt;
+}
+});
+Polymer.nob = Object.create(null);
+Polymer.Base._addFeature({
+properties: {},
+getPropertyInfo: function (property) {
+var info = this._getPropertyInfo(property, this.properties);
+if (!info) {
+this.behaviors.some(function (b) {
+return info = this._getPropertyInfo(property, b.properties);
+}, this);
+}
+return info || Polymer.nob;
+},
+_getPropertyInfo: function (property, properties) {
+var p = properties && properties[property];
+if (typeof p === 'function') {
+p = properties[property] = { type: p };
+}
+if (p) {
+p.defined = true;
+}
+return p;
+}
+});
+Polymer.CaseMap = {
+_caseMap: {},
+dashToCamelCase: function (dash) {
+var mapped = Polymer.CaseMap._caseMap[dash];
+if (mapped) {
+return mapped;
+}
+if (dash.indexOf('-') < 0) {
+return Polymer.CaseMap._caseMap[dash] = dash;
+}
+return Polymer.CaseMap._caseMap[dash] = dash.replace(/-([a-z])/g, function (m) {
+return m[1].toUpperCase();
+});
+},
+camelToDashCase: function (camel) {
+var mapped = Polymer.CaseMap._caseMap[camel];
+if (mapped) {
+return mapped;
+}
+return Polymer.CaseMap._caseMap[camel] = camel.replace(/([a-z][A-Z])/g, function (g) {
+return g[0] + '-' + g[1].toLowerCase();
+});
+}
+};
+Polymer.Base._addFeature({
+_prepAttributes: function () {
+this._aggregatedAttributes = {};
+},
+_addHostAttributes: function (attributes) {
+if (attributes) {
+this.mixin(this._aggregatedAttributes, attributes);
+}
+},
+_marshalHostAttributes: function () {
+this._applyAttributes(this, this._aggregatedAttributes);
+},
+_applyAttributes: function (node, attr$) {
+for (var n in attr$) {
+if (!this.hasAttribute(n) && n !== 'class') {
+this.serializeValueToAttribute(attr$[n], n, this);
+}
+}
+},
+_marshalAttributes: function () {
+this._takeAttributesToModel(this);
+},
+_takeAttributesToModel: function (model) {
+for (var i = 0, l = this.attributes.length; i < l; i++) {
+this._setAttributeToProperty(model, this.attributes[i].name);
+}
+},
+_setAttributeToProperty: function (model, attrName) {
+if (!this._serializing) {
+var propName = Polymer.CaseMap.dashToCamelCase(attrName);
+var info = this.getPropertyInfo(propName);
+if (info.defined || this._propertyEffects && this._propertyEffects[propName]) {
+var val = this.getAttribute(attrName);
+model[propName] = this.deserialize(val, info.type);
+}
+}
+},
+_serializing: false,
+reflectPropertyToAttribute: function (name) {
+this._serializing = true;
+this.serializeValueToAttribute(this[name], Polymer.CaseMap.camelToDashCase(name));
+this._serializing = false;
+},
+serializeValueToAttribute: function (value, attribute, node) {
+var str = this.serialize(value);
+(node || this)[str === undefined ? 'removeAttribute' : 'setAttribute'](attribute, str);
+},
+deserialize: function (value, type) {
+switch (type) {
+case Number:
+value = Number(value);
+break;
+case Boolean:
+value = value !== null;
+break;
+case Object:
+try {
+value = JSON.parse(value);
+} catch (x) {
+}
+break;
+case Array:
+try {
+value = JSON.parse(value);
+} catch (x) {
+value = null;
+console.warn('Polymer::Attributes: couldn`t decode Array as JSON');
+}
+break;
+case Date:
+value = new Date(value);
+break;
+case String:
+default:
+break;
+}
+return value;
+},
+serialize: function (value) {
+switch (typeof value) {
+case 'boolean':
+return value ? '' : undefined;
+case 'object':
+if (value instanceof Date) {
+return value;
+} else if (value) {
+try {
+return JSON.stringify(value);
+} catch (x) {
+return '';
+}
+}
+default:
+return value != null ? value : undefined;
+}
+}
+});
+Polymer.Base._addFeature({
+_setupDebouncers: function () {
+this._debouncers = {};
+},
+debounce: function (jobName, callback, wait) {
+return this._debouncers[jobName] = Polymer.Debounce.call(this, this._debouncers[jobName], callback, wait);
+},
+isDebouncerActive: function (jobName) {
+var debouncer = this._debouncers[jobName];
+return debouncer && debouncer.finish;
+},
+flushDebouncer: function (jobName) {
+var debouncer = this._debouncers[jobName];
+if (debouncer) {
+debouncer.complete();
+}
+},
+cancelDebouncer: function (jobName) {
+var debouncer = this._debouncers[jobName];
+if (debouncer) {
+debouncer.stop();
+}
+}
+});
+Polymer.version = '1.1.1';
+Polymer.Base._addFeature({
+_registerFeatures: function () {
+this._prepIs();
+this._prepAttributes();
+this._prepBehaviors();
+this._prepConstructor();
+},
+_prepBehavior: function (b) {
+this._addHostAttributes(b.hostAttributes);
+},
+_marshalBehavior: function (b) {
+},
+_initFeatures: function () {
+this._marshalHostAttributes();
+this._setupDebouncers();
+this._marshalBehaviors();
+}
+});</script>
+
+<script>Polymer.Base._addFeature({
+_prepTemplate: function () {
+this._template = this._template || Polymer.DomModule.import(this.is, 'template');
+if (this._template && this._template.hasAttribute('is')) {
+this._warn(this._logf('_prepTemplate', 'top-level Polymer template ' + 'must not be a type-extension, found', this._template, 'Move inside simple <template>.'));
+}
+if (this._template && !this._template.content && HTMLTemplateElement.bootstrap) {
+HTMLTemplateElement.decorate(this._template);
+HTMLTemplateElement.bootstrap(this._template.content);
+}
+},
+_stampTemplate: function () {
+if (this._template) {
+this.root = this.instanceTemplate(this._template);
+}
+},
+instanceTemplate: function (template) {
+var dom = document.importNode(template._content || template.content, true);
+return dom;
+}
+});
+(function () {
+var baseAttachedCallback = Polymer.Base.attachedCallback;
+Polymer.Base._addFeature({
+_hostStack: [],
+ready: function () {
+},
+_pushHost: function (host) {
+this.dataHost = host = host || Polymer.Base._hostStack[Polymer.Base._hostStack.length - 1];
+if (host && host._clients) {
+host._clients.push(this);
+}
+this._beginHost();
+},
+_beginHost: function () {
+Polymer.Base._hostStack.push(this);
+if (!this._clients) {
+this._clients = [];
+}
+},
+_popHost: function () {
+Polymer.Base._hostStack.pop();
+},
+_tryReady: function () {
+if (this._canReady()) {
+this._ready();
+}
+},
+_canReady: function () {
+return !this.dataHost || this.dataHost._clientsReadied;
+},
+_ready: function () {
+this._beforeClientsReady();
+this._setupRoot();
+this._readyClients();
+this._afterClientsReady();
+this._readySelf();
+},
+_readyClients: function () {
+this._beginDistribute();
+var c$ = this._clients;
+for (var i = 0, l = c$.length, c; i < l && (c = c$[i]); i++) {
+c._ready();
+}
+this._finishDistribute();
+this._clientsReadied = true;
+this._clients = null;
+},
+_readySelf: function () {
+this._doBehavior('ready');
+this._readied = true;
+if (this._attachedPending) {
+this._attachedPending = false;
+this.attachedCallback();
+}
+},
+_beforeClientsReady: function () {
+},
+_afterClientsReady: function () {
+},
+_beforeAttached: function () {
+},
+attachedCallback: function () {
+if (this._readied) {
+this._beforeAttached();
+baseAttachedCallback.call(this);
+} else {
+this._attachedPending = true;
+}
+}
+});
+}());
+Polymer.ArraySplice = function () {
+function newSplice(index, removed, addedCount) {
+return {
+index: index,
+removed: removed,
+addedCount: addedCount
+};
+}
+var EDIT_LEAVE = 0;
+var EDIT_UPDATE = 1;
+var EDIT_ADD = 2;
+var EDIT_DELETE = 3;
+function ArraySplice() {
+}
+ArraySplice.prototype = {
+calcEditDistances: function (current, currentStart, currentEnd, old, oldStart, oldEnd) {
+var rowCount = oldEnd - oldStart + 1;
+var columnCount = currentEnd - currentStart + 1;
+var distances = new Array(rowCount);
+for (var i = 0; i < rowCount; i++) {
+distances[i] = new Array(columnCount);
+distances[i][0] = i;
+}
+for (var j = 0; j < columnCount; j++)
+distances[0][j] = j;
+for (var i = 1; i < rowCount; i++) {
+for (var j = 1; j < columnCount; j++) {
+if (this.equals(current[currentStart + j - 1], old[oldStart + i - 1]))
+distances[i][j] = distances[i - 1][j - 1];
+else {
+var north = distances[i - 1][j] + 1;
+var west = distances[i][j - 1] + 1;
+distances[i][j] = north < west ? north : west;
+}
+}
+}
+return distances;
+},
+spliceOperationsFromEditDistances: function (distances) {
+var i = distances.length - 1;
+var j = distances[0].length - 1;
+var current = distances[i][j];
+var edits = [];
+while (i > 0 || j > 0) {
+if (i == 0) {
+edits.push(EDIT_ADD);
+j--;
+continue;
+}
+if (j == 0) {
+edits.push(EDIT_DELETE);
+i--;
+continue;
+}
+var northWest = distances[i - 1][j - 1];
+var west = distances[i - 1][j];
+var north = distances[i][j - 1];
+var min;
+if (west < north)
+min = west < northWest ? west : northWest;
+else
+min = north < northWest ? north : northWest;
+if (min == northWest) {
+if (northWest == current) {
+edits.push(EDIT_LEAVE);
+} else {
+edits.push(EDIT_UPDATE);
+current = northWest;
+}
+i--;
+j--;
+} else if (min == west) {
+edits.push(EDIT_DELETE);
+i--;
+current = west;
+} else {
+edits.push(EDIT_ADD);
+j--;
+current = north;
+}
+}
+edits.reverse();
+return edits;
+},
+calcSplices: function (current, currentStart, currentEnd, old, oldStart, oldEnd) {
+var prefixCount = 0;
+var suffixCount = 0;
+var minLength = Math.min(currentEnd - currentStart, oldEnd - oldStart);
+if (currentStart == 0 && oldStart == 0)
+prefixCount = this.sharedPrefix(current, old, minLength);
+if (currentEnd == current.length && oldEnd == old.length)
+suffixCount = this.sharedSuffix(current, old, minLength - prefixCount);
+currentStart += prefixCount;
+oldStart += prefixCount;
+currentEnd -= suffixCount;
+oldEnd -= suffixCount;
+if (currentEnd - currentStart == 0 && oldEnd - oldStart == 0)
+return [];
+if (currentStart == currentEnd) {
+var splice = newSplice(currentStart, [], 0);
+while (oldStart < oldEnd)
+splice.removed.push(old[oldStart++]);
+return [splice];
+} else if (oldStart == oldEnd)
+return [newSplice(currentStart, [], currentEnd - currentStart)];
+var ops = this.spliceOperationsFromEditDistances(this.calcEditDistances(current, currentStart, currentEnd, old, oldStart, oldEnd));
+var splice = undefined;
+var splices = [];
+var index = currentStart;
+var oldIndex = oldStart;
+for (var i = 0; i < ops.length; i++) {
+switch (ops[i]) {
+case EDIT_LEAVE:
+if (splice) {
+splices.push(splice);
+splice = undefined;
+}
+index++;
+oldIndex++;
+break;
+case EDIT_UPDATE:
+if (!splice)
+splice = newSplice(index, [], 0);
+splice.addedCount++;
+index++;
+splice.removed.push(old[oldIndex]);
+oldIndex++;
+break;
+case EDIT_ADD:
+if (!splice)
+splice = newSplice(index, [], 0);
+splice.addedCount++;
+index++;
+break;
+case EDIT_DELETE:
+if (!splice)
+splice = newSplice(index, [], 0);
+splice.removed.push(old[oldIndex]);
+oldIndex++;
+break;
+}
+}
+if (splice) {
+splices.push(splice);
+}
+return splices;
+},
+sharedPrefix: function (current, old, searchLength) {
+for (var i = 0; i < searchLength; i++)
+if (!this.equals(current[i], old[i]))
+return i;
+return searchLength;
+},
+sharedSuffix: function (current, old, searchLength) {
+var index1 = current.length;
+var index2 = old.length;
+var count = 0;
+while (count < searchLength && this.equals(current[--index1], old[--index2]))
+count++;
+return count;
+},
+calculateSplices: function (current, previous) {
+return this.calcSplices(current, 0, current.length, previous, 0, previous.length);
+},
+equals: function (currentValue, previousValue) {
+return currentValue === previousValue;
+}
+};
+return new ArraySplice();
+}();
+Polymer.EventApi = function () {
+var Settings = Polymer.Settings;
+var EventApi = function (event) {
+this.event = event;
+};
+if (Settings.useShadow) {
+EventApi.prototype = {
+get rootTarget() {
+return this.event.path[0];
+},
+get localTarget() {
+return this.event.target;
+},
+get path() {
+return this.event.path;
+}
+};
+} else {
+EventApi.prototype = {
+get rootTarget() {
+return this.event.target;
+},
+get localTarget() {
+var current = this.event.currentTarget;
+var currentRoot = current && Polymer.dom(current).getOwnerRoot();
+var p$ = this.path;
+for (var i = 0; i < p$.length; i++) {
+if (Polymer.dom(p$[i]).getOwnerRoot() === currentRoot) {
+return p$[i];
+}
+}
+},
+get path() {
+if (!this.event._path) {
+var path = [];
+var o = this.rootTarget;
+while (o) {
+path.push(o);
+o = Polymer.dom(o).parentNode || o.host;
+}
+path.push(window);
+this.event._path = path;
+}
+return this.event._path;
+}
+};
+}
+var factory = function (event) {
+if (!event.__eventApi) {
+event.__eventApi = new EventApi(event);
+}
+return event.__eventApi;
+};
+return { factory: factory };
+}();
+Polymer.domInnerHTML = function () {
+var escapeAttrRegExp = /[&\u00A0"]/g;
+var escapeDataRegExp = /[&\u00A0<>]/g;
+function escapeReplace(c) {
+switch (c) {
+case '&':
+return '&amp;';
+case '<':
+return '&lt;';
+case '>':
+return '&gt;';
+case '"':
+return '&quot;';
+case '\xA0':
+return '&nbsp;';
+}
+}
+function escapeAttr(s) {
+return s.replace(escapeAttrRegExp, escapeReplace);
+}
+function escapeData(s) {
+return s.replace(escapeDataRegExp, escapeReplace);
+}
+function makeSet(arr) {
+var set = {};
+for (var i = 0; i < arr.length; i++) {
+set[arr[i]] = true;
+}
+return set;
+}
+var voidElements = makeSet([
+'area',
+'base',
+'br',
+'col',
+'command',
+'embed',
+'hr',
+'img',
+'input',
+'keygen',
+'link',
+'meta',
+'param',
+'source',
+'track',
+'wbr'
+]);
+var plaintextParents = makeSet([
+'style',
+'script',
+'xmp',
+'iframe',
+'noembed',
+'noframes',
+'plaintext',
+'noscript'
+]);
+function getOuterHTML(node, parentNode, composed) {
+switch (node.nodeType) {
+case Node.ELEMENT_NODE:
+var tagName = node.localName;
+var s = '<' + tagName;
+var attrs = node.attributes;
+for (var i = 0, attr; attr = attrs[i]; i++) {
+s += ' ' + attr.name + '="' + escapeAttr(attr.value) + '"';
+}
+s += '>';
+if (voidElements[tagName]) {
+return s;
+}
+return s + getInnerHTML(node, composed) + '</' + tagName + '>';
+case Node.TEXT_NODE:
+var data = node.data;
+if (parentNode && plaintextParents[parentNode.localName]) {
+return data;
+}
+return escapeData(data);
+case Node.COMMENT_NODE:
+return '<!--' + node.data + '-->';
+default:
+console.error(node);
+throw new Error('not implemented');
+}
+}
+function getInnerHTML(node, composed) {
+if (node instanceof HTMLTemplateElement)
+node = node.content;
+var s = '';
+var c$ = Polymer.dom(node).childNodes;
+c$ = composed ? node._composedChildren : c$;
+for (var i = 0, l = c$.length, child; i < l && (child = c$[i]); i++) {
+s += getOuterHTML(child, node, composed);
+}
+return s;
+}
+return { getInnerHTML: getInnerHTML };
+}();
+Polymer.DomApi = function () {
+'use strict';
+var Settings = Polymer.Settings;
+var getInnerHTML = Polymer.domInnerHTML.getInnerHTML;
+var nativeInsertBefore = Element.prototype.insertBefore;
+var nativeRemoveChild = Element.prototype.removeChild;
+var nativeAppendChild = Element.prototype.appendChild;
+var nativeCloneNode = Element.prototype.cloneNode;
+var nativeImportNode = Document.prototype.importNode;
+var DomApi = function (node) {
+this.node = node;
+if (this.patch) {
+this.patch();
+}
+};
+if (window.wrap && Settings.useShadow && !Settings.useNativeShadow) {
+DomApi = function (node) {
+this.node = wrap(node);
+if (this.patch) {
+this.patch();
+}
+};
+}
+DomApi.prototype = {
+flush: function () {
+Polymer.dom.flush();
+},
+_lazyDistribute: function (host) {
+if (host.shadyRoot && host.shadyRoot._distributionClean) {
+host.shadyRoot._distributionClean = false;
+Polymer.dom.addDebouncer(host.debounce('_distribute', host._distributeContent));
+}
+},
+appendChild: function (node) {
+return this._addNode(node);
+},
+insertBefore: function (node, ref_node) {
+return this._addNode(node, ref_node);
+},
+_addNode: function (node, ref_node) {
+this._removeNodeFromHost(node, true);
+var addedInsertionPoint;
+var root = this.getOwnerRoot();
+if (root) {
+addedInsertionPoint = this._maybeAddInsertionPoint(node, this.node);
+}
+if (this._nodeHasLogicalChildren(this.node)) {
+if (ref_node) {
+var children = this.childNodes;
+var index = children.indexOf(ref_node);
+if (index < 0) {
+throw Error('The ref_node to be inserted before is not a child ' + 'of this node');
+}
+}
+this._addLogicalInfo(node, this.node, index);
+}
+this._addNodeToHost(node);
+if (!this._maybeDistribute(node, this.node) && !this._tryRemoveUndistributedNode(node)) {
+if (ref_node) {
+ref_node = ref_node.localName === CONTENT ? this._firstComposedNode(ref_node) : ref_node;
+}
+var container = this.node._isShadyRoot ? this.node.host : this.node;
+addToComposedParent(container, node, ref_node);
+if (ref_node) {
+nativeInsertBefore.call(container, node, ref_node);
+} else {
+nativeAppendChild.call(container, node);
+}
+}
+if (addedInsertionPoint) {
+this._updateInsertionPoints(root.host);
+}
+return node;
+},
+removeChild: function (node) {
+if (factory(node).parentNode !== this.node) {
+console.warn('The node to be removed is not a child of this node', node);
+}
+this._removeNodeFromHost(node);
+if (!this._maybeDistribute(node, this.node)) {
+var container = this.node._isShadyRoot ? this.node.host : this.node;
+if (container === node.parentNode) {
+removeFromComposedParent(container, node);
+nativeRemoveChild.call(container, node);
+}
+}
+return node;
+},
+replaceChild: function (node, ref_node) {
+this.insertBefore(node, ref_node);
+this.removeChild(ref_node);
+return node;
+},
+_hasCachedOwnerRoot: function (node) {
+return Boolean(node._ownerShadyRoot !== undefined);
+},
+getOwnerRoot: function () {
+return this._ownerShadyRootForNode(this.node);
+},
+_ownerShadyRootForNode: function (node) {
+if (!node) {
+return;
+}
+if (node._ownerShadyRoot === undefined) {
+var root;
+if (node._isShadyRoot) {
+root = node;
+} else {
+var parent = Polymer.dom(node).parentNode;
+if (parent) {
+root = parent._isShadyRoot ? parent : this._ownerShadyRootForNode(parent);
+} else {
+root = null;
+}
+}
+node._ownerShadyRoot = root;
+}
+return node._ownerShadyRoot;
+},
+_maybeDistribute: function (node, parent) {
+var fragContent = node.nodeType === Node.DOCUMENT_FRAGMENT_NODE && !node.__noContent && Polymer.dom(node).querySelector(CONTENT);
+var wrappedContent = fragContent && Polymer.dom(fragContent).parentNode.nodeType !== Node.DOCUMENT_FRAGMENT_NODE;
+var hasContent = fragContent || node.localName === CONTENT;
+if (hasContent) {
+var root = this._ownerShadyRootForNode(parent);
+if (root) {
+var host = root.host;
+this._lazyDistribute(host);
+}
+}
+var parentNeedsDist = this._parentNeedsDistribution(parent);
+if (parentNeedsDist) {
+this._lazyDistribute(parent);
+}
+return parentNeedsDist || hasContent && !wrappedContent;
+},
+_maybeAddInsertionPoint: function (node, parent) {
+var added;
+if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE && !node.__noContent) {
+var c$ = factory(node).querySelectorAll(CONTENT);
+for (var i = 0, n, np, na; i < c$.length && (n = c$[i]); i++) {
+np = factory(n).parentNode;
+if (np === node) {
+np = parent;
+}
+na = this._maybeAddInsertionPoint(n, np);
+added = added || na;
+}
+} else if (node.localName === CONTENT) {
+saveLightChildrenIfNeeded(parent);
+saveLightChildrenIfNeeded(node);
+added = true;
+}
+return added;
+},
+_tryRemoveUndistributedNode: function (node) {
+if (this.node.shadyRoot) {
+if (node._composedParent) {
+nativeRemoveChild.call(node._composedParent, node);
+}
+return true;
+}
+},
+_updateInsertionPoints: function (host) {
+var i$ = host.shadyRoot._insertionPoints = factory(host.shadyRoot).querySelectorAll(CONTENT);
+for (var i = 0, c; i < i$.length; i++) {
+c = i$[i];
+saveLightChildrenIfNeeded(c);
+saveLightChildrenIfNeeded(factory(c).parentNode);
+}
+},
+_nodeHasLogicalChildren: function (node) {
+return Boolean(node._lightChildren !== undefined);
+},
+_parentNeedsDistribution: function (parent) {
+return parent && parent.shadyRoot && hasInsertionPoint(parent.shadyRoot);
+},
+_removeNodeFromHost: function (node, ensureComposedRemoval) {
+var hostNeedsDist;
+var root;
+var parent = node._lightParent;
+if (parent) {
+factory(node)._distributeParent();
+root = this._ownerShadyRootForNode(node);
+if (root) {
+root.host._elementRemove(node);
+hostNeedsDist = this._removeDistributedChildren(root, node);
+}
+this._removeLogicalInfo(node, node._lightParent);
+}
+this._removeOwnerShadyRoot(node);
+if (root && hostNeedsDist) {
+this._updateInsertionPoints(root.host);
+this._lazyDistribute(root.host);
+} else if (ensureComposedRemoval) {
+removeFromComposedParent(node._composedParent, node);
+}
+},
+_removeDistributedChildren: function (root, container) {
+var hostNeedsDist;
+var ip$ = root._insertionPoints;
+for (var i = 0; i < ip$.length; i++) {
+var content = ip$[i];
+if (this._contains(container, content)) {
+var dc$ = factory(content).getDistributedNodes();
+for (var j = 0; j < dc$.length; j++) {
+hostNeedsDist = true;
+var node = dc$[j];
+var parent = node.parentNode;
+if (parent) {
+removeFromComposedParent(parent, node);
+nativeRemoveChild.call(parent, node);
+}
+}
+}
+}
+return hostNeedsDist;
+},
+_contains: function (container, node) {
+while (node) {
+if (node == container) {
+return true;
+}
+node = factory(node).parentNode;
+}
+},
+_addNodeToHost: function (node) {
+var root = this.getOwnerRoot();
+if (root) {
+root.host._elementAdd(node);
+}
+},
+_addLogicalInfo: function (node, container, index) {
+var children = factory(container).childNodes;
+index = index === undefined ? children.length : index;
+if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+var c$ = Array.prototype.slice.call(node.childNodes);
+for (var i = 0, n; i < c$.length && (n = c$[i]); i++) {
+children.splice(index++, 0, n);
+n._lightParent = container;
+}
+} else {
+children.splice(index, 0, node);
+node._lightParent = container;
+}
+},
+_removeLogicalInfo: function (node, container) {
+var children = factory(container).childNodes;
+var index = children.indexOf(node);
+if (index < 0 || container !== node._lightParent) {
+throw Error('The node to be removed is not a child of this node');
+}
+children.splice(index, 1);
+node._lightParent = null;
+},
+_removeOwnerShadyRoot: function (node) {
+if (this._hasCachedOwnerRoot(node)) {
+var c$ = factory(node).childNodes;
+for (var i = 0, l = c$.length, n; i < l && (n = c$[i]); i++) {
+this._removeOwnerShadyRoot(n);
+}
+}
+node._ownerShadyRoot = undefined;
+},
+_firstComposedNode: function (content) {
+var n$ = factory(content).getDistributedNodes();
+for (var i = 0, l = n$.length, n, p$; i < l && (n = n$[i]); i++) {
+p$ = factory(n).getDestinationInsertionPoints();
+if (p$[p$.length - 1] === content) {
+return n;
+}
+}
+},
+querySelector: function (selector) {
+return this.querySelectorAll(selector)[0];
+},
+querySelectorAll: function (selector) {
+return this._query(function (n) {
+return matchesSelector.call(n, selector);
+}, this.node);
+},
+_query: function (matcher, node) {
+node = node || this.node;
+var list = [];
+this._queryElements(factory(node).childNodes, matcher, list);
+return list;
+},
+_queryElements: function (elements, matcher, list) {
+for (var i = 0, l = elements.length, c; i < l && (c = elements[i]); i++) {
+if (c.nodeType === Node.ELEMENT_NODE) {
+this._queryElement(c, matcher, list);
+}
+}
+},
+_queryElement: function (node, matcher, list) {
+if (matcher(node)) {
+list.push(node);
+}
+this._queryElements(factory(node).childNodes, matcher, list);
+},
+getDestinationInsertionPoints: function () {
+return this.node._destinationInsertionPoints || [];
+},
+getDistributedNodes: function () {
+return this.node._distributedNodes || [];
+},
+queryDistributedElements: function (selector) {
+var c$ = this.childNodes;
+var list = [];
+this._distributedFilter(selector, c$, list);
+for (var i = 0, l = c$.length, c; i < l && (c = c$[i]); i++) {
+if (c.localName === CONTENT) {
+this._distributedFilter(selector, factory(c).getDistributedNodes(), list);
+}
+}
+return list;
+},
+_distributedFilter: function (selector, list, results) {
+results = results || [];
+for (var i = 0, l = list.length, d; i < l && (d = list[i]); i++) {
+if (d.nodeType === Node.ELEMENT_NODE && d.localName !== CONTENT && matchesSelector.call(d, selector)) {
+results.push(d);
+}
+}
+return results;
+},
+_clear: function () {
+while (this.childNodes.length) {
+this.removeChild(this.childNodes[0]);
+}
+},
+setAttribute: function (name, value) {
+this.node.setAttribute(name, value);
+this._distributeParent();
+},
+removeAttribute: function (name) {
+this.node.removeAttribute(name);
+this._distributeParent();
+},
+_distributeParent: function () {
+if (this._parentNeedsDistribution(this.parentNode)) {
+this._lazyDistribute(this.parentNode);
+}
+},
+cloneNode: function (deep) {
+var n = nativeCloneNode.call(this.node, false);
+if (deep) {
+var c$ = this.childNodes;
+var d = factory(n);
+for (var i = 0, nc; i < c$.length; i++) {
+nc = factory(c$[i]).cloneNode(true);
+d.appendChild(nc);
+}
+}
+return n;
+},
+importNode: function (externalNode, deep) {
+var doc = this.node instanceof Document ? this.node : this.node.ownerDocument;
+var n = nativeImportNode.call(doc, externalNode, false);
+if (deep) {
+var c$ = factory(externalNode).childNodes;
+var d = factory(n);
+for (var i = 0, nc; i < c$.length; i++) {
+nc = factory(doc).importNode(c$[i], true);
+d.appendChild(nc);
+}
+}
+return n;
+}
+};
+Object.defineProperty(DomApi.prototype, 'classList', {
+get: function () {
+if (!this._classList) {
+this._classList = new DomApi.ClassList(this);
+}
+return this._classList;
+},
+configurable: true
+});
+DomApi.ClassList = function (host) {
+this.domApi = host;
+this.node = host.node;
+};
+DomApi.ClassList.prototype = {
+add: function () {
+this.node.classList.add.apply(this.node.classList, arguments);
+this.domApi._distributeParent();
+},
+remove: function () {
+this.node.classList.remove.apply(this.node.classList, arguments);
+this.domApi._distributeParent();
+},
+toggle: function () {
+this.node.classList.toggle.apply(this.node.classList, arguments);
+this.domApi._distributeParent();
+},
+contains: function () {
+return this.node.classList.contains.apply(this.node.classList, arguments);
+}
+};
+if (!Settings.useShadow) {
+Object.defineProperties(DomApi.prototype, {
+childNodes: {
+get: function () {
+var c$ = getLightChildren(this.node);
+return Array.isArray(c$) ? c$ : Array.prototype.slice.call(c$);
+},
+configurable: true
+},
+children: {
+get: function () {
+return Array.prototype.filter.call(this.childNodes, function (n) {
+return n.nodeType === Node.ELEMENT_NODE;
+});
+},
+configurable: true
+},
+parentNode: {
+get: function () {
+return this.node._lightParent || (this.node.__patched ? this.node._composedParent : this.node.parentNode);
+},
+configurable: true
+},
+firstChild: {
+get: function () {
+return this.childNodes[0];
+},
+configurable: true
+},
+lastChild: {
+get: function () {
+var c$ = this.childNodes;
+return c$[c$.length - 1];
+},
+configurable: true
+},
+nextSibling: {
+get: function () {
+var c$ = this.parentNode && factory(this.parentNode).childNodes;
+if (c$) {
+return c$[Array.prototype.indexOf.call(c$, this.node) + 1];
+}
+},
+configurable: true
+},
+previousSibling: {
+get: function () {
+var c$ = this.parentNode && factory(this.parentNode).childNodes;
+if (c$) {
+return c$[Array.prototype.indexOf.call(c$, this.node) - 1];
+}
+},
+configurable: true
+},
+firstElementChild: {
+get: function () {
+return this.children[0];
+},
+configurable: true
+},
+lastElementChild: {
+get: function () {
+var c$ = this.children;
+return c$[c$.length - 1];
+},
+configurable: true
+},
+nextElementSibling: {
+get: function () {
+var c$ = this.parentNode && factory(this.parentNode).children;
+if (c$) {
+return c$[Array.prototype.indexOf.call(c$, this.node) + 1];
+}
+},
+configurable: true
+},
+previousElementSibling: {
+get: function () {
+var c$ = this.parentNode && factory(this.parentNode).children;
+if (c$) {
+return c$[Array.prototype.indexOf.call(c$, this.node) - 1];
+}
+},
+configurable: true
+},
+textContent: {
+get: function () {
+var nt = this.node.nodeType;
+if (nt === Node.TEXT_NODE || nt === Node.COMMENT_NODE) {
+return this.node.textContent;
+} else {
+var tc = [];
+for (var i = 0, cn = this.childNodes, c; c = cn[i]; i++) {
+if (c.nodeType !== Node.COMMENT_NODE) {
+tc.push(c.textContent);
+}
+}
+return tc.join('');
+}
+},
+set: function (text) {
+var nt = this.node.nodeType;
+if (nt === Node.TEXT_NODE || nt === Node.COMMENT_NODE) {
+this.node.textContent = text;
+} else {
+this._clear();
+if (text) {
+this.appendChild(document.createTextNode(text));
+}
+}
+},
+configurable: true
+},
+innerHTML: {
+get: function () {
+var nt = this.node.nodeType;
+if (nt === Node.TEXT_NODE || nt === Node.COMMENT_NODE) {
+return null;
+} else {
+return getInnerHTML(this.node);
+}
+},
+set: function (text) {
+var nt = this.node.nodeType;
+if (nt !== Node.TEXT_NODE || nt !== Node.COMMENT_NODE) {
+this._clear();
+var d = document.createElement('div');
+d.innerHTML = text;
+var c$ = Array.prototype.slice.call(d.childNodes);
+for (var i = 0; i < c$.length; i++) {
+this.appendChild(c$[i]);
+}
+}
+},
+configurable: true
+}
+});
+DomApi.prototype._getComposedInnerHTML = function () {
+return getInnerHTML(this.node, true);
+};
+} else {
+DomApi.prototype.querySelectorAll = function (selector) {
+return Array.prototype.slice.call(this.node.querySelectorAll(selector));
+};
+DomApi.prototype.getOwnerRoot = function () {
+var n = this.node;
+while (n) {
+if (n.nodeType === Node.DOCUMENT_FRAGMENT_NODE && n.host) {
+return n;
+}
+n = n.parentNode;
+}
+};
+DomApi.prototype.cloneNode = function (deep) {
+return this.node.cloneNode(deep);
+};
+DomApi.prototype.importNode = function (externalNode, deep) {
+var doc = this.node instanceof Document ? this.node : this.node.ownerDocument;
+return doc.importNode(externalNode, deep);
+};
+DomApi.prototype.getDestinationInsertionPoints = function () {
+var n$ = this.node.getDestinationInsertionPoints && this.node.getDestinationInsertionPoints();
+return n$ ? Array.prototype.slice.call(n$) : [];
+};
+DomApi.prototype.getDistributedNodes = function () {
+var n$ = this.node.getDistributedNodes && this.node.getDistributedNodes();
+return n$ ? Array.prototype.slice.call(n$) : [];
+};
+DomApi.prototype._distributeParent = function () {
+};
+Object.defineProperties(DomApi.prototype, {
+childNodes: {
+get: function () {
+return Array.prototype.slice.call(this.node.childNodes);
+},
+configurable: true
+},
+children: {
+get: function () {
+return Array.prototype.slice.call(this.node.children);
+},
+configurable: true
+},
+textContent: {
+get: function () {
+return this.node.textContent;
+},
+set: function (value) {
+return this.node.textContent = value;
+},
+configurable: true
+},
+innerHTML: {
+get: function () {
+return this.node.innerHTML;
+},
+set: function (value) {
+return this.node.innerHTML = value;
+},
+configurable: true
+}
+});
+var forwards = [
+'parentNode',
+'firstChild',
+'lastChild',
+'nextSibling',
+'previousSibling',
+'firstElementChild',
+'lastElementChild',
+'nextElementSibling',
+'previousElementSibling'
+];
+forwards.forEach(function (name) {
+Object.defineProperty(DomApi.prototype, name, {
+get: function () {
+return this.node[name];
+},
+configurable: true
+});
+});
+}
+var CONTENT = 'content';
+var factory = function (node, patch) {
+node = node || document;
+if (!node.__domApi) {
+node.__domApi = new DomApi(node, patch);
+}
+return node.__domApi;
+};
+Polymer.dom = function (obj, patch) {
+if (obj instanceof Event) {
+return Polymer.EventApi.factory(obj);
+} else {
+return factory(obj, patch);
+}
+};
+Polymer.Base.extend(Polymer.dom, {
+_flushGuard: 0,
+_FLUSH_MAX: 100,
+_needsTakeRecords: !Polymer.Settings.useNativeCustomElements,
+_debouncers: [],
+_finishDebouncer: null,
+flush: function () {
+for (var i = 0; i < this._debouncers.length; i++) {
+this._debouncers[i].complete();
+}
+if (this._finishDebouncer) {
+this._finishDebouncer.complete();
+}
+this._flushPolyfills();
+if (this._debouncers.length && this._flushGuard < this._FLUSH_MAX) {
+this._flushGuard++;
+this.flush();
+} else {
+if (this._flushGuard >= this._FLUSH_MAX) {
+console.warn('Polymer.dom.flush aborted. Flush may not be complete.');
+}
+this._flushGuard = 0;
+}
+},
+_flushPolyfills: function () {
+if (this._needsTakeRecords) {
+CustomElements.takeRecords();
+}
+},
+addDebouncer: function (debouncer) {
+this._debouncers.push(debouncer);
+this._finishDebouncer = Polymer.Debounce(this._finishDebouncer, this._finishFlush);
+},
+_finishFlush: function () {
+Polymer.dom._debouncers = [];
+}
+});
+function getLightChildren(node) {
+var children = node._lightChildren;
+return children ? children : node.childNodes;
+}
+function getComposedChildren(node) {
+if (!node._composedChildren) {
+node._composedChildren = Array.prototype.slice.call(node.childNodes);
+}
+return node._composedChildren;
+}
+function addToComposedParent(parent, node, ref_node) {
+var children = getComposedChildren(parent);
+var i = ref_node ? children.indexOf(ref_node) : -1;
+if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+var fragChildren = getComposedChildren(node);
+for (var j = 0; j < fragChildren.length; j++) {
+addNodeToComposedChildren(fragChildren[j], parent, children, i + j);
+}
+node._composedChildren = null;
+} else {
+addNodeToComposedChildren(node, parent, children, i);
+}
+}
+function addNodeToComposedChildren(node, parent, children, i) {
+node._composedParent = parent;
+children.splice(i >= 0 ? i : children.length, 0, node);
+}
+function removeFromComposedParent(parent, node) {
+node._composedParent = null;
+if (parent) {
+var children = getComposedChildren(parent);
+var i = children.indexOf(node);
+if (i >= 0) {
+children.splice(i, 1);
+}
+}
+}
+function saveLightChildrenIfNeeded(node) {
+if (!node._lightChildren) {
+var c$ = Array.prototype.slice.call(node.childNodes);
+for (var i = 0, l = c$.length, child; i < l && (child = c$[i]); i++) {
+child._lightParent = child._lightParent || node;
+}
+node._lightChildren = c$;
+}
+}
+function hasInsertionPoint(root) {
+return Boolean(root && root._insertionPoints.length);
+}
+var p = Element.prototype;
+var matchesSelector = p.matches || p.matchesSelector || p.mozMatchesSelector || p.msMatchesSelector || p.oMatchesSelector || p.webkitMatchesSelector;
+return {
+getLightChildren: getLightChildren,
+getComposedChildren: getComposedChildren,
+removeFromComposedParent: removeFromComposedParent,
+saveLightChildrenIfNeeded: saveLightChildrenIfNeeded,
+matchesSelector: matchesSelector,
+hasInsertionPoint: hasInsertionPoint,
+ctor: DomApi,
+factory: factory
+};
+}();
+(function () {
+Polymer.Base._addFeature({
+_prepShady: function () {
+this._useContent = this._useContent || Boolean(this._template);
+},
+_poolContent: function () {
+if (this._useContent) {
+saveLightChildrenIfNeeded(this);
+}
+},
+_setupRoot: function () {
+if (this._useContent) {
+this._createLocalRoot();
+if (!this.dataHost) {
+upgradeLightChildren(this._lightChildren);
+}
+}
+},
+_createLocalRoot: function () {
+this.shadyRoot = this.root;
+this.shadyRoot._distributionClean = false;
+this.shadyRoot._isShadyRoot = true;
+this.shadyRoot._dirtyRoots = [];
+var i$ = this.shadyRoot._insertionPoints = !this._notes || this._notes._hasContent ? this.shadyRoot.querySelectorAll('content') : [];
+saveLightChildrenIfNeeded(this.shadyRoot);
+for (var i = 0, c; i < i$.length; i++) {
+c = i$[i];
+saveLightChildrenIfNeeded(c);
+saveLightChildrenIfNeeded(c.parentNode);
+}
+this.shadyRoot.host = this;
+},
+get domHost() {
+var root = Polymer.dom(this).getOwnerRoot();
+return root && root.host;
+},
+distributeContent: function (updateInsertionPoints) {
+if (this.shadyRoot) {
+var dom = Polymer.dom(this);
+if (updateInsertionPoints) {
+dom._updateInsertionPoints(this);
+}
+var host = getTopDistributingHost(this);
+dom._lazyDistribute(host);
+}
+},
+_distributeContent: function () {
+if (this._useContent && !this.shadyRoot._distributionClean) {
+this._beginDistribute();
+this._distributeDirtyRoots();
+this._finishDistribute();
+}
+},
+_beginDistribute: function () {
+if (this._useContent && hasInsertionPoint(this.shadyRoot)) {
+this._resetDistribution();
+this._distributePool(this.shadyRoot, this._collectPool());
+}
+},
+_distributeDirtyRoots: function () {
+var c$ = this.shadyRoot._dirtyRoots;
+for (var i = 0, l = c$.length, c; i < l && (c = c$[i]); i++) {
+c._distributeContent();
+}
+this.shadyRoot._dirtyRoots = [];
+},
+_finishDistribute: function () {
+if (this._useContent) {
+this.shadyRoot._distributionClean = true;
+if (hasInsertionPoint(this.shadyRoot)) {
+this._composeTree();
+} else {
+if (!this.shadyRoot._hasDistributed) {
+this.textContent = '';
+this._composedChildren = null;
+this.appendChild(this.shadyRoot);
+} else {
+var children = this._composeNode(this);
+this._updateChildNodes(this, children);
+}
+}
+this.shadyRoot._hasDistributed = true;
+}
+},
+elementMatches: function (selector, node) {
+node = node || this;
+return matchesSelector.call(node, selector);
+},
+_resetDistribution: function () {
+var children = getLightChildren(this);
+for (var i = 0; i < children.length; i++) {
+var child = children[i];
+if (child._destinationInsertionPoints) {
+child._destinationInsertionPoints = undefined;
+}
+if (isInsertionPoint(child)) {
+clearDistributedDestinationInsertionPoints(child);
+}
+}
+var root = this.shadyRoot;
+var p$ = root._insertionPoints;
+for (var j = 0; j < p$.length; j++) {
+p$[j]._distributedNodes = [];
+}
+},
+_collectPool: function () {
+var pool = [];
+var children = getLightChildren(this);
+for (var i = 0; i < children.length; i++) {
+var child = children[i];
+if (isInsertionPoint(child)) {
+pool.push.apply(pool, child._distributedNodes);
+} else {
+pool.push(child);
+}
+}
+return pool;
+},
+_distributePool: function (node, pool) {
+var p$ = node._insertionPoints;
+for (var i = 0, l = p$.length, p; i < l && (p = p$[i]); i++) {
+this._distributeInsertionPoint(p, pool);
+maybeRedistributeParent(p, this);
+}
+},
+_distributeInsertionPoint: function (content, pool) {
+var anyDistributed = false;
+for (var i = 0, l = pool.length, node; i < l; i++) {
+node = pool[i];
+if (!node) {
+continue;
+}
+if (this._matchesContentSelect(node, content)) {
+distributeNodeInto(node, content);
+pool[i] = undefined;
+anyDistributed = true;
+}
+}
+if (!anyDistributed) {
+var children = getLightChildren(content);
+for (var j = 0; j < children.length; j++) {
+distributeNodeInto(children[j], content);
+}
+}
+},
+_composeTree: function () {
+this._updateChildNodes(this, this._composeNode(this));
+var p$ = this.shadyRoot._insertionPoints;
+for (var i = 0, l = p$.length, p, parent; i < l && (p = p$[i]); i++) {
+parent = p._lightParent || p.parentNode;
+if (!parent._useContent && parent !== this && parent !== this.shadyRoot) {
+this._updateChildNodes(parent, this._composeNode(parent));
+}
+}
+},
+_composeNode: function (node) {
+var children = [];
+var c$ = getLightChildren(node.shadyRoot || node);
+for (var i = 0; i < c$.length; i++) {
+var child = c$[i];
+if (isInsertionPoint(child)) {
+var distributedNodes = child._distributedNodes;
+for (var j = 0; j < distributedNodes.length; j++) {
+var distributedNode = distributedNodes[j];
+if (isFinalDestination(child, distributedNode)) {
+children.push(distributedNode);
+}
+}
+} else {
+children.push(child);
+}
+}
+return children;
+},
+_updateChildNodes: function (container, children) {
+var composed = getComposedChildren(container);
+var splices = Polymer.ArraySplice.calculateSplices(children, composed);
+for (var i = 0, d = 0, s; i < splices.length && (s = splices[i]); i++) {
+for (var j = 0, n; j < s.removed.length && (n = s.removed[j]); j++) {
+remove(n);
+composed.splice(s.index + d, 1);
+}
+d -= s.addedCount;
+}
+for (var i = 0, s, next; i < splices.length && (s = splices[i]); i++) {
+next = composed[s.index];
+for (var j = s.index, n; j < s.index + s.addedCount; j++) {
+n = children[j];
+insertBefore(container, n, next);
+composed.splice(j, 0, n);
+}
+}
+},
+_matchesContentSelect: function (node, contentElement) {
+var select = contentElement.getAttribute('select');
+if (!select) {
+return true;
+}
+select = select.trim();
+if (!select) {
+return true;
+}
+if (!(node instanceof Element)) {
+return false;
+}
+var validSelectors = /^(:not\()?[*.#[a-zA-Z_|]/;
+if (!validSelectors.test(select)) {
+return false;
+}
+return this.elementMatches(select, node);
+},
+_elementAdd: function () {
+},
+_elementRemove: function () {
+}
+});
+var saveLightChildrenIfNeeded = Polymer.DomApi.saveLightChildrenIfNeeded;
+var getLightChildren = Polymer.DomApi.getLightChildren;
+var matchesSelector = Polymer.DomApi.matchesSelector;
+var hasInsertionPoint = Polymer.DomApi.hasInsertionPoint;
+var getComposedChildren = Polymer.DomApi.getComposedChildren;
+var removeFromComposedParent = Polymer.DomApi.removeFromComposedParent;
+function distributeNodeInto(child, insertionPoint) {
+insertionPoint._distributedNodes.push(child);
+var points = child._destinationInsertionPoints;
+if (!points) {
+child._destinationInsertionPoints = [insertionPoint];
+} else {
+points.push(insertionPoint);
+}
+}
+function clearDistributedDestinationInsertionPoints(content) {
+var e$ = content._distributedNodes;
+if (e$) {
+for (var i = 0; i < e$.length; i++) {
+var d = e$[i]._destinationInsertionPoints;
+if (d) {
+d.splice(d.indexOf(content) + 1, d.length);
+}
+}
+}
+}
+function maybeRedistributeParent(content, host) {
+var parent = content._lightParent;
+if (parent && parent.shadyRoot && hasInsertionPoint(parent.shadyRoot) && parent.shadyRoot._distributionClean) {
+parent.shadyRoot._distributionClean = false;
+host.shadyRoot._dirtyRoots.push(parent);
+}
+}
+function isFinalDestination(insertionPoint, node) {
+var points = node._destinationInsertionPoints;
+return points && points[points.length - 1] === insertionPoint;
+}
+function isInsertionPoint(node) {
+return node.localName == 'content';
+}
+var nativeInsertBefore = Element.prototype.insertBefore;
+var nativeRemoveChild = Element.prototype.removeChild;
+function insertBefore(parentNode, newChild, refChild) {
+var newChildParent = getComposedParent(newChild);
+if (newChildParent !== parentNode) {
+removeFromComposedParent(newChildParent, newChild);
+}
+remove(newChild);
+nativeInsertBefore.call(parentNode, newChild, refChild || null);
+newChild._composedParent = parentNode;
+}
+function remove(node) {
+var parentNode = getComposedParent(node);
+if (parentNode) {
+node._composedParent = null;
+nativeRemoveChild.call(parentNode, node);
+}
+}
+function getComposedParent(node) {
+return node.__patched ? node._composedParent : node.parentNode;
+}
+function getTopDistributingHost(host) {
+while (host && hostNeedsRedistribution(host)) {
+host = host.domHost;
+}
+return host;
+}
+function hostNeedsRedistribution(host) {
+var c$ = Polymer.dom(host).children;
+for (var i = 0, c; i < c$.length; i++) {
+c = c$[i];
+if (c.localName === 'content') {
+return host.domHost;
+}
+}
+}
+var needsUpgrade = window.CustomElements && !CustomElements.useNative;
+function upgradeLightChildren(children) {
+if (needsUpgrade && children) {
+for (var i = 0; i < children.length; i++) {
+CustomElements.upgrade(children[i]);
+}
+}
+}
+}());
+if (Polymer.Settings.useShadow) {
+Polymer.Base._addFeature({
+_poolContent: function () {
+},
+_beginDistribute: function () {
+},
+distributeContent: function () {
+},
+_distributeContent: function () {
+},
+_finishDistribute: function () {
+},
+_createLocalRoot: function () {
+this.createShadowRoot();
+this.shadowRoot.appendChild(this.root);
+this.root = this.shadowRoot;
+}
+});
+}
+Polymer.DomModule = document.createElement('dom-module');
+Polymer.Base._addFeature({
+_registerFeatures: function () {
+this._prepIs();
+this._prepAttributes();
+this._prepBehaviors();
+this._prepConstructor();
+this._prepTemplate();
+this._prepShady();
+},
+_prepBehavior: function (b) {
+this._addHostAttributes(b.hostAttributes);
+},
+_initFeatures: function () {
+this._poolContent();
+this._pushHost();
+this._stampTemplate();
+this._popHost();
+this._marshalHostAttributes();
+this._setupDebouncers();
+this._marshalBehaviors();
+this._tryReady();
+},
+_marshalBehavior: function (b) {
+}
+});</script>
 
 <script>Polymer.nar = [];
 Polymer.Annotations = {
@@ -4239,3 +6295,307 @@ this._insertChildren();
 this.fire('dom-change');
 }
 });</script>
+</div><dom-module id="emoji-rain">
+  <style>
+    :host {
+      position: fixed;
+      z-index: -1;
+    }
+    #canvas {
+      background: transparent;
+    }
+  </style>
+  <template>
+    <canvas id="canvas"></canvas>
+  </template>
+
+  <script>
+    Polymer({
+      /**
+       * Fired when the emoji rain starts.
+       *
+       * @event emoji-rain-start
+       */
+
+      /**
+       * Fired when the emoji rain stops.
+       *
+       * @event emoji-rain-stop
+       */
+
+       /**
+        * Fired when twemoji.js has been loaded and can be used.
+        *
+        * @event emoji-rain-twemoji-ready
+        */
+
+      is: 'emoji-rain',
+
+      properties: {
+        /**
+         * The number of emoji that is raining.
+         */
+        drops: {
+          type: Number,
+          value: 250
+        },
+
+        /**
+         * If true, will display the Twitter emoji images instead of the
+         * native emoji font. The first time `useTwemoji` is enabled, it will
+         * load the `twemoji.js` script and the necessary images.
+         */
+        useTwemoji: {
+          type: Boolean,
+          value: false,
+          observer: '_twemojiChanged'
+        },
+
+        /**
+         * If true, it is currently raining.
+         */
+        active: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Handlers and identity are hard.
+         */
+        _boundAnimate: {
+          type: Function,
+          value: function() {
+            return this._animate.bind(this);
+          }
+        }
+      },
+
+      ready: function() {
+        this.dropsForDrawing = [];
+
+        // From http://www.unicode.org/Public/UNIDATA/EmojiSources.txt
+        // Took out 2002/2003/2005 because they didn't look printable.
+        this._emoji = ['00A9','00AE','203C','2049','2122','2139','2194','2195','2196','2197','2198','2199','21A9','21AA','231A','231B','23E9','23EA','23EB','23EC','23F0','23F3','24C2','25AA','25AB','25B6','25C0','25FB','25FC','25FD','25FE','2600','2601','260E','2611','2614','2615','261D','263A','2648','2649','264A','264B','264C','264D','264E','264F','2650','2651','2652','2653','2660','2663','2665','2666','2668','267B','267F','2693','26A0','26A1','26AA','26AB','26BD','26BE','26C4','26C5','26CE','26D4','26EA','26F2','26F3','26F5','26FA','26FD','2702','2705','2708','2709','270A','270B','270C','270F','2712','2714','2716','2728','2733','2734','2744','2747','274C','274E','2753','2754','2755','2757','2764','2795','2796','2797','27A1','27B0','2934','2935','2B05','2B06','2B07','2B1B','2B1C','2B50','2B55','3030','303D','3297','3299','1F004','1F0CF','1F170','1F171','1F17E','1F17F','1F18E','1F191','1F192','1F193','1F194','1F195','1F196','1F197','1F198','1F199','1F19A','1F201','1F202','1F21A','1F22F','1F232','1F233','1F234','1F235','1F236','1F237','1F238','1F239','1F23A','1F250','1F251','1F300','1F301','1F302','1F303','1F304','1F305','1F306','1F307','1F308','1F309','1F30A','1F30B','1F30C','1F30F','1F311','1F313','1F314','1F315','1F319','1F31B','1F31F','1F320','1F330','1F331','1F334','1F335','1F337','1F338','1F339','1F33A','1F33B','1F33C','1F33D','1F33E','1F33F','1F340','1F341','1F342','1F343','1F344','1F345','1F346','1F347','1F348','1F349','1F34A','1F34C','1F34D','1F34E','1F34F','1F351','1F352','1F353','1F354','1F355','1F356','1F357','1F358','1F359','1F35A','1F35B','1F35C','1F35D','1F35E','1F35F','1F360','1F361','1F362','1F363','1F364','1F365','1F366','1F367','1F368','1F369','1F36A','1F36B','1F36C','1F36D','1F36E','1F36F','1F370','1F371','1F372','1F373','1F374','1F375','1F376','1F377','1F378','1F379','1F37A','1F37B','1F380','1F381','1F382','1F383','1F384','1F385','1F386','1F387','1F388','1F389','1F38A','1F38B','1F38C','1F38D','1F38E','1F38F','1F390','1F391','1F392','1F393','1F3A0','1F3A1','1F3A2','1F3A3','1F3A4','1F3A5','1F3A6','1F3A7','1F3A8','1F3A9','1F3AA','1F3AB','1F3AC','1F3AD','1F3AE','1F3AF','1F3B0','1F3B1','1F3B2','1F3B3','1F3B4','1F3B5','1F3B6','1F3B7','1F3B8','1F3B9','1F3BA','1F3BB','1F3BC','1F3BD','1F3BE','1F3BF','1F3C0','1F3C1','1F3C2','1F3C3','1F3C4','1F3C6','1F3C8','1F3CA','1F3E0','1F3E1','1F3E2','1F3E3','1F3E5','1F3E6','1F3E7','1F3E8','1F3E9','1F3EA','1F3EB','1F3EC','1F3ED','1F3EE','1F3EF','1F3F0','1F40C','1F40D','1F40E','1F411','1F412','1F414','1F417','1F418','1F419','1F41A','1F41B','1F41C','1F41D','1F41E','1F41F','1F420','1F421','1F422','1F423','1F424','1F425','1F426','1F427','1F428','1F429','1F42B','1F42C','1F42D','1F42E','1F42F','1F430','1F431','1F432','1F433','1F434','1F435','1F436','1F437','1F438','1F439','1F43A','1F43B','1F43C','1F43D','1F43E','1F440','1F442','1F443','1F444','1F445','1F446','1F447','1F448','1F449','1F44A','1F44B','1F44C','1F44D','1F44E','1F44F','1F450','1F451','1F452','1F453','1F454','1F455','1F456','1F457','1F458','1F459','1F45A','1F45B','1F45C','1F45D','1F45E','1F45F','1F460','1F461','1F462','1F463','1F464','1F466','1F467','1F468','1F469','1F46A','1F46B','1F46E','1F46F','1F470','1F471','1F472','1F473','1F474','1F475','1F476','1F477','1F478','1F479','1F47A','1F47B','1F47C','1F47D','1F47E','1F47F','1F480','1F481','1F482','1F483','1F484','1F485','1F486','1F487','1F488','1F489','1F48A','1F48B','1F48C','1F48D','1F48E','1F48F','1F490','1F491','1F492','1F493','1F494','1F495','1F496','1F497','1F498','1F499','1F49A','1F49B','1F49C','1F49D','1F49E','1F49F','1F4A0','1F4A1','1F4A2','1F4A3','1F4A4','1F4A5','1F4A6','1F4A7','1F4A8','1F4A9','1F4AA','1F4AB','1F4AC','1F4AE','1F4AF','1F4B0','1F4B1','1F4B2','1F4B3','1F4B4','1F4B5','1F4B8','1F4B9','1F4BA','1F4BB','1F4BC','1F4BD','1F4BE','1F4BF','1F4C0','1F4C1','1F4C2','1F4C3','1F4C4','1F4C5','1F4C6','1F4C7','1F4C8','1F4C9','1F4CA','1F4CB','1F4CC','1F4CD','1F4CE','1F4CF','1F4D0','1F4D1','1F4D2','1F4D3','1F4D4','1F4D5','1F4D6','1F4D7','1F4D8','1F4D9','1F4DA','1F4DB','1F4DC','1F4DD','1F4DE','1F4DF','1F4E0','1F4E1','1F4E2','1F4E3','1F4E4','1F4E5','1F4E6','1F4E7','1F4E8','1F4E9','1F4EA','1F4EB','1F4EE','1F4F0','1F4F1','1F4F2','1F4F3','1F4F4','1F4F6','1F4F7','1F4F9','1F4FA','1F4FB','1F4FC','1F503','1F50A','1F50B','1F50C','1F50D','1F50E','1F50F','1F510','1F511','1F512','1F513','1F514','1F516','1F517','1F518','1F519','1F51A','1F51B','1F51C','1F51D','1F51E','1F51F','1F520','1F521','1F522','1F523','1F524','1F525','1F526','1F527','1F528','1F529','1F52A','1F52B','1F52E','1F52F','1F530','1F531','1F532','1F533','1F534','1F535','1F536','1F537','1F538','1F539','1F53A','1F53B','1F53C','1F53D','1F550','1F551','1F552','1F553','1F554','1F555','1F556','1F557','1F558','1F559','1F55A','1F55B','1F5FB','1F5FC','1F5FD','1F5FE','1F5FF','1F601','1F602','1F603','1F604','1F605','1F606','1F609','1F60A','1F60B','1F60C','1F60D','1F60F','1F612','1F613','1F614','1F616','1F618','1F61A','1F61C','1F61D','1F61E','1F620','1F621','1F622','1F623','1F624','1F625','1F628','1F629','1F62A','1F62B','1F62D','1F630','1F631','1F632','1F633','1F635','1F637','1F638','1F639','1F63A','1F63B','1F63C','1F63D','1F63E','1F63F','1F640','1F645','1F646','1F647','1F648','1F649','1F64A','1F64B','1F64C','1F64D','1F64E','1F64F','1F680','1F683','1F684','1F685','1F687','1F689','1F68C','1F68F','1F691','1F692','1F693','1F695','1F697','1F699','1F69A','1F6A2','1F6A4','1F6A5','1F6A7','1F6A8','1F6A9','1F6AA','1F6AB','1F6AC','1F6AD','1F6B2','1F6B6','1F6B9','1F6BA','1F6BB','1F6BC','1F6BD','1F6BE','1F6C0'];
+
+        this._totalEmoji = this._emoji.length;
+        this._imageTransmogrifier = document.createElement('div');
+
+        this.canvas = this.$.canvas;
+        this.context = this.canvas.getContext('2d');
+        this.context.fillStyle = 'black';
+
+        this._resizeWindow();
+        this._scaleCanvas();
+
+        // Care about window resizing.
+        var self = this;
+        window.addEventListener('resize', function() {
+          self._resizeWindow();
+        }, false);
+
+        // If we're using twemoji right off the bat, wait until the script
+        // loads before generating the drops, and it will generate the drops.
+        if (!this.useTwemoji)
+          this._generateDrops();
+
+        if (this.active)
+          this.start();
+      },
+
+      /**
+       * Starts the rain.
+       */
+      stop: function() {
+        this.active = false;
+        clearTimeout(this.timeout);
+        window.cancelAnimationFrame(this.animationFrame);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.fire('emoji-rain-stop');
+      },
+
+      /**
+       * Stops the rain.
+       */
+      start: function() {
+        this.active = true;
+        this._animate();
+        this.fire('emoji-rain-start');
+      },
+
+      /**
+       * Called when twemoji is enabled or disabled. If this is the first
+       * time it is enabled, performs an async script load and upon success
+       * resets the rain.
+       */
+      _twemojiChanged: function() {
+        if (!this.useTwemoji)
+          return;
+
+        // We only want to load the script if we really need it, because
+        // it needs to download a bunch of images, and that's a waste.
+        if (this.importedTwemoji)
+          return;
+
+        this.importHref(this.resolveUrl('twemoji-script-holder.html'), function(e) {
+          this.importedTwemoji = true;
+          this.fire('emoji-rain-twemoji-ready');
+
+          // Poetically, the rain must fall on.
+          var prevActive = this.active;
+          this.stop();
+          this._generateDrops();
+          if (prevActive)
+            this.start()
+        }, function(e) {
+          this.useTwemoji = false;
+        });
+      },
+
+      /**
+       * Rains
+       */
+      _animate: function() {
+        var self = this;
+        this.timeout = setTimeout(function() {
+          self.animationFrame = window.requestAnimationFrame(self._boundAnimate);
+          self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
+
+          for (var i = 0; i < self.dropsForDrawing.length; i++) {
+            self._paintEmoji(self.dropsForDrawing[i]);
+          }
+        }, 1000 / 60);
+      },
+
+      /**
+       * Gets you an obscure ready-to-be-used emoji object with a whole bunch of
+       * undocumented properties because your faithful author was too lazy
+       * to create a separate class for this. Leaving it public just in case
+       * you want to use this (why do you?) <3
+       */
+      giveMeARandomEmoji: function() {
+        var emoji = {}
+
+        emoji.code = this._emoji[Math.floor((Math.random() * this._totalEmoji))];
+        emoji.char = this._fromCodePoint(emoji.code);
+
+        // 1 to window size
+        emoji.x = Math.floor((Math.random() * this.canvas.width) + 1);
+        emoji.y = Math.floor((Math.random() * this.canvas.height) + 1);
+
+        if (this.useTwemoji && this.importedTwemoji) {
+          this._imageTransmogrifier.innerHTML = twemoji.parse(emoji.char);
+          emoji.img = this._imageTransmogrifier.childNodes[0];
+        }
+
+        // I am pulling these numbers out of a hat.
+        emoji.speed = Math.floor(Math.random() * 10 + 1);
+        emoji.opacity = 1;
+        emoji.opacitySpeed = 0.02 * (Math.random() * 2 + 1);
+
+        return emoji;
+      },
+
+      /**
+       * Draws one emoji (text or twemoji) on the canvas.
+       */
+      _paintEmoji: function(emoji) {
+        if (emoji.y >= this.canvas.height || emoji.opacity < 0.1) {
+          var i = emoji.arrayIndex;
+          emoji = this.giveMeARandomEmoji();
+          emoji.arrayIndex = i;
+          this.dropsForDrawing[i] = emoji;
+        }
+        else {
+          emoji.y += emoji.speed;
+          emoji.opacity -= emoji.opacitySpeed;
+        }
+
+        this.context.globalAlpha = emoji.opacity;
+
+        var isEven = emoji.arrayIndex % 2;
+        if (this.useTwemoji && emoji.img && emoji.img != '') {
+          var size = isEven ? 20 : 30;
+          this.context.drawImage(emoji.img, emoji.x, emoji.y, size, size);
+        } else {
+          this.context.font = isEven ? '20px serif' : '30px serif';
+          this.context.fillText(emoji.char, emoji.x, emoji.y);
+        }
+
+        this.context.restore();
+      },
+
+      /**
+       * Create a set of emoji drops.
+       */
+      _generateDrops: function() {
+        this.dropsForDrawing = [];
+        for (var i = 0; i < this.drops; i++) {
+          var emoji = this.giveMeARandomEmoji();
+          emoji.arrayIndex = i;
+          this.dropsForDrawing.push(emoji);
+        }
+      },
+
+      /**
+       * Hopefully updates the canvas size when the window resizes.
+       */
+      _resizeWindow: function() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      },
+
+      /**
+       * Unborks the canvas pixel ratio on retina screens.
+       * From http://www.html5rocks.com/en/tutorials/canvas/hidpi/
+       */
+      _scaleCanvas: function() {
+        // Finally query the various pixel ratios.
+        var devicePixelRatio = window.devicePixelRatio || 1;
+        var backingStoreRatio = this.context.webkitBackingStorePixelRatio ||
+                            this.context.mozBackingStorePixelRatio ||
+                            this.context.msBackingStorePixelRatio ||
+                            this.context.oBackingStorePixelRatio ||
+                            this.context.backingStorePixelRatio || 1;
+
+        var ratio = devicePixelRatio / backingStoreRatio;
+
+        // Upscale the canvas if the two ratios don't match.
+        if (devicePixelRatio !== backingStoreRatio) {
+
+            var oldWidth = this.canvas.width;
+            var oldHeight = this.canvas.height;
+
+            this.canvas.width = oldWidth * ratio;
+            this.canvas.height = oldHeight * ratio;
+
+            this.canvas.style.width = oldWidth + 'px';
+            this.canvas.style.height = oldHeight + 'px';
+
+            // Now scale the context to counter the fact that we've manually scaled
+            // our canvas element.
+            this.context.scale(ratio, ratio);
+        }
+      },
+
+      /**
+       * I don't understand how to save unicode in an array and use it in a
+       * canvas, and I quickly gave up trying. This is lifted from https://github.com/twitter/twemoji
+       * and returns the emoji for a codepoint.
+       */
+      _fromCodePoint: function(codepoint) {
+        var code = typeof codepoint === 'string' ?
+              parseInt(codepoint, 16) : codepoint;
+        if (code < 0x10000) {
+          return String.fromCharCode(code);
+        }
+        code -= 0x10000;
+        return String.fromCharCode(
+          0xD800 + (code >> 10),
+          0xDC00 + (code & 0x3FF)
+        );
+      }
+    });
+
+  </script>
+</dom-module>
+</body></html>
