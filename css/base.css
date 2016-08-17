@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-  font-family: 'Open Sans', Helvetica, serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   margin: 0;
   -webkit-font-smoothing: antialiased;
 }
@@ -31,7 +31,7 @@ iframe {
  * Copy
  **********************/
 h1, h2, h3, h4 {
-  font-family: 'Oswald', Helvetica, sans-serif;
+  font-weight: 700;
   color: #333;
 }
 
@@ -48,7 +48,7 @@ h1 {
 
 h2, h3 {
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 ul.listing > h3 {
