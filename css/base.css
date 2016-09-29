@@ -208,15 +208,29 @@ ul {
   margin: 5px 0;
 }
 
-.content blockquote {
-  font-style: italic;
-  font-size: 14px;
-  padding: .25em 1em;
-  margin: 1em 1em 0 1em;
-  color: #444;
+blockquote {
+  background: #E0F7FA;
+  margin: 30px 40px;
+  padding: 14px 10px;
 }
 
-.content blockquote cite:before {
+blockquote:before {
+  color: #ff487a;
+  content: "\201C";
+  font-family: Georgia;
+  font-size: 80px;
+  line-height: 0;
+  vertical-align: -0.5em;
+}
+
+blockquote:after {
+  content: "";
+}
+blockquote p {
+  display: inline;
+}
+
+/*.content blockquote cite:before {
     content: '— ';
 }
 
@@ -226,7 +240,7 @@ ul {
   text-align: right;
   color: #111;
   font-style: normal;
-}
+}*/
 
 /**********************
 * Posts lists
