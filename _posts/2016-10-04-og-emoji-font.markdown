@@ -47,7 +47,7 @@ frameBorder="0"></iframe>
 LOOK HOW PRETTY THEY ARE! <span class="og">💓</span>
 
 ## A wild font appears
-The reason why I made those SVGs was partly because Captain America Civil War is unbearably
+The reason why I made those SVGs was partly because Captain America: Civil War is unbearably
 boring, but partly because I wanted to make a font and use it everywhere like
 an emoji hipster.
 
@@ -55,7 +55,7 @@ So then I did. I used [Fontastic](http://app.fontastic.me/) to make the font -- 
 because I couldn't figure out how to colour the glyphs correctly, but I will soon (if anyone
   knows of an easy way, holla my way). I
 also mapped the OG emoji glyph to one of the current existing emoji code points,
-based on the list [here](), because let's be honest, some of them were mysterious.
+based on [this](http://unicode.org/emoji/charts/full-emoji-list.html) list, because let's be honest, some of them were mysterious.
 Do you know what <span class="og">💥</span> means? It's 💥. And
 <span class="og">💦</span> is 💦. 12 pixels ain't a lot of pixels, friends.
 
