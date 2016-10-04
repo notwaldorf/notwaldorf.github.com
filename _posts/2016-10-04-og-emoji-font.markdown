@@ -61,17 +61,10 @@ Do you know what <span class="og">💥</span> means? It's 💥. And
 <span class="og">💦</span> is 💦. 12 pixels ain't a lot of pixels, friends.
 
 <style>
-@font-face {
-  font-family: og-emoji;
-  src: url(/fonts/og-dcm-emoji.ttf);
-}
 .emoji-sample {
   font-size: 24px;
   letter-spacing: 6px;
   line-height: 30px !important;
-}
-.og {
-  font-family: og-emoji, sans-serif;
 }
 </style>
 
