@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: og-emoji;
+  src: url(/fonts/og-dcm-emoji.ttf);
+}
+.og {
+  font-family: og-emoji, sans-serif;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   margin: 0;
