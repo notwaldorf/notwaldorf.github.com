@@ -77,7 +77,7 @@ And here's the same list, using the OG DoCoMo emoji font:
 <p class="og emoji-sample">❤💔💓💕😃😖😞😵😠🎵♨💠💋✨💡💢👊💣🎶💤❗⁉‼💥💦💧💨〰️➰⤴⤵↗↘↖↙☀☁︎☔︎⛄⚡︎🌀🌁🌂♈︎♉︎♊︎♋︎♌︎♍︎♎︎♏︎♐︎♑︎♒︎♓︎🎽⚾︎⛳🎾⚽︎🎿🏀🏁📟🚃Ⓜ🚄🚗🚙🚌🚢✈️🏠🏢🏣🏥🏦🏧🏨🏪⛽🅿🚥🚻🍴☕🍸🍺🍔👠✂︎🎤🎥🎠🎧🎨🎩🎪🎫🚬🚭📷👜📖🎀🎁🎂☎︎📱📝📺🎮💿♥♠♦♣👀👂✊✌︎✋👣👟👓🌑🌔🌓🌙🌕🐶🐱⛵🎄📲📩📠✉︎💴🆓🆔↩🆑🔍🆕🚩➿#0123456789🆗</p>
 </div>
 
-There's some og emoji that don't even exist today!:
+There's some OG emoji that don't even exist today!:
 <p class="og emoji-sample">abcde</p>
 
 <h2>Boom! <span class="og" style="font-weight:normal;">💣</span></h2>
