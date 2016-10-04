@@ -2,7 +2,6 @@
 layout: post
 title: "How I made a 2001-era emoji font"
 category: posts
-draft: true
 ---
 
 You know the scenes in Friends when Ross starts talking about dinosaurs
