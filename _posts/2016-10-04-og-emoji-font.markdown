@@ -54,7 +54,7 @@ an emoji hipster.
 So then I did. I used [Fontastic](http://app.fontastic.me/) to make the font -- it's black and white for now,
 because I couldn't figure out how to colour the glyphs correctly, but I will soon (if anyone
   knows of an easy way, holla my way). I
-also mapped the OG emoji glyph to one of the current existing emoji code points,
+also mapped the original emoji glyph to one of the current existing emoji code points,
 based on [this](http://unicode.org/emoji/charts/full-emoji-list.html) list, because let's be honest, some of them were mysterious.
 Do you know what <span class="og">💥</span> means? It's 💥. And
 <span class="og">💦</span> is 💦. 12 pixels ain't a lot of pixels, friends.
@@ -72,7 +72,7 @@ Here the 166 emoji as they look today:
 <p class="emoji-sample">❤💔💓💕😃😖😞😵😠🎵♨💠💋✨💡💢👊💣🎶💤❗⁉‼💥💦💧💨〰️➰⤴⤵↗↘↖↙☀️☁️☔️⛄⚡️🌀🌁🌂♈️♉️♊️♋️♌️♍️♎️♏️♐️♑️♒️♓️🎽⚾️⛳🎾⚽️🎿🏀🏁📟🚃Ⓜ🚄🚗🚙🚌🚢✈️🏠🏢🏣🏥🏦🏧🏨🏪⛽🅿🚥🚻🍴☕🍸🍺🍔👠✂️🎤🎥🎠🎧🎨🎩🎪🎫🚬🚭📷👜📖🎀🎁🎂☎︎📱📝📺🎮💿♥♠♦♣👀👂✊✌️✋👣👟👓🌑🌔🌓🌙🌕🐶🐱⛵🎄📲📩📠✉︎💴🆓🆔↩🆑🔍🆕🚩➿#️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🆗</p>
 </div>
 
-And here's the same list, using the OG DoCoMo emoji font:
+And here's the same list, using the DoCoMo emoji font:
 <div>
 <p class="og emoji-sample">❤💔💓💕😃😖😞😵😠🎵♨💠💋✨💡💢👊💣🎶💤❗⁉‼💥💦💧💨〰️➰⤴⤵↗↘↖↙☀☁︎☔︎⛄⚡︎🌀🌁🌂♈︎♉︎♊︎♋︎♌︎♍︎♎︎♏︎♐︎♑︎♒︎♓︎🎽⚾︎⛳🎾⚽︎🎿🏀🏁📟🚃Ⓜ🚄🚗🚙🚌🚢✈️🏠🏢🏣🏥🏦🏧🏨🏪⛽🅿🚥🚻🍴☕🍸🍺🍔👠✂︎🎤🎥🎠🎧🎨🎩🎪🎫🚬🚭📷👜📖🎀🎁🎂☎︎📱📝📺🎮💿♥♠♦♣👀👂✊✌︎✋👣👟👓🌑🌔🌓🌙🌕🐶🐱⛵🎄📲📩📠✉︎💴🆓🆔↩🆑🔍🆕🚩➿#0123456789🆗</p>
 </div>
