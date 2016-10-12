@@ -64,6 +64,7 @@ Do you know what <span class="og">💥</span> means? It's 💥. And
   font-size: 24px;
   letter-spacing: 6px;
   line-height: 30px !important;
+  word-wrap: break-word;
 }
 </style>
 
