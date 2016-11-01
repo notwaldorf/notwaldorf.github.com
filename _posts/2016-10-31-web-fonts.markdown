@@ -1,0 +1,103 @@
+---
+layout: post
+title: "Web fonts, boy, I don't know"
+category: posts
+draft: true
+---
+
+<ul>
+<li>
+  <span style="color: white;">phantom
+  <span style="border-bottom:1px solid black;">underlines</span>
+  . isn't this <span style="border-bottom:1px solid black;">amaaaaaazing.</span>
+  </span>
+</li>
+<li><span style="color: white;">i love waiting for 8 seconds and seeing this.</span></li>
+<li>
+  <span style="color: white;">look at it. srsly.
+  <span style="border-bottom:1px solid black;">looooook</span>
+  at it.</span>
+</li>
+</ul>
+
+Doesn't this look great? This is what you see while your page is waiting to download and display a web font. It's extra neat on slow network connections and iPhones (Chrome ❤️s you), which means that if, say, you're traveling and roaming on a
+2G connection, you spend a loooot of time looking at phantom underlines.
+
+## The critical path
+I've been brainwashed to _really_ care about first paint performance, and I've become a big fan of the "do less & be lazy" approach to building apps. What this means is that if something is
+not on your critical path, it probably doesn't need to be the first thing you paint on a page.
+
+Now think about fonts: is the critical path _showing_ text, or _styling_ it? I'd
+argue that unless your app is in the 1% it's-all-a-visual-experience bucket (in which case
+  this post is not for you),
+it's probably trying to communicate some content, and ugly content (that you prettify after) is better than no content.
+
+(Real talk: if you don't think rendering text is a critical path, you're cray and we need to have a chat.)
+
+There's two things you can run into when loading a web font:
+
+- **FOIC** ("flash of invisible content") -- when your browser sees that
+you're trying to use a font it doesn't have yet it paints all the text in
+invisible ink, waits, and when it finally gets the font, it paints and re-layouts the text correctly.
+![foic](https://cloud.githubusercontent.com/assets/1369170/19876828/0aa7d0d6-9f97-11e6-86c8-b7e2c80a9986.gif)
+I hate this with the fire of a thousand suns, because instead of looking at actual content,
+I'm looking at bullets and underlines and random text you forgot to style. Neat-o.
+
+- **FOUC** ("flash of unstyled content") -- Chrome stops waiting for a web font after 3 seconds (and, recently, after 0 seconds on 2G). What this means is instead of showing you invisible ink, it paints the text in your fallback
+font. When your web font is finally downloaded, it then re-paints the already displayed text with the new font.
+
+![fouc](https://cloud.githubusercontent.com/assets/1369170/19876827/0aa5c8d6-9f97-11e6-81a2-13fa35f6bbc9.gif)
+
+**Side note**: on iPhones, this timeout doesn't exist, so you basically only get a FOIC -- you wait the entire
+time to get from "no text" to "all the text", with no intermediate bail out state.
+
+([here](http://output.jsbin.com/felocuh) is the code that I used for these demos,
+with GPRS and 2G throttling respectively in Chrome)
+
+## Reading material
+A lot of people have written about web fonts, and I'm not trying to re-write their
+posts. Chrome in particularly has been working a lot on improving this, by
+decreasing the web font download timeout to 0s on 2G, and working on the `font-display` spec.
+
+Here are some links:
+
+- the [anatomy of a web font](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization) and the
+[dance](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization#webfonts_and_the_critical_rendering_path) that a browser does to use a webfont
+- [`font-display`](https://developers.google.com/web/updates/2016/02/font-display)
+options, and how it affects how fonts load
+- [`font-display: optional`](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/7s4-eQTAxqs/SoahsGpMAQAJ) and why it's awesome (tl; dr: if you can't do it fast, don't do it at all)
+- minimizing [font downloads](https://jakearchibald.com/2014/minimising-font-downloads/) by limiting
+the range of characters you're loading
+- why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right). Also, a different [blog post](https://www.filamentgroup.com/lab/font-events.html) on how to use `FontFaceObserver`
+
+## Lazy loading a font
+Ideally, I would use `font-display: optional` everywhere, but that currently only works
+in Chrome. While we're waiting for iOS/Safari to catch up with the rest of the web (sigh),
+I wanted to explore my "do less & be lazy" approach and lazily load a font.
+I don't really mind having a FOUC, since it kind of looks like progressive enhancement to me:
+display the content as soon as you can, and progressively style it after.
+You can get [this](http://output.jsbin.com/cijokog) by *not* adding your web fonts to the `head`,
+using them in CSS as if they're loaded, but lazy loading them once the document has loaded:
+
+```html
+<head>
+  <style>
+    body {
+      font-family: 'Arima Madurai', sans-serif;
+    }
+  </style>
+</head>
+<script>
+  document.body.onload = function() {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href='https://fonts.googleapis.com/css?family=Arima+Madurai:300,400,500';
+    document.head.appendChild(link);
+  }
+</script>
+```
+
+## TL; DR
+Web fonts are okay. They make your blog prettier. They're also slow and kind of an
+annoying experience, but if you need to use them, use them. Just remember that it's
+also your responsibility to make a fast site that doesn't let your users hanging.
