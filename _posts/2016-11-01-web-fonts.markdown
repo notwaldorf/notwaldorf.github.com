@@ -81,8 +81,7 @@ the range of characters you're loading
 - why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right).
 
 ## Lazy loading a font
-Personally, I would use `font-display: optional` everywhere, but that currently only works
-in Chrome, and as usual, we're waiting for iOS/Safari to catch up with the rest of the web (sigh).
+Personally, I would use `font-display: optional` everywhere, but that doesn't really work anywhere yet.
 In the meantime, here are 2 super simple ways to lazy load a web font.
 Again, I don't really mind having a FOUC, since it feels like progressive enhancement to me:
 display the content as soon as you can, and progressively style it after.
