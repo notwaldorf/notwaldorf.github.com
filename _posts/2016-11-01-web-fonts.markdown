@@ -8,40 +8,47 @@ draft: true
 <ul>
 <li>
   <span style="color: white;">phantom
-  <span style="border-bottom:1px solid black;">underlines</span>
-  . isn't this <span style="border-bottom:1px solid black;">amaaaaaazing.</span>
+  <span style="border-bottom:1px solid black;">underlines</span>. isn't this
+  <span style="border-bottom:1px solid black;">amaaaaaazing.</span>
   </span>
 </li>
 <li><span style="color: white;">i love waiting for 8 seconds and seeing this.</span></li>
 <li>
   <span style="color: white;">look at it. srsly.
-  <span style="border-bottom:1px solid black;">looooook</span>
-  at it.</span>
+  <span style="border-bottom:1px solid black;">looooook</span>at it.
+  </span>
 </li>
 </ul>
 
-Doesn't this look great? This is what you see while your page is waiting to download and display a web font. It's extra neat on slow network connections and iPhones (Chrome ❤️s you), which means that if, say, you're traveling and roaming on a
-2G connection, you spend a loooot of time looking at phantom underlines.
+I spent a week traveling around Taiwan, on my awesome free roaming 2G data plan, and friends,
+we need to talk about your web fonts. Also cats. They really love cats there.
+Anyway, the thing about 2G is that I fully understand
+that it will take me 10 seconds to load a page. What sucks is the fresh rage of
+the following 4 seconds
+where instead of content I get phantom underlines, waiting for
+a slightly-different-sans-serif to download.
 
-Lots of people have written about this, but I haven't, and I'm procrastinating
-from working on my Chrome Dev Summit talk, so: I hate web fonts; hear me roar.
+Listen: it doesn't have to be this way. You can lazy load your font. It's 4 lines
+of JavaScript. 7 if you're being ambitious.
 
-## The critical path
-I've been brainwashed to _really_ care about first paint performance, and I've become a big fan of the "do less & be lazy" approach to building apps. What this means is that if something is
-not on your critical path, it probably doesn't need to be the first thing you paint on a page.
+## Why should you care
+I've been brainwashed to _really_ care about first paint performance (thanks Chrome Dev Rel 😘),
+and I've become a big fan of the "do less & be lazy" approach to building things.
+What this means is that if something is not on your critical path, it probably doesn't
+need to be the first thing you paint on a page.
 
 Now think about fonts: is the critical path _showing_ text, or _styling_ it? I'd
-argue that unless your app is in the 1% it's-all-a-visual-experience bucket (in which case
+argue that unless your app is in the 1% it's-all-a-magical-visual-experience bucket (in which case
   this post is not for you),
 it's probably trying to communicate some content, and ugly content (that you prettify after) is better than no content.
 
-(Real talk: if you don't think rendering text is a critical path, you're cray and we need to have a chat.)
+(Real talk: if you don't think rendering text is a critical path, you're whack and we need to have a chat.)
 
-There's two things you can run into when loading a web font:
+There are two things you can run into when loading a web font:
 
 - **FOIC** ("flash of invisible content") -- when your browser sees that
-you're trying to use a font it doesn't have yet it paints all the text in
-invisible ink, waits, and when it finally gets the font, it paints and re-layouts the text correctly.
+you're trying to use a font it doesn't have it paints all the text in
+invisible ink, waits, and when it finally gets the font, it re-paints and re-layouts the text correctly.
 ![foic](https://cloud.githubusercontent.com/assets/1369170/19876828/0aa7d0d6-9f97-11e6-86c8-b7e2c80a9986.gif)
 I hate this with the fire of a thousand suns, because instead of looking at actual content,
 I'm looking at bullets and underlines and random text you forgot to style. Neat-o.
@@ -55,17 +62,18 @@ font. When your web font is finally downloaded, it then re-paints the already di
 time to get from "no text" to "all the text", with no intermediate bail out state.
 
 ([Here](http://output.jsbin.com/felocuh) is the code that I used for these demos,
-with GPRS and 2G throttling respectively in Chrome.)
+with GPRS and 2G throttling respectively in Chrome. This demo will look super snappy
+on LTE. Everything is super snappy on LTE.)
 
 ## Reading material
 A lot of people have written about web fonts, and I'm not trying to re-write their
 posts. Chrome in particularly has been working a lot on improving this, by
 decreasing the web font download timeout to 0s on 2G, and working on the `font-display` spec.
 
-Here are some links:
+Here are some links I like:
 
 - the [anatomy of a web font](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization) and the
-[dance](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization#webfonts_and_the_critical_rendering_path) that a browser does to use a webfont
+[dance](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization#webfonts_and_the_critical_rendering_path) that a browser does to use a web font
 - [`font-display`](https://developers.google.com/web/updates/2016/02/font-display)
 options, and how it affects how fonts load
 - [`font-display: optional`](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/7s4-eQTAxqs/SoahsGpMAQAJ) and why it's awesome (tl; dr: if you can't do it fast, don't do it at all)
@@ -75,10 +83,10 @@ the range of characters you're loading
 
 ## Lazy loading a font
 Personally, I would use `font-display: optional` everywhere, but that currently only works
-in Chrome. While we're waiting for iOS/Safari to catch up with the rest of the web (sigh),
-here's two super simple ways to lazy load a web font. Again, I don't really mind having a FOUC,
-since it feels like progressive enhancement to me: display the content as soon as you can,
-and progressively style it after.
+in Chrome, and as usual, we're waiting for iOS/Safari to catch up with the rest of the web (sigh).
+In the meantime, here are 2 super simple ways to lazy load a web font.
+Again, I don't really mind having a FOUC, since it feels like progressive enhancement to me:
+display the content as soon as you can, and progressively style it after.
 
 ```html
 <head>
@@ -88,16 +96,17 @@ and progressively style it after.
     }
   </style>
 </head>
+<body>...</body>
 <script>
   // Do this only after we've displayed the initial text.
   document.body.onload = function() {
     var url = 'https://fonts.googleapis.com/css?family=Arima+Madurai:300,400,500';
-    loadFont(url);  // hold tight, i tell you.
+    loadFont(url);  // hold tight, i tell you below.
   }
 </script>
 ```
 
-There's basically two ways in which you can implement `loadFont`:
+There's basically two ways in which you can implement that `loadFont`:
 
 ### Load the stylesheet (synchronous)
 This is the simplest way and works great for a simple page. But! Since loading/parsing
@@ -128,9 +137,10 @@ xhr.onreadystatechange = function () {
 xhr.send();
 ```
 
-For bonus points, you can take this [one step further](https://github.com/GoogleChrome/devsummit/blob/master/scripts/utils.js#L34) and rather than creating an inline `<style>`,
+For bonus points, you can take this [one step further](https://github.com/GoogleChrome/devsummit/blob/master/scripts/utils.js#L34) and
+rather than creating an inline `<style>`,
 append a `<link>` like in the previous method, since the browser cache is already
-primed. If you trust your browser cache. I trust noone.
+primed. If you trust your browser cache. I trust no one.
 
 ## TL; DR
 Web fonts are okay. They make your blog prettier. They're also slow and kind of an
