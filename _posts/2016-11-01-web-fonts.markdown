@@ -78,7 +78,8 @@ options, and how it affects how fonts load
 - [`font-display: optional`](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/7s4-eQTAxqs/SoahsGpMAQAJ) and why it's awesome (tl; dr: if you can't do it fast, don't do it at all)
 - minimizing [font downloads](https://jakearchibald.com/2014/minimising-font-downloads/) by limiting
 the range of characters you're loading
-- why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right).
+- why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right)
+- voltron solution [combining](https://jeremenichelli.github.io/2016/05/font-loading-strategy-static-generated-sites/) FontFaceObserver, async loading a font bundle and web storage 
 
 ## Lazy loading a font
 Personally, I would use `font-display: optional` everywhere, but that doesn't really work anywhere yet.
