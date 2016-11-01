@@ -2,7 +2,6 @@
 layout: post
 title: "Web fonts, boy, I don't know"
 category: posts
-draft: true
 ---
 
 <ul>
