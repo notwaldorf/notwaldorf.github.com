@@ -23,6 +23,9 @@ draft: true
 Doesn't this look great? This is what you see while your page is waiting to download and display a web font. It's extra neat on slow network connections and iPhones (Chrome ❤️s you), which means that if, say, you're traveling and roaming on a
 2G connection, you spend a loooot of time looking at phantom underlines.
 
+Lots of people have written about this, but I haven't, and I'm procrastinating
+from working on my Chrome Dev Summit talk, so: I hate web fonts; hear me roar.
+
 ## The critical path
 I've been brainwashed to _really_ care about first paint performance, and I've become a big fan of the "do less & be lazy" approach to building apps. What this means is that if something is
 not on your critical path, it probably doesn't need to be the first thing you paint on a page.
@@ -51,8 +54,8 @@ font. When your web font is finally downloaded, it then re-paints the already di
 **Side note**: on iPhones, this timeout doesn't exist, so you basically only get a FOIC -- you wait the entire
 time to get from "no text" to "all the text", with no intermediate bail out state.
 
-([here](http://output.jsbin.com/felocuh) is the code that I used for these demos,
-with GPRS and 2G throttling respectively in Chrome)
+([Here](http://output.jsbin.com/felocuh) is the code that I used for these demos,
+with GPRS and 2G throttling respectively in Chrome.)
 
 ## Reading material
 A lot of people have written about web fonts, and I'm not trying to re-write their
@@ -68,16 +71,14 @@ options, and how it affects how fonts load
 - [`font-display: optional`](https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/7s4-eQTAxqs/SoahsGpMAQAJ) and why it's awesome (tl; dr: if you can't do it fast, don't do it at all)
 - minimizing [font downloads](https://jakearchibald.com/2014/minimising-font-downloads/) by limiting
 the range of characters you're loading
-- why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right). Also, a different [blog post](https://www.filamentgroup.com/lab/font-events.html) on how to use `FontFaceObserver`
+- why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right).
 
 ## Lazy loading a font
-Ideally, I would use `font-display: optional` everywhere, but that currently only works
+Personally, I would use `font-display: optional` everywhere, but that currently only works
 in Chrome. While we're waiting for iOS/Safari to catch up with the rest of the web (sigh),
-I wanted to explore my "do less & be lazy" approach and lazily load a font.
-I don't really mind having a FOUC, since it kind of looks like progressive enhancement to me:
-display the content as soon as you can, and progressively style it after.
-You can get [this](http://output.jsbin.com/cijokog) by *not* adding your web fonts to the `head`,
-using them in CSS as if they're loaded, but lazy loading them once the document has loaded:
+here's two super simple ways to lazy load a web font. Again, I don't really mind having a FOUC,
+since it feels like progressive enhancement to me: display the content as soon as you can,
+and progressively style it after.
 
 ```html
 <head>
@@ -88,16 +89,56 @@ using them in CSS as if they're loaded, but lazy loading them once the document 
   </style>
 </head>
 <script>
+  // Do this only after we've displayed the initial text.
   document.body.onload = function() {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href='https://fonts.googleapis.com/css?family=Arima+Madurai:300,400,500';
-    document.head.appendChild(link);
+    var url = 'https://fonts.googleapis.com/css?family=Arima+Madurai:300,400,500';
+    loadFont(url);  // hold tight, i tell you.
   }
 </script>
 ```
 
+There's basically two ways in which you can implement `loadFont`:
+
+### Load the stylesheet (synchronous)
+This is the simplest way and works great for a simple page. But! Since loading/parsing
+a stylesheet blocks rendering, this doesn't play nicely if you're loading a bunch
+of other modules after the document has loaded, since they will be delayed. [[demo](http://output.jsbin.com/cijokog)]
+
+```js
+var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = url;
+document.head.appendChild(link);
+```
+
+### XHR the stylesheet (asynchronous)
+If you care about synchronicity (and tbh you probably should), you can do an async
+XMLHttpRequest and create a style node with the result. [[demo](http://output.jsbin.com/veqiyuy)]
+
+```js
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url, true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState == 4 && xhr.status == 200) {
+    var style = document.createElement('style');
+    style.innerHTML = xhr.responseText;
+    document.head.appendChild(style);
+  }
+};
+xhr.send();
+```
+
+For bonus points, you can take this [one step further](https://github.com/GoogleChrome/devsummit/blob/master/scripts/utils.js#L34) and rather than creating an inline `<style>`,
+append a `<link>` like in the previous method, since the browser cache is already
+primed. If you trust your browser cache. I trust noone.
+
 ## TL; DR
 Web fonts are okay. They make your blog prettier. They're also slow and kind of an
 annoying experience, but if you need to use them, use them. Just remember that it's
-also your responsibility to make a fast site that doesn't let your users hanging.
+also your responsibility to make your site load super fast, and if you don't,
+it's totes fair game for people (me) to whine about it on Twitter.
+
+<br><br>
+
+(🍹 to [Paul Lewis](https://twitter.com/aerotwist) who had to sit through all
+my questions and explain basic browser things to me. Again.)
