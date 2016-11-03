@@ -48,14 +48,14 @@ There are two things you can run into when loading a web font:
 - **FOIC** ("flash of invisible content") -- when your browser sees that
 you're trying to use a font it doesn't have it paints all the text in
 invisible ink, waits, and when it finally gets the font, it re-paints and re-layouts the text correctly.
-![foic](https://cloud.githubusercontent.com/assets/1369170/19876828/0aa7d0d6-9f97-11e6-86c8-b7e2c80a9986.gif)
+[[see a gif of this]](https://cloud.githubusercontent.com/assets/1369170/19876828/0aa7d0d6-9f97-11e6-86c8-b7e2c80a9986.gif)
+
 I hate this with the fire of a thousand suns, because instead of looking at actual content,
 I'm looking at bullets and underlines and random text you forgot to style. Neat-o.
 
 - **FOUC** ("flash of unstyled content") -- Chrome stops waiting for a web font after 3 seconds (and, recently, after 0 seconds on 2G). What this means is instead of showing you invisible ink, it paints the text in your fallback
 font. When your web font is finally downloaded, it then re-paints the already displayed text with the new font.
-
-![fouc](https://cloud.githubusercontent.com/assets/1369170/19876827/0aa5c8d6-9f97-11e6-81a2-13fa35f6bbc9.gif)
+[[see a gif of this]](https://cloud.githubusercontent.com/assets/1369170/19876827/0aa5c8d6-9f97-11e6-81a2-13fa35f6bbc9.gif)
 
 **Side note**: on iPhones, this timeout doesn't exist, so you basically only get a FOIC -- you wait the entire
 time to get from "no text" to "all the text", with no intermediate bail out state.
@@ -79,7 +79,7 @@ options, and how it affects how fonts load
 - minimizing [font downloads](https://jakearchibald.com/2014/minimising-font-downloads/) by limiting
 the range of characters you're loading
 - why we should care about web fonts and how to minimize FOIT using JavaScript and a library called [Font Face Observer](http://helenvholmes.com/writing/type-is-your-right)
-- voltron solution [combining](https://jeremenichelli.github.io/2016/05/font-loading-strategy-static-generated-sites/) FontFaceObserver, async loading a font bundle and web storage 
+- voltron solution [combining](https://jeremenichelli.github.io/2016/05/font-loading-strategy-static-generated-sites/) FontFaceObserver, async loading a font bundle and web storage
 
 ## Lazy loading a font
 Personally, I would use `font-display: optional` everywhere, but that doesn't really work anywhere yet.
