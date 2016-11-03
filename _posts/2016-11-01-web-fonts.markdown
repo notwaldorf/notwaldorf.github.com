@@ -107,9 +107,9 @@ display the content as soon as you can, and progressively style it after.
 
 There's basically two ways in which you can implement that `loadFont`:
 
-### Load the stylesheet (synchronous)
+### Load the stylesheet (blocking)
 This is the simplest way and works great for a simple page. But! Since loading/parsing
-a stylesheet blocks rendering, this doesn't play nicely if you're loading a bunch
+a stylesheet blocks parsing/painting, this doesn't play nicely if you're loading a bunch
 of other modules after the document has loaded, since they will be delayed. [[demo](http://output.jsbin.com/cijokog)]
 
 ```js
