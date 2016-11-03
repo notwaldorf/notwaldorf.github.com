@@ -294,9 +294,9 @@ a {
 }
 
 a:hover {
-  -webkit-animation: zomg 0.5s infinite;
-  -moz-animation: zomg 0.5s infinite;
-  animation: zomg 0.5s infinite;
+  -webkit-animation: zomg 3s infinite;
+  -moz-animation: zomg 3s infinite;
+  animation: zomg 3s infinite;
 }
 
 @-webkit-keyframes zomg {
