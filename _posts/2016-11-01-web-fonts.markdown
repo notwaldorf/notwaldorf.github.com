@@ -141,6 +141,13 @@ rather than creating an inline `<style>`,
 append a `<link>` like in the previous method, since the browser cache is already
 primed. If you trust your browser cache. I trust no one.
 
+Update: This is obviously not perfect. It will give you a FOUC on a fast LTE connection,
+even though if you did nothing, like in the first demo, it wouldn't. The point is that
+not all of your audience is on an LTE connection, and I want you to think about them
+when you're working on a site. If you want to
+minimize this FOUC, [Helen Holmes](https://twitter.com/helenvholmes) gave an AMAZING [talk](https://www.youtube.com/watch?v=emLfXChvVPQ) recently about web typography and performance, where she mentions how you
+can try to match the x-heights of your fallback font to your target font, so that the FOUC is gentler.
+
 ## TL; DR
 Web fonts are okay. They make your blog prettier. They're also slow and kind of an
 annoying experience, but if you need to use them, use them. Just remember that it's
