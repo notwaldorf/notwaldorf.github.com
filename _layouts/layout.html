@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen, projection" />
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
   <link rel="icon" type="image/png"  href="/images/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+
   <!-- emoji rain -->
   <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <script type="text/javascript">
@@ -99,15 +101,37 @@
 </body>
 <link rel="import" href="/elements/emoji-rain.html">
 <script>
-var rainmaker = document.getElementById('rainmaker');
-function rain(button) {
-  if (rainmaker.active) {
-    rainmaker.stop();
-    button.innerHTML = "✨";
-  } else {
-    rainmaker.start();
-    button.innerHTML = "☔︎";
+(function() {
+  'use strict';
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(_ => {
+      console.log('service worker is all cool 🐳');
+    }).catch(e => {
+      console.error('service worker is not so cool 🔥', e);
+      throw e;
+    });
+
+    // if (navigator.serviceWorker.controller) {
+    //   // Correctly prompt the user to reload during SW phase change.
+    //   navigator.serviceWorker.controller.onstatechange = e => {
+    //     if (e.target.state === 'redundant') {
+    //       document.querySelector('#reload-prompt').style.visibility = 'visible';
+    //     }
+    //   }
+    // }
   }
-}
+
+  var rainmaker = document.getElementById('rainmaker');
+  function rain(button) {
+    if (rainmaker.active) {
+      rainmaker.stop();
+      button.innerHTML = "✨";
+    } else {
+      rainmaker.start();
+      button.innerHTML = "☔︎";
+    }
+  }
+})();
 </script>
 </html>
