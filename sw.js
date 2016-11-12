@@ -5,8 +5,6 @@ this.addEventListener('install', function(e) {
     return cache.addAll([
       '/',
       '/index.html',
-      '/about',
-      '/talks',
       '/css/base.css',
       '/css/mobile.css',
       '/css/pygments.css',
