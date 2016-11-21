@@ -1,4 +1,4 @@
-var VERSION = '0.0.1';
+var VERSION = '0.0.2';
 
 this.addEventListener('install', function(e) {
   e.waitUntil(caches.open(VERSION).then(cache => {
@@ -20,7 +20,7 @@ this.addEventListener('fetch', function(e) {
   e.respondWith(caches.match(e.request).then((res) => {
     // If there is no match in the cache, we get undefined back,
     // in that case go to the network!
-    return res ? res : handleNoCacheMatch(e);
+    return res ? res : fetch(e.request);
   }));
 });
 
@@ -39,9 +39,19 @@ this.addEventListener('activate', function(e) {
 // and put into our cache
 function handleNoCacheMatch(e) {
   return fetch(e.request).then(res => {
+    var origin = location.origin;
+    var weCare =
+        res.url.indexOf(origin + '/images') !== -1 ||
+        res.url.indexOf(origin + '/fonts') !== -1 ||
+        res.url.indexOf(origin + '/about') !== -1 ||
+        res.url.indexOf(origin + '/talks') !== -1 ||
+        res.url.indexOf(origin + '/posts') !== -1;
+
+    if (!weCare)
+      return res;
+
     return caches.open(VERSION).then(cache => {
       cache.put(e.request, res.clone());
-
       return res;
     });
   });
