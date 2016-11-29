@@ -38,7 +38,8 @@ need to be the first thing you paint on a page.
 
 Now think about fonts: is the critical path _showing_ text, or _styling_ it? I'd
 argue that unless your app is in the 1% it's-all-a-magical-visual-experience bucket (in which case
-  this post is not for you),
+  this post is not for you), or we're just talking about the fancy title on your site (which fine, can 
+  be slow to paint or whatever), 
 it's probably trying to communicate some content, and ugly content (that you prettify after) is better than no content.
 
 (Real talk: if you don't think rendering text is a critical path, you're whack and we need to have a chat.)
@@ -141,12 +142,14 @@ rather than creating an inline `<style>`,
 append a `<link>` like in the previous method, since the browser cache is already
 primed. If you trust your browser cache. I trust no one.
 
-Update: This is obviously not perfect. It will give you a FOUC on a fast LTE connection,
+This is obviously not perfect. It will give you a FOUC on a fast LTE connection,
 even though if you did nothing, like in the first demo, it wouldn't. The point is that
 not all of your audience is on an LTE connection, and I want you to think about them
 when you're working on a site. If you want to
 minimize this FOUC, [Helen Holmes](https://twitter.com/helenvholmes) gave an AMAZING [talk](https://www.youtube.com/watch?v=emLfXChvVPQ) recently about web typography and performance, where she mentions how you
 can try to match the x-heights of your fallback font to your target font, so that the FOUC is gentler.
+
+**Update**: I've built a [font-style-matcher](https://meowni.ca/font-style-matcher/) that lets you do this matching of the x-heights and widths of the web font and fallback font! Go check it out, it's preeeeetty sweet.
 
 ## TL; DR
 Web fonts are okay. They make your blog prettier. They're also slow and kind of an
