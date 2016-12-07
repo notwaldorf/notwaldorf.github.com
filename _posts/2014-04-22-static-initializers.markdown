@@ -113,4 +113,4 @@ Yup. That's pretty much it. If you want more reading on the topic, here's a neat
 ## Mmmmkay.
 I don't know why you've made it this far. Maybe you thought there was going to be a joke or a prize at the end. There isn't. There's just this gif, and you could've just scrolled down for it.
 
-![puppy](http://s3-ec.buzzfed.com/static/2014-04/enhanced/webdr08/3/11/anigif_enhanced-buzz-19981-1396540542-4.gif)
+![puppy](https://media.giphy.com/media/3boPPdHk2ueo8/giphy.gif)
