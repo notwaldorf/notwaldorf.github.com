@@ -17,6 +17,9 @@ draft: true
 pre, code {
   background: #f4f6f8;
 }
+pre {
+  border-bottom: solid 1px #CFD8DC;
+}
 </style>
 
 This is a cheat sheet for the [Polymer 1.x](https://www.polymer-project.org/1.0/) library.
@@ -33,7 +36,7 @@ Docs: [registering an element](https://www.polymer-project.org/1.0/docs/devguide
 <dom-module id="element-name">
   <template>
     <!-- Use one of these style declarations, but not both -->
-    <!-- 1. Use this if you don’t want to include a shared style module -->
+    <!-- 1. Use this if you don’t want to include a shared style -->
     <style></style>
     <!-- 2. Use this if you do -->
     <style include="some-style-module-name"></style>
@@ -163,7 +166,9 @@ properties: {
     // Value can be one of the types above, eg:
     value: Boolean,
 
-    // For an Array or Object, you must return it from a function (otherwise the array will be defined on the prototype and not the instance):
+    // For an Array or Object, you must return it from a function
+    // (otherwise the array will be defined on the prototype
+    // and not the instance):
     value: function() { return ['cheese', 'pepperoni', 'more-cheese'] },
 
     reflectToAttribute: true | false,
