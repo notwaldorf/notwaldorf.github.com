@@ -14,8 +14,14 @@ draft: true
   color: #336699;
   background: inherit;
 }
+pre {
+  margin-bottom: 30px;
+}
 pre, code {
   background: #f4f6f8;
+}
+p > code {
+  font-weight: bold;
 }
 pre {
   border-bottom: solid 1px #CFD8DC;
@@ -78,13 +84,13 @@ Docs: [data binding](https://www.polymer-project.org/1.0/docs/devguide/data-bind
 Note: Polymer camel-cases properties, so if in JavaScript you use `aProperty`,
 in HTML you would use `a-property`.
 
-**One way binding**: when `anotherProperty` changes, `aProperty` gets updated:
+**One way** binding: when `anotherProperty` changes, `aProperty` gets updated:
 
 ```html
 <some-element a-property="[[anotherProperty]]"></some-element>
 ```
 
-**Two way binding**: when `anotherProperty` changes, `aProperty` gets updated,
+**Two way** binding: when `anotherProperty` changes, `aProperty` gets updated,
 and vice versa:
 
 ```html
