@@ -275,7 +275,11 @@ blockquote p {
   border-bottom: 1px dotted #ddd;
 }
 
-.content .listing li span {
+
+.content .listing li span.talk-title {
+  color: black;
+}
+.content .listing li span:not(.talk-title) {
   font-size: 10px;
   color: #777;
   letter-spacing: 2px;
