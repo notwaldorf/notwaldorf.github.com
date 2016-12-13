@@ -191,6 +191,9 @@ properties: {
     readOnly: true | false,
     notify: true | false
   },
+
+  // Computed properties are essentially read-only, and can only be
+  // updated when their dependencies change.
   basicComputedProperty: {
     computed: '_someFunction(myProperty, anotherProperty)'
   }
