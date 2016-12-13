@@ -73,12 +73,12 @@ Defining a behavior to share implementation between different elements:
 
 ```html
 <script>
-  Polymer.MyFancyBehaviorImpl = {
+  MyNamespace.MyFancyBehaviorImpl = {
     // Code that you want common to elements, such
     // as behaviours, methods, etc.
   }
 
-  Polymer.MyFancyBehavior = [
+  MyNamespace.MyFancyBehavior = [
     MyFancyBehaviorImpl,
     /* You can add other behaviours here */
   ];
@@ -95,7 +95,7 @@ Using the behavior in an element:
   <script>
     Polymer({
       is: 'element-name',
-      behaviors: [Polymer.MyCustomButtonBehavior]
+      behaviors: [MyNamespace.MyCustomButtonBehavior]
       /* ... */
     });
   </script>
