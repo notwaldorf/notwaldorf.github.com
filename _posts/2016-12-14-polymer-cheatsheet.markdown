@@ -110,7 +110,7 @@ and vice versa:
 <some-element class$="[[_computeSomething(aProperty)]]"></some-element>
 
 _computeSomething: function(prop) {
-  return 'a-class-name';
+  return prop ? 'a-class-name' : 'another-class-name';
 }
 ```
 
