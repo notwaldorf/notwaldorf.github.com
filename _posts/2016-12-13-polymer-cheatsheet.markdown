@@ -233,28 +233,40 @@ Docs: [styling](https://www.polymer-project.org/1.0/docs/devguide/styling),
 [CSS mixins](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-mixins),
 [shim limitations](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-properties-shim-limitations)
 
+Note that the examples below depend on browser support for custom properties.
+For how to use the shim (spoilers: it's `<style is="custom-style">`) and its limitations,
+check the docs linked above.
+
 Defining a custom property:
 
 ```css
---my-custom-radius: 5px;
+html /* or :host, or :root etc. */{
+  --my-custom-radius: 5px;
+}
 ```
 
 Using a custom property:
 
 ```css
-border-radius: var(--my-custom-radius);
+.my-image {
+  border-radius: var(--my-custom-radius);
+}
 ```
 
 Using a custom property with a fallback:
 
 ```css
-border-radius: var(--my-custom-radius, 3px);
+.my-image {
+  border-radius: var(--my-custom-radius, 3px);
+}
 ```
 
 Using a custom property with a custom property fallback:
 
 ```css
-border-radius: var(--my-custom-radius, var(--my-fallback));
+.my-image {
+  border-radius: var(--my-custom-radius, var(--my-fallback));
+}
 ```
 
 Defining a mixin:
