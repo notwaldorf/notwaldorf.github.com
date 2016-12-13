@@ -26,11 +26,23 @@ p > code {
 pre {
   border-bottom: solid 1px #CFD8DC;
 }
+#markdown-toc {
+  list-style-type: none;
+  margin: 0;
+  border-left: 5px solid #ff487a;
+  padding-left: 10px;
+}
+#markdown-toc li {
+  line-height: 1;
+}
 </style>
 
 This is a cheat sheet for the [Polymer 1.x](https://www.polymer-project.org/1.0/) library.
 It helps you write Web Components, which are pretty 💣. If you're interested in a
 Polymer 2.0 cheat sheet, stay tuned: it will come.
+
+* TOC
+{:toc}
 
 ## Defining an element
 
