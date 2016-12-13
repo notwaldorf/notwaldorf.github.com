@@ -209,7 +209,7 @@ If you have a content node for distribution:
 
 ```html
 <template>
-  <slot id="contentNode"></slot>
+  <slot id="distributed"></slot>
 </template>
 ```
 And you want to be notified when nodes have been added/removed:
@@ -217,12 +217,12 @@ And you want to be notified when nodes have been added/removed:
 ```js
 attached: function() {
   this._observer =
-    Polymer.dom(this.$.contentNode).observeNodes(function(info) {
-    // ...
+    Polymer.dom(this.$.distributed).observeNodes(function(info) {
+    // info is {addedNodes: [...], removedNodes: [...]}
   });
 },
 detached: function() {
-  Polymer.dom(this.$.contentNode).unobserveNodes(this._observer);
+  Polymer.dom(this.$.distributed).unobserveNodes(this._observer);
 }
 ```
 
