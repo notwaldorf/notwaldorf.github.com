@@ -77,7 +77,7 @@
             <li><a href="/">posts</a></li>
             <!--<li><a href="/projects.html">projects</a></li>-->
             <li><a href="/talks">talks</a></li>
-            <li><button onclick="rain(this)" title="emoji-rain" aria-label="emoji-rain" class="og">✨</button></li>
+            <li><button id="rainButton" title="emoji-rain" aria-label="emoji-rain" class="og">✨</button></li>
           </ul>
         </nav>
       </div>
@@ -122,13 +122,15 @@
   }
 
   var rainmaker = document.getElementById('rainmaker');
-  function rain(button) {
+  document.getElementById('rainButton').addEventListener('click', rain);
+
+  function rain(event) {
     if (rainmaker.active) {
       rainmaker.stop();
-      button.innerHTML = "✨";
+      event.target.innerHTML = "✨";
     } else {
       rainmaker.start();
-      button.innerHTML = "☔︎";
+      event.target.innerHTML = "☔︎";
     }
   }
 })();
