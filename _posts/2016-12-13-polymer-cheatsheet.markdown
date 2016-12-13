@@ -35,6 +35,10 @@ pre {
 #markdown-toc li {
   line-height: 1;
 }
+#markdown-toc a:link, #markdown-toc a:visited {
+  color: black;
+  border-bottom: 1px dotted #ff487a;
+}
 </style>
 
 This is a cheat sheet for the [Polymer 1.x](https://www.polymer-project.org/1.0/) library.
