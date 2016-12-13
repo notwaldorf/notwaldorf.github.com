@@ -30,7 +30,7 @@ pre {
 This is a cheat sheet for the [Polymer 1.x](https://www.polymer-project.org/1.0/) library.
 It helps you write Web Components, which are pretty 🔥🔥🔥. If you're interested in a
 Polymer 2.0 cheat sheet, stay tuned: it will come. If you think something
-is missing from this page, [tell me](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fmeowni.ca%2F&ref_src=twsrc%5Etfw&text=@notwaldorf) about it!
+is missing from this page, [tell me](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fmeowni.ca%2F&ref_src=twsrc%5Etfw&text=@notwaldorf%20Polymer%20cheat%20sheet%20feature%20request:) about it!
 
 
 * TOC
