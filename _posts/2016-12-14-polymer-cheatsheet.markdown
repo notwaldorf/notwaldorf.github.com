@@ -81,7 +81,7 @@ Docs: [data binding](https://www.polymer-project.org/1.0/docs/devguide/data-bind
 [binding to array items](https://www.polymer-project.org/1.0/docs/devguide/data-binding#bind-array-item),
 [computed bindings](https://www.polymer-project.org/1.0/docs/devguide/data-binding#annotated-computed).
 
-Note: Polymer camel-cases properties, so if in JavaScript you use `aProperty`,
+Note: Polymer [camel-cases](https://www.polymer-project.org/1.0/docs/devguide/properties#property-name-mapping) properties, so if in JavaScript you use `aProperty`,
 in HTML you would use `a-property`.
 
 **One way** binding: when `anotherProperty` changes, `aProperty` gets updated:
