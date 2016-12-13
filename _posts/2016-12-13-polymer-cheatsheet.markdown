@@ -20,7 +20,7 @@ pre {
 pre, code {
   background: #f4f6f8;
 }
-p > code {
+p > code, li > code {
   font-weight: bold;
 }
 pre {
@@ -73,12 +73,50 @@ Docs: [registering an element](https://www.polymer-project.org/1.0/docs/devguide
 </dom-module>
 ```
 
+## Defining a behaviour
+
+Docs: [behaviors](https://www.polymer-project.org/1.0/docs/devguide/behaviors).
+
+Defining a behavior to share implementation between different elements:
+
+```html
+<script>
+  Polymer.MyFancyBehaviorImpl = {
+    // Code that you want common to elements, such
+    // as behaviours, methods, etc.
+  }
+
+  Polymer.MyFancyBehavior = [
+    MyFancyBehaviorImpl,
+    /* You can add other behaviours here */
+  ];
+</script>
+```
+
+Using the behavior in an element:
+
+```html
+<dom-module id="element-name">
+  <template>
+    <!-- ... -->
+  </template>
+  <script>
+    Polymer({
+      is: 'element-name',
+      behaviors: [Polymer.MyCustomButtonBehavior]
+      /* ... */
+    });
+  </script>
+</dom-module>
+```
+
 ## Lifecycle methods
 
 Docs: [lifecycle callbacks](https://www.polymer-project.org/1.0/docs/devguide/registering-elements#lifecycle-callbacks).
 
 ```js
 Polymer({
+  registered: function() {},
   created: function() {},
   ready: function() {},
   attached: function() {},
@@ -238,7 +276,57 @@ detached: function() {
 }
 ```
 
-## Styling
+## Style modules
+Docs: [shared style modules](https://www.polymer-project.org/1.0/docs/devguide/styling#style-modules).
+
+Defining styles that will be shared across different elements, in a file called
+`my-shared-styles.html` (for example):
+
+```html
+<dom-module id="my-shared-styles">
+  <template>
+    <style>
+      .red { color: red; }
+      /* Custom property defined in the global scope */
+      html {
+        --the-best-red: #e91e63;
+      }
+    </style>
+  </template>
+</dom-module>
+```
+
+Include the shared style in a custom element:
+
+```html
+<link rel="import" href="my-shared-styles.html">
+<dom-module id="element-name">
+  <template>
+    <style include="my-shared-styles">
+      /* Other styles in here */
+    </style>
+  </template>
+  <script>
+    Polymer({ is: 'element-name' });
+  </script>
+</dom-module>
+```
+
+Include the shared style in the main document:
+
+```html
+<html>
+<head>
+  <link rel="import" href="my-shared-styles.html">
+  <style is="custom-style" include="my-shared-styles">
+    /* Other styles in here */
+  </style>
+</head>
+<body>...</body>
+</html>
+```
+
+## Styling with custom properties and mixins
 
 Docs: [styling](https://www.polymer-project.org/1.0/docs/devguide/styling),
 [CSS properties](https://www.polymer-project.org/1.0/docs/devguide/styling#custom-css-properties),
@@ -297,4 +385,40 @@ Using a mixin:
 .my-image {
   @apply --my-custom-mixin;
 }
+```
+
+## Binding helper elements
+
+Docs: [dom-repeat](https://www.polymer-project.org/1.0/docs/api/dom-repeat),
+[dom-bind](https://www.polymer-project.org/1.0/docs/api/dom-bind),
+[dom-if](https://www.polymer-project.org/1.0/docs/api/dom-if)
+
+`dom-repeat` stamps and binds a template for each item in an array:
+
+```html
+{% raw %}<template is="dom-repeat" items="{{employees}}">
+  <div>First name: <span>{{item.first}}</span></div>
+  <div>Last name: <span>{{item.last}}</span></div>
+</template>{% endraw %}
+```
+
+`dom-bind` stamps itself into the main document and adds a binding scope:
+
+```html
+{% raw %}<html>
+<body>
+  <template is="dom-bind">
+    <paper-input value="{{myText}}"></paper-input>
+    <span>You typed: [[myText]]</span>
+  </template>
+</body>
+<html>{% endraw %}
+```
+
+`dom-if` stamps itself conditionally based on a property's value:
+
+```html
+{% raw %}<template is="dom-if" if="{{myProperty}}">
+  <span>This content will appear when myProperty is truthy.</span>
+</template>{% endraw %}  
 ```
