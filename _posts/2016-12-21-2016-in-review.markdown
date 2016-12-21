@@ -2,7 +2,6 @@
 layout: post
 title: "2016: another year in review"
 category: posts
-draft: true
 ---
 This year was pretty shit, so I wasn't very keen on doing
 one of these posts. So many of my favourite musicians died, so many of my
