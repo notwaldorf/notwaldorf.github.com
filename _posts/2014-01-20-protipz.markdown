@@ -97,7 +97,7 @@ Reasons why it's the coolest are:
 
 It's basically just that second bullet though.
 
-## Forward declarations >> #includes
+## Forward declarations &gt;&gt; #includes
 This is probaby the most boring of all the topics, but the most useful one. Having a header file include everything but the kitchen sink is a little unfortunate. Your compiler is unhappy because it needs to open all those files, which in turn will make you unhappy, because every time you touch a header file, it will trigger seventy billion other files to feel like they need to be recompiled. Ain't nobody got time for that.
 
 Instead, what we can do is forward declare the class (`class Foo;`) in the `.h` file, and include it (`#include "Foo.h";`) in the `.cc` file. That basically means you're promising the compiler this type exists, and that you will tell it what the type looks like when it (the compiler) needs it. If the compiler needs to use the type and you haven't included it, I promise you it will meep.
