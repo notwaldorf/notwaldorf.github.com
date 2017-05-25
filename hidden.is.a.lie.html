@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>[hidden] is a lie</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        background:white;
+      }
+      body {
+        padding: 2em 2em;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      html {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        -webkit-font-smoothing: antialiased;
+        font-weight: 400;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+      }
+      code {
+        font-family: monospace;
+        font-size: 1.2em;
+        color: #E91E63;
+        background-color: #FCE4EC;
+        padding: 2px 4px;
+        border-radius: 4px;
+        word-wrap: break-word;
+      }
+      pre {
+        font-size: 0.9em;
+        background-color: #F5F5F5;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-left: 20px;
+      }
+      pre code {
+        color: #283593;
+        background: transparent;
+      }
+      section {
+        padding: 20px 0;
+        line-height: 1.5;
+      }
+      footer {
+        border-top: 3px solid #FCE4EC;
+        margin: 30px 0;
+        padding: 10px 0;
+        font-size: 14px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>fyi: [hidden] is a lie</h1>
+    <section>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden"><code>hidden</code></a> is a Boolean attribute often used to hide elements, since browsers will (theoretically) not show elements with <code>hidden</code> set, like this:
+
+      <pre>
+      <code>
+  &lt;div hidden&gt;I am not displayed&lt;/div&gt;</code>
+      </pre>
+    </section>
+    <section>
+      This is unfortunately a <b>lie</b>: the <code>hidden</code> rule is a User Agent style, which means it's less specific than a moderate sneeze
+      <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=566168#c10">[ref]</a>. This means that your favourite <code>display</code> style will override it:
+
+      <pre>
+      <code>
+  &lt;style&gt;
+    div { display: block; }
+  &lt;/style&gt;
+  &lt;div hidden&gt;
+      lol guess who's not hidden anymore
+      hint: it's this thing
+  &lt;/div&gt;</code>
+      </pre>
+    </section>
+
+    <section>
+      The solution is tragic and it's to either not use <code>hidden</code> (because it's a lie), or to
+      pepper your apps with
+      <pre>
+      <code>
+  [hidden] { display: none !important}</code>
+      </pre> and they both suck, so have fun!
+    </section>
+
+    <footer>
+      <p>made with 😭 by <a href="https://twitter.com/notwaldorf" target="_blank">monica</a></p>
+    </footer>
+  </body>
+</html>
