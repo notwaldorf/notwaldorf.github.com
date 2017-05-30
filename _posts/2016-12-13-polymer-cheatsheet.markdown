@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Polymer Cheat Sheet"
+title: "Polymer 1.x Cheat Sheet"
 category: posts
 ---
 
@@ -38,9 +38,9 @@ is missing from this page, [tell me](https://twitter.com/intent/tweet?original_r
 
 ## Defining an element
 
-Docs: [registering an element](https://www.polymer-project.org/1.0/docs/devguide/registering-elements),
-[behaviours](https://www.polymer-project.org/1.0/docs/devguide/registering-elements#prototype-mixins),
-[shared style modules](https://www.polymer-project.org/1.0/docs/devguide/styling#style-modules).
+Docs: [1.x - 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrade)
+[registering an element](https://www.polymer-project.org/2.0/docs/devguide/registering-elements),
+[shared style modules](https://www.polymer-project.org/2.0/docs/devguide/style-shadow-dom#share-styles-between-elements).
 
 ```html
 <dom-module id="element-name">
@@ -52,22 +52,22 @@ Docs: [registering an element](https://www.polymer-project.org/1.0/docs/devguide
     <style include="some-style-module-name"></style>
   </template>
   <script>
-    Polymer({
-      is: 'element-name',
+    class MyElement extends Polymer.Element {
+      static get is() { return 'element-name'; }
       // All of these are optional. Only keep the ones you need.
-      behaviors: [],
-      observers: [],
-      listeners: {},
-      hostAttributes: {},
-      properties: {}
-    });
+      static get properties() { ... }
+      static get properties() { ... }
+    }
+
+    // Associate the new class with an element name.
+    customElements.define('element-name', MyElement);
   </script>
 </dom-module>
 ```
 
-## Defining a behaviour
+## Defining a mixin
 
-Docs: [behaviors](https://www.polymer-project.org/1.0/docs/devguide/behaviors).
+Docs: [mixins](https://www.polymer-project.org/2.0/docs/upgrade#mixins).
 
 Defining a behavior to share implementation between different elements:
 
