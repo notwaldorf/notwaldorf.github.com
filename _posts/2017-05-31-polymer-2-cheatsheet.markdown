@@ -443,7 +443,7 @@ There are two ways to use the helper elements:
 syntax, without the wrapping `<dom-...>` custom element, for example:
 
 ```html
-{% raw %}<template is="dom-repeat" items="{{items}}">
+{% raw %}<template is="dom-repeat">
   ...
 </template>{% endraw %}
 ```
@@ -462,7 +462,8 @@ around a `<template>`, for example:
 `dom-repeat` stamps and binds a template for each item in an array:
 
 ```html
-{% raw %}<dom-repeat items="{{employees}}">
+{% raw %}<link rel="import" href="components/polymer/lib/elements/dom-repeat.html">
+<dom-repeat items="{{employees}}">
   <template>
     <div>First name: <span>{{item.first}}</span></div>
     <div>Last name: <span>{{item.last}}</span></div>
@@ -473,7 +474,8 @@ around a `<template>`, for example:
 `dom-bind` stamps itself into the main document and adds a binding scope:
 
 ```html
-{% raw %}<html>
+{% raw %}<link rel="import" href="components/polymer/lib/elements/dom-bind.html">
+<html>
 <body>
   <dom-bind>
     <template>
@@ -488,7 +490,8 @@ around a `<template>`, for example:
 `dom-if` stamps itself conditionally based on a property's value:
 
 ```html
-{% raw %}<dom-if if="{{myProperty}}">
+{% raw %}<link rel="import" href="components/polymer/lib/elements/dom-if.html">
+<dom-if if="{{myProperty}}">
   <template>
     <span>This content will appear when myProperty is truthy.</span>
   </template>
