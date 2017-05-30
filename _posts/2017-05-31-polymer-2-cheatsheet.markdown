@@ -65,7 +65,45 @@ Docs: [1.x -> 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrad
 ```
 
 ## Extending an element
-TODO
+
+Docs: [extending elements](https://www.polymer-project.org/2.0/docs/devguide/custom-elements#extending-other-elements), [inherited templates](https://www.polymer-project.org/2.0/docs/devguide/dom-template#inherited-templates).
+
+Instead of `Polymer.Element`, a custom element can extend a different element):
+```js
+class MyElement extends Polymer.Element {
+  /* ... */
+}
+class OtherElement extends MyElement {
+  /* ... */
+}
+```
+
+To change or add to the parent's template, override the `template` getter:
+
+```html
+<dom-module id="child-element">
+  <template>
+    <style> /* ... */ </style>
+     <span>bonus!</span>
+   </template>
+  <script>
+    class ChildElement extends ParentElement {
+      static get is() { return 'child-element'; }
+      // Note: the more work you do here, the slower your element is to
+      // boot up. You should probably do the template assembling once, in a
+      // static method outside your class.
+      static get template() {
+        var myTemplate = Polymer.DomModule.import(ChildElement.is, 'template');
+        var parentTemplate = ParentElement.template.cloneNode(true);
+        // Or however you want to assemble these.
+        myTemplate.content.insertBefore(parentTemplate.firstChild, parentTemplate);
+        return myTemplate;
+      }
+    }
+    customElements.define(ChildElement.is, ChildElement);
+  </script>
+</dom-module>
+```
 
 ## Defining a mixin
 
