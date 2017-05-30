@@ -70,10 +70,10 @@ Docs: [extending elements](https://www.polymer-project.org/2.0/docs/devguide/cus
 
 Instead of `Polymer.Element`, a custom element can extend a different element):
 ```js
-class MyElement extends Polymer.Element {
+class ParentElement extends Polymer.Element {
   /* ... */
 }
-class OtherElement extends MyElement {
+class ChildElement extends ParentElement {
   /* ... */
 }
 ```
