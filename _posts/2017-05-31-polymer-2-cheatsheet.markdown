@@ -127,15 +127,13 @@ Using the mixin in an element definition:
 
 ```html
 <dom-module id="element-name">
-  <template>
-    <!-- ... -->
-  </template>
+  <template><!-- ... --></template>
   <script>
     // This could also be a sequence:
-    //class MyElement extends AlsoMixin(MyMixin(Polymer.Element)) { … }
+    //class MyElement extends AnotherMixin(MyMixin(Polymer.Element)) { … }
     class MyElement extends MyMixin(Polymer.Element) {
-     static get is() { return 'element-name' }
-     /* ... */
+      static get is() { return 'element-name' }
+      /* ... */
     }
     customElements.define(MyElement.is, MyElement);
   </script>
@@ -146,9 +144,7 @@ Using hybrid behaviors (defined in the 1.x syntax) as mixins:
 
 ```html
 <dom-module id="element-name">
-  <template>
-    <!-- ... -->
-  </template>
+  <template><!-- ... --></template>
   <script>
     class MyElement extends Polymer.mixinBehaviors([MyBehavior, MyBehavior2], Polymer.Element) {
      static get is() { return 'element-name' }
@@ -210,10 +206,11 @@ whereas attribute binding is equivalent to: `someElement.setAttribute(someProp, 
 
 ```html
 <some-element class$="[[_computeSomething(myProperty)]]"></some-element>
-
+<script>
 _computeSomething: function(prop) {
   return prop ? 'a-class-name' : 'another-class-name';
 }
+</script>
 ```
 
 ## Observers
@@ -237,9 +234,7 @@ static get properties() {
 
 // The second argument is optional, and gives you the
 // previous value of the property, before the update:
-_myPropertyChanged(value, /*oldValue */) {
-  //...
-}
+_myPropertyChanged(value, /*oldValue */) { /* ... */ }
 ```
 
 In the `observers` block:
@@ -329,7 +324,7 @@ If you have a content node for distribution:
 
 ```html
 <template>
-  <slot id="distributed"></slot>
+  <slot></slot>
 </template>
 ```
 And you want to be notified when nodes have been added/removed:
