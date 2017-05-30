@@ -84,7 +84,7 @@ To change or add to the parent's template, override the `template` getter:
 <dom-module id="child-element">
   <template>
     <style> /* ... */ </style>
-     <span>bonus!</span>
+    <span>bonus!</span>
    </template>
   <script>
     class ChildElement extends ParentElement {
@@ -135,7 +135,7 @@ Using the mixin in an element definition:
     //class MyElement extends AlsoMixin(MyMixin(Polymer.Element)) { … }
     class MyElement extends MyMixin(Polymer.Element) {
      static get is() { return 'element-name' }
-     /*...*/
+     /* ... */
     }
     customElements.define(MyElement.is, MyElement);
   </script>
@@ -152,7 +152,7 @@ Using hybrid behaviors (defined in the 1.x syntax) as mixins:
   <script>
     class MyElement extends Polymer.mixinBehaviors([MyBehavior, MyBehavior2], Polymer.Element) {
      static get is() { return 'element-name' }
-     /*...*/
+     /* ... */
     }
     customElements.define('element-name', MyElement);
   </script>
@@ -340,7 +340,7 @@ And you want to be notified when nodes have been added/removed:
 
 <script>
 class MyElement extends Polymer.Element {
-  /*...*/
+  /* ... */
   connectedCallback: function() {
     this._observer = new Polymer.FlattenedNodesObserver(function(info) {
     // info is {addedNodes: [...], removedNodes: [...]}
