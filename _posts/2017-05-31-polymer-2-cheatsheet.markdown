@@ -418,7 +418,7 @@ For how to use the shim and its limitations, check the docs linked above.
 Defining a custom property:
 
 ```css
-html /* or :host, or :root etc. */{
+html /* or :host etc. */{
   --my-custom-radius: 5px;
 }
 ```
@@ -473,14 +473,14 @@ Docs: [dom-repeat](https://www.polymer-project.org/2.0/docs/devguide/templates#d
 
 There are two ways to use the helper elements:
 - inside a Polymer element/Polymer managed template: just use the `<template is=...>`
-syntax, without the wrapping `<dom-...>` custom element, for example:
+syntax, without the wrapper, for example:
 
 ```html
 {% raw %}<template is="dom-repeat">
   ...
 </template>{% endraw %}
 ```
-- outside of a Polymer managed template: use the `<dom-...` wrapper element
+- outside of a Polymer managed template: use the `<dom-...>` wrapper element
 around a `<template>`, for example:
 
 ```html
