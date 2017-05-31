@@ -276,7 +276,7 @@ you #useThePlatform and define event listeners yourself:
 ```js
 ready() {
   super.ready();
-  window.addEventListener('some-event', this.someFunction);
+  window.addEventListener('some-event', () => this.someFunction());
 }
 ```
 
@@ -301,7 +301,7 @@ static get properties() {
     basic: {
       type: Boolean | Number | String | Array | Object,
 
-      // Value can be one of the types above, eg:
+      // Default value of the property can be one of the types above, eg:
       value: true,
 
       // For an Array or Object, you must return it from a function
@@ -394,7 +394,9 @@ Include the shared style in a custom element:
     </style>
   </template>
   <script>
-    Polymer({ is: 'element-name' });
+    class MyElement extends Polymer.Element {
+      /* ... */
+    }
   </script>
 </dom-module>
 ```
