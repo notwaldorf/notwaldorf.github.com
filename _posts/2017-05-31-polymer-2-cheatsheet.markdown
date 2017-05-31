@@ -89,17 +89,16 @@ To change or add to the parent's template, override the `template` getter:
    </template>
   <script>
     var childTemplate;
-    function getChildTemplate() {
-      var childTemplate = Polymer.DomModule.import('child-element', 'template');
-      var parentTemplate = ParentElement.template.cloneNode(true);
-      // Or however you want to assemble these.
-      childTemplate.content.insertBefore(parentTemplate.firstChild, parentTemplate);
-    }
+    var childTemplate = Polymer.DomModule.import('child-element', 'template');
+    var parentTemplate = ParentElement.template.cloneNode(true);
+    // Or however you want to assemble these.
+    childTemplate.content.insertBefore(parentTemplate.firstChild, parentTemplate);
+
     class ChildElement extends ParentElement {
       static get is() { return 'child-element'; }
       // Note: the more work you do here, the slower your element is to
       // boot up. You should probably do the template assembling once, in a
-      // static method outside your class.
+      // static method outside your class (like above).
       static get template() {
         return childTemplate;
       }
@@ -120,8 +119,15 @@ Defining a class expression mixin to share implementation between different elem
 <script>
   MyMixin = function(superClass) {
     return class extends superClass {
-    // Code that you want common to elements, such
-    // as properties block, lifecycle methods overrides, regular methods, etc.
+      // Code that you want common to elements.
+      // If you're going to override a lifecycle method, remember that a) you
+      // might need to call super but b) it might not exist
+      connectedCallback() {
+        if (super.connectedCallback) {
+          super.connectedCallback();
+        }
+        /* ... */
+      }
     }
   }
 </script>
@@ -167,10 +173,10 @@ Docs: [lifecycle callbacks](https://www.polymer-project.org/2.0/docs/devguide/cu
 ```js
 class MyElement extends Polymer.Element {
  constructor() { super(); /* ... */},
- ready() {},
- connectedCallback() {},
- disconnectedCallback() {},
- attributeChangedCallback() {}
+ ready() { super.ready(); /* ... */},
+ connectedCallback() { super.connectedCallback(); /* ... */},
+ disconnectedCallback() { super.disconnectedCallback(); /* ... */},
+ attributeChangedCallback() { super.attributeChangedCallback(); /* ... */}
 }
 ```
 
@@ -257,7 +263,9 @@ static get observers() {
 
 Adding an observer dynamically for a property `otherProperty`:
 ```js
-this._otherPropertyChanged(value) { /* ... */}
+// Define a method
+_otherPropertyChanged(value) { /* ... */ }
+// Call it when `otherPropety` changes
 this._createPropertyObserver('otherProperty', '_otherPropertyChanged', true);
 ```
 
@@ -267,6 +275,7 @@ you #useThePlatform and define event listeners yourself:
 
 ```js
 ready() {
+  super.ready();
   window.addEventListener('some-event', this.someFunction);
 }
 ```
@@ -341,11 +350,13 @@ And you want to be notified when nodes have been added/removed:
 class MyElement extends Polymer.Element {
   /* ... */
   connectedCallback: function() {
+    super.connectedCallback();
     this._observer = new Polymer.FlattenedNodesObserver(function(info) {
     // info is {addedNodes: [...], removedNodes: [...]}
     });
   },
   disconnectedCallback: function() {
+    super.disconnectedCallback();
     this._observer.disconnect();
   }
 }
@@ -393,9 +404,11 @@ Include the shared style in the main document:
 ```html
 <html>
 <head>
+  <!-- Import the custom-style element -->
+  <link rel="import" href="components/polymer/lib/elements/custom-style.html">
   <link rel="import" href="my-shared-styles.html">
   <custom-style>
-    <style is="custom-style" include="my-shared-styles">
+    <style include="my-shared-styles">
       /* Other styles in here */
     </style>
   </custom-style>
@@ -412,12 +425,6 @@ Docs: [styling](https://www.polymer-project.org/2.0/docs/devguide/style-shadow-d
 [shim limitations](https://www.polymer-project.org/2.0/docs/devguide/custom-css-properties#custom-properties-shim-limitations)
 
 Note that the examples below depend on browser support for custom properties and mixins.
-In particular, if you want to use mixins, you need to include the CSS mixins shim:
-```html
-<link rel="import" href="/bower_components/shadycss/apply-shim.html">
-```
-
-For how to use the shim and its limitations, check the docs linked above.
 
 Defining a custom property:
 
@@ -449,6 +456,13 @@ Using a custom property with a custom property fallback:
 .my-image {
   border-radius: var(--my-custom-radius, var(--my-fallback));
 }
+```
+
+If you want to use mixins, you need to include the CSS mixins shim.
+For how to use the shim and its limitations, check the docs linked at the
+beginning of the section.
+```html
+<link rel="import" href="/bower_components/shadycss/apply-shim.html">
 ```
 
 Defining a mixin:
