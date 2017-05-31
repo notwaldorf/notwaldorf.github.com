@@ -65,6 +65,9 @@ Docs: [1.x -> 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrad
 </dom-module>
 ```
 
+To get the class definition for a particular custom tag, you can use
+`customElements.get('element-name')`.
+
 ## Extending an element
 
 Docs: [extending elements](https://www.polymer-project.org/2.0/docs/devguide/custom-elements#extending-other-elements), [inherited templates](https://www.polymer-project.org/2.0/docs/devguide/dom-template#inherited-templates).
@@ -106,6 +109,14 @@ To change or add to the parent's template, override the `template` getter:
     customElements.define(ChildElement.is, ChildElement);
   </script>
 </dom-module>
+```
+
+If you don't know the parent class, you can also use:
+
+```js
+class ChildElement extends customElement.get('parent-element') {
+  /* ... */
+}
 ```
 
 ## Defining a mixin
