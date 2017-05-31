@@ -42,6 +42,7 @@ Docs: [1.x -> 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrad
 [shared style modules](https://www.polymer-project.org/2.0/docs/devguide/style-shadow-dom#style-modules).
 
 ```html
+<link rel="import" href="bower_components/polymer/polymer-element.html">
 <dom-module id="element-name">
   <template>
     <!-- Use one of these style declarations, but not both -->
@@ -87,17 +88,20 @@ To change or add to the parent's template, override the `template` getter:
     <span>bonus!</span>
    </template>
   <script>
+    var childTemplate;
+    function getChildTemplate() {
+      var childTemplate = Polymer.DomModule.import('child-element', 'template');
+      var parentTemplate = ParentElement.template.cloneNode(true);
+      // Or however you want to assemble these.
+      childTemplate.content.insertBefore(parentTemplate.firstChild, parentTemplate);
+    }
     class ChildElement extends ParentElement {
       static get is() { return 'child-element'; }
       // Note: the more work you do here, the slower your element is to
       // boot up. You should probably do the template assembling once, in a
       // static method outside your class.
       static get template() {
-        var myTemplate = Polymer.DomModule.import(ChildElement.is, 'template');
-        var parentTemplate = ParentElement.template.cloneNode(true);
-        // Or however you want to assemble these.
-        myTemplate.content.insertBefore(parentTemplate.firstChild, parentTemplate);
-        return myTemplate;
+        return childTemplate;
       }
     }
     customElements.define(ChildElement.is, ChildElement);
