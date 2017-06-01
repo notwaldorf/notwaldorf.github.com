@@ -527,10 +527,10 @@ around a `<template>`, for example:
 
 ```html
 {% raw %}<link rel="import" href="components/polymer/lib/elements/dom-repeat.html">
-<dom-repeat items="{{employees}}">
+<dom-repeat items="[[employees]]">
   <template>
-    <div>First name: <span>{{item.first}}</span></div>
-    <div>Last name: <span>{{item.last}}</span></div>
+    <div>First name: <span>[[item.first]]</span></div>
+    <div>Last name: <span>[[item.last]]</span></div>
   </template>
 </dom-repeat>{% endraw %}
 ```
@@ -555,7 +555,7 @@ around a `<template>`, for example:
 
 ```html
 {% raw %}<link rel="import" href="components/polymer/lib/elements/dom-if.html">
-<dom-if if="{{myProperty}}">
+<dom-if if="[[myProperty]]">
   <template>
     <span>This content will appear when myProperty is truthy.</span>
   </template>
