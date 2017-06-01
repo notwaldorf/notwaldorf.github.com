@@ -183,10 +183,10 @@ Docs: [lifecycle callbacks](https://www.polymer-project.org/2.0/docs/devguide/cu
 
 ```js
 class MyElement extends Polymer.Element {
- constructor() { super(); /* ... */},
- ready() { super.ready(); /* ... */},
- connectedCallback() { super.connectedCallback(); /* ... */},
- disconnectedCallback() { super.disconnectedCallback(); /* ... */},
+ constructor() { super(); /* ... */}
+ ready() { super.ready(); /* ... */}
+ connectedCallback() { super.connectedCallback(); /* ... */}
+ disconnectedCallback() { super.disconnectedCallback(); /* ... */}
  attributeChangedCallback() { super.attributeChangedCallback(); /* ... */}
 }
 ```
@@ -365,7 +365,7 @@ class MyElement extends Polymer.Element {
     this._observer = new Polymer.FlattenedNodesObserver(function(info) {
     // info is {addedNodes: [...], removedNodes: [...]}
     });
-  },
+  }
   disconnectedCallback: function() {
     super.disconnectedCallback();
     this._observer.disconnect();
