@@ -114,28 +114,28 @@ We need to do 3 things:
 ### Status check
 Right now you should have a `bower_components` folder created, that contains a whole bunch of folders, one of which is called `paper-button`.
 
-### 2.Use it somewhere in the app
-Drop a `<paper-button>Click me</paper-button>` somewhere in your html page.
-
-⚠️ If you refresh the page, it won’t show up, because you need the next step!
-
-### 3. Import it in the app
+### 2. Import it in the app
 This basically tells the browser where to find the definition for what this `paper-button` tag is.
 
 Much like how you import a CSS stylesheet with
 
-```
+```html
 <link rel="stylesheet" href="/style.css">
 ```
 
 You import a web component with an **HTML import**:
-```
+```html
  <link rel="import" href="/bower_components/paper-button/paper-button.html">
 ```
 
+### 3.Use it somewhere in the app
+Drop a `<paper-button>Click me</paper-button>` somewhere in your html page.
+
+⚠️ If you refresh the page, it won’t show up, because you need the next step!
+
 ### Status check
 Your `index.html` should basically look like this:
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -148,15 +148,29 @@ Your `index.html` should basically look like this:
   <body>
     <h1>Oh, hi there</h1>
     <p>Have you seen this fancy button?</p>
+
+    <!-- Use the custom element! -->
     <paper-button>Click me</paper-button>
   </body>
 </html>
 ```
 
-<img class="otter" alt="bower summary" src="/images/2017-06-06/10.png">
-
-And if you run that code (in a simple HTTP server), it should look sort of like this:
+If we run that demo, it should look like this, plus or minus some
+copy and styles that I've added:
 <iframe class="otter" src="https://use-custom-element.glitch.me/" frameBorder="0"></iframe>
+
+<br>
+<img class="otter" alt="bower summary" src="/images/2017-06-06/10.png">
+<br>
+
+You could, of course, add JavaScript to that custom element, like you would
+with any other `<button>` or `<input>`. I could've added something like this:
+
+```js
+document.querySelector('paper-button').addEventListener('click', function() {
+  alert('you did a click!');
+});
+```
 
 ## 2. I want to write a web component to use in my app
 
@@ -172,7 +186,7 @@ The code lives in an `.html` file (because remember: we’re going to do an HTML
 
 It ends up looking like this:
 
-```
+```html
 <dom-module id="my-element">
   <template>
     <!-- Any CSS your element needs for styling -->
@@ -203,7 +217,7 @@ It ends up looking like this:
 ```
 
 I tend to put one element per `html` file, and then name the file after the tag of the element. So I would save that into a `my-element.html` file, and then import it in our app, just as before with:
-```
+```html
 <link rel="import" href="my-element.html">
 ```
 
