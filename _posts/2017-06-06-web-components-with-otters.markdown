@@ -23,7 +23,7 @@ category: posts
   }
 </style>
 
-<img class="otter" alt="everyone keeps talking about web components, but huh?" src="/images/2017-06-05/1.png">
+<img class="otter" alt="everyone keeps talking about web components, but huh?" src="/images/2017-06-06/1.png">
 
 I work on a library called [Polymer](https://polymer-project.org), which helps you write web components faster and easier. This is awesome, but it’s only awesome if **you** (yes, YOU) know what a web component is, and know that you want to write one. So here’s a story about what these things are and teaches you how to use them without showing you 10 pages of docs and getting you to install tools and CLIs. Maybe it’s for you. Maybe it isn’t. In either case, it has otters.
 
@@ -42,13 +42,13 @@ Web components aren’t a new library or framework, they’re a new browser feat
 
 If you’ve ever used an `<input>` element, I like to think of it as the OG web component, because it’s got all of the things above. Only it’s written by the browser, not by you (unless you are one of the original Netscape developers in which case, 🙏)
 
-<img class="otter" alt="so i can write &lt;emoji-picker&gt;, yay!" src="/images/2017-06-05/2.png">
+<img class="otter" alt="so i can write &lt;emoji-picker&gt;, yay!" src="/images/2017-06-06/2.png">
 
 You write web components in ES6 JavaScript. Polymer is a JavaScript library that’s like jQuery for web components -- you import it, it gives you a bunch of helper functions and saves you writing a lot of boilerplate code.
 
 Also, bad habit: people (and me, I am those people) tend to use "custom element" and "web component" interchangeably. If you're pedantic, they mean different things. Don't be pedantic, it makes the otters sad.
 
-<img class="otter" alt="sad otter because it's getting well-actuallied" src="/images/2017-06-05/3.png">
+<img class="otter" alt="sad otter because it's getting well-actuallied" src="/images/2017-06-06/3.png">
 
 ## Thinking about your app
 
@@ -59,11 +59,11 @@ If you’re starting to think about using web components in your app, there’s 
 
 There’s other things that you might eventually care about, such as making your application production ready, and improving its performance. They are super important topics, but if you’ve never used a web component before, they’re also not the most important topics for you **right now**.
 
-<img class="otter" alt="is this magic? nah it's prolly just undocumented code" src="/images/2017-06-05/4.png">
+<img class="otter" alt="is this magic? nah it's prolly just undocumented code" src="/images/2017-06-06/4.png">
 
 ## Where do web components live?
 
-<img class="otter" alt="in otter space!" src="/images/2017-06-05/5.png">
+<img class="otter" alt="in otter space!" src="/images/2017-06-06/5.png">
 
 Web components tend to have dependencies on other web components, so you need a package manager to herd all them cats. Most of the web components out there use [`bower`](https://bower.io/). Another popular one is [npm](https://www.npmjs.com/) -- you could think of `npm` as a package manager for your server code and `bower` for your client, and it wouldn’t be entirely incorrect.
 
@@ -71,7 +71,7 @@ The reason why you need a package manager and not just “download this element 
 
 If you look up `bower` on the web you’ll hear things like “but bower is deprecated now" (which is true, but it’s also been unmaintained for like a year and it worked fine, so nothing is really new on that front) and “but why not npm" (because you can only have one version of the same web component in your app, and that’s hard if your dependency tree is not flat. You probably don’t actually care this).
 
-<img class="otter" alt="attenshun attenshun installation instructions" src="/images/2017-06-05/6.png">
+<img class="otter" alt="attenshun attenshun installation instructions" src="/images/2017-06-06/6.png">
 
 To [install](https://bower.io/#install-bower) `bower`, a package manager, you must first install `npm`, a package manager. Take a moment for a concerned sigh, but install it anyway. Upshot: I promise this is the only tool I will ask you to install.
 
@@ -79,7 +79,7 @@ If you want to find otter web components, [Webcomponents.org](https://www.webcom
 
 ## Polyfills and you
 
-<img class="otter" alt="anotter digression" src="/images/2017-06-05/8.png">
+<img class="otter" alt="anotter digression" src="/images/2017-06-06/8.png">
 
 Not all browsers implement features at the same rate, which means while you’re waiting for them to catch up, you need to care about polyfills. Fun fact: you know how when you have a hole in a wall, you have to put spackling paste in it to make the wall look like a wall again? Polyfilla is a brand of spackling, and that’s exactly what a polyfill is -- it fills a hole in the browser, so that it looks even from the outside.
 
@@ -87,7 +87,7 @@ You have two choices:
 - Ignore polyfills for now and just use Chrome to test your app, but know it’s going to be hella broken on other browsers
 - Care about polyfills, and include the [polyfill](github.com/webcomponents/webcomponentsjs) in your app. I’ll show you where that goes in the next section
 
-<img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-05/9.png">
+<img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-06/9.png">
 
 ## 1. I want to use someone else’s web component in my app
 Ok cool, so here we are. You have a web site, and you want to use someone else’s web widget in it. Let’s say that thing is [paper-button](https://www.webcomponents.org/element/PolymerElements/paper-button) which is a super fancy looking Material Design button. It’s beauty and it’s grace, it’s Miss United States.
@@ -98,7 +98,7 @@ We need to do 3 things:
 
 ### 1. Download the web component
   - We do this by adding a `dependency` to our `bower.json` file. If you don’t already have a `bower.json` file (who can blame you), create one by running `bower init`, and answering the wizard’s questions. They kind of look like this, though, spoiler alert: there’s no actual wizard 😭
-  <img class="otter" alt="screenshot of the bower init wizard" src="/images/2017-06-05/10.png">
+  <img class="otter" alt="screenshot of the bower init wizard" src="/images/2017-06-06/10.png">
 
   - To add `paper-button` as a dependency, you can either run
 `bower install --save PolymerElements/paper-button#^2.0.0`
@@ -153,7 +153,7 @@ Your `index.html` should basically look like this:
 </html>
 ```
 
-<img class="otter" alt="bower summary" src="/images/2017-06-05/11.png">
+<img class="otter" alt="bower summary" src="/images/2017-06-06/11.png">
 
 And if you run that code (in a simple HTTP server), it should look sort of like this:
 <iframe class="otter" src="https://use-custom-element.glitch.me/" frameBorder="0"></iframe>
@@ -229,4 +229,4 @@ I hope this helped! Here's some other links to get you going:
 - A Polymer [cheat sheet](https://meowni.ca/posts/polymer-2-cheatsheet/)
 - The Polymer [docs](https://www.polymer-project.org/2.0/docs/devguide/feature-overview)
 
-<img class="otter" alt="let me know if this was useful to you! cause i'm otter here" src="/images/2017-06-05/11.png">
+<img class="otter" alt="let me know if this was useful to you! cause i'm otter here" src="/images/2017-06-06/11.png">
