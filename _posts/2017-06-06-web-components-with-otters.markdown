@@ -75,11 +75,11 @@ If you look up `bower` on the web you’ll hear things like “but bower is depr
 
 To [install](https://bower.io/#install-bower) `bower`, a package manager, you must first install `npm`, a package manager. Take a moment for a concerned sigh, but install it anyway. Upshot: I promise this is the only tool I will ask you to install.
 
-If you want to find otter web components, [Webcomponents.org](https://www.webcomponents.org/) is a universal catalog of web components (but not a package manager, because that would be cray). Go check it out.
+If you want to find otter web components, [WebComponents.org](https://www.webcomponents.org/) is a universal catalog of web components (but not a package manager, because that would be cray). Go check it out.
 
 ## Polyfills and you
 
-<img class="otter" alt="anotter digression" src="/images/2017-06-06/8.png">
+<img class="otter" alt="anotter digression" src="/images/2017-06-06/7.png">
 
 Not all browsers implement features at the same rate, which means while you’re waiting for them to catch up, you need to care about polyfills. Fun fact: you know how when you have a hole in a wall, you have to put spackling paste in it to make the wall look like a wall again? Polyfilla is a brand of spackling, and that’s exactly what a polyfill is -- it fills a hole in the browser, so that it looks even from the outside.
 
@@ -87,7 +87,7 @@ You have two choices:
 - Ignore polyfills for now and just use Chrome to test your app, but know it’s going to be hella broken on other browsers
 - Care about polyfills, and include the [polyfill](github.com/webcomponents/webcomponentsjs) in your app. I’ll show you where that goes in the next section
 
-<img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-06/9.png">
+<img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-06/8.png">
 
 ## 1. I want to use someone else’s web component in my app
 Ok cool, so here we are. You have a web site, and you want to use someone else’s web widget in it. Let’s say that thing is [paper-button](https://www.webcomponents.org/element/PolymerElements/paper-button) which is a super fancy looking Material Design button. It’s beauty and it’s grace, it’s Miss United States.
@@ -224,6 +224,8 @@ which Polymer abstracted out for you.
 ## That’s all there is!
 I hope this helped! Here's some other links to get you going:
 
+- Google developers [blog post](https://developers.google.com/web/fundamentals/getting-started/primers/customelements) on
+custom elements
 - The Polymer [getting started](https://www.polymer-project.org/2.0/start/) tutorial
 - The Polymer [quick tour](https://www.polymer-project.org/2.0/start/quick-tour) of features
 - A Polymer [cheat sheet](https://meowni.ca/posts/polymer-2-cheatsheet/)
