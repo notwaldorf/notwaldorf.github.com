@@ -5,7 +5,22 @@ category: posts
 ---
 
 <style>
-  img.otter { height: 250px; }
+  img.otter { height: 220px !important; }
+  iframe.otter {
+    height: 250px;
+    width: 300px;
+    margin: 0 auto;
+    border: 5px solid #E0F7FA;
+    border-radius: 3px;
+    padding: 0px 40px;
+  }
+  iframe.otter-two {
+    width: 100%;
+    height: 320px;
+    border: 5px solid #E0F7FA;
+    border-radius: 3px;
+    padding: 0px 10px;
+  }
 </style>
 
 <img class="otter" alt="everyone keeps talking about web components, but huh?" src="/images/2017-06-05/1.png">
@@ -19,7 +34,7 @@ I work on a library called [Polymer](https://polymer-project.org), which helps y
 
 Web components aren’t a new library or framework, they’re a new browser feature, and they let you write *encapsulated* and *reusable* *components* (more [details]( https://www.webcomponents.org/introduction)).
 
-- A **component** is a bunch of code that fits logically together, from a simple widget like a fancy button or a date picker to a more complex UI setup like “a responsive blog layout”
+- A **component** is a bunch of code that fits logically together, from a simple widget like a fancy button or a date picker to a more complex UI setup like “a responsive blog layout"
 - **Encapsulated** means that an element’s styles and children are scoped to itself, so you can’t accidentally break what it looks like by using CSS haphazardly in your app
 - **Reusable** means that if you have a web component, no matter how you wrote it, you should be able to use it in any other app, regardless of how it’s built (eg, a React app). This is different than, say, a React component, which you can’t just use in an Angular app without bringing all of React with you
   - Using other people’s web components is nice because it means you get to write less code, and you can use someone else’s code
@@ -52,9 +67,9 @@ There’s other things that you might eventually care about, such as making your
 
 Web components tend to have dependencies on other web components, so you need a package manager to herd all them cats. Most of the web components out there use [`bower`](https://bower.io/). Another popular one is [npm](https://www.npmjs.com/) -- you could think of `npm` as a package manager for your server code and `bower` for your client, and it wouldn’t be entirely incorrect.
 
-The reason why you need a package manager and not just “download this element in a zip file” is that unless that element is really simple, it might have dependencies, and they’ll have dependencies, and that’s a thing for machines and not otters. If you really don’t want to use `bower`, then you’ll have to sort out flattening your dependency tree on your own using something like `webpack`. This is not the tutorial for you.
+The reason why you need a package manager and not just “download this element in a zip file" is that unless that element is really simple, it might have dependencies, and they’ll have dependencies, and that’s a thing for machines and not otters. If you really don’t want to use `bower`, then you’ll have to sort out flattening your dependency tree on your own using something like `webpack`. This is not the tutorial for you.
 
-If you look up `bower` on the web you’ll hear things like “but bower is deprecated now” (which is true, but it’s also been unmaintained for like a year and it worked fine, so nothing is really new on that front) and “but why not npm” (because you can only have one version of the same web component in your app, and that’s hard if your dependency tree is not flat. You probably don’t actually care this).
+If you look up `bower` on the web you’ll hear things like “but bower is deprecated now" (which is true, but it’s also been unmaintained for like a year and it worked fine, so nothing is really new on that front) and “but why not npm" (because you can only have one version of the same web component in your app, and that’s hard if your dependency tree is not flat. You probably don’t actually care this).
 
 <img class="otter" alt="attenshun attenshun installation instructions" src="/images/2017-06-05/6.png">
 
@@ -93,7 +108,7 @@ We need to do 3 things:
   "paper-button": "PolymerElements/paper-button#^2.0.0"
 }
 ```
-- Because I promised you no magic: `^2.0.0` just means “the latest version between 2.0.0 to 3.0.0”. The reason I picked that version is that it’s the latest one.
+- Because I promised you no magic: `^2.0.0` just means “the latest version between 2.0.0 to 3.0.0". The reason I picked that version is that it’s the latest one.
 - If you manually added the element to `bower.json`, you need to actually install it, so run `bower install`.
 
 ### Status check
@@ -131,6 +146,7 @@ Your `index.html` should basically look like this:
     <link rel="import" href="/bower_components/paper-button/paper-button.html">
   </head>
   <body>
+    <h1>Oh, hi there</h1>
     <p>Have you seen this fancy button?</p>
     <paper-button>Click me</paper-button>
   </body>
@@ -139,10 +155,8 @@ Your `index.html` should basically look like this:
 
 <img class="otter" alt="bower summary" src="/images/2017-06-05/11.png">
 
-And if you run that code (in a simple HTTP server), it should look like this:
-
-// show demo or maybe iframe glitch?
-
+And if you run that code (in a simple HTTP server), it should look sort of like this:
+<iframe class="otter" src="https://use-custom-element.glitch.me/" frameBorder="0"></iframe>
 
 ## 2. I want to write a web component to use in my app
 
@@ -151,8 +165,8 @@ Now that we know how to import someone else’s custom element, let’s write ou
 The Polymer site actually has an awesome [getting started](https://www.polymer-project.org/2.0/start/first-element/intro) tutorial, if you’d rather read that. But while I have you here, you’ll get the otter way.
 
 In Polymer, every custom element is like a taco (bear with me). There’s something called a `dom-module` (which is actually a custom element itself) that holds 2 things in it:
-- the `<template>`, or what your element looks like (html and css). A `<template>` is an HTML element that's inert -- when the browser sees
-- a `<script>`, which is what your element does.
+1. the `<template>`, or what your element looks like (html and css). A `<template>` is an HTML element that's inert -- when the browser sees
+2. a `<script>`, which is what your element does.
 
 The code lives in an `.html` file (because remember: we’re going to do an HTML import to bring it in our app later)
 
@@ -188,21 +202,28 @@ It ends up looking like this:
 </dom-module>
 ```
 
-I tend to put one element per `html` file, and then name the file after the tag of the element. So i’d save that into a `my-element.html` file, and then import it in our app, just as before with:
+I tend to put one element per `html` file, and then name the file after the tag of the element. So I would save that into a `my-element.html` file, and then import it in our app, just as before with:
 ```
-<link rel=”import” href=”my-element.html”>
+<link rel="import" href="my-element.html">
 ```
 
-Now, what goes _inside_ your custom element is really up to you. The way I write elements is by either knowing ahead of time what that element should do (“it should be a text field with a button and when you click on that button, you get an emoji picker”), or I am working on the app, and at some point there’s just too much HTML/CSS in the same place that looks like it can just be modularized away (“oh, all this code just deals with writing a tweet, it should probably just go into a <new-tweet> element”)
+<br>
+Now, what goes _inside_ your custom element is really up to you. The way I write elements is
+- by either knowing ahead of time what that element should do (“it should be a text field with a button and when you click on that button, you get an emoji picker"),
+- or I am working on the app, and at some point there’s just too much HTML/CSS in the same place that looks like it can just be modularized away (“oh, all this code just deals with writing a tweet, it should probably just go into a `<new-tweet>` element")
 
-As a slightly more complicated example, I made you a  <happy-thing> element in this [glitch app](https://glitch.com/edit/#!/polymer-custom-element). It basically takes whatever content you give to it, and when you hover over it, it does a little shimmy animation.
+As a slightly more complicated example, I made a `<happy-thing>` element in this
+[glitch app](https://glitch.com/edit/#!/polymer-custom-element). It basically takes whatever content you give to it, and when you hover over, it does a little shimmy animation:
 
-// demo here
+<iframe class="otter-two" src="https://polymer-custom-element.glitch.me/" frameBorder="0"></iframe>
+
+<br>
+I also made that element with [plain JavaScript](https://glitch.com/edit/#!/simple-custom-element), without Polymer, if you want to compare it. You'll notice the second example has a lot more boilerplate code,
+which Polymer abstracted out for you.
 
 ## That’s all there is!
-I hope this helped! Here's some links to get you going:
+I hope this helped! Here's some other links to get you going:
 
-- A [glitch app](https://glitch.com/edit/#!/polymer-custom-element) where I build a silly custom element
 - The Polymer [getting started](https://www.polymer-project.org/2.0/start/) tutorial
 - The Polymer [quick tour](https://www.polymer-project.org/2.0/start/quick-tour) of features
 - A Polymer [cheat sheet](https://meowni.ca/posts/polymer-2-cheatsheet/)
