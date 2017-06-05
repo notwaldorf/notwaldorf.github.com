@@ -75,7 +75,7 @@ If you look up `bower` on the web you’ll hear things like “but bower is depr
 
 To [install](https://bower.io/#install-bower) `bower`, a package manager, you must first install `npm`, a package manager. Take a moment for a concerned sigh, but install it anyway. Upshot: I promise this is the only tool I will ask you to install.
 
-If you want to find otter web components, [Webcomponents.org](https://www.webcomponents.org/) is a universal catalog of web components (but not a package manager, because that would be cray). Go check it out.
+If you want to find otter web components, [WebComponents.org](https://www.webcomponents.org/) is a universal catalog of web components (but not a package manager, because that would be cray). Go check it out.
 
 ## Polyfills and you
 
@@ -224,6 +224,8 @@ which Polymer abstracted out for you.
 ## That’s all there is!
 I hope this helped! Here's some other links to get you going:
 
+- Google developers [blog post](https://developers.google.com/web/fundamentals/getting-started/primers/customelements) on
+custom elements
 - The Polymer [getting started](https://www.polymer-project.org/2.0/start/) tutorial
 - The Polymer [quick tour](https://www.polymer-project.org/2.0/start/quick-tour) of features
 - A Polymer [cheat sheet](https://meowni.ca/posts/polymer-2-cheatsheet/)
