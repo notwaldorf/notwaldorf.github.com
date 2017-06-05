@@ -183,10 +183,10 @@ Docs: [lifecycle callbacks](https://www.polymer-project.org/2.0/docs/devguide/cu
 
 ```js
 class MyElement extends Polymer.Element {
- constructor() { super(); /* ... */},
- ready() { super.ready(); /* ... */},
- connectedCallback() { super.connectedCallback(); /* ... */},
- disconnectedCallback() { super.disconnectedCallback(); /* ... */},
+ constructor() { super(); /* ... */}
+ ready() { super.ready(); /* ... */}
+ connectedCallback() { super.connectedCallback(); /* ... */}
+ disconnectedCallback() { super.disconnectedCallback(); /* ... */}
  attributeChangedCallback() { super.attributeChangedCallback(); /* ... */}
 }
 ```
@@ -365,7 +365,7 @@ class MyElement extends Polymer.Element {
     this._observer = new Polymer.FlattenedNodesObserver(function(info) {
     // info is {addedNodes: [...], removedNodes: [...]}
     });
-  },
+  }
   disconnectedCallback: function() {
     super.disconnectedCallback();
     this._observer.disconnect();
@@ -527,10 +527,10 @@ around a `<template>`, for example:
 
 ```html
 {% raw %}<link rel="import" href="components/polymer/lib/elements/dom-repeat.html">
-<dom-repeat items="{{employees}}">
+<dom-repeat items="[[employees]]">
   <template>
-    <div>First name: <span>{{item.first}}</span></div>
-    <div>Last name: <span>{{item.last}}</span></div>
+    <div>First name: <span>[[item.first]]</span></div>
+    <div>Last name: <span>[[item.last]]</span></div>
   </template>
 </dom-repeat>{% endraw %}
 ```
@@ -555,7 +555,7 @@ around a `<template>`, for example:
 
 ```html
 {% raw %}<link rel="import" href="components/polymer/lib/elements/dom-if.html">
-<dom-if if="{{myProperty}}">
+<dom-if if="[[myProperty]]">
   <template>
     <span>This content will appear when myProperty is truthy.</span>
   </template>
