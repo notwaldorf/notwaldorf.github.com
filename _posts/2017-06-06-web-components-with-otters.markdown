@@ -98,7 +98,7 @@ We need to do 3 things:
 
 ### 1. Download the web component
   - We do this by adding a `dependency` to our `bower.json` file. If you don’t already have a `bower.json` file (who can blame you), create one by running `bower init`, and answering the wizard’s questions. They kind of look like this, though, spoiler alert: there’s no actual wizard 😭
-  <img class="otter" alt="screenshot of the bower init wizard" src="/images/2017-06-06/10.png">
+  <img class="otter" alt="screenshot of the bower init wizard" src="/images/2017-06-06/9.png">
 
   - To add `paper-button` as a dependency, you can either run
 `bower install --save PolymerElements/paper-button#^2.0.0`
@@ -153,7 +153,7 @@ Your `index.html` should basically look like this:
 </html>
 ```
 
-<img class="otter" alt="bower summary" src="/images/2017-06-06/11.png">
+<img class="otter" alt="bower summary" src="/images/2017-06-06/10.png">
 
 And if you run that code (in a simple HTTP server), it should look sort of like this:
 <iframe class="otter" src="https://use-custom-element.glitch.me/" frameBorder="0"></iframe>
