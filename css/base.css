@@ -60,7 +60,7 @@ h1 {
 
 h2, h3 {
   font-size: 25px;
-  font-weight: 200;
+  font-weight: bold;
 }
 
 ul.listing > h3 {
