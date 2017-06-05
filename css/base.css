@@ -199,6 +199,10 @@ ul {
 .content ul {
   margin-left: 20px;
 }
+
+ul ul {
+  padding: 10px 0px 0 10px;
+}
 .content li {
   margin-bottom: 10px;
   line-height: 1.7em;
