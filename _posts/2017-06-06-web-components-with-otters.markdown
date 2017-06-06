@@ -141,7 +141,7 @@ You import a web component with an **HTML import**:
  <link rel="import" href="/bower_components/paper-button/paper-button.html">
 ```
 
-### 3.Insert it somewhere in the app
+### 3. Insert it somewhere in the app
 Drop a `<paper-button>Click me</paper-button>` somewhere in your html page.
 
 ### Status check
