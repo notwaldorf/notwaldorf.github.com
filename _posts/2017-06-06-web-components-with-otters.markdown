@@ -196,8 +196,8 @@ Now that we know how to import someone else’s custom element, let’s write ou
 The Polymer site actually has an awesome [getting started](https://www.polymer-project.org/2.0/start/first-element/intro) tutorial, if you’d rather read that. But while I have you here, you’ll get the otter way.
 
 In Polymer, every custom element is like a taco (bear with me). There’s something called a `dom-module` (which is actually a custom element itself) that holds 2 things in it:
-1. the `<template>`, or what your element looks like (html and css). A `<template>` is an HTML element that's inert -- when the browser sees
-2. a `<script>`, which is what your element does.
+1. the `<template>`, or what your element looks like (html and css). A `<template>` is an HTML element that's inert -- when the browser sees it, it skips it and doesn't render it
+2. a `<script>`, which is what your element does
 
 **Sidebar**: This is one of the advantages of using Polymer -- without
 Polymer, you'd have to construct all your HTML and CSS in JavaScript, and somehow
