@@ -261,7 +261,9 @@ I also made that element with [plain JavaScript](https://glitch.com/edit/#!/simp
 which Polymer abstracted out for you.
 
 ## That’s all there is!
-I hope this helped! Here's some other links to get you going:
+I hope this helped! I'm going to write another post in more detail about _actually_
+getting started with Polymer, and what kind of things you can do with it soon!
+In the meantime, here's some other links to get you going:
 
 - Google developers [blog post](https://developers.google.com/web/fundamentals/getting-started/primers/customelements) on
 custom elements
@@ -271,3 +273,6 @@ custom elements
 - The Polymer [docs](https://www.polymer-project.org/2.0/docs/devguide/feature-overview)
 
 <img class="otter" alt="let me know if this was useful to you! cause i'm otter here" src="/images/2017-06-06/11.png">
+
+
+### 👋 See you soon, new web component friends!
