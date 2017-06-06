@@ -32,15 +32,27 @@ I work on a library called [Polymer](https://polymer-project.org), which helps y
 
 ## Why should you care?
 
-Web components aren’t a new library or framework, they’re a new browser feature, and they let you write *encapsulated* and *reusable* *components* (more [details]( https://www.webcomponents.org/introduction)).
+Web components aren’t a new library or framework, they’re a new browser feature, and they let you write *encapsulated* and *reusable* *components* (more [details]( https://www.webcomponents.org/introduction)). If you’ve ever used an `<input>` element, I like to think of it as the OG web component, because it’s exactly that. The thing
+is that before web components came around, you had to wait on all browsers
+to agree on a new element (like, a date picker). And even after they agreed
+on a new element, it took them yeaaaaars to implement it. `<input type="date">`
+was drafted in 2011 -- today, 6 years later, not all browsers
+have implemented it! With
+web components, **web developers** get to write such elements, so that you don't
+have to wait for 10 years before all browsers agree that they should implement a date picker.
+P cool, right?
 
-- A **component** is a bunch of code that fits logically together, from a simple widget like a fancy button or a date picker to a more complex UI setup like "a responsive blog layout"
+- A **component** is a bunch of code that fits logically together, kinda like a unit
+of functionality. This could be a simple widget like a fancy button or a date picker, or a more complex UI setup like "a responsive blog layout"
 - **Encapsulated** means that an element’s styles and children are scoped to itself, so you can’t accidentally break what it looks like by using CSS haphazardly in your app
 - **Reusable** means that if you have a web component, no matter how you wrote it, you should be able to use it in any other app, regardless of how it’s built (eg, a React app). This is different than, say, a React component, which you can’t just use in an Angular app without bringing all of React with you
-  - Using other people’s web components is nice because it means you get to write less code, and you can use someone else’s code
+  - Using other people’s web components is nice because it means you get to write less code, and you can use someone else’s code. Also, when I say "using web components", I literally mean
+  writing something like `<emoji-picker></emoji-picker>`, that just works out of the box.
+  Remember, a custom element is just an open source `<input>` -- whatever you can do
+  with `<input>` you could do with a custom element.
   - Writing your own web component is nice because splitting your app in smaller pieces makes it more manageable. Sharing your own web component with others means that they could write less code and use yours! Sharing is caring <3
 
-If you’ve ever used an `<input>` element, I like to think of it as the OG web component, because it’s got all of the things above. Only it’s written by the browser, not by you (unless you are one of the original Netscape developers in which case, 🙏)
+
 
 <img class="otter" alt="so i can write &lt;emoji-picker&gt;, yay!" src="/images/2017-06-06/2.png">
 
@@ -85,8 +97,9 @@ Not all browsers implement features at the same rate, which means while you’re
 
 You have two choices:
 - Ignore polyfills for now and just use Chrome to test your app, but know it’s going to be hella broken on other browsers
-- Care about polyfills, and include the [polyfill](github.com/webcomponents/webcomponentsjs) in your app. I’ll show you where that goes in the next section
+- Care about polyfills, and include the [polyfill](github.com/webcomponents/webcomponentsjs) in your app. Spoilers: it's just a `<script src="some-path/webcomponents-lite.js"></script>` include.
 
+in your applications's `<head>` tag
 <img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-06/8.png">
 
 ## 1. I want to use someone else’s web component in my app
@@ -96,7 +109,7 @@ Here is a [glitch app](https://glitch.com/edit/#!/use-custom-element) if you wan
 
 We need to do 3 things:
 
-### 1. Download the web component
+### 1. Install the web component
   - We do this by adding a `dependency` to our `bower.json` file. If you don’t already have a `bower.json` file (who can blame you), create one by running `bower init`, and answering the wizard’s questions. They kind of look like this, though, spoiler alert: there’s no actual wizard 😭
   <img class="otter" alt="screenshot of the bower init wizard" src="/images/2017-06-06/9.png">
 
@@ -128,10 +141,8 @@ You import a web component with an **HTML import**:
  <link rel="import" href="/bower_components/paper-button/paper-button.html">
 ```
 
-### 3.Use it somewhere in the app
+### 3.Insert it somewhere in the app
 Drop a `<paper-button>Click me</paper-button>` somewhere in your html page.
-
-⚠️ If you refresh the page, it won’t show up, because you need the next step!
 
 ### Status check
 Your `index.html` should basically look like this:
@@ -155,11 +166,18 @@ Your `index.html` should basically look like this:
 </html>
 ```
 
+See that line about loading the `webcomponents-lite` polyfill? That's the bit
+that makes the demo work in browsers that don't have web components yet 😎.
+If you want to see what your app looks like without the polyfill, just comment
+out that line and open your app in something like Firefox! It's a good thing
+to try out.
+
 If we run that demo, it should look like this, plus or minus some
 copy and styles that I've added:
 <iframe class="otter" src="https://use-custom-element.glitch.me/" frameBorder="0"></iframe>
-
 <br>
+
+Now, say it together with the otters!
 <img class="otter" alt="bower summary" src="/images/2017-06-06/10.png">
 <br>
 
