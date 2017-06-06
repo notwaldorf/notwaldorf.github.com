@@ -5,14 +5,13 @@ category: posts
 ---
 
 <style>
-  img.otter { height: 220px !important; }
+  img.otter { max-height: 220px !important; }
   iframe.otter {
     height: 250px;
-    width: 300px;
+    width: 100%;
     margin: 0 auto;
     border: 5px solid #E0F7FA;
     border-radius: 3px;
-    padding: 0px 40px;
   }
   iframe.otter-two {
     width: 100%;
