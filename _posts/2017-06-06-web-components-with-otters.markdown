@@ -24,7 +24,7 @@ category: posts
 
 <img class="otter" alt="everyone keeps talking about web components, but huh?" src="/images/2017-06-06/1.png">
 
-I work on a library called [Polymer](https://polymer-project.org), which helps you write web components faster and easier. This is awesome, but it’s only awesome if **you** (yes, YOU) know what a web component is, and know that you want to write one. So here’s a story about what these things are and teaches you how to use them without showing you 10 pages of docs and getting you to install tools and CLIs. Maybe it’s for you. Maybe it isn’t. In either case, it has otters.
+I work on a library called [Polymer](https://www.polymer-project.org/), which helps you write web components faster and easier. This is awesome, but it’s only awesome if **you** (yes, YOU) know what a web component is, and know that you want to write one. So here’s a story about what these things are and teaches you how to use them without showing you 10 pages of docs and getting you to install tools and CLIs. Maybe it’s for you. Maybe it isn’t. In either case, it has otters.
 
 * TOC
 {:toc}
