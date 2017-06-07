@@ -44,7 +44,7 @@ P cool, right?
 - A **component** is a bunch of code that fits logically together, kinda like a unit
 of functionality. This could be a simple widget like a fancy button or a date picker, or a more complex UI setup like "a responsive blog layout"
 - **Encapsulated** means that an element’s styles and children are scoped to itself, so you can’t accidentally break what it looks like by using CSS haphazardly in your app
-- **Reusable** means that if you have a web component, no matter how you wrote it, you should be able to use it in any other app, regardless of how it’s built (eg, a React app). This is different than, say, a React component, which you can’t just use in an Angular app without bringing all of React with you
+- **Reusable** means that if you have a web component, no matter how you wrote it, you should be able to use it in any other app, regardless of how it’s built (eg, a React app). This is different than, say, a React component, which you can’t just use in an Angular app without bringing all of React with you (and in most cases, it won't even work)
   - Using other people’s web components is nice because it means you get to write less code, and you can use someone else’s code. Also, when I say "using web components", I literally mean
   writing something like `<emoji-picker></emoji-picker>`, that just works out of the box.
   Remember, a custom element is just an open source `<input>` -- whatever you can do
@@ -96,7 +96,7 @@ Not all browsers implement features at the same rate, which means while you’re
 
 You have two choices:
 - Ignore polyfills for now and just use Chrome to test your app, but know it’s going to be hella broken on other browsers
-- Care about polyfills, and include the [polyfill](github.com/webcomponents/webcomponentsjs) in your app. Spoilers: it's just a `<script src="some-path/webcomponents-lite.js"></script>` include.
+- Care about polyfills, and include the [polyfill](https://github.com/webcomponents/webcomponentsjs) in your app. Spoilers: it's just a `<script src="some-path/webcomponents-lite.js"></script>` include.
 
 in your applications's `<head>` tag
 <img class="otter" alt="whadya think? we otter get to the code!" src="/images/2017-06-06/8.png">
