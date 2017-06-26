@@ -114,7 +114,7 @@ To change or add to the parent's template, override the `template` getter:
 If you don't know the parent class, you can also use:
 
 ```js
-class ChildElement extends customElement.get('parent-element') {
+class ChildElement extends customElements.get('parent-element') {
   /* ... */
 }
 ```
