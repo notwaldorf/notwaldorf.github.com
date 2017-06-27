@@ -38,9 +38,7 @@ is missing from this page, [tell me](https://twitter.com/intent/tweet?original_r
 
 ## Defining an element
 
-Docs: [1.x - 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrade)
-[registering an element](https://www.polymer-project.org/2.0/docs/devguide/registering-elements),
-[shared style modules](https://www.polymer-project.org/2.0/docs/devguide/style-shadow-dom#share-styles-between-elements).
+Docs: [registering an element](https://www.polymer-project.org/1.0/docs/devguide/registering-elements), [behaviours](https://www.polymer-project.org/1.0/docs/devguide/registering-elements#prototype-mixins), [shared style modules](https://www.polymer-project.org/1.0/docs/devguide/styling#style-modules)
 
 ```html
 <dom-module id="element-name">
@@ -52,22 +50,22 @@ Docs: [1.x - 2.x upgrade guide](https://www.polymer-project.org/2.0/docs/upgrade
     <style include="some-style-module-name"></style>
   </template>
   <script>
-    class MyElement extends Polymer.Element {
-      static get is() { return 'element-name'; }
+    Polymer({
+      is: 'element-name',
       // All of these are optional. Only keep the ones you need.
-      static get properties() { ... }
-      static get properties() { ... }
-    }
-
-    // Associate the new class with an element name.
-    customElements.define('element-name', MyElement);
+      behaviors: [],
+      observers: [],
+      listeners: {},
+      hostAttributes: {},
+      properties: {}
+    });
   </script>
 </dom-module>
 ```
 
-## Defining a mixin
+## Defining a behaviour
 
-Docs: [mixins](https://www.polymer-project.org/2.0/docs/upgrade#mixins).
+Docs: [behaviours](https://www.polymer-project.org/1.0/docs/devguide/behaviors).
 
 Defining a behavior to share implementation between different elements:
 
