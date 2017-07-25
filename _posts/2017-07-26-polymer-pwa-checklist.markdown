@@ -151,7 +151,6 @@ In order to make it go, you need to create a `polymer.json` file. Here is my sta
   ],
   "builds": [
     { "preset": "es5-bundled" },
-    { "preset": "es6-unbundled" },
     { "preset": "es6-bundled" }
   ],
   "lint": {
@@ -162,8 +161,8 @@ In order to make it go, you need to create a `polymer.json` file. Here is my sta
 Remove the `lint` rule if you don't want to lint your code. Check the CLI's
 [docs](https://github.com/Polymer/polymer-cli) or Polymer shop-app's [polymer.json](https://github.com/Polymer/shop/blob/master/polymer.json)
 for more inspiration.
-If you don't plan on conditionally serving different bundles to different browsers,
-you can also remove all but the `es6-bundled` presets.
+If you don't plan on conditionally serving different bundles to different browsers
+(ahem, IE11), you can also remove the `es5` preset.
 
 Once you have that, run `polymer build`, and start serving out of your `build/es6-bundled`
 directory. Eventually, this will be the directory you'll actually serve out, so
@@ -247,21 +246,20 @@ ready() {
 
 This last change ends up putting us in the 💚green💚 on Lighthouse!
 
-The perfomance of the app is looking pretty great, since we basically
+The performance of the app is looking pretty great, since we basically
 moved first paint to that first downloaded byte:
 <img alt="lighthouse score" src="/images/2017-07-26/final-perf.png">
 
-The only thing that's not great about our final score, is the best practices
-section. Unfortunately, that score is related to the `indie-catalog`
-implementation, and kinda boring: those `docs.html` pages are
-using `iron-doc-viewer`, which has a bunch of `_blank` links that Lighthouse
-really doesn't like:
-<img alt="lighthouse score" src="/images/2017-07-26/final-best-practices.png">
-
 ## 🆗 🆒
+
+Final score on the deployed site is a satisfying **A-** across the board:
+<img alt="lighthouse score" src="/images/2017-07-26/final-score.png">
+
 I didn't try to win the Lighthouse jackpot, because I wanted to see how
 far I would get with using _just_ the Lighthouse instructions and score, without inspecting any of the performance/network tabs in the Dev Tools. My next step would probably be
 to see whether lazy loading parts of my app will help, and a long and introspective
-look at the Dev Tools Network tabs, to see what downloads I could delay. Anyway,
+look at the Dev Tools Network tabs, to see what downloads I could delay.
+
+Anyway,
 I hope this helped, and that it showed that getting a good Lighthouse score is
 mostly ceremony and hardly any goat sacrifices. ❤️
