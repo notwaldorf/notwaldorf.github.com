@@ -12,7 +12,7 @@ category: posts
 </style>
 The Meownica Web App Workflow™ goes like this:
 1. Write bad code until the file is too long
-2. Refactor that code into a web component
+2. Refactor that code into some web components
 3. Repeat steps 1-2 until done
 4. Realize you forgot to do the PWA dance, so your app is scoring 45 on [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en)
 5. Make it into a PWA by doing basically the same steps every time.
@@ -22,7 +22,7 @@ party tricks, that I copy paste from a couple of apps. This time I decided to ma
 them into a checklist. This checklist is keen on the `polymer cli`, because I
 usually write apps that use Polymer. If you don't, you can replace the `polymer cli` with your favourite bundler/service-worker generator!
 
-If you just want the checklist, [here](http://localhost:4000/posts/polymer-pwa-checklist/#checklist) it is. If you want to see _how_ I made this checklist and how the [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) score improved as I checked more items off, jump to the [case-study](#step-by-step)!
+If you just want the checklist, [here](https://meowni.ca/posts/polymer-pwa-checklist/#checklist) it is. If you want to see _how_ I made this checklist and how the [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) score improved as I checked more items off, jump to the [case-study](#step-by-step)!
 
 * TOC
 {:toc}
@@ -206,7 +206,7 @@ on the screen! Surely we can do better:
 <img alt="lighthouse score" src="/images/2017-07-26/after-sw-perf.png">
 
 ### 4. 🎨 Fix first paint
-In that creenshot again, we're getting some
+In that screenshot again, we're getting some
 content back pretty fast (the white -> gray transition at 886 ms), but then we show
 nothing while the main element, `<cat-alog>`, is upgrading. To get around that,
 I like to add fallback content in the light DOM of that main element. This works
