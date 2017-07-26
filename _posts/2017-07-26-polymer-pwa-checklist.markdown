@@ -2,7 +2,6 @@
 layout: post
 title: "PWAs with Polymer: a checklist"
 category: posts
-draft: true
 ---
 
 <style>
