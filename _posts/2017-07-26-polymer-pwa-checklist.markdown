@@ -176,6 +176,12 @@ bundle that we have to wait for, so whatever incremental updates we had are
 gone (don't worry, we fix, we fix). And we still haven't actually added a Service Worker:
 <img alt="lighthouse score" src="/images/2017-07-26/after-bundle.png">
 
+Brief intermission: I (actually [Patrick Hulce](https://twitter.com/patrickhulce)) accidentally unearthed a Lighthouse bug, and
+significantly improved the performance score by moving a script from the head
+to the body. This is prooobably an accident and will be fixed in the future,
+but let's document it for posterity anyway:
+<img alt="lighthouse score" src="/images/2017-07-26/script-fix-score.png">
+
 ### 3. 🤖 Add a Service Worker
 The `polymer cli`, bless its soul, actually generated a `service-worker.js` file for
 us, we just haven't added it anywhere, like our `index.html`:
