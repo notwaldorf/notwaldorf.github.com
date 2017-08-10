@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "How Shadow DOM helps with style encapsulation (and why it's fast)"
+title: "Shadow DOM: fast but also encapsulated styles"
 category: posts
 draft: true
 ---
+
 [Shadow DOM](https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom) is a fairly recent-ish spec that gives you DOM tree encapsulation -- it’s one of the superhero lions in the Voltron of specs called “Web Components”. [Web Components](https://www.webcomponents.org/introduction) let you create reusable, self-contained components in JavaScript; the Shadow DOM bit makes sure that the CSS and markup you bundle with your implementation is encapsulated, hiding the implementation details of your element.
 
 The idea of encapsulation isn’t new -- most programming languages have a way to define “private” bits of code -- variables or methods that are irrelevant to the user of that object and make the element work. Messing with them usually voids the contract and breaks the guarantee that the element will continue to work. In these languages you could, instead, use a global variable or method for everything. It’s not a question of whether it will work (it will), but whether it will work over time, in a large code base (it won’t). You know it won’t.
@@ -11,6 +12,8 @@ The idea of encapsulation isn’t new -- most programming languages have a way t
 On the web, there’s two kinds of encapsulation we might want: style encapsulation (an element’s styles don’t leak outside) and DOM encapsulation (an element’s internal implementation isn’t visible). This post talks about style encapsulation; tune in soon for the second half of the story -- the DOM encapsulation!
 
 Whew, ok then. So then why is CSS encapsulation so hard? And what’s the fastest way to get it?
+
+<hr>
 
 ## Tools to the rescue!
 
@@ -24,19 +27,20 @@ So now that you (maybe) believe me that style encapsulation is a good thing, let
 ### 1. Better naming strategies
 “_Name your stuff better_” works if you have control over the things you are naming. But if you already do, then you probably don’t need style encapsulation in the first place. You can just...not...do the bad things and the stomping. The problem is that if you’re building a third party widget (say, a fancy date picker that everyone in the universe will have to use), or if you’re building something as part of a large team, you have to be very, very careful not to name it anything that anyone out there might ever call it. Not very scientific.
 
-**👍** It’s really easy and doesn’t need tools.
-
-**👎** It’s really hard if you don’t have tools to enforce it. And doesn’t really work.
+<p class="chunk">
+👍 It’s really easy and doesn’t need tools.<br><br>
+👎 It’s really hard if you don’t have tools to enforce it. And doesn’t really work.
+</p>
 
 ### 2. <iframe>
 Ugh, you know it works. Iframes are this special magical portal that teleports any piece of HTML into your piece of HTML, while keeping it wrapped in a safety bubble. But you can’t resize them easily. Or scroll nicely. Or pretend they’re not a teleported piece of code wrapped in a safety bubble. I didn’t even have to doctor this screenshot, it’s real life:
 
 <img alt="google search suggestions for 'iframes are'" src="/images/2017-08-11/iframes.png">
 
-
-**👍** It’s the most encapsulation and abstraction you will ever get on the web.
-
-**👎** It’s an iframe.
+<p class="chunk">
+👍 It’s the most encapsulation and abstraction you will ever get on the web.<br><br>
+👎 It’s an iframe.
+</p>
 
 ### 3. CSS modules
 [CSS Modules](https://m.alphasights.com/css-evolution-from-css-sass-bem-css-modules-to-styled-components-d4c1da3a659b) are another approach to faking style encapsulation. It’s basically a smart way of automating BEM, so that you don’t have to worry about choosing the unique class names -- there’s a tool that does it for you! It works pretty well, since it prevents any potential name collisions you’ve had with BEM, but at the end of the day, it’s not _actually_ style encapsulation. There’s nothing stopping you from styling any bit of the DOM tree, which means it’s not a very satisfactory answer if you’re in the business of vending, or using, robust third party components.
@@ -75,10 +79,10 @@ Like, into a separate resource, and then applying styles via classes. This works
 - Parse the text node
 - Pass it to the CSS parser, which turns it into styles
 
-**👍** Managing a giant amount of styles is nice. Style encapsulation is nice. It works extremely well if you’re using a framework that works well with this.
-
-**👎** There’s [a million](https://github.com/MicheleBertoli/css-in-js) ways to do this, and it’s really overwhelming if you are new to it. This approach tends to also be married to a framework, which makes sharing components hard -- both the user and the author of a component need to agree on *both* the framework and the css-in-js style, which isn’t always possible.
-
+<p class="chunk">
+👍 Managing a giant amount of styles is nice. Style encapsulation is nice. It works extremely well if you’re using a framework that works well with this.<br><br>
+👎 There’s <a href="https://github.com/MicheleBertoli/css-in-js">a million</a> ways to do this, and it’s really overwhelming if you are new to it. This approach tends to also be married to a framework, which makes sharing components hard -- both the user and the author of a component need to agree on <b>both</b> the framework and the css-in-js style, which isn’t always possible.
+</p>
 
 ### 4. Shadow DOM
 This is a cheap move: you know this article is about the Shadow DOM, and I left it until the end because I obviously think it’s the best. Shadow DOM was literally built to solve the problem of style and DOM encapsulation. It does the same thing that `<input>` and `<video>` elements have been doing for years (hiding their dirty laundry) but in a way that browsers can optimize around.
@@ -89,9 +93,11 @@ The same argument can be made for element authors -- since you know that everyth
 
 Before you complain that using a Shadow DOM and Web Components means that it absolutely requires JavaScript: this is true. But if you’re in a big team, building the kind of big app where you’re looking to style encapsulation as a solution for your CSS bowl of spaghetti, I’m pretty sure you’re already using JavaScript. And the community has been exploring [solutions](https://github.com/skatejs/ssr) to server-side rendering Shadow DOM anyway. Tradeoffs be tradeoffs, and this seems like an easy one.
 
-**👍** We’ve been complaining that nothing in CSS was helping with style encapsulation and this is _literally_ the platform’s answer to that problem.
+<p class="chunk">
+👍 We’ve been complaining that nothing in CSS was helping with style encapsulation and this is <i>literally</i> the platform’s answer to that problem.<br><br>
+👎 Because it’s a new spec, it’s suffering from some growing pains. On older browsers you need a <a href="https://github.com/webcomponents/shadycss">polyfill</a>. If you want reusable elements that are also highly customizable, this style encapsulation might get in the way right now. Thankfully, good people are already working on that. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/\-\-\*">Custom properties</a> are a new spec meant to address this, and the <a href="https://tabatkins.github.io/specs/css-shadow-parts/">new proposal</a> for theming custom elements is now an <a href="https://twitter.com/tabatkins/status/893376459091390464">editor's draft</a>!
+</p>
 
-**👎** Because it’s a new spec, it’s suffering from some growing pains. On older browsers you need a [polyfill](https://github.com/webcomponents/shadycss). If you want reusable elements that are also highly customizable, this style encapsulation might get in the way right now. Thankfully, good people are already working on that. [Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) are a new spec meant to address this, and the [new proposal](https://tabatkins.github.io/specs/css-shadow-parts/) for theming custom elements is now an [editor's draft](https://twitter.com/tabatkins/status/893376459091390464)!
+<hr>
 
-## 💯
 The zen of web development is a small page -- reusable components, not a lot of code, no wheels reinvented. Encapsulated styles are better for you as a developer (code can be simpler), and better for you as a platform (code can be faster). And without external tools or iframe nightmares, the only way to get this is Shadow DOM.
