@@ -308,6 +308,7 @@ blockquote p {
   letter-spacing: 2px;
   text-transform: uppercase;
   float: right;
+  font-weight: 900;
 }
 
 /**********************
