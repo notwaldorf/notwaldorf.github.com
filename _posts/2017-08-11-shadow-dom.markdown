@@ -2,7 +2,6 @@
 layout: post
 title: "Shadow DOM: fast but also encapsulated styles"
 category: posts
-draft: true
 ---
 
 [Shadow DOM](https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom) is a fairly recent-ish spec that gives you DOM tree encapsulation -- it’s one of the superhero lions in the Voltron of specs called “Web Components”. [Web Components](https://www.webcomponents.org/introduction) let you create reusable, self-contained components in JavaScript; the Shadow DOM bit makes sure that the CSS and markup you bundle with your implementation is encapsulated, hiding the implementation details of your element.
