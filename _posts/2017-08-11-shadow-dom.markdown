@@ -86,7 +86,7 @@ Like, into a separate resource, and then applying styles via classes. This works
 ### 4. Shadow DOM
 This is a cheap move: you know this article is about the Shadow DOM, and I left it until the end because I obviously think it’s the best. Shadow DOM was literally built to solve the problem of style and DOM encapsulation. It does the same thing that `<input>` and `<video>` elements have been doing for years (hiding their dirty laundry) but in a way that browsers can optimize around.
 
-The reason for that is that browsers have a special **style resolve** for Shadow DOM trees. Apart from being regular CSS that the browser already knows how to optimize, the CSS inside shadow DOM trees only applies inside that element. This means that changing a class name or style inside of a shadow root won’t affect everything outside it. Since you don’t have to consider the rest of the world, this means style resolution and application is much faster.
+The reason for that is that browsers have a special **style resolver** for Shadow DOM trees. Apart from being regular CSS that the browser already knows how to optimize, the CSS inside shadow DOM trees only applies inside that element. This means that changing a class name or style inside of a shadow root won’t affect everything outside it. Since you don’t have to consider the rest of the world, this means style resolution and application is much faster.
 
 The same argument can be made for element authors -- since you know that everything inside of your element can’t leak outside, the implementation is much simpler. You don’t have to think about _the rest_ of the world. You only have to consider your element’s public API, and its implementation.  
 
