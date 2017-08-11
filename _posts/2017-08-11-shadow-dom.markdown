@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Shadow DOM: fast but also encapsulated styles"
+title: "Shadow DOM: fast and encapsulated styles"
 category: posts
 ---
 
