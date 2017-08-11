@@ -94,7 +94,7 @@ Before you complain that using a Shadow DOM and Web Components means that it abs
 
 <p class="chunk">
 👍 We’ve been complaining that nothing in CSS was helping with style encapsulation and this is <i>literally</i> the platform’s answer to that problem.<br><br>
-👎 Because it’s a new spec, it’s suffering from some growing pains. On older browsers you need a <a href="https://github.com/webcomponents/shadycss">polyfill</a>. If you want reusable elements that are also highly customizable, this style encapsulation might get in the way right now. Thankfully, good people are already working on that. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/\-\-\*">Custom properties</a> are a new spec meant to address this, and the <a href="https://tabatkins.github.io/specs/css-shadow-parts/">new proposal</a> for theming custom elements is now an <a href="https://twitter.com/tabatkins/status/893376459091390464">editor's draft</a>!
+👎 Because it’s a new spec, it’s suffering from some growing pains. On older browsers you need a <a href="https://github.com/webcomponents/shadycss">polyfill</a>. If you want reusable elements that are also highly customizable, this style encapsulation might get in the way right now. Thankfully, good people are already working on that. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*">Custom properties</a> are a new spec meant to address this, and the <a href="https://tabatkins.github.io/specs/css-shadow-parts/">new proposal</a> for theming custom elements is now an <a href="https://twitter.com/tabatkins/status/893376459091390464">editor's draft</a>!
 </p>
 
 <hr>
