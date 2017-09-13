@@ -24,7 +24,7 @@ p {
 }
 
 .top-line {
-  border-top: 8px solid #7ccdea;
+  border-top: 8px solid #7BE4D5;
   position:fixed;
   top: 0;
   left: 0;
@@ -236,7 +236,7 @@ ul {
 }
 
 .content hr {
-  background-color: #7ccdea;
+  background-color: #7BE4D5;
   border: 0px;
   margin: 50px auto;
   width: 50%;
@@ -390,7 +390,7 @@ a:hover {
  * Code
  *********************/
 pre, code {
-  background: #E0F7FA;
+  background: #b0efe6;
   border-radius: 3px;
 }
 
