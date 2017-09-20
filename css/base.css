@@ -389,11 +389,18 @@ a:hover {
 /**********************
  * Code
  *********************/
-pre, code {
+code {
   background: #b0efe6;
   border-radius: 3px;
 }
 
+pre {
+  background: #ececec;
+}
+
+pre code {
+  background: transparent !important;
+}
 /* just the code blocks */
 pre {
   padding: 13px;
