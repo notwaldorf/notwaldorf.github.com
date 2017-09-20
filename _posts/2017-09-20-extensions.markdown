@@ -9,7 +9,7 @@ one giant html file filled with goodies. You can't just "run a site" locally.
 You need an `npm` or a `gulp` step or a `docker` if you're lucky. And probably
 a local server, but not the one you have installed. Which, I mean,
 makes sense, because modern web sites are big and powerful and have complicated
-front-ends and _do_ more things that a giant html file would. But
+front-ends and _do_ more things than a giant html file would. But
 it also kind of sucks because the build ceremonial sacrifices can be a bit overwhelming.
 Maybe you just want to see what the links would look like if they didn't have
 underlines. Maybe you want to change the fonts. Maybe you're never even
@@ -24,7 +24,7 @@ you want to share it with people, you can just zip it up and send it around.
 It's obviously not production ready, but it's amaaaaazing for prototyping.
 
 I made a [glitch](https://glitch.com/edit/#!/chrome-css-extension) project
-that gets you started with writing Chrome extension that injects a CSS stylesheet.
+that gets you started with writing a Chrome extension that injects a CSS stylesheet.
 There's only one thing you need to know: this stylesheet is a _User Agent_
 stylesheet, which means it has the lowest specificity. So some of its styles
 won't get applied unless you slap some `!important`s on it (or have extra
