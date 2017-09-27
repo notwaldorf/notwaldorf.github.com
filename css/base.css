@@ -391,15 +391,18 @@ a:hover {
  *********************/
 code {
   background: #b0efe6;
+  outline: 1px solid #7fe5d7;
   border-radius: 3px;
 }
 
 pre {
-  background: #ececec;
+  background: #eee;
+  outline: 1px solid #E2E2E2;
 }
 
 pre code {
   background: transparent !important;
+  outline: none;
 }
 /* just the code blocks */
 pre {
