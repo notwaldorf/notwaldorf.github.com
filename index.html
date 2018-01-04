@@ -7,7 +7,7 @@ layout: layout
     {% unless post.draft %}
       {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
       {% if currentdate != thedate %}
-        <h3>{{ currentdate }}</h3>
+        <h3  class="rainbow">{{ currentdate }}</h3>
         {% capture thedate %}{{currentdate}}{% endcapture %}
       {% endif %}
       <li>
