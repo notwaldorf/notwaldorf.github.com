@@ -114,6 +114,11 @@ describe('👀 screenshots are correct', function() {
 });
 ```
 
+You can test all sort of things here, by the way. Puppeteer lets you interact
+with the page (click on buttons, links, etc), so maybe you want to trigger
+different UI states before you screenshot them (like narrow view _but also_ with
+  the navigation drawer opened).
+
 ## Filing in the blanks
 All the heavy lifting (which isn't very heavy tbh) is done in `takeAndCompareScreenshot`:
 
