@@ -78,11 +78,8 @@ describe('👀 screenshots are correct', function() {
     if (!fs.existsSync(`${testDir}/narrow`)) fs.mkdirSync(`${testDir}/narrow`);
   });
 
-  // This is ran when the suite is done.
-  after(function(done) {
-    // Or stop your server however you want.
-    polyserve.close(done);
-  });
+  // This is ran when the suite is done. Stop your server here.
+  after((done) => polyserve.close(done));
 
   // This is ran before every test. It's where you start a clean browser.
   beforeEach(async function() {
@@ -91,9 +88,7 @@ describe('👀 screenshots are correct', function() {
   });
 
   // This is ran after every test; clean up after your browser.
-  afterEach(async function() {
-    return browser.close();
-  });
+  afterEach(() => browser.close());
 
   // Wide screen tests!
   describe('wide screen', function() {
@@ -135,7 +130,7 @@ async function takeAndCompareScreenshot(page, route, filePrefix) {
   await page.screenshot({path: `${testDir}/${fileName}.png`});
 
   // Test to see if it's right.
-  await compareScreenshots(fileName);
+  return compareScreenshots(fileName);
 }
 ```
 
