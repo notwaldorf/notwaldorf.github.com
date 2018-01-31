@@ -223,8 +223,12 @@ ul {
   padding: 10px 0;
 }
 
+.content ul, .content ol {
+  font-size: 18px;
+}
+
 .content li {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 10px;
 }
 
