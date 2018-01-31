@@ -138,7 +138,9 @@ async function takeAndCompareScreenshot(page, route, filePrefix) {
 This bit is easy. Make a different test suite (just make sure you don't run it every time you
 run your tests), and run the `page.goto` and `page.screenshot` lines for all
 the routes you're testing. I recommend doing the viewport dance too, to get both the
-  wide and narrow screen ones _for freeeeee_. Put all these screenshots in a place; I put mine in
+wide and narrow screen ones _for freeeeee_ (I am using just the viewport
+  size here, because that's how my app works. Puppeteer lets yo do [device emulation](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageemulateoptions)
+  and all sorts of other goodness, so just read the docs). Put all these screenshots in a place; I put mine in
   a folder called `test/screenshots-golden/`.
 
 ### The thing that does the diffing
