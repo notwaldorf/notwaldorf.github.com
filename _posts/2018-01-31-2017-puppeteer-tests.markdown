@@ -6,9 +6,9 @@ category: posts
 So testing, right? We should do it. The thing is, testing is hard, and good testing
 is _reaaaaaaally_ hard, and tbh I’m pretty bad at testing. So I end up not
 testing my apps, and then I feel guilty about it, but I’ll stop you now:
-you can’t run guilt on Travis. If this sounds familiar this blog post is for you.
+you can’t run guilt on Travis. If this sounds familiar, then this blog post is for you.
 
-So I did a little song-and-dance that sets up [Puppeteer](https://github.com/GoogleChrome/puppeteer)\*
+I did a little song-and-dance that sets up [Puppeteer](https://github.com/GoogleChrome/puppeteer)\*
 , takes screenshots of your app (like, all the routes you care about), and
 then compares them to the "golden" ones. If they match, your test passes!
 Yes, it only works on Chrome. No, it’s not
@@ -16,19 +16,19 @@ actually unit testing. Yes, it’s literally just counting pixels but you know w
 It counts them in both a wide and a narrow viewport size and any testing is better
 than no testing at all; fight me.
 
-\* Puppeteer is an npm library that lets you control Chrome. You know, like a puppet.
+\* Puppeteer is an `npm` library that lets you control Chrome. You know, like a puppet.
 In particular, Puppeteer makes
   it super easy to take screenshots (and click on things in your page). It's
-  like a waaaaaaay less infuriating Selenium, but way harder to spell.
+  like a waaaaaaay less infuriating Selenium, but infinitely harder to spell.
 
-This post looks long because I've literally put all the code I have so
+This post looks long because I've put all the code I have so
 that you can copy paste it. Skip to the [good](#the-thing-that-does-the-diffing) part
 if you already know how to test.
 
 ## Do the npm
 If you want to test things with Puppeteer, you have to setup a thing for the
 tests, a server that launches your site, and then Puppeteer to look
-at that site. I have this in my `package.json`:
+at that site. I have this in my `package.json` to wrangle these things:
 
 ```json
 "devDependencies": {
@@ -39,12 +39,11 @@ at that site. I have this in my `package.json`:
   "polyserve": "^0.23.0"
 }
 ```
-
-A couple things:
+Explanation:
 - I chose Mocha/Chai for testing because that's what I'm used to. You can
 literally use any other testing framework you're comfortable with; I don't think it matters.
 - [`Pixelmatch`](https://github.com/mapbox/pixelmatch) is the thing that diffs
-two images and tells you how many pixels they differ by. It's super awesome.
+two images and tells you how many pixels they differ by. It's super awesome 🏆.
 - [`Polyserve`](https://github.com/Polymer/polyserve) is what I use as a local
 server. You can use Python or Express or whatever you cool kids use. I'll
 point out in the code where it's Polyserve specific (literally 2 lines), and you
@@ -141,14 +140,15 @@ async function takeAndCompareScreenshot(page, route, filePrefix) {
 ```
 
 ### Getting the golden screenshots
-This bit is easy. Just run the `page.goto` and `page.screenshot` lines for
-your routes (I recommend doing the viewport dance too, to get both the
-  wide and narrow screen ones), and put them in a place. I put mine in
+This bit is easy. Make a different test suite (just make sure you don't run it every time you
+run your tests), and run the `page.goto` and `page.screenshot` lines for all
+the routes you're testing. I recommend doing the viewport dance too, to get both the
+  wide and narrow screen ones _for freeeeee_. Put all these screenshots in a place; I put mine in
   a folder called `test/screenshots-golden/`.
 
 ### The thing that does the diffing
 This is the logic in `compareScreenshots`, and it's basically straight
-out of the `Pixelmatch` docs:
+out of the [`Pixelmatch` docs](https://github.com/mapbox/pixelmatch#nodejs):
 
 ```js
 function compareScreenshots(fileName) {
