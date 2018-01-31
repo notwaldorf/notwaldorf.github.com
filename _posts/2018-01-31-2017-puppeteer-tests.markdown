@@ -99,7 +99,7 @@ describe('👀 screenshots are correct', async function() {
   // Wide screen tests!
   describe('wide screen', async function() {
     beforeEach(async function() {
-      page.setViewport({width: 800, height: 600});
+      await page.setViewport({width: 800, height: 600});
     });
     it('/view1', async function() {
       await takeAndCompareScreenshot(page, 'view1', 'wide');
@@ -110,7 +110,7 @@ describe('👀 screenshots are correct', async function() {
   // Narrow screen tests are the same, but with a different viewport.
   describe('narrow screen', async function() {
     beforeEach(async function() {
-      page.setViewport({width: 375, height: 667});
+      await page.setViewport({width: 375, height: 667});
     });
     it('/view1', async function() {
       await takeAndCompareScreenshot(page, 'view1', 'narrow');
