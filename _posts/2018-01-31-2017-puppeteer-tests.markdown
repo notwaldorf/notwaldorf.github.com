@@ -62,7 +62,7 @@ const puppeteer = require('puppeteer');
 const expect = require('chai').expect;
 const {startServer} = require('polyserve');
 
-describe('👀 screenshots are correct', async function() {
+describe('👀 screenshots are correct', function() {
   let polyserve, browser, page;
 
   // This is ran when the suite starts up.
@@ -97,7 +97,7 @@ describe('👀 screenshots are correct', async function() {
   });
 
   // Wide screen tests!
-  describe('wide screen', async function() {
+  describe('wide screen', function() {
     beforeEach(async function() {
       await page.setViewport({width: 800, height: 600});
     });
@@ -108,7 +108,7 @@ describe('👀 screenshots are correct', async function() {
   });
 
   // Narrow screen tests are the same, but with a different viewport.
-  describe('narrow screen', async function() {
+  describe('narrow screen', function() {
     beforeEach(async function() {
       await page.setViewport({width: 375, height: 667});
     });
