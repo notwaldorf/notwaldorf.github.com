@@ -2,7 +2,7 @@
 layout: post
 title: "Visual diffs with Puppeteer"
 category: posts
-private: true
+draft: true
 ---
 So testing, right? We should do it. The thing is, testing is hard, and good testing
 is _reaaaaaaally_ hard, and tbh I’m pretty bad at testing. So I end up not
