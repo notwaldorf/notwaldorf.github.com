@@ -17,7 +17,8 @@ actually unit testing. Yes, it’s literally just counting pixels but you know w
 It counts them in both a wide and a narrow viewport size and any testing is better
 than no testing at all; fight me.
 
-\* Puppeteer is an npm library that lets you control Chrome. You know, like a puppet. In particular, Puppeteer makes
+\* Puppeteer is an npm library that lets you control Chrome. You know, like a puppet.
+In particular, Puppeteer makes
   it super easy to take screenshots (and click on things in your page). It's
   like a waaaaaaay less infuriating Selenium, but way harder to spell.
 
@@ -70,12 +71,13 @@ describe('👀 screenshots are correct', async function() {
     // This is where you would substitute your python or Express server or whatever.
     polyserve = await startServer({port:4000});
 
-    // Create the test directory if needed.
-    if (!fs.existsSync(currentDir)) fs.mkdirSync(currentDir);
+    // Create the test directory if needed. This and the goldenDir
+    // variables are global somewhere.
+    if (!fs.existsSync(testDir)) fs.mkdirSync(testDir);
 
     // And its wide screen/small screen subdirectories.
-    if (!fs.existsSync(`${currentDir}/wide`)) fs.mkdirSync(`${currentDir}/wide`);
-    if (!fs.existsSync(`${currentDir}/narrow`)) fs.mkdirSync(`${currentDir}/narrow`);
+    if (!fs.existsSync(`${testDir}/wide`)) fs.mkdirSync(`${testDir}/wide`);
+    if (!fs.existsSync(`${testDir}/narrow`)) fs.mkdirSync(`${testDir}/narrow`);
   });
 
   // This is ran when the suite is done.
@@ -152,8 +154,8 @@ out of the `Pixelmatch` docs:
 ```js
 function compareScreenshots(fileName) {
   return new Promise((resolve, reject) => {
-    var img1 = fs.createReadStream(`${currentDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
-    var img2 = fs.createReadStream(`${baselineDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
+    var img1 = fs.createReadStream(`${testDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
+    var img2 = fs.createReadStream(`${goldenDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
 
     var filesRead = 0;
     function doneReading() {
