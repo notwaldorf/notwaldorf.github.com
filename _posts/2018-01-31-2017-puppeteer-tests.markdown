@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Visual diffs with Puppeteer"
+title: "Automatic visual diffing with Puppeteer"
 category: posts
 ---
 So testing, right? We should do it. The thing is, testing is hard, and good testing
