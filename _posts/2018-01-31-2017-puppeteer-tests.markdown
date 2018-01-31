@@ -153,10 +153,10 @@ out of the [`Pixelmatch` docs](https://github.com/mapbox/pixelmatch#nodejs):
 ```js
 function compareScreenshots(fileName) {
   return new Promise((resolve, reject) => {
-    var img1 = fs.createReadStream(`${testDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
-    var img2 = fs.createReadStream(`${goldenDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
+    const img1 = fs.createReadStream(`${testDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
+    const img2 = fs.createReadStream(`${goldenDir}/${fileName}.png`).pipe(new PNG()).on('parsed', doneReading);
 
-    var filesRead = 0;
+    let filesRead = 0;
     function doneReading() {
       // Wait until both files are read.
       if (++filesRead < 2) return;
@@ -166,8 +166,8 @@ function compareScreenshots(fileName) {
       expect(img1.height, 'image heights are the same').equal(img2.height);
 
       // Do the visual diff.
-      var diff = new PNG({width: img1.width, height: img2.height});
-      var numDiffPixels = pixelmatch(
+      const diff = new PNG({width: img1.width, height: img2.height});
+      const numDiffPixels = pixelmatch(
           img1.data, img2.data, diff.data, img1.width, img1.height,
           {threshold: 0.1});
 
