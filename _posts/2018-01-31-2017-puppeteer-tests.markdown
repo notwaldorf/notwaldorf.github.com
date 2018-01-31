@@ -92,16 +92,16 @@ describe('👀 screenshots are correct', function() {
 
   // This is ran after every test; clean up after your browser.
   afterEach(async function() {
-    await browser.close();
+    return browser.close();
   });
 
   // Wide screen tests!
   describe('wide screen', function() {
     beforeEach(async function() {
-      await page.setViewport({width: 800, height: 600});
+      return page.setViewport({width: 800, height: 600});
     });
     it('/view1', async function() {
-      await takeAndCompareScreenshot(page, 'view1', 'wide');
+      return takeAndCompareScreenshot(page, 'view1', 'wide');
     });
     // And your other routes, 404, etc.
   });
@@ -109,10 +109,10 @@ describe('👀 screenshots are correct', function() {
   // Narrow screen tests are the same, but with a different viewport.
   describe('narrow screen', function() {
     beforeEach(async function() {
-      await page.setViewport({width: 375, height: 667});
+      return page.setViewport({width: 375, height: 667});
     });
     it('/view1', async function() {
-      await takeAndCompareScreenshot(page, 'view1', 'narrow');
+      return takeAndCompareScreenshot(page, 'view1', 'narrow');
     });
     // And your other routes, 404, etc.
   });
