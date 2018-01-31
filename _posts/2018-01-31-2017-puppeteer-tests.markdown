@@ -17,8 +17,7 @@ actually unit testing. Yes, it’s literally just counting pixels but you know w
 It counts them in both a wide and a narrow viewport size and any testing is better
 than no testing at all; fight me.
 
-\* Puppeteer is an npm library that lets you control Chrome (including in
-  headless mode!). You know, like a puppet. In particular, Puppeteer makes
+\* Puppeteer is an npm library that lets you control Chrome. You know, like a puppet. In particular, Puppeteer makes
   it super easy to take screenshots (and click on things in your page). It's
   like a waaaaaaay less infuriating Selenium, but way harder to spell.
 
@@ -124,9 +123,9 @@ describe('👀 screenshots are correct', async function() {
 All the heavy lifting (which isn't very heavy tbh) is done in `takeAndCompareScreenshot`:
 
 ```js
-// here, page is a reference to the Puppeteer page.
-// route is the route you're loading, which I'm using to name the file
-// filePrefix is either "wide" or "narrow", since I'm automatically testing both.
+// - page is a reference to the Puppeteer page.
+// - route is the path you're loading, which I'm using to name the file.
+// - filePrefix is either "wide" or "narrow", since I'm automatically testing both.
 async function takeAndCompareScreenshot(page, route, filePrefix) {
   // If you didn't specify a file, use the name of the route.
   let fileName = filePrefix + '/' + (route ? route : 'index');
@@ -134,6 +133,8 @@ async function takeAndCompareScreenshot(page, route, filePrefix) {
   // Start the browser, go to that page, and take a screenshot.
   await page.goto(`http://127.0.0.1:4000/${route}`);
   await page.screenshot({path: `${testDir}/${fileName}.png`});
+
+  // Test to see if it's right.
   await compareScreenshots(fileName);
 }
 ```
