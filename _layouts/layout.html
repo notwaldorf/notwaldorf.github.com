@@ -6,22 +6,47 @@
     {% if page.title %}{{ page.title }} &ndash;{% endif %} {{ site.name }}
   </title>
 
-  <meta name="author" content="{{ site.name }}" />
-  <meta name="description" content="{{ site.description }}" />
+  <meta name="author" content="Monica Dinculescu" />
+  <meta name="description" content="Monica Dinculescu's blog" />
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
   <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
-
   <link rel="stylesheet" href="/css/base.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/css/pygments.css" type="text/css" />
   <link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen, projection" />
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
   <link rel="icon" type="image/png"  href="/images/favicon.png">
   <link rel="manifest" href="/manifest.json">
 
-  <!-- emoji rain -->
-  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <script type="text/javascript">
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="manifest.json">
 
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color" content="#7BE4D5">
+
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Monica's blog">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Monica's blog">
+
+  <!-- Homescreen icons -->
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+
+  <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/manifest/icon-192x192.png">
+  <meta name="msapplication-TileColor" content="#7BE4D5">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Default twitter cards -->
+  <meta name="twitter:card" content="Monica Dinculescu's blog">
+  <meta name="twitter:site" content="@notwaldorf">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="my-app">
+  <meta property="og:image" content="icons/icon-192x192.png" />
+
+  <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', '{{ site.google_analytics_tracking_id }}']);
     _gaq.push(['_setDomainName', 'meowni.ca']);
@@ -95,40 +120,43 @@
     </section>
   </div>
 </body>
-<link rel="import" href="/elements/emoji-rain.html">
+
+<!-- emoji rain -->
+<link rel="import" async href="/elements/emoji-rain.html">
+<script defer src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
 <script>
-(function() {
-  'use strict';
-  if ('xserviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
-      console.log('service worker is all cool 🐳', location.origin);
-    }).catch(e => {
-      console.error('service worker is not so cool 🔥', e);
-      throw e;
-    });
+'use strict';
 
-    // if (navigator.serviceWorker.controller) {
-    //   // Correctly prompt the user to reload during SW phase change.
-    //   navigator.serviceWorker.controller.onstatechange = e => {
-    //     if (e.target.state === 'redundant') {
-    //       document.querySelector('#reload-prompt').style.visibility = 'visible';
-    //     }
-    //   }
-    // }
+// Load the pygments stylesheet so that it's not render blocking.
+var head = document.head;
+var link = document.createElement('link');
+link.type = 'text/css';
+link.rel = 'stylesheet';
+link.href = '/css/pygments.css'
+head.appendChild(link);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
+    console.log('service worker is cool 🐳', location.origin);
+  }).catch(e => {
+    console.error('service worker is not so cool 🔥', e);
+    throw e;
+  });
+}
+
+var rainmaker = document.getElementById('rainmaker');
+document.getElementById('rainButton').addEventListener('click', rain);
+
+function rain(event) {
+  if (rainmaker.active) {
+    rainmaker.stop();
+    event.target.innerHTML = "✨";
+  } else {
+    rainmaker.start();
+    event.target.innerHTML = "☔︎";
   }
-
-  var rainmaker = document.getElementById('rainmaker');
-  document.getElementById('rainButton').addEventListener('click', rain);
-
-  function rain(event) {
-    if (rainmaker.active) {
-      rainmaker.stop();
-      event.target.innerHTML = "✨";
-    } else {
-      rainmaker.start();
-      event.target.innerHTML = "☔︎";
-    }
-  }
-})();
+}
 </script>
+
 </html>
