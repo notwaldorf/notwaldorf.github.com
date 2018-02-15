@@ -8,7 +8,7 @@ and my [slides](https://speakerdeck.com/notwaldorf/contributing-to-chromium) by 
 (which, to be fair, they were). So instead, here is a giant blog post that will take you
 through every step from "checking out the code" to "landing the code in the Chromium repo". It will also come in super handy for mild to moderate cases of insomnia.
 
-If you just want a TL;DR or a refresher of the commands you might need, check out the [slides] (https://speakerdeck.com/notwaldorf/contributing-to-chromium). They're basically bullet points without the running commentary.
+If you just want a TL;DR or a refresher of the commands you might need, check out the [slides](https://speakerdeck.com/notwaldorf/contributing-to-chromium). They're basically bullet points without the running commentary.
 
 **Warning**: this is a long post. The bug we're fixing is silly, but will get
 us writing actual Chromium code. If you want a
