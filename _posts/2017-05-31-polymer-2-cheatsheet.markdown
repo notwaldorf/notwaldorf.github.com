@@ -362,7 +362,7 @@ class MyElement extends Polymer.Element {
   /* ... */
   connectedCallback: function() {
     super.connectedCallback();
-    this._observer = new Polymer.FlattenedNodesObserver(function(info) {
+    this._observer = new Polymer.FlattenedNodesObserver(this, function(info) {
     // info is {addedNodes: [...], removedNodes: [...]}
     });
   }
