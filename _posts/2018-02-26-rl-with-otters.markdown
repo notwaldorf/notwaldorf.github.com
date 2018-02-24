@@ -181,8 +181,9 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
   how to move in the world, and spoilers: that's essentially random. We're gonna
   do something slightly fancier called `epsilon-greedy`: most of the time, we're going to move
   according to what the policy says ("greedily"). However, `epsilon` percent of the time, we're going to move randomly. This means that we still get to do some random exploration, which
-  is important to make sure we see new states we might not otherwise. Also, `epsilon-greedy` is
-  basically what people mean when they say they do things correctly, so you'll
+  is important to make sure we see new states we might not otherwise.
+  `epsilon-greedy` is loooooved by RL people because it balances "exploration" (doing
+    things randomly) with "exploitation" (doing things correctly) and you'll
   find it in like literally every RL paper out there.
   3. And...take that action! Once you take it, the world tells you what reward you
   got. Call it `R`. We're going to use this reward to update our `Q` function for
