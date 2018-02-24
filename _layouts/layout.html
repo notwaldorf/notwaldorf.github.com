@@ -136,14 +136,14 @@ link.rel = 'stylesheet';
 link.href = '/css/pygments.css'
 head.appendChild(link);
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
-    console.log('service worker is cool 🐳', location.origin);
-  }).catch(e => {
-    console.error('service worker is not so cool 🔥', e);
-    throw e;
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
+//     console.log('service worker is cool 🐳', location.origin);
+//   }).catch(e => {
+//     console.error('service worker is not so cool 🔥', e);
+//     throw e;
+//   });
+// }
 
 var rainmaker = document.getElementById('rainmaker');
 document.getElementById('rainButton').addEventListener('click', rain);
