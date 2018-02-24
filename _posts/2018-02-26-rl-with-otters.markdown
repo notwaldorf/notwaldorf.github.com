@@ -164,7 +164,7 @@ find them more clear to explain.
 ## And now, a code!
 My favourite favourite FAVOURITE thing about AI is that if you
 do a simple thing, you can get a very satisfying demo. There are tons of Reinforcement
-Learning algorithsm out there: some are very complicated and take a lot of math. But
+Learning algorithms out there: some are very complicated and take a lot of math. But
 some are very simple, and that's the one I [implemented](https://glitch.com/edit/#!/q-learning) for you.
 
 It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
