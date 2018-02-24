@@ -177,28 +177,31 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
     bias your policy with lies
   1. Start in a random state (call it `S`).
   2. From this state, we need to figure out
-  how to move in the world, and spoilers: that's essentially random. We're gonna
-  do something slightly fancier called `epsilon-greedy`: most of the time, we're going to move
+  how to move in the world. We're gonna
+  do something slightly fancy called `epsilon-greedy`: most of the time, we're going to move
   according to what the policy says ("greedily"). However, `epsilon` percent of the time, we're going to move randomly. This means that we still get to do some random exploration, which
   is important to make sure we see new states we might not otherwise.
   `epsilon-greedy` is loooooved by RL people because it balances "exploration" (doing
     things randomly) with "exploitation" (doing things correctly) and you'll
   find it in like literally every RL paper out there.
-  3. And...take that action! Once you take it, the world tells you what reward you
+  3. And...take that action! Once you take it, you'll end up in a state `S_2`,
+  and the world tells you what reward you
   got. Call it `R`. We're going to use this reward to update our `Q` function for
   the state we were in, and the action we took; more precisely: we're going to update our `Q(S,A)`
-  value.
+  value. Note how you basically always update the _previous_ state-action pair, by seeing the
+  results of that action in the world.
   4. The update step is a bit mathy, so I'll spare you it (here's the [relevant code](https://glitch.com/edit/#!/q-learning?path=q-learner.js:73:32) if you want
   to check it out), but the TL;DR is: if this action was a good action,
   then the state that we ended up in should be a better state than the one we
-  were currently in (closer to the goal).
+  were currently in (closer to the goal). If we got a bad reward, then we reduce
+  the value of `Q(S,A)`; if we didn't, then we increase it.
   ```
   TODO: that explanation needs to be better words
   ```
   4. boring note incoming: this is an `off-policy` algorithm. How we calculate the
   `Q(S,A)` values isn't affected by how we actually moved in the world; we assume
   we followed the `greedy` (aka best) policy, even if we didn't.
-  5. Now, we're in a new state, so back at Step 2. Repeat Steps 2-6 until you
+  5. Anyway, now, we're in a new state, so back at Step 2. Repeat Steps 2-6 until you
   end up in a goal state. Once you do (yay!), you can go back to Step 1 and start
   in a new random state (this is important so that you see new parts of the world!).
 
