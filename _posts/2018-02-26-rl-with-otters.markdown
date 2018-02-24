@@ -16,8 +16,10 @@ draft: true
   }
 </style>
 
-Before I wrote the JavaScripts, I got a Master's in AI, and wrote a [thesis](/includes/mdinculescu_thesis.pdf)
-on a weird and new area in Reinforcement Learning. I loved it. With all the hype around Machine Learning
+Before I wrote the JavaScripts, I got a master's in AI (almost a decade ago, lolsob),
+and wrote a [thesis](/includes/mdinculescu_thesis.pdf)
+on a weird and new area in Reinforcement Learning. Or at least it was new then.
+It's definitely still weird now. Anyway, I loved it. With all the hype around Machine Learning
 and Deep Learning, I thought it would be neat if I wrote a little primer
 on what Reinforcement Learning really means, and why it's different than
 just another neural net.
