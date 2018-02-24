@@ -47,7 +47,7 @@ For example, this is perfect if you're a Roomba who is trying to get home
 
 On the other hand, this is terrible if you're
   trying to figure out if a photo has an otter in it; there are no
-  real actions involved in this problems, other than doing the decision of saying
+  real actions involved in this problem, other than doing the decision of saying
   "yes iz otter", which means this isn't really a good area for RL.
 
 <img class="otter" alt="i'm doing RL" src="/images/2018-02-26/1.png">
@@ -100,7 +100,7 @@ represented by a [Markov Decision Process](https://en.wikipedia.org/wiki/Markov_
 Markov Decision Process](https://en.wikipedia.org/wiki/Partially_observable_Markov_decision_process) (POMDP). The difference between the two is that in the latter case you're not told
 exactly what your state in the world is (you're a GPS-less Roomba). You still
 know what actions you took, and what reward you're accumulating, but since you
-don't know what the _actually_ mean in the world, you have to make up your own
+don't know what they _actually_ mean in the world, you have to make up your own
 representation of it. These are typically harder and weirder problems, and these
 were the ones I was focusing my research on, btw!
 
@@ -122,7 +122,7 @@ we follow what the policy tells us to do.
 
 The **expected reward** bit is subtle
 but hella important: if you just care about immediate reward, a state that doesn't lead you
-to instant death sounds pretty good! However, if you keep taking these seemingle-ok-because-they-didn't-kill-us actions,
+to instant death sounds pretty good! However, if you keep taking these seemingly-ok-because-they-didn't-kill-us actions,
 you might still end up at the edge of the cliff, one step away from instant death. By
 considering reward a number of steps away, you throw away shitty trajectories like this.
 
