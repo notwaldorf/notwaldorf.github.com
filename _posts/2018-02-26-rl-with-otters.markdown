@@ -152,11 +152,13 @@ different areas. Both of these approaches are perfectly valid, and have been mat
 proven to be optimal (i.e. eventually learn the optimal policy), but I find
 them interesting so I wanted to call them out:
 - **on-policy learning**: how you move around the world in practice mode
-is based on the policy you are learning, and following your policy and observing
-its effects changes its value
+is based on the policy you are learning, and you estimate what return
+you think you're going to get from a state under the assumption that you're
+going to continue following this policy.
 - **off-policy learning**: how you move around the world in practice mode is
-based on some different policy than the one you're learning, and you're just
-learning the value of those actions in parallel. Algorithms based
+independent of the policy you're learning, and you're just
+learning the value of those actions in parallel. You could still follow your
+policy, and a lot of the algorithms do, but you aren't required. Algorithms based
 on this approach tend to be a bit slower (read: need more data), but I personally
 find them more clear to explain.
 
@@ -180,7 +182,7 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
   do something slightly fancier called `epsilon-greedy`: most of the time, we're going to move
   according to what the policy says ("greedily"). However, `epsilon` percent of the time, we're going to move randomly. This means that we still get to do some random exploration, which
   is important to make sure we see new states we might not otherwise. Also, `epsilon-greedy` is
-  basically what people mean when they say they do things randomly, so you'll
+  basically what people mean when they say they do things correctly, so you'll
   find it in like literally every RL paper out there.
   3. And...take that action! Once you take it, the world tells you what reward you
   got. Call it `R`. We're going to use this reward to update our `Q` function for
@@ -193,9 +195,9 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
   ```
   TODO: that explanation needs to be better words
   ```
-  4. (boring note incoming: even though you're acting according to your policy,
-  you're technically learning the values of the actions independent of you
-  moving in that direction, so this is still an `off-policy` algorithm)
+  4. boring note incoming: this is an `off-policy` algorithm. How we calculate the
+  `Q(S,A)` values isn't affected by how we actually moved in the world; we assume
+  we followed the `greedy` (aka best) policy, even if we didn't.
   5. Now, we're in a new state, so back at Step 2. Repeat Steps 2-6 until you
   end up in a goal state. Once you do (yay!), you can go back to Step 1 and start
   in a new random state (this is important so that you see new parts of the world!).
