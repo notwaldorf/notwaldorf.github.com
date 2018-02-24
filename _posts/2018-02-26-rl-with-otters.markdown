@@ -158,9 +158,8 @@ going to continue following this policy.
 - **off-policy learning**: how you move around the world in practice mode is
 independent of the policy you're learning, and you're just
 learning the value of those actions in parallel. You could still follow your
-policy, and a lot of the algorithms do, but you aren't required. Algorithms based
-on this approach tend to be a bit slower (read: need more data), but I personally
-find them more clear to explain.
+policy, and a lot of the algorithms do, but you aren't required, and you always
+update your policy assuming you did The Right Thing™️.
 
 <img class="otter" alt="i'm an on policy otter, my policy is to always say yes to food" src="/images/2018-02-26/4.png">
 
