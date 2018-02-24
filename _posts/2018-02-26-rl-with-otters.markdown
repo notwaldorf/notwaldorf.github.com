@@ -152,10 +152,11 @@ different areas. Both of these approaches are perfectly valid, and have been mat
 proven to be optimal (i.e. eventually learn the optimal policy), but I find
 them interesting so I wanted to call them out:
 - **on-policy learning**: how you move around the world in practice mode
-is based on the policy you are learning (so most of the time you tend to explore
-  towards the goal).
+is based on the policy you are learning, and following your policy and observing
+its effects changes its value
 - **off-policy learning**: how you move around the world in practice mode is
-based on some different policy than the one you're learning. Algorithms based
+based on some different policy than the one you're learning, and you're just
+learning the value of those actions in parallel. Algorithms based
 on this approach tend to be a bit slower (read: need more data), but I personally
 find them more clear to explain.
 
@@ -192,7 +193,10 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
   ```
   TODO: that explanation needs to be better words
   ```
-  - Now, we're in a new state, so back at Step 2. Repeat Steps 2-4 until you
+  4. (boring note incoming: even though you're acting according to your policy,
+  you're technically learning the values of the actions independent of you
+  moving in that direction, so this is still an `off-policy` algorithm)
+  5. Now, we're in a new state, so back at Step 2. Repeat Steps 2-6 until you
   end up in a goal state. Once you do (yay!), you can go back to Step 1 and start
   in a new random state (this is important so that you see new parts of the world!).
 
