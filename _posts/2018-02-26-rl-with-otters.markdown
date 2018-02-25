@@ -72,9 +72,10 @@ _Classification_ is a very common problem that can be solved with both of these
 Machine Learning approaches (but can't be solved very well with RL, which isn't
 really suited for one-off actions).
 
-[Neural nets](https://en.wikipedia.org/wiki/Artificial_neural_network) are very good at solving these 2 kinds of Machine Learning problems. For example, the secrets straight out of your [nightmares](https://secure.i.telegraph.co.uk/multimedia/archive/03370/doge_3370416k.jpg
+[Neural nets](https://en.wikipedia.org/wiki/Artificial_neural_network) are very good at solving these 2 kinds of Machine Learning problems. For example, the secrets straight out of your [nightmares](https://secure.i.telegraph.co.uk/multimedia/archive/03370/doge_3370416k.jpg)
 are created by a "deep" neural net, a neural net that has several layers in between
 its input and output layers.
+
 If you add neural nets on top of some Reinforcement Learning algorithms, you get something
 called _Deep Reinforcement Learning_, which is a brand new area of research that
 brought you supercomputers that [win at Go](https://en.wikipedia.org/wiki/AlphaGo).
