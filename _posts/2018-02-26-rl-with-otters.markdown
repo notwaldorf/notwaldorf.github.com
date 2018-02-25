@@ -37,8 +37,9 @@ If you're not into math, I have otters.
 
 ## What is it?
 Reinforcement learning (or RL) solves a very specific problem: figuring out
-how to act so that you get the most reward. Both the acting bit and the reward bit
-are important components that make RL a "good" approach to solve a problem.
+how to act over time, so that you get the most long term reward.
+Both these sequences of actions and the reward bit are important components
+that make RL a "good" approach to solve a problem.
 
 For example, this is perfect if you're a Roomba who is trying to get home
 (the only reward you get is if you
@@ -47,13 +48,16 @@ For example, this is perfect if you're a Roomba who is trying to get home
 
 On the other hand, this is terrible if you're
   trying to figure out if a photo has an otter in it; there are no
-  real actions involved in this problem, other than doing the decision of saying
-  "yes iz otter", which means this isn't really a good area for RL.
+  sequences of actions that matter here, other than doing the decision of saying
+  "yes iz otter". You're just trapped in a room where people slip Polaroids of
+  animals under the door and you have to tell them what it is. Nightmares aren't
+  really a good area for RL.
 
 <img class="otter" alt="i'm doing RL" src="/images/2018-02-26/1.png">
 
 ## What isn't it?
-There are many things with the word "learning" in them that _aren't_ Reinforcement Learning:
+There are many things with the word "learning" in them that _aren't_ Reinforcement Learning.
+
 - _supervised learning_. This is a kind of Machine Learning where someone
 gave you a training set that has everything labelled correctly, you learn from
 it, and hope that at exam time what you've learnt is correct. This is the "I have
@@ -64,11 +68,16 @@ try to find structure in it and make up labels. This is the "I have 1000 images 
 cats and dogs, but nobody told me what a cat or a dog looks like; now I can tell you
 if this new image is like what I call a cat or a dog".
 
-[Neural nets](https://en.wikipedia.org/wiki/Artificial_neural_network) are very good at solving these 2 kinds of Machine Learning problems.
+_Classification_ is a very common problem that can be solved with both of these
+Machine Learning approaches (but can't be solved very well with RL, which isn't
+really suited for one-off actions).
+
+[Neural nets](https://en.wikipedia.org/wiki/Artificial_neural_network) are very good at solving these 2 kinds of Machine Learning problems. For example, the secrets straight out of your [nightmares](https://secure.i.telegraph.co.uk/multimedia/archive/03370/doge_3370416k.jpg
+are created by a "deep" neural net, a neural net that has several layers in between
+its input and output layers.
 If you add neural nets on top of some Reinforcement Learning algorithms, you get something
 called _Deep Reinforcement Learning_, which is a brand new area of research that
-brought you supercomputers that [win at Go](https://en.wikipedia.org/wiki/AlphaGo), and
-secrets straight out of your [nightmares](https://secure.i.telegraph.co.uk/multimedia/archive/03370/doge_3370416k.jpg).
+brought you supercomputers that [win at Go](https://en.wikipedia.org/wiki/AlphaGo).
 
 
 ## The world
@@ -124,7 +133,7 @@ The **expected reward** bit is subtle
 but hella important: if you just care about immediate reward, a state that doesn't lead you
 to instant death sounds pretty good! However, if you keep taking these seemingly-ok-because-they-didn't-kill-us actions,
 you might still end up at the edge of the cliff, one step away from instant death. By
-considering reward a number of steps away, you throw away shitty trajectories like this.
+considering reward a number of steps away, you don't get trapped in shitty trajectories like this.
 
 Most basic RL algorithms try to learn one of these functions:
 - the **state-value function**, which is the value of every state in the world. This
@@ -147,19 +156,18 @@ you learn what your policy is (what to do in a particular state).
 When it's "exam time mode", you use the policy you've learnt and act according
 to that. The more data you have, the better you learn.
 
-How you choose to roam the world in practice mode falls in two fundamentally
-different areas. Both of these approaches are perfectly valid, and have been mathematically
-proven to be optimal (i.e. eventually learn the optimal policy), but I find
-them interesting so I wanted to call them out:
-- **on-policy learning**: how you move around the world in practice mode
-is based on the policy you are learning, and you estimate what return
-you think you're going to get from a state under the assumption that you're
-going to continue following this policy.
-- **off-policy learning**: how you move around the world in practice mode is
-independent of the policy you're learning, and you're just
-learning the value of those actions in parallel. You could still follow your
-policy, and a lot of the algorithms do, but you aren't required, and you always
-update your policy assuming you did The Right Thing™️.
+If we thinking about our **practice policy** as the way we decided to act
+while in practice mode, and our **optimal policy** as the way we will act during
+"exam time" (always be the very best you at exams), then there are
+two fundamentally different ways in which you can learn:
+- **on-policy learning**: in practice mode, you are following the **practice policy** to
+explore the enviroment, and learning
+how well it works. the more you learn, the better it gets. in "exam time mode", you still use this **practice policy** you've been learning.
+you've perfected.
+- **off-policy learning**: in practice mode, you are following the **practice policy** to
+explore the enviroment, and learning what the **optimal** policy should look like,
+based on whagt you're discovering. in "exam time mode", you would use the **optimal policy**
+you've been learning.
 
 <img class="otter" alt="i'm an on policy otter, my policy is to always say yes to food" src="/images/2018-02-26/4.png">
 
@@ -222,3 +230,6 @@ the problems with Deep Learning, but I didn't know who to share it with, because
 I don't really hang out with RL researchers anymore. So instead, I decided to
 teach you (YES, YOU!) some Reinforcement Learning, so that you can now read
 that article and not be lost in it. Yay? Yay!
+
+Thanks to [Dan Lizotte](https://twitter.com/danlizotte) for reading this, even
+though he really didn't have to.
