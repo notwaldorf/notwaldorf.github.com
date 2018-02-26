@@ -203,9 +203,6 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
   then the state that we ended up in should be a better state than the one we
   were currently in (closer to the goal). If we got a bad reward, then we reduce
   the value of `Q(S,A)`; if we didn't, then we increase it.
-  ```
-  TODO: that explanation needs to be better words
-  ```
   4. boring note incoming: this is an `off-policy` algorithm. How we calculate the
   `Q(S,A)` values isn't affected by how we actually moved in the world; we assume
   we followed the `greedy` (aka best) policy, even if we didn't.
