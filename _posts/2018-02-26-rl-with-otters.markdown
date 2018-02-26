@@ -2,7 +2,6 @@
 layout: post
 title: "An intro to Reinforcement Learning (with otters)"
 category: posts
-draft: true
 ---
 
 <style>
@@ -218,10 +217,16 @@ If you do this enough times, you eventually experience enough of the world that
 your `Q` function will tell you what to do!
 
 ## Demo
-In this demo, we learn by taking [100000 steps](https://glitch.com/edit/#!/q-learning?path=index.html:64:6)
-around the world. You can check out that glitch, clone it, and play with the value.
-If you take far fewer steps (like 5000), you'll see that your policy is still
-pretty random, so your Roomba will get stuck in circles a lot, far away from the goal.
+This is a gridworld! It has a goal state, and a blob can move in any direction from
+any state. If you press play before doing any learning, the blob will just
+walk around randomly. If you press the learn button, the blob will take [10000 steps](https://glitch.com/edit/#!/q-learning?path=index.html:64:6)
+around the world. Once it's learnt, you'll see a heatmap of the Q function (the
+  greener the square, the higher its value is).
+
+You can check out that glitch, clone it, and play with that
+value. If you take far fewer steps (like 5000), you'll see that your policy isn't perfect
+everywhere around the world (you might see the blob get stuck in circles a lot, far away from the goal,
+  because it hasn't explored that area well enough yet).
 <iframe class="otter" src="https://q-learning.glitch.me/" frameBorder="0"></iframe>
 
 <hr>
