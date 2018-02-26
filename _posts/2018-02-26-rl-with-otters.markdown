@@ -156,17 +156,16 @@ you learn what your policy is (what to do in a particular state).
 When it's "exam time mode", you use the policy you've learnt and act according
 to that. The more data you have, the better you learn.
 
-If we thinking about our **practice policy** as the way we decided to act
+If we think about our **practice policy** as the way we decided to act
 while in practice mode, and our **optimal policy** as the way we will act during
 "exam time" (always be the very best you at exams), then there are
 two fundamentally different ways in which you can learn:
 - **on-policy learning**: in practice mode, you are following the **practice policy** to
-explore the enviroment, and learning
-how well it works. the more you learn, the better it gets. in "exam time mode", you still use this **practice policy** you've been learning.
-you've perfected.
+explore the environment, and learning
+how well it works. the more you learn, the better it gets. in "exam time mode", you still use this **practice policy** you've perfected.
 - **off-policy learning**: in practice mode, you are following the **practice policy** to
-explore the enviroment, and learning what the **optimal** policy should look like,
-based on whagt you're discovering. in "exam time mode", you would use the **optimal policy**
+explore the environment, and learning what the **optimal** policy should look like,
+based on what you're discovering. in "exam time mode", you would use the **optimal policy**
 you've been learning.
 
 <img class="otter" alt="i'm an on policy otter, my policy is to always say yes to food" src="/images/2018-02-26/4.png">
