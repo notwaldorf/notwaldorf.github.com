@@ -15,7 +15,7 @@ category: posts
   }
 </style>
 
-Before I wrote the JavaScripts, I got a master's in AI (almost a decade ago, lolsob),
+Before I wrote the JavaScripts, I got a master's in AI (almost a decade ago 🙀),
 and wrote a [thesis](/includes/mdinculescu_thesis.pdf)
 on a weird and new area in Reinforcement Learning. Or at least it was new then.
 It's definitely still weird now. Anyway, I loved it. With all the hype around Machine Learning
