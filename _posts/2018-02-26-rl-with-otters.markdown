@@ -213,6 +213,8 @@ It's called **Q-Learning**, because it learns the `Q` function (if you forgot:
 If you do this enough times, you eventually experience enough of the world that
 your `Q` function will tell you what to do!
 
+<img class="otter" alt="get otter here, we otter see a demo!" src="/images/2018-02-26/5.png">
+
 ## Demo
 This is a gridworld! It has a goal state, and a blob can move in any direction from
 any state. If you press play before doing any learning, the blob will just
