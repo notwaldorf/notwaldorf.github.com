@@ -218,8 +218,9 @@ your `Q` function will tell you what to do!
 This is a gridworld! It has a goal state, and a blob can move in any direction from
 any state. If you press play before doing any learning, the blob will just
 walk around randomly. If you press the learn button, the blob will take [10000 steps](https://glitch.com/edit/#!/q-learning?path=index.html:64:6)
-around the world. Once it's learnt, you'll see a heatmap of the Q function (the
-  greener the square, the higher its value is).
+around the world and learn the optimal policy. I also plotted a heatmap of the Q function (the
+  greener the square, the higher its value is). States close to the goal are more important,
+  and this makes sense!
 
 You can check out that glitch, clone it, and play with that
 value. If you take far fewer steps (like 5000), you'll see that your policy isn't perfect
