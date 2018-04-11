@@ -21,7 +21,7 @@ must be laid out according to the **float positioning algorithm**. Loosely, it s
 - text (and more generally anything within the normal, non-floaty flow) is laid out along the edges of the floating boxes
 - the `clear` property changes the floating behaviour.
 
-Anyway, in general you'll have a better time if you use a flexbox or CSS grid instead of floats, because they are quirky and have strange edge cases, but if you were ever curious
+Anyway, in general you'll have a better time if you use a flexbox or CSS grid instead of floats, because floats are quirky and have strange edge cases, but if you were ever curious
 about how the algorithm would choose where to position different floats, here's a demo
 (which you can also play with directly on [glitch](https://float-layout.glitch.me)):
 
