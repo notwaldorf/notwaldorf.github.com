@@ -37,7 +37,7 @@ fancy-button { --fancy-button-background: blue; } /* solves the 🎨  problem */
 
 ## And now: something different but the same
 
-The current new proposal is [::part and ::theme](https://tabatkins.github.io/specs/css-shadow-parts/), a set of pseudo-elements that allow you to style inside a shadow tree, from outside of that shadow tree. Unlike `:shadow` and `/deep/`, they don't allow you to style arbitrary elements inside a shadow tree: they only allow you to style elements that an author has tagged as being eligible for styling. They've already gone through the CSS working group and were blessed, and were brought up at TPAC at a Web Components session, so we're confident they're both the right approach, and highly likely to be implemented as a spec by all browsers.
+The current new proposal is [::part and ::theme](https://drafts.csswg.org/css-shadow-parts-1/), a set of pseudo-elements that allow you to style inside a shadow tree, from outside of that shadow tree. Unlike `:shadow` and `/deep/`, they don't allow you to style arbitrary elements inside a shadow tree: they only allow you to style elements that an author has tagged as being eligible for styling. They've already gone through the CSS working group and were blessed, and were brought up at TPAC at a Web Components session, so we're confident they're both the right approach, and highly likely to be implemented as a spec by all browsers.
 
 ## How ::part works
 You can specify a "styleable" part on any element in your shadow tree:
