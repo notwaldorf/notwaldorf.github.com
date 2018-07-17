@@ -51,9 +51,9 @@ The reason why I made those SVGs was partly because Captain America: Civil War i
 boring, but partly because I wanted to make a font and use it everywhere like
 an emoji hipster.
 
-So then I did. I used [Fontastic](http://app.fontastic.me/) to make the font -- it's black and white for now,
-because I couldn't figure out how to colour the glyphs correctly, but I will soon (if anyone
-  knows of an easy way, holla my way). I
+So then I did. I used [Fontastic](http://app.fontastic.me/) to make the font -- it's black and white, because at 
+the time of writing this, colour fonts weren't supported on the web (tbh, even a year later, when colour 
+fonts _are_ supported, I still couldn't tell you how to make on). I
 also mapped the original emoji glyph to one of the current existing emoji code points,
 based on [this](http://unicode.org/emoji/charts/full-emoji-list.html) list, because let's be honest, some of them were mysterious.
 Do you know what <span class="og">💥</span> means? It's 💥. And
