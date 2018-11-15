@@ -16,6 +16,7 @@ body {
   font-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   background: white;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 p {
@@ -51,6 +52,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
   color: black;
   margin: 20px 0;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar .sections button {
@@ -212,7 +214,7 @@ ul {
  * Posts
  **********************/
 .content {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 20px 50px 250px;
 }
 
@@ -228,7 +230,7 @@ ul {
 .content p {
   margin-top: 0;
   margin-bottom: 1.2em;
-  line-height: 25px;
+  line-height: 1.5;
 }
 
 .content ul {
