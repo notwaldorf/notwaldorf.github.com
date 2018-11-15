@@ -417,7 +417,7 @@ code {
   outline: 1px solid #7fe5d7;*/
   font-family: SourceCodePro,Consolas,Menlo,Monaco,Courier New,monospace;
   color: #336699;
-  font-size: 90%;
+  font-size: 95%;
   font-weight: bold;
 }
 
@@ -442,7 +442,6 @@ pre {
 
 /* inline code */
 code {
-  font-size: 14px;
   line-height: 1.5;
   padding: 2px 3px;
 }
