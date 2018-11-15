@@ -14,15 +14,15 @@ in case you watched it unfold and thought I was magically landing every jump.
 
 ## The why
 "Art" is a word I struggle with a lot. I don't think of myself as an artist, because
-none of the things I make are really art yet. At the same time, I obsess about the things
-I make if I don't feel they represent _me_, which is one of the
+none of the things I make feel like art yet. At the same time, I obsess about these
+things if I don't feel they represent _me_, which is one of the
 nigthmares of being an artist -- hence the struggle. For example, I made pottery for well over a year
 before I thought any of the mugs looked like what I wanted them to look like.
 They looked fine, and they looked like mugs, but they weren't the kind of mugs
 I _wanted_ to make.
 
 In my opinion, one of the qualities you need to be an artist is to be
-extremely creative. I am not extremely creative, but I do believe that everything
+extremely creative. I am not extremely creative, but I believe that everything
 in life can be learnt by grinding that level. So with inktober I wanted to
 force myself to think creatively every day, for a whole month, and see if that
 would level up my creativity.
@@ -36,7 +36,7 @@ for my weird art experiment:
 - it shouldn't take more than like, an hour
 - it's fine if I skipped weekends [2]
 
-[1] Honestly the first day of inktober was a joke, to make fun of the hashtag
+[1] Honestly the first day of inktober was a joke to make fun of the hashtag
 and my friend [Fabian](https://twitter.com/fabrahamlincoln), who I troll
 with a [circle punch](https://www.urbandictionary.com/define.php?term=Circle%20Game)
 any time I can. This of course ended up trolling me, because I did the whole fucking month
@@ -54,12 +54,12 @@ managed to write `align-items: center; justify-content: space-between;`
 without having to look it up. I only crashed my browser once.
 
 Overall it was really, really hard, and I hated a lot of it.
-A bunch of the days were [political](https://howthee.glitch.me/day-6.html). Some of the days were [freebies](https://howthee.glitch.me/day-8.html). [This one](https://howthee.glitch.me/day-18.html)
+A bunch of the days [were](https://howthee.glitch.me/day-5.html) [political](https://howthee.glitch.me/day-6.html). Some of the days were [freebies](https://howthee.glitch.me/day-8.html). [This one](https://howthee.glitch.me/day-18.html)
 was my favourite. [This one](https://howthee.glitch.me/day-10.html) almost
 made me throw my laptop at the cat.
 
 And you know what? I think it worked. I noticed that I was walking around all day
-_looking_ at everything like artists look at everything, trying to see
+_looking_ at everything, like artists look at everything, trying to see
 what I could use for that day's inktober. Once, when I was in
 highschool, an art teacher set me up on a mentoring date with an art school major.
 I told her half of the time I didn't know what to paint, and she told me to
