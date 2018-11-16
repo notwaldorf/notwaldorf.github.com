@@ -2,7 +2,6 @@
 layout: post
 title: "I did an inktober and I want to tell you about it"
 category: posts
-draft: true
 ---
 
 Inktober is a project where artists make an ink drawing every day for the
