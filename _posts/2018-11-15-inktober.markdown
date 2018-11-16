@@ -53,8 +53,8 @@ managed to write `align-items: center; justify-content: space-between;`
 without having to look it up. I only crashed my browser once.
 
 Overall it was really, really hard, and I hated a lot of it.
-A bunch of the days [were](https://howthee.glitch.me/day-5.html) [political](https://howthee.glitch.me/day-6.html). Some of the days were [freebies](https://howthee.glitch.me/day-8.html). [This one](https://howthee.glitch.me/day-18.html)
-was my favourite. [This one](https://howthee.glitch.me/day-10.html) almost
+A bunch of the days [were](https://howthee.glitch.me/day-5.html) [political](https://howthee.glitch.me/day-6.html). Some of the days were [freebies](https://howthee.glitch.me/day-8.html). [Day 18](https://howthee.glitch.me/day-18.html)
+was my favourite. [Day 10](https://howthee.glitch.me/day-10.html) almost
 made me throw my laptop at the cat.
 
 And you know what? I think it worked. I noticed that I was walking around all day
