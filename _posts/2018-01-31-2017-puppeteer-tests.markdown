@@ -119,7 +119,7 @@ with the page (click on buttons, links, etc), so maybe you want to trigger
 different UI states before you screenshot them (like narrow view _but also_ with
   the navigation drawer opened).
 
-## Filing in the blanks
+## Filling in the blanks
 All the heavy lifting (which isn't very heavy tbh) is done in `takeAndCompareScreenshot`:
 
 ```js
