@@ -82,7 +82,7 @@ TensorFlow.js source code, check out the `read` and `readSync` methods in
 My advice is:
 - if you have to download your data, try to do it once, asynchronously. Do this
 at the end, after all your GPU computations are done.
-- reach towards the **async** versions first.  -- that way, even though the
+- reach towards the **async** versions first -- that way, even though the
 operation is expensive, it won't block the UI and you can do other non-janky
 things like letting the user scroll on the page.
 - if you really really pinky swear have to use the sync version, just take
