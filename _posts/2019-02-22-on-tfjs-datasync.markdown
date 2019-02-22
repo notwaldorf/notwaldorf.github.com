@@ -19,7 +19,11 @@ I'd return the favour, with fewer meeps and more mistakes.
 ## Downloading and Uploading
 When you create a Tensor, it lives on the CPU. The mere fact that it's a Tensor
 doesn't automatically move that data into its GPU mansion -- it needs to be used in a WebGL
-program.
+program. (I'm playing fast and loose here with the words GPU and CPU btw, so
+hold back the pedantics: when I say "it lives on the CPU" I mean "in main memory,
+where the CPU processes stuff"; the GPU has it‘s own memory, that's where it
+processes stuff, and that’s where that data has to get transferred to.
+It's fine. You know I know.)
 
 You **upload** the tensor to the GPU when you call one of the `tf.` operations on it.
 Tensor operations are matrix math, and matrix math is really fast on the GPU,
