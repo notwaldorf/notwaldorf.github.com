@@ -2,7 +2,6 @@
 layout: post
 title: "TensorFlow.js, dataSync, and why you should be careful"
 category: posts
-draft: true
 ---
 
 One of the first things you stumble on when you start using TensorFlow.js is
