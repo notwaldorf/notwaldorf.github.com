@@ -37,7 +37,7 @@ the CPU. The data now lives in a WebGL texture, so TensorFlow.js needs to call
 to ... read... those pixels... from the texture and convert them back into something you can use.
 Here's the problem: calling `readPixels` is fundamentally a blocking operation: when you
 ask the GPU to give you data, you _have_ to wait for it to respond; this means
-you can't really do any else on the screen while this is happening, like
+you can't really do anything else on the screen while this is happening, like
 paint any animations.
 
 TL;DR:
