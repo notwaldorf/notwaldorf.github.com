@@ -32,7 +32,7 @@ You **download** a Tensor when you want to get that data from the GPU back onto
 the CPU. The data now lives in a WebGL texture, so TensorFlow.js needs to call
 [`readPixels`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/readPixels)
 to ... read...those pixels... from the texture and convert them back into something you can use.
-Here's the problem: calling `readPixels` synchronously is fundamentally a blocking operation: when you
+Here's the problem: calling `readPixels` is fundamentally a blocking operation: when you
 ask the GPU to give you data, you _have_ to wait for it to respond; this means
 you can't really do any else on the screen while this is happening, like
 paint any animations.
@@ -46,9 +46,11 @@ const c = a.dataSync(); // Download a's data from the GPU.
 
 So the problems here are:
 
-- downloading the data synchronously will make your UI janky
+- calling `readPixels` will make your UI janky.
 - downloading and uploading from the GPU isn't free, so doing this over and over
 is bad news bears.
+- downloading from the GPU synchronously over and over is a 2-in-1 and
+will probably murder your favourite pet.
 
 ## What to do
 If you read the latest [`0.15.1`](https://js.tensorflow.org/api/0.15.1/) docs,
@@ -61,10 +63,25 @@ you'll discover that there are at least 4 ways of "downloading" your tensor:
 Out of these, I personally prefer the new `array` flavours, since I think about my
 tensors based on their dimensions, so when they get flattened I get confused.
 
-Whichever you prefer, I would suggest:
+The difference between the sync and async versions is that:
+- for the sync methods, TensorFlow.js just goes ahead and calls `readPixels`,
+which instantly blocks and causes sadness
+- for the async methods, it creates a ["fence"](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/fenceSync) (think of it like a fancy WebGL `setTimeout`),
+and then calls a different method, [`getBufferSubData`](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/getBufferSubData)
+when that fence is hit. Unlike `readPixels`, this doesn't block the UI thread
+and it won't cause sadness.
 
-- if you have to download your data, try to do it once, at the end, after all
-your GPU computations are done.
-- reach towards the **async** versions first -- that way, even though the
+If you, like me, have strange hobbies and want to find this in the actual
+TensorFlow.js source code, check out the `read` and `readSync` methods in
+[this file](https://github.com/tensorflow/tfjs-core/blob/master/src/kernels/backend_webgl.ts).
+
+## What to do
+My advice is:
+- if you have to download your data, try to do it once, asynchronously. Do this
+at the end, after all your GPU computations are done.
+- reach towards the **async** versions first.  -- that way, even though the
 operation is expensive, it won't block the UI and you can do other non-janky
 things like letting the user scroll on the page.
+- if you really really pinky swear have to use the sync version, just take
+another look at the code and see if you can't move that call somewhere else
+where it can by async.
