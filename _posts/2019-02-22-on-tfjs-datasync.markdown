@@ -13,7 +13,7 @@ to be better than you at math.
 
 This is a quick post that tries to clarify why doing this **synchronously**
 is probably bad and will leave your UI really janky. [Nikhil](https://twitter.com/nsthorat)
-(who like, birthed TensorFlow.js) was kind enough to explain this to me recently, so I figured
+(who like, birthed TensorFlow.js, bless) was kind enough to explain this to me recently, so I figured
 I'd return the favour, with fewer meeps and more mistakes.
 
 ## Downloading and Uploading
@@ -31,7 +31,7 @@ and sends it to the backend. Whatever data lived on the CPU is now
 You **download** a Tensor when you want to get that data from the GPU back onto
 the CPU. The data now lives in a WebGL texture, so TensorFlow.js needs to call
 [`readPixels`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/readPixels)
-to ... read...those pixels... from the texture and convert them back into something you can use.
+to ... read... those pixels... from the texture and convert them back into something you can use.
 Here's the problem: calling `readPixels` is fundamentally a blocking operation: when you
 ask the GPU to give you data, you _have_ to wait for it to respond; this means
 you can't really do any else on the screen while this is happening, like
@@ -41,7 +41,7 @@ TL;DR:
 ```
 const a = tf.tensor();  // a is on the CPU.
 const b = a.sqrt();     // Upload a's data to the GPU.
-const c = a.dataSync(); // Download a's data from the GPU.
+const c = a.dataSync(); // Download a's data from the GPU to the CPU.
 ```
 
 So the problems here are:
@@ -52,7 +52,7 @@ is bad news bears.
 - downloading from the GPU synchronously over and over is a 2-in-1 and
 will probably murder your favourite pet.
 
-## What to do
+## How it works
 If you read the latest [`0.15.1`](https://js.tensorflow.org/api/0.15.1/) docs,
 you'll discover that there are at least 4 ways of "downloading" your tensor:
 - `aTensor.array()` -- asynchronous, and keeps the shape of the tensor (so it returns a nested array)
@@ -65,7 +65,7 @@ tensors based on their dimensions, so when they get flattened I get confused.
 
 The difference between the sync and async versions is that:
 - for the sync methods, TensorFlow.js just goes ahead and calls `readPixels`,
-which instantly blocks and causes sadness
+which instantly blocks and causes sadness.
 - for the async methods, it creates a ["fence"](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/fenceSync) (think of it like a fancy WebGL `setTimeout`),
 and then calls a different method, [`getBufferSubData`](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/getBufferSubData)
 when that fence is hit. Unlike `readPixels`, this doesn't block the UI thread
