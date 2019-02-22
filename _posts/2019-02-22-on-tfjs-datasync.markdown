@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "TensorFlow.js, dataSync, and why you should be careful"
+title: "The perils of tensor.dataSync()"
 category: posts
 ---
 
