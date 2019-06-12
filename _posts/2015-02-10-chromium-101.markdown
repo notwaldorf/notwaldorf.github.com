@@ -55,7 +55,7 @@ and helpful, because at some point they were you, the code was as scary then as 
 
 ## OMG let's write some code!
 
-We're going to add a button to Chrome. It's going to be the best thing ever (second to a freshly opened can of Pringles). For realsies. It will be in this bubble here, and it will open [http://canihaveapony.com/](http://canihaveapony.com/) (you're welcome) in a new tab. This is the before and after:
+We're going to add a button to Chrome. It's going to be the best thing ever (second to a freshly opened can of Pringles). For realsies. It will be in this bubble here, and it will open [redacted] (2019 update: I let that URL expire and now it apparently points to nsfw things so uhhhh don’t click it.) in a new tab. This is the before and after:
 
 <img tabindex="0" width="656" src="/images/chromium/before_after.png" alt="The before image has 2 buttons in the Chrome profile menu, 'switch person' and 'go incognito'. The after image has a third button, 'Can I have a pony?', with a star icon, that has been inserted above the other 2 buttons.">
 
