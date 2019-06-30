@@ -412,3 +412,18 @@ Docs: [dom-repeat](https://www.polymer-project.org/1.0/docs/api/dom-repeat),
   <span>This content will appear when myProperty is truthy.</span>
 </template>{% endraw %}  
 ```
+
+ `dom-repeat` item 2 way binding :
+ 
+```html
+{% raw %}<ul>
+  <template is="dom-repeat" items="[[forms]]">
+    <paper-checkbox label="Enable [[item.name]]" checked="{{item.fieldset_enabled}}"></paper-checkbox>
+    <template is="dom-if" if="[[item.fieldset_enabled]]">
+      <fieldset><legend> '[[item.name]]' section </legend>
+         ...
+      </fieldset>
+    </template>
+  </template>
+</ul>{% endraw %}  
+```
