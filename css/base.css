@@ -25,6 +25,24 @@ in French or Romanian and it looks borked, maybe that's why. */
   font-display: optional;
 }
 
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Mono'), local('RobotoMono-Regular'), url(https://fonts.gstatic.com/s/robotomono/v7/L0x5DF4xlVMF-BfR8bXMIjhLq3-cXbKD.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Mono Bold'), local('RobotoMono-Bold'), url(https://fonts.gstatic.com/s/robotomono/v7/L0xkDF4xlVMF-BfR8bXMIjDwjmqxf7-pAVU_.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: optional;
+}
+
 .og {
   font-family: og-emoji, sans-serif;
 }
@@ -37,7 +55,7 @@ body {
   xfont-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   background: white;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
   color: #444;
 }
 
