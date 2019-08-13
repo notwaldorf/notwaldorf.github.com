@@ -34,10 +34,11 @@ html, body {
 }
 
 body {
-  font-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  xfont-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   background: white;
   font-family: 'IBM Plex Mono', monospace;
+  color: #444;
 }
 
 p {
@@ -71,14 +72,13 @@ iframe {
  **********************/
 h1, h2, h3, h4 {
   font-weight: 700;
-  color: black;
   margin: 20px 0;
   font-family: 'IBM Plex Mono', monospace;
 }
 
 h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar .sections button {
   text-decoration: none;
-  color: #333;
+  color: #444;
 }
 
 h1 {
@@ -90,7 +90,6 @@ h1 {
 
 h2, h3 {
   font-size: 20px;
-  color: black;
   font-weight: 900;
   position: relative;
 }
@@ -190,7 +189,6 @@ ul {
 }
 
 .sidebar a {
-  color: black;
   border-bottom: none;
 }
 
@@ -354,7 +352,6 @@ blockquote p {
 }
 
 .content .listing li span.talk-title {
-  color: black;
 }
 .content .listing li span:not(.talk-title) {
   font-size: 13px;
@@ -484,7 +481,7 @@ h2 code {
   line-height: 1;
 }
 #markdown-toc a:link, #markdown-toc a:visited {
-  color: black;
+  color: inherit;
   text-decoration: none;
   font-weight: normal;
   border-bottom: 1px dotted #ff487a;
