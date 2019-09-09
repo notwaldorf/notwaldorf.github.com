@@ -15,13 +15,12 @@ from indie musicians). But also: keeping time.
 
 Keeping time in JavaScript is kind of a joke, not just because time is a
 social construct (this is the Jenn Schiffer social engineering at work), but because it's really easy to write
-code that blocks the thing that is doing the time keeping. Remember: JavaScript
-inherently only has one thread, that it uses for everything: painting your buttons,
-looping through arrays, mining bitcoin, running `querySelectorAll`.
+code that blocks the timekeeper. Remember: JavaScript
+inherently only has one thread, which it uses for everything: painting your buttons,
+looping through arrays, mining bitcoin, scrolling. Everything.
 This means that most of the time, you
-write code that blocks for a little bit -- 1ms here and there. And that's ok! I mean,
-it takes like 400ms to download the scripts, what's 1ms while we're doing
-some expensive computations, right?
+write blocking code, but it only blocks for a little bit -- 1ms here and there. And that's ok!
+Visually you don't notice that kind of latency, and let's be honest: it takes like 400ms to download the scripts, what's 1ms?
 
 1ms starts getting in the way when it's actually 5ms, or 40 ms, or when you're
 trying to have a metronome run correctly. I made a [typing delay experiment](https://input-delay.glitch.me) to see how much delay people could tolerate, and just
