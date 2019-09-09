@@ -49,36 +49,42 @@ from before really doesn't work here.
 ## Play with the experiment
 Me being me, I [made a whole demo](https://metronomes.glitch.me/) to
 test and compare these approaches. I built
-3 kinds of metronomes (a really bad one using `setInterval` on the main thread, a less bad one
-using `setInterval` in a Worker, a perfect one using prescheduled Web Audio clock
-events). You can run them on your own in that Glitch, but if you only want
+3 kinds of metronomes:
+
+- a really bad one using `setInterval` on the main thread,
+- a less bad one using `setInterval` in a Worker,
+- a perfect one using prescheduled Web Audio clock
+events).
+
+You can run them on your own in that Glitch, but if you only want
 the results, here they are.
 
 ## Results
 
-### The setup
-There are 3 metronomes, that each tick 20 times, and after each click, a callback
+### Setup
+There are 3 metronomes, that each tick 20 times, and after each tick, a callback
 function is called. For the first 2 metronomes, in this callback you _also_
-make the audio click (except for the Web Audio scheduler metronome, which makes the audio
-click on its own time). The graphs below log the difference between the `audioContext.currentTime`
-of successive clicks.
+make the audio tick (except for the Web Audio scheduler metronome, which makes the audio
+tick on its own time). The graphs below log the difference between the `audioContext.currentTime`
+of successive ticks.
 
 ### 🤔 The unrealistic case
-This is when you're literally doing 0 work in between the clock ticks. It's never
-going to happen. In this case, the difference between successive ticks looks
+This is when you're literally doing 0 work in between the clock ticks. This is
+probably never going to happen in a real app unless it's ... just
+an actual metronome i guess. In this case, the difference between successive ticks looks
 ok for all metronomes -- I mean, why wouldn't it be? You're not scrolling, you're
-not doing any work, what's there to block the clicks? There's still a bit of variance between
+not doing any work, what's there to block the ticks? There's still a bit of variance between
 each ticks, but that's because we know we can't schedule anything (except for the Web Audio
 clock) to be _exactly_ 0.5s away.
 
 <img class="plot" alt="" src="/images/metronomes/1.png">
 
 ### 🤢 The awful case
-Here we are doing 0.5s of fake work on the main thread, after each click. This
+Here we are doing 0.5 seconds of fake work on the main thread, after each tick. This
 is where things get really dodgy. Because that fake work is blocking, that means that _all_
-the metronomes are kind of screwed, and their clicks are delayed by at least 0.5s.
-Even though we're calling `setInterval()` in a Worker, it makes no difference because the work from the previous click is blocking, so it automatically delays the next click.
-In the Web Audio case, we can hear the clicks correctly (the green line), but the callback (which you would use to display things to the screen), is delayed for the same reason
+the metronome callbacks are kind of screwed, and their ticks are delayed by at least 0.5s.
+In the second metronome, even though we're calling `setInterval()` in a Worker, it makes no difference because the work from the previous tick is blocking, so it automatically delays the next tick.
+In the Web Audio case, we can hear the ticks correctly (the green line), but the callback (which you would use to display things to the screen), is delayed for the same reason
 as the other metronomes. Friends don't let friends do work on the main thread.
 
 <img class="plot" alt="" src="/images/metronomes/2.png">
@@ -87,26 +93,29 @@ as the other metronomes. Friends don't let friends do work on the main thread.
 When we have a big chunk of blocking work, a good approach is to chunk it up in
 smaller work. This experiment tries that. We split that 0.5s of work into smaller
 5ms chunks, and then do each of them in a `requestAnimationFrame`. This is better!
-Now our clicks are only delayed by about 5ms, which might be ok. The bad main
+Now our ticks are only delayed by about 5ms, which might be ok for your use case. The bad main
 thread `setInterval` metronome is still doing poorly because there's still
-work on the main thread, and it is on the main thread, so it's still getting delayed.
+work on the main thread and it keeps time on the main thread, so time is still
+wibbly wobbly in this case.
 <img class="plot" alt="" src="/images/metronomes/3.png">
 
 ### 🤩 The optimal case
-All worker all the time! If you can, do all this expensive work in a Worker!
+All workers all the time! If you can, do all this expensive work in a Worker!
 If we move the work we have to do in the callback completely off the main thread,
-then this setup baiscally looks the same as the unrealistic "there's no work being done ever"
-case -- the key distinction is that it's really "there's no work being done _on the main thread_ ever.
+then this setup basically looks the same as the unrealistic "there's no work being done ever"
+case -- the key distinction is that it's really "there's no work being done _on the main thread_ ever. Hurray!
 
 <img class="plot" alt="" src="/images/metronomes/4.png">
 
-## TL; DR
+## What have I learned from this
 
 - time is hard
-- `setInterval()` is bad for time keeping
+- I knew `setInterval()` is bad for time keeping, but now I know it's like ... really bad
 - if you need audio scheduling, use the Web Audio clock
 - if you need accurate scheduling without the Web Audio clock, use `setInterval`
 in a Worker
-- if you can, move any expensive work that you have to do from the main thread
+- and if you can, move any expensive work that you have to do from the main thread
 to a Worker.
+
+Hope this helps at least one of you!
 
