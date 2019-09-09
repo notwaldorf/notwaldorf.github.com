@@ -124,3 +124,7 @@ to a Worker.
 
 Hope this helps at least one of you!
 
+<hr>
+
+Thanks to [Surma](https://twitter.com/dassurma) for proof reading this and letting
+me steal his horrific "block for a fixed time" sample code (it's [this](https://glitch.com/edit/#!/metronomes?path=script.js:151:1). I know you want to look).
