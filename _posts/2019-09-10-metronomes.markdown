@@ -51,8 +51,11 @@ test and compare these approaches. I built
 
 - a really bad one using `setInterval` on the main thread,
 - a less bad one using `setInterval` in a Worker,
-- a perfect one using prescheduled Web Audio clock
-events).
+- the best one, that uses the Web Audio API to preschedule audio events, at
+the times you want (labelled "prescheduled" in the graphs). The audio events
+will happen precisely at the time they are scheduled, but if you want a
+callback to do some visual work on, that callback needs to be in a `setTimeout`,
+and will happen when it happens. This is why there are two lines for this metronome.
 
 You can run them on your own in that Glitch, but if you only want
 the results, here they are.
@@ -89,8 +92,12 @@ as the other metronomes. Friends don't let friends do work on the main thread.
 
 ### 😰 The better, but still not great case
 When we have a big chunk of blocking work, a good approach is to chunk it up in
-smaller work. This experiment tries that. We split that 0.5s of work into smaller
-5ms chunks, and then do each of them in a `requestAnimationFrame`. This is better!
+smaller work. There are several ways to do this. I split each 0.5s of work into smaller
+5ms chunks, and then do each of them in a `requestAnimationFrame`. This is ok,
+but a bit wasteful (it makes your work take longer than necessary). A better
+approach is to use tasks (see this [sample code](https://github.com/GoogleChromeLabs/proxx/blob/b1fa3b4c7a8565ddc245b03680dadd567c3a8f9e/src/utils/scheduling.ts#L20-L34) from the proxx game),
+but the results weren't going to be that different in this case, so I didn't bother.
+Anyway, this experiment looks better!
 Now our ticks are only delayed by about 5ms, which might be ok for your use case. The bad main
 thread `setInterval` metronome is still doing poorly because there's still
 work on the main thread and it keeps time on the main thread, so time is still
