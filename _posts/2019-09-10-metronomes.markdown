@@ -39,12 +39,10 @@ shows up like +/- 4h to it), we do one of two things:
 start writing `async` functions, or move code to a `Worker` ([Surma](https://twitter.com/dassurma)
 has a great [article](https://dassur.ma/things/when-workers/) about workers everyone
 should read). In
-particular, for audio things, there's a third option: using the Web Audio clock.
-Chris Wilson has a [great blog post](https://www.html5rocks.com/en/tutorials/audio/scheduling/)
-about how to do your own audio scheduling which is a good read. I wanted to
-compare these three approaches, and see how bad the latency was. In the case of a metronome,
-you want the latency to be as close to 0 as possible, so that 1ms hand wave
-from before really doesn't work here.
+particular, for audio things, there's a third option: using the Web Audio clock -- Chris Wilson has a [great blog post](https://www.html5rocks.com/en/tutorials/audio/scheduling/)
+about how to do your own audio scheduling which is an oldie but a goodie! (turns out
+not much changes in 4 years in the Web Audio spec world). Anyway, I wanted to
+compare these three approaches, and see how bad the latency was.
 
 ## Play with the experiment
 Me being me, I [made a whole demo](https://metronomes.glitch.me/) to
