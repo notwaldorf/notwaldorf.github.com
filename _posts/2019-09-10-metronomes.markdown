@@ -48,16 +48,18 @@ from before really doesn't work here.
 
 ## Play with the experiment
 Me being me, I [made a whole demo](https://metronomes.glitch.me/) to
-test and compare these approaches (duh). The setup of the experiment is that I built
+test and compare these approaches. I built
 3 kinds of metronomes (a really bad one using `setInterval` on the main thread, a less bad one
 using `setInterval` in a Worker, a perfect one using prescheduled Web Audio clock
-events). You can run them on your own, but if you only want
-the TL:DR, here it is.
+events). You can run them on your own in that Glitch, but if you only want
+the results, here they are.
 
 ## The setup
-There are 3 metronomes, that tick 20 times, and after each click, there is a callback.
-In this callback, you make the audio click (except for the Web Audio scheduler metronome).
-The graphs below log the difference between the audio time of 2 clicks.
+There are 3 metronomes, that each tick 20 times, and after each click, a callback
+function is called. For the first 2 metronomes, in this callback you _also_
+make the audio click (except for the Web Audio scheduler metronome, which makes the audio
+click on its own time). The graphs below log the difference between the `audioContext.currentTime`
+of successive clicks.
 
 ## 🤔 The unrealistic case
 This is when you're literally doing 0 work in between the clock ticks. It's never
