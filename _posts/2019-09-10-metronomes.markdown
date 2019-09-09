@@ -26,18 +26,17 @@ Visually you don't notice that kind of latency, and let's be honest: it takes li
 trying to have a metronome run correctly. I made a [typing delay experiment](https://input-delay.glitch.me) to see how much delay people could tolerate, and just
 for typing alone some people got really antsy around 200ms (special mention
 to the section of the population who thought they were heroes because they could
-tolerate infinity delay because how bad ssh latency is. That's not heroic,
+tolerate infinity delay because of how bad ssh latency is. That's not heroic,
 that's Stockholm syndrome. Complain to your sys admins).
 
 When I changed that to an [audio delay experiment](https://audio-delay.glitch.me]),
-musicians started complaining around 40ms. Keeping time is really important. Ok, great.
-So how do we actually do that in JavaScript?
+musicians started complaining around 40ms. And that was just audio delay, not
+an actual metronome. Imagine that fucking with your audio too! So, keeping time is really important -- but how do we actually do that in JavaScript?
 
 In general, when we want to not block in JavaScript (and do better than
-`setInterval`, which is like the friend who you always invite to a party but
+`setInterval`, who is the friend you invite to a party but
 shows up like +/- 4h to it), we do one of two things:
-start writing `async` functions, or start writing code in a `Worker` (
-[Surma](https://twitter.com/dassurma)
+start writing `async` functions, or move code to a `Worker` ([Surma](https://twitter.com/dassurma)
 has a great [article](https://dassur.ma/things/when-workers/) about workers everyone
 should read). In
 particular, for audio things, there's a third option: using the Web Audio clock.
@@ -47,6 +46,7 @@ compare these three approaches, and see how bad the latency was. In the case of 
 you want the latency to be as close to 0 as possible, so that 1ms hand wave
 from before really doesn't work here.
 
+## Play with the experiment
 Me being me, I [made a whole demo](https://metronomes.glitch.me/) to
 test and compare these approaches (duh). The setup of the experiment is that I built
 3 kinds of metronomes (a really bad one using `setInterval` on the main thread, a less bad one
