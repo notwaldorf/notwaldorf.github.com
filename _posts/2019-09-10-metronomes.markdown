@@ -24,7 +24,7 @@ Visually you don't notice that kind of latency, and let's be honest: it takes li
 
 1ms starts getting in the way when it's actually 5ms, or 40 ms, or when you're
 trying to have a metronome run correctly. I made a [typing delay experiment](https://input-delay.glitch.me) to see how much delay people could tolerate, and just
-for typing alone some people got really antsy around 200ms (special mention
+for typing alone some people got really antsy around 200ms (shout out
 to the section of the population who thought they were heroes because they could
 tolerate infinity delay because of how bad ssh latency is. That's not heroic,
 that's Stockholm syndrome. Complain to your sys admins).
