@@ -54,14 +54,16 @@ using `setInterval` in a Worker, a perfect one using prescheduled Web Audio cloc
 events). You can run them on your own in that Glitch, but if you only want
 the results, here they are.
 
-## The setup
+## Results
+
+### The setup
 There are 3 metronomes, that each tick 20 times, and after each click, a callback
 function is called. For the first 2 metronomes, in this callback you _also_
 make the audio click (except for the Web Audio scheduler metronome, which makes the audio
 click on its own time). The graphs below log the difference between the `audioContext.currentTime`
 of successive clicks.
 
-## 🤔 The unrealistic case
+### 🤔 The unrealistic case
 This is when you're literally doing 0 work in between the clock ticks. It's never
 going to happen. In this case, the difference between successive ticks looks
 ok for all metronomes -- I mean, why wouldn't it be? You're not scrolling, you're
@@ -71,7 +73,7 @@ clock) to be _exactly_ 0.5s away.
 
 <img class="plot" alt="" src="/images/metronomes/1.png">
 
-## 🤢 The awful case
+### 🤢 The awful case
 Here we are doing 0.5s of fake work on the main thread, after each click. This
 is where things get really dodgy. Because that fake work is blocking, that means that _all_
 the metronomes are kind of screwed, and their clicks are delayed by at least 0.5s.
@@ -81,7 +83,7 @@ as the other metronomes. Friends don't let friends do work on the main thread.
 
 <img class="plot" alt="" src="/images/metronomes/2.png">
 
-## 😰 The better, but still not great case
+### 😰 The better, but still not great case
 When we have a big chunk of blocking work, a good approach is to chunk it up in
 smaller work. This experiment tries that. We split that 0.5s of work into smaller
 5ms chunks, and then do each of them in a `requestAnimationFrame`. This is better!
@@ -90,7 +92,7 @@ thread `setInterval` metronome is still doing poorly because there's still
 work on the main thread, and it is on the main thread, so it's still getting delayed.
 <img class="plot" alt="" src="/images/metronomes/3.png">
 
-## 🤩 The optimal case
+### 🤩 The optimal case
 All worker all the time! If you can, do all this expensive work in a Worker!
 If we move the work we have to do in the callback completely off the main thread,
 then this setup baiscally looks the same as the unrealistic "there's no work being done ever"
