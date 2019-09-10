@@ -2,7 +2,6 @@
 layout: post
 title: "Metronomes in JavaScript"
 category: posts
-draft: true
 ---
 
 <style>
