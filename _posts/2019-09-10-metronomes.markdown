@@ -28,7 +28,7 @@ to the section of the population who thought they were heroes because they could
 tolerate infinity delay because of how bad ssh latency is. That's not heroic,
 that's Stockholm syndrome. Complain to your sys admins).
 
-When I changed that to an [audio delay experiment](https://audio-delay.glitch.me]),
+When I changed that to an [audio delay experiment](https://audio-delay.glitch.me),
 musicians started complaining around 40ms. And that was just audio delay, not
 an actual metronome. Imagine that fucking with your audio too! So, keeping time is really important -- but how do we actually do that in JavaScript?
 
