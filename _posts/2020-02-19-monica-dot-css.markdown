@@ -16,8 +16,8 @@ Some years later, it's now 2020, and flexbox is really good everywhere! We don't
 want to say `<div class="horizontal">` and for it to just work.
 
 I know there are tons of CSS frameworks out there like [tachyons](https://tachyons.io/) that can do this for me, but most of these frameworks
-do _too much_ for me. I don't want every possible padding and margin and colour and flexbox configuration in the world. I just
-want the ones that I know I end up using in every project. So here is `monica.css`: my very own CSS framework, which I copy paste at the beginning of every css file and take it from there.
+do _too much_ for me. I don't work on large projects that need design systems, and I don't want every possible padding and margin and colour and flexbox configuration in the world. I just
+want the ones that I know I end up using in every project. So here is `monica.css`: my very own CSS framework, which I copy paste at the beginning of every CSS file and take it from there. It's already minified and bundled (because you copy pasted it) so dare I say: fast loading and efficient? 🙃
 
 ```css
 * {box-sizing: border-box}
