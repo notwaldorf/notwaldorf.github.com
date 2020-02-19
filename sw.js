@@ -9,7 +9,7 @@ var URLS = [                            // Add URL you want to cache in this lis
   '/css/pygments.css',
   '/manifest.json',
   '/images/favicon.png',
-  '/images/avatar.jpeg',
+  '/images/avatar.jpg',
   '/elements/emoji-rain.html',
   '/bower_components/webcomponentsjs/webcomponents-lite.js',
 ]
