@@ -1,176 +1,55 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+---
+layout: body
+---
+<header class="sidebar">
+  <a href="/" title="Photo of my face" aria-label="Photo of my face">
+    <img src="/images/avatar.jpeg" height="150" width="150" class="avatar" />
+  </a>
 
-<head>
-  <meta charset="utf-8">
-  <title>
-    {% if page.title %}{{ page.title }} &ndash;{% endif %} {{ site.name }}
-  </title>
-
-  <meta name="author" content="Monica Dinculescu" />
-  <meta name="description" content="Monica Dinculescu's blog" />
-  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-  <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
-  <link rel="stylesheet" href="/css/base.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen, projection" />
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-  <link rel="manifest" href="/manifest.json">
-
-  <!-- See https://goo.gl/OOhYW5 -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- See https://goo.gl/qRE0vM -->
-  <meta name="theme-color" content="#7BE4D5">
-
-  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Monica's blog">
-
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Monica's blog">
-
-  <!-- Homescreen icons -->
-  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
-
-  <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-  <meta name="msapplication-TileImage" content="images/manifest/icon-192x192.png">
-  <meta name="msapplication-TileColor" content="#7BE4D5">
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Default twitter cards -->
-  <meta name="twitter:card" content="Monica Dinculescu's blog">
-  <meta name="twitter:site" content="@notwaldorf">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="my-app">
-  <meta property="og:image" content="icons/icon-192x192.png" />
-
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '{{ site.google_analytics_tracking_id }}']);
-    _gaq.push(['_setDomainName', 'meowni.ca']);
-    _gaq.push(['_trackPageview']);
-    (function () {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-</head>
-<!--                          _
-                          .-'` `}
-                  _./)   /       }
-                .'o   \ |       }
-                '.___.'`.\    {`
-                /`\_/  , `.    }
-                \=' .-'   _`\  {
-                 `'`;/      `,  }
-                    _\       ;  }
-  O HAI THERE      /__`;-...'--'
-
--->
-
-<body>
-  <emoji-rain id="rainmaker"></emoji-rain>
-  <div class="top-line"></div>
-  <div class="container">
-    <header class="sidebar">
-      <a href="/" title="Photo of my face" aria-label="Photo of my face">
-        <img src="/images/avatar.jpeg" height="150" width="150" class="avatar" />
+  <div class="sidebar-text">
+    <section class="meta">
+      <a href="https://github.com/{{ site.twitter }}" target="_blank" title="Peep at my GitHub" aria-label="Peep at my GitHub">
+        <svg viewBox="0 0 18 16" style="width: 20px; height: 20px;">
+          <g>
+            <path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.083-.202-.358-1.015.077-2.117 0 0 .672-.215 2.2.82.638-.178 1.323-.266 2.003-.27.68.004 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.915.08 2.117.513.56.823 1.274.823 2.147 0 3.073-1.87 3.75-3.653 3.947.287.246.543.735.543 1.48 0 1.07-.01 1.933-.01 2.195 0 .215.144.463.55.385C13.71 14.53 16 11.534 16 8c0-4.418-3.582-8-8-8"></path>
+          </g>
+        </svg>
       </a>
+      <a href="https://twitter.com/{{ site.twitter }}" target="_blank" title="Follow me on Twitter" aria-label="Follow me on Twitter">
+        <svg viewBox="0 0 18 16" style="width: 20px; height: 20px;">
+          <g>
+            <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.375-1.337.648-2.085.795-.598-.638-1.45-1.036-2.396-1.036-1.812 0-3.282 1.468-3.282 3.28 0 .258.03.51.085.75C5.152 5.39 2.733 4.084 1.114 2.1.83 2.583.67 3.147.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.416-.02-.617-.058.418 1.304 1.63 2.253 3.067 2.28-1.124.88-2.54 1.404-4.077 1.404-.265 0-.526-.015-.783-.045 1.453.93 3.178 1.474 5.032 1.474 6.038 0 9.34-5 9.34-9.338 0-.143-.004-.284-.01-.425.64-.463 1.198-1.04 1.638-1.7z"
+              fill-rule="nonzero"></path>
+          </g>
+        </svg>
+      </a>
+      <a href="/atom.xml" title="Atom RSS feed" aria-label="Atom RSS feed" class="og">📝</a>
+      <button id="rainButton" title="emoji-rain" aria-label="emoji-rain" class="og">✨</button>
 
-      <div class="sidebar-text">
-        <section class="meta">
-          <a href="https://github.com/{{ site.twitter }}" target="_blank" title="Peep at my GitHub" aria-label="Peep at my GitHub">
-            <svg viewBox="0 0 18 18" style="display: inline-block; width: 16px; height: 16px;">
-              <g>
-                <path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.083-.202-.358-1.015.077-2.117 0 0 .672-.215 2.2.82.638-.178 1.323-.266 2.003-.27.68.004 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.915.08 2.117.513.56.823 1.274.823 2.147 0 3.073-1.87 3.75-3.653 3.947.287.246.543.735.543 1.48 0 1.07-.01 1.933-.01 2.195 0 .215.144.463.55.385C13.71 14.53 16 11.534 16 8c0-4.418-3.582-8-8-8"></path>
-              </g>
-            </svg>
-          </a>
-          <a href="https://twitter.com/{{ site.twitter }}" target="_blank" title="Follow me on twitter" aria-label="Follow me on Twitter">
-            <svg viewBox="0 0 18 18" style="display: inline-block; width: 16px; height: 16px;">
-              <g>
-                <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.375-1.337.648-2.085.795-.598-.638-1.45-1.036-2.396-1.036-1.812 0-3.282 1.468-3.282 3.28 0 .258.03.51.085.75C5.152 5.39 2.733 4.084 1.114 2.1.83 2.583.67 3.147.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.416-.02-.617-.058.418 1.304 1.63 2.253 3.067 2.28-1.124.88-2.54 1.404-4.077 1.404-.265 0-.526-.015-.783-.045 1.453.93 3.178 1.474 5.032 1.474 6.038 0 9.34-5 9.34-9.338 0-.143-.004-.284-.01-.425.64-.463 1.198-1.04 1.638-1.7z"
-                  fill-rule="nonzero"></path>
-              </g>
-            </svg>
-          </a>
-          <a href="https://dribbble.com/{{ site.twitter }}" target="_blank" title="Follow me on dribbble" aria-label="Follow me on dribbble"
-            class="og">🏀</a>
-          <a href="https://{{ site.twitter }}.exposure.co" target="_blank" title="Follow my photos on exposure.co"
-            aria-label="Follow my photos on exposure.co" class="og">📷</a>
-          <a href="/atom.xml" title="Atom RSS feed" aria-label="Atom RSS feed" class="og">📝</a>
-        </section>
+    </section>
 
-        <nav class="sections">
-          <ul>
-            <li><a href="/about">about</a></li>
-            <li><a href="/">posts</a></li>
-            <li><a href="/projects">codes</a></li>
-            <li><a href="/talks">talks</a></li>
-            <li><button id="rainButton" title="emoji-rain" aria-label="emoji-rain" class="og">✨</button></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <nav class="sections">
+      <ul>
+        <li><a href="/about">about</a></li>
+        <li><a href="/">posts</a></li>
+        <li><a href="/projects">codes</a></li>
+        <li><a href="/talks">talks</a></li>
+        <li></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    {{ content }}
+{{ content }}
 
-    <section class="content">
-      <div class="footer">
-        <section class="thanks">
-          <span>thanks for reading!</span>
-          <span><a href="#" class="heart" aria-hidden="true">❤︎</a></span>
-        </section>
-        <section class="twitter">
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
-            aria-label="Tweet at me!">Tweet</a>
-          <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
-        </section>
-      </div>
+<section class="content">
+  <div class="footer">
+    <section class="thanks">
+      <span>thanks for reading!</span>
+      <a href="#" class="heart" aria-hidden="true">❤︎</a>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
+        aria-label="Tweet at me!">Tweet</a>
     </section>
   </div>
-</body>
-
-<!-- emoji rain -->
-<link rel="import" async href="/elements/emoji-rain.html">
-<script defer src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-
-<script>
-  'use strict';
-
-  // Load the pygments stylesheet so that it's not render blocking.
-  var head = document.head;
-  var link = document.createElement('link');
-  link.type = 'text/css';
-  link.rel = 'stylesheet';
-  link.href = '/css/pygments.css'
-  head.appendChild(link);
-
-  // if ('serviceWorker' in navigator) {
-  //   navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
-  //     console.log('service worker is cool 🐳', location.origin);
-  //   }).catch(e => {
-  //     console.error('service worker is not so cool 🔥', e);
-  //     throw e;
-  //   });
-  // }
-
-  var rainmaker = document.getElementById('rainmaker');
-  document.getElementById('rainButton').addEventListener('click', rain);
-
-  function rain(event) {
-    if (rainmaker.active) {
-      rainmaker.stop();
-      event.target.innerHTML = "✨";
-    } else {
-      rainmaker.start();
-      event.target.innerHTML = "☔︎";
-    }
-  }
-</script>
-
-</html>
+</section>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>

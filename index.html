@@ -1,8 +1,12 @@
 ---
 layout: layout
 ---
+<style>
+.content {margin-top: 0}
+</style>
+
 <section class="content">
-  <ul class="listing">
+  <ul class="listing table">
     {% for post in site.posts %}
     {% unless post.draft %}
       {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    {% if page.title %}{{ page.title }} &ndash;{% endif %} {{ site.name }}
+  </title>
+
+  <meta name="author" content="Monica Dinculescu" />
+  <meta name="description" content="Monica Dinculescu's blog" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
+  <link rel="stylesheet" href="/css/base.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen, projection" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color" content="#7BE4D5">
+
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Monica's blog">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Monica's blog">
+
+  <!-- Homescreen icons -->
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+
+  <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/manifest/icon-192x192.png">
+  <meta name="msapplication-TileColor" content="#7BE4D5">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Default twitter cards -->
+  <meta name="twitter:card" content="Monica Dinculescu's blog">
+  <meta name="twitter:site" content="@notwaldorf">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="my-app">
+  <meta property="og:image" content="icons/icon-192x192.png" />
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{ site.google_analytics_tracking_id }}']);
+    _gaq.push(['_setDomainName', 'meowni.ca']);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<!--                          _
+                          .-'` `}
+                  _./)   /       }
+                .'o   \ |       }
+                '.___.'`.\    {`
+                /`\_/  , `.    }
+                \=' .-'   _`\  {
+                 `'`;/      `,  }
+                    _\       ;  }
+  O HAI THERE      /__`;-...'--'
+
+-->
+
+<body>
+  <emoji-rain id="rainmaker"></emoji-rain>
+  <div class="top-line"></div>
+  <div class="container">
+    {{ content }}
+  </div>
+</body>
+
+<!-- emoji rain -->
+<link rel="import" async href="/elements/emoji-rain.html">
+<script defer src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+<script>
+  'use strict';
+
+  // Load the pygments stylesheet so that it's not render blocking.
+  var head = document.head;
+  var link = document.createElement('link');
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.href = '/css/pygments.css'
+  head.appendChild(link);
+
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
+  //     console.log('service worker is cool 🐳', location.origin);
+  //   }).catch(e => {
+  //     console.error('service worker is not so cool 🔥', e);
+  //     throw e;
+  //   });
+  // }
+
+  var rainmaker = document.getElementById('rainmaker');
+  document.getElementById('rainButton').addEventListener('click', rain);
+
+  function rain(event) {
+    if (rainmaker.active) {
+      rainmaker.stop();
+      event.target.innerHTML = "✨";
+    } else {
+      rainmaker.start();
+      event.target.innerHTML = "☔︎";
+    }
+  }
+</script>
+
+</html>

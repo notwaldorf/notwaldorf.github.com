@@ -1,0 +1,30 @@
+.container {
+  padding-top: var(--spacing);
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: inherit;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing);
+  margin-bottom: var(--spacing-l);
+}
+.sidebar .meta { margin-left: 0; }
+.sidebar .meta .icon { margin-right: 0; }
+.sidebar .sections { margin: var(--spacing-s) 0 0 var(--spacing-s); }
+.sidebar .sections a {
+  font-size: var(--font-size-s);
+  margin: 0 var(--spacing) 0 0;
+  padding: 5px var(--spacing-s);
+}
+.content {
+  margin: 0;
+  padding: 5px var(--spacing);
+  width: inherit;
+}
