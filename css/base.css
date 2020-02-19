@@ -130,10 +130,7 @@ h1, .rainbow {
 }
 
 ul.listing > h3 {
-  color: black;
-  font-weight: 900;
-  border-left: var(--spacing-xs) solid var(--accent);
-  padding-left: var(--spacing-s);
+  margin-top: var(--spacing-s);
 }
 
 ul {
