@@ -4,12 +4,12 @@ title: "monica.css"
 category: posts
 ---
 
-Back in the day when I worked on Polymer I got used to relying on a bunch of useful CSS classes 
+Back in the day when I worked on Polymer I got used to relying on a bunch of useful CSS classes
 that at the time we called [iron-flex-layout](https://github.com/PolymerElements/iron-flex-layout/blob/master/iron-flex-layout-classes.js).
 They were there partly because flexbox was a sadness on IE and you needed to say everything 3 times to maybe
-get it right twice, and add some 
-very special `flex-basis: 0.000000001px;`
-"bug fixes" that tbh nobody should ever have to write by hand. But they were also there because it's kind of nice to say `<div class="horizontal">` 
+get it right twice, and add some
+very special `flex-basis: 0.000000001px`
+"bug fixes" that tbh nobody should ever have to write by hand. But they were also there because it's kind of nice to say `<div class="horizontal">`
 and for it to just work.
 
 Some years later, it's now 2020, and flexbox is really good everywhere! We don't need `iron-flex-layout` anymore, but tbh I still
