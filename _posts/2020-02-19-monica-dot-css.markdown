@@ -26,7 +26,6 @@ want the ones that I know I end up using in every project. So here is `monica.cs
 .horizontal {display: flex; flex-direction: row; justify-content: space-between}
 .vertical {display: flex; flex-direction: column}
 .center {justify-content: center; align-items: center}
-.top {align-items: flex-start}
 .flex {flex: 1}
 html {
   --spacing-xs: 8px;
