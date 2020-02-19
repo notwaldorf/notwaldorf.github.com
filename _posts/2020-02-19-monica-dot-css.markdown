@@ -17,18 +17,17 @@ want to say `<div class="horizontal">` and for it to just work.
 
 I know there are tons of CSS frameworks out there like [tachyons](https://tachyons.io/) that can do this for me, but most of these frameworks
 do _too much_ for me. I don't want every possible padding and margin and colour and flexbox configuration in the world. I just
-want the ones that I know I end up using in every project. So here is my `monica.css`, which I copy paste at the beginning
-of every css file and take it from there. Feel free to copy it and add your own! 
+want the ones that I know I end up using in every project. So here is `monica.css`: my very own CSS framework, which I copy paste at the beginning of every css file and take it from there.
 
 ```css
 * {box-sizing: border-box}
 [hidden] {display: none !important}
 [disabled] {pointer-events:none; opacity: 0.3}
-.horizontal { display: flex; flex-direction: row; justify-content: space-between}
-.vertical { display: flex; flex-direction: column}
-.center { justify-content: center; align-items: center}
-.top { align-items: flex-start; }
-.flex { flex: 1; }
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.top {align-items: flex-start}
+.flex {flex: 1}
 html {
   --spacing-xs: 8px;
   --spacing: 24px;
