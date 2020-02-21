@@ -18,10 +18,10 @@ function was meant to be public it probably would've been. That function is
 actually 3 spiders in a trench coat).
 
 That is, you would like your Table of Contents to show this:
-<img width="500" alt="Screen Shot 2020-02-20 at 11 01 18 PM" src="https://user-images.githubusercontent.com/1369170/75011632-f396cb80-5434-11ea-97c7-708a94e932fe.png">
+<img width="500" alt="toc only shows 5 entries" src="https://user-images.githubusercontent.com/1369170/75011632-f396cb80-5434-11ea-97c7-708a94e932fe.png">
 
 and not this:
-<img width="500" alt="Screen Shot 2020-02-20 at 11 00 57 PM" src="https://user-images.githubusercontent.com/1369170/75011626-f09bdb00-5434-11ea-859b-ab195c5f1b47.png">
+<img width="500" alt="toc shows every file under the sun" src="https://user-images.githubusercontent.com/1369170/75011626-f09bdb00-5434-11ea-859b-ab195c5f1b47.png">
 
 ## Things that aren't solutions
 In the order that I've tried them:
