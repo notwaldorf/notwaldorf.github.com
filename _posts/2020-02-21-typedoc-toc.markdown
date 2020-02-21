@@ -15,7 +15,7 @@ your generated docs from `typedoc` to only have docs for _those_ files (Why? So
 that people don't open issues along the lines of "I see the docs for function `foo`,
 but I can't see how to call it, pls export it". Sweet child, if that
 function was meant to be public it probably would've been. That function is
-probably 3 spiders in a trench coat).
+actually 3 spiders in a trench coat).
 
 That is, you would like your Table of Contents to show this:
 <img width="500" alt="Screen Shot 2020-02-20 at 11 01 18 PM" src="https://user-images.githubusercontent.com/1369170/75011632-f396cb80-5434-11ea-97c7-708a94e932fe.png">
@@ -25,12 +25,12 @@ and not this:
 
 ## Things that aren't solutions
 In the order that I've tried them:
+- the `--mode modules` flag: the word "modules" is a lie here and really just means
+"under a namespace" not like... ES6 modules ([tracking issue](https://github.com/TypeStrong/typedoc/issues/109))
 - the `--excludeNotExported` flag: it helps to generate docs for only the
 exported _functions_, but not files
 - the `-excludePrivate` flag: same as above
-- the `--mode modules` flag: the word "modules" is a lie here and really just means
-"under a namespace" not like... ES6 modules ([tracking issue](https://github.com/TypeStrong/typedoc/issues/109))
-- using the `--exclude` flag: this is nice in theory, but I have like 30+ private
+- the `--exclude` flag: this is nice in theory, but I have like 30+ private
 files that shouldn't be documented and only like 5 top level exports, so that regex
 will suck. Also, my experience is that next time someone adds a file they want or
 don't want documented they won't know to add it to this list and we're back to having a problem
