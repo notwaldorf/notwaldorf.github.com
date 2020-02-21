@@ -25,8 +25,9 @@ and not this:
 
 ## Things that aren't solutions
 In the order that I've tried them:
-- using the `--excludeNotExported` flag: it helps to generate docs for only the
+- the `--excludeNotExported` flag: it helps to generate docs for only the
 exported _functions_, but not files
+- the `-excludePrivate` flag: same as above
 - the `--mode modules` flag: the word "modules" is a lie here and really just means
 "under a namespace" not like... ES6 modules ([tracking issue](https://github.com/TypeStrong/typedoc/issues/109))
 - using the `--exclude` flag: this is nice in theory, but I have like 30+ private
