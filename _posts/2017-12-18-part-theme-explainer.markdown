@@ -4,6 +4,8 @@ title: "::part and ::theme, an ::explainer"
 category: posts
 ---
 
+**Updated May 18, 2020**
+  
 (get it? `::` ? I made a funny)
 
 [Shadow DOM](https://meowni.ca/posts/shadow-dom/) is a spec that gives you DOM and style encapsulation. This is great for reusable [web components](https://meowni.ca/posts/web-components-with-otters/), as it reduces the ability of these components' styles getting accidentally stomped over (the old _"I have a class called "button" and you have a class called "button", now we both look busted"_ problem), but it adds a barrier for styling and theming these components deliberately.
