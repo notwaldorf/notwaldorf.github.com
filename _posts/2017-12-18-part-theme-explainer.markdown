@@ -4,6 +4,8 @@ title: "::part and ::theme, an ::explainer"
 category: posts
 ---
 
+**Updated May 18, 2020**
+  
 (get it? `::` ? I made a funny)
 
 [Shadow DOM](https://meowni.ca/posts/shadow-dom/) is a spec that gives you DOM and style encapsulation. This is great for reusable [web components](https://meowni.ca/posts/web-components-with-otters/), as it reduces the ability of these components' styles getting accidentally stomped over (the old _"I have a class called "button" and you have a class called "button", now we both look busted"_ problem), but it adds a barrier for styling and theming these components deliberately.
@@ -28,16 +30,16 @@ There have been several previous attempts at solving this, some more successful 
 - [Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) allow you to create custom CSS properties that can be used throughout an app. In particular, they pierce the shadow boundary, which means they can be used for styling elements with a Shadow DOM:
 If `<fancy-button>` uses a `--fancy-button-background` property to control its background, then:
 
-  ```css
+```css
 fancy-button#one { --fancy-button-background: blue; } /* solves the 💇  problem and */
 fancy-button { --fancy-button-background: blue; } /* solves the 🎨  problem */
-  ```
+```
 
 - The problem with using just custom properties for styling/theming is that it places the onus on the element author to basically declare every possible styleable property as a custom property. As a result, [@apply](http://tabatkins.github.io/specs/css-apply-rule/) was proposed, which basically allowed a custom property to hold an entire ruleset (a bag of other properties!). [Tab Atkins](https://twitter.com/tabatkins) has a very good [post](https://www.xanthir.com/b4o00) as to why this approach was abandoned, but the tl;dr; is that it interacted pretty poorly with pseudo classes and elements (like `:focus`, `:hover`, `::placeholder` for input), which still meant the element author would have to define a looooot of these bags of properties to be used in the right places.
 
 ## And now: something different but the same
 
-The current new proposal is [::part and ::theme](https://drafts.csswg.org/css-shadow-parts-1/), a set of pseudo-elements that allow you to style inside a shadow tree, from outside of that shadow tree. Unlike `:shadow` and `/deep/`, they don't allow you to style arbitrary elements inside a shadow tree: they only allow you to style elements that an author has tagged as being eligible for styling. They've already gone through the CSS working group and were blessed, and were brought up at TPAC at a Web Components session, so we're confident they're both the right approach, and highly likely to be implemented as a spec by all browsers.
+The current new proposal is [::part](https://drafts.csswg.org/css-shadow-parts-1/) (and possibly later, `::theme`), a set of pseudo-elements that allow you to style inside a shadow tree, from outside of that shadow tree. Unlike `:shadow` and `/deep/`, they don't allow you to style arbitrary elements inside a shadow tree: they only allow you to style elements that an author has tagged as being eligible for styling. They've already gone through the CSS working group and were blessed, and were brought up at TPAC at a Web Components session, so we're confident they're both the right approach, and highly likely to be implemented as a spec by all browsers, though there is some discussion of the exact selector syntax still going on.
 
 ## How ::part works
 You can specify a "styleable" part on any element in your shadow tree:
@@ -47,7 +49,7 @@ You can specify a "styleable" part on any element in your shadow tree:
   #shadow-root
     <div part="some-box"><span>...</span></div>
     <input part="some-input">
-    <div>...</div> /* not styleable
+    <div>...</div> <!-- not styleable -->
 </x-foo>
 ```
 
@@ -86,26 +88,26 @@ x-bar::part(some-box) { ... }
 ```
 
 ### Forwarding parts
-You **can** explicitly forward a child's part to be styleable outside of the parent's shadow tree. So in the previous example, to allow the `some-box` part to be styleable by `x-bar`'s parent, it would have to be exposed:
+You **can** explicitly forward a child's part to be styleable outside of the parent's shadow tree with the `exportparts` attribute. So in the previous example, to allow the `some-box` part to be styleable by `x-bar`'s parent, it would have to be exposed:
 
 ```html
 <x-bar>
   #shadow-root
-    <x-foo part="* => bar-*"></x-foo>
+    <x-foo exportparts="some-box"></x-foo>
 </x-bar>
 ````
 
-The `::part` forwarding syntax has options a-plenty. 🙏 Feel free to skip these if
+The `exportparts` forwarding syntax has options a-plenty. 🙏 Feel free to skip these if
 you're not interested in the minutiae of the syntax!
 
-- `part="some-box => some-box, some-input => some-input"`: explicitly forward `x-foo`'s parts that you know about (i.e. `some-box` and `some-input`) as they are. These selectors **would** match:
+- `exportparts="some-box some-input"`: explicitly forward `x-foo`'s parts that you know about (i.e. `some-box` and `some-input`) as they are. These selectors **would** match:
 
   ```css
   x-bar::part(some-box) { ... }
   x-bar::part(some-input) { ... }
   ```
 
-- `part="some-input => bar-input"`: explicitly forward (some) of `x-foo`'s parts (i.e. `some-input`) but rename them. These selectors **would** match:
+- `exportparts="some-input: bar-input"`: explicitly forward (some) of `x-foo`'s parts (i.e. `some-input`) but rename them. These selectors **would** match:
 
   ```css
   x-bar::part(bar-input) { ... }
@@ -117,57 +119,13 @@ you're not interested in the minutiae of the syntax!
   x-bar::part(bar-box) { ... }
   ```
 
-- `part="* => bar-*"`: implicitly forward all of `x-foo`'s parts as they are, but prefixed. These selectors **would** match:
-
-  ```css
-  x-bar::part(bar-some-box) { ... }
-  x-bar::part(bar-some-input) { ... }
-  ```
-  These selectors would **not** match:
-  ```css
-  x-bar::part(some-box) { ... }
-  x-bar::part(some-input) { ... }
-  ```
-
-- You *can* chain these, as well as add a part to `x-foo` itself (`some-foo` below. This means "style this particular `x-foo`, but not the other one, if you had more). All of these are valid:
+- You *can* combine these, as well as add a part to `x-foo` itself (`some-foo` below. This means "style this particular `x-foo`, but not the other one, if you had more):
 
   ```html
   <x-bar>
     #shadow-root
-      <x-foo part="some-foo, * => bar-*"></x-foo>
-      /* or */
-      <x-foo part="some-foo, some-input => bar-input"></x-foo>
+      <x-foo part="some-foo" exportparts="some-input: bar-input"></x-foo>
   </x-bar>
-  ```
-
-- You **cannot** forward all parts at once, i.e. `part="* => *"` since this might break your element in the future (if the nested shadow element adds new parts). So this is invalid:
-
-  ```html
-  <x-form>
-    #shadow-root
-      <x-bar part="* => *">
-        #shadow-root
-          <x-foo part="* => *"></x-foo>
-      </x-bar>
-  </x-form>
-  ```
-
-- However, as mentioned, you can forward all the parts if you **prefix** them, so this is ok:
-
-  ```html
-  <x-form>
-    #shadow-root
-      <x-bar part="* => bar-*">
-        #shadow-root
-          <x-foo part="* => foo-*"></x-foo>
-      </x-bar>
-  </x-form>
-  ```
-
-  This selector would be valid:
-
-  ```css
-  x-form::part(bar-foo-some-input) { ... }
   ```
 
 ## The "all buttons in this app should be blue" 🎨 theming problem
@@ -179,11 +137,11 @@ So given this shadow tree:
 ```html
 <submit-form>
   #shadow-root
-    <x-form part="some-input => some-input, some-box => some-box">
+    <x-form exportparts="some-input some-box">
       #shadow-root
-        <x-bar part="some-input => some-input, some-box => some-box">
+        <x-bar exportparts="some-input some-box">
           #shadow-root
-            <x-foo part="some-input => some-input, some-box => some-box"></x-foo>
+            <x-foo exportparts="some-input some-box"></x-foo>
         </x-bar>
     </x-form>
 </submit-form>
@@ -212,8 +170,8 @@ If you hadn't forwarded them with the same name and `some-input` was used at eve
 
 Both of these examples show that if an element author forgot to forward a part, then the app can't be themed correctly.
 
-## How ::theme works
-`::theme` matches any parts with that name, anywhere in the document. This means that if you hadn't forwarded any parts, i.e.:
+## How ::theme might work
+`::theme` is another pseudoelement originally proposed to pair with `::part`. It matches any parts with that name, anywhere in the document. This means that if you hadn't forwarded any parts, i.e.:
 
 ```html
 <x-bar>
