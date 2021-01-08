@@ -1,0 +1,9 @@
+---
+layout: post
+title: " Week 1: Trying out new things"
+category: posts
+---
+
+- Test test test
+- here is another line
+- My local ruby is fucked so I am literally developing this live, pray for me
