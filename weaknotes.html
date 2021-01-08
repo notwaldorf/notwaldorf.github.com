@@ -9,7 +9,7 @@ title: "Weaknotes"
 
 <section class="content">
   <ul class="listing table">
-    {% for post in site.weaknotes %}
+    {% for post in site.notes %}
     {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
     {% if currentdate != thedate %}
     <h3 class="rainbow">{{ currentdate }}</h3>
