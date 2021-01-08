@@ -21,7 +21,7 @@
 .sidebar .sections a {
   font-size: var(--font-size-s);
   margin: 0 var(--spacing) 0 0;
-  padding: 5px var(--spacing-s);
+  padding: 5px var(--spacing-xxs);
 }
 .content {
   margin: 0;
