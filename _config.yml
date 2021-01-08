@@ -9,3 +9,4 @@ google_analytics_tracking_id: UA-47334320-2
 collections:
   weeks:
     output: false
+    permalink: /:collection/:name
