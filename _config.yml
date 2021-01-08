@@ -8,4 +8,4 @@ gravatar_url: https://s.gravatar.com/avatar/053e75a5b48b44d6dd0612795dfb326d
 google_analytics_tracking_id: UA-47334320-2
 collections:
   notes:
-    output: true
+    output: false
