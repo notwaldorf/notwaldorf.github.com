@@ -19,12 +19,7 @@
   }
   .sidebar .meta { margin-left: 0; }
   .sidebar .meta .icon { margin-right: 0; }
-  .sidebar .sections { margin: var(--spacing-s) 0 0 var(--spacing-s); }
-  .sidebar .sections a {
-    font-size: var(--font-size-s);
-    margin: 0 var(--spacing) 0 0;
-    padding: 5px var(--spacing-s);
-  }
+  .sidebar .sections { margin: var(--spacing-s) 0 0 var(--spacing-l); }
   .content {
     margin: 0;
     padding: 5px var(--spacing);
