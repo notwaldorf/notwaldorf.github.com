@@ -207,6 +207,10 @@ ul {
   margin: var(--spacing-s) 0 0 54px;
 }
 
+.sidebar .sections ul {
+  display: flex;
+  flex-direction: row;
+}
 .sidebar .sections li {
   list-style: none;
   margin-bottom: var(--spacing-s);
