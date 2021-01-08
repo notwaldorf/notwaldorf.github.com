@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Week 1: Trying out new things"
-category: weaknotes
+category: posts
 ---
 
 My local ruby is fucked so I am literally developing this live, pray for me
