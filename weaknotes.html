@@ -12,12 +12,6 @@ title: "Weaknotes"
 
   <ul class="listing table">
     {% for post in site.weeks %}
-    {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
-    {% if currentdate != thedate %}
-    <!-- Add this in in 2022 lol -->
-    <!-- <h3 class="rainbow">{{ currentdate }}</h3> -->
-    {% capture thedate %}{{currentdate}}{% endcapture %}
-    {% endif %}
     <li>
       <span>{{ post.date | date: "%B %e, %Y" }}</span> <a href="{{ post.url }}">{{ post.title }}</a>
     </li>
