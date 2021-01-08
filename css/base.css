@@ -65,6 +65,7 @@ p {
   font-size: var(--font-size);
   margin: 0 0 1.5rem;
   line-height: 1.5;
+  letter-spacing: -0.5px; /* It looks very...wide otherwise with this font.*/
 }
 .top-line {
   border-top: var(--spacing-xs) solid var(--accent-2);
