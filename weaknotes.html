@@ -3,7 +3,7 @@ layout: layout
 title: "Weaknotes"
 ---
 <section class="content">
-  <h1>Weaknotes archive</h1>
+  <h1 class="no-butt">Weaknotes archive</h1>
 
   <p><a href="https://alicebartlett.co.uk/">Alice Bartlett</a> calls her week
     notes "weak", a rare pun that I deeply appreciate. You can follow these notes
@@ -14,7 +14,8 @@ title: "Weaknotes"
     {% for post in site.weeks %}
     {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
     {% if currentdate != thedate %}
-    <h3 class="rainbow">{{ currentdate }}</h3>
+    <!-- Add this in in 2022 lol -->
+    <!-- <h3 class="rainbow">{{ currentdate }}</h3> -->
     {% capture thedate %}{{currentdate}}{% endcapture %}
     {% endif %}
     <li>
