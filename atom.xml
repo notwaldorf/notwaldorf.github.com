@@ -13,7 +13,8 @@ layout: nil
    <name>{{ site.name }}</name>
  </author>
 
- {% for post in site.posts %}
+ {% assign all_posts = site.documents | sort: 'date' %}
+ {% for post in all_posts %}
  {% unless post.draft %}
  <entry>
    <title>{{ post.title }}</title>
