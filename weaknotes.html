@@ -6,7 +6,8 @@ title: "Weaknotes"
   <h1>Weaknotes<a style="vertical-align: super" href="#alice-gets-credit">*</a> archive</h1>
 
   <ul class="listing table">
-    {% for post in site.weeks %}
+    {% assign sorted = site.weeks | sort: 'date' | reverse %}
+    {% for post in sorted %}
     <li>
       <span>{{ post.date | date: "%B %e, %Y" }}</span>
       <a href="{{ post.url }}">{{ post.title }}</a>
@@ -17,7 +18,8 @@ title: "Weaknotes"
   <hr>
   <p id="alice-gets-credit">* <a href="https://alicebartlett.co.uk/">Alice Bartlett</a> calls her week
     notes "weak", a rare pun that I deeply appreciate. You can follow my notes
-    via <a href="https://meowni.ca/weaknotes.xml">RSS</a>. This is a different RSS feed than the regular posts, by the way! </p>
+    via <a href="https://meowni.ca/weaknotes.xml">RSS</a>. This is a different RSS feed than the regular posts, by the
+    way! </p>
   </p>
 
 </section>
