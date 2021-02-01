@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Week 4"
+---
+- Tahoe got a ton of snow this week, so I've been in winter mode. Went skiing on Friday, went snowshoeing on Sunday. My calves are on fire.
+
+- I can tell when I accidentally overdo it with the hobbies (which is every time I get excited about a new hobby) because I rapidly swing in the other
+direction. I painted nothing this week, and I spent all weekend watching the entire season of Bling Empire in one day instead.
+
+- I knitted most of a
+[hat](https://www.ravelry.com/patterns/library/quick-ombre-hat)
+and then unravelled it all because it had accumulated too many mistakes. It's a really fun
+knit so I'm not too bothered.
+
+- I spent a lot of evenings frantically working on a visualization about plastic waste (new hobby alert) that nobody asked for. It started as "lemme do a quick thing to get better at d3 and
+at asking questions about the data" and it's now a good 8+ hours of work in. Sure wish I would've half assed it, because now it's not done and I don't really want to finish it.
+
+- Still reading ["Because Internet"](https://gretchenmcculloch.com/book/); also started
+[The Travelling Cat Chronicles](https://www.amazon.com/Travelling-Cat-Chronicles-Hiro-Arikawa/dp/0451491335).
+
