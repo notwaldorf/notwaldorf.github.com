@@ -34,6 +34,11 @@ draft: true
   .floatie-bit img {
     width: 80%;
   }
+  .floatie-bit > .img-column {
+    flex-direction: row;
+    width: 60%;
+
+  }
 }
 </style>
 One of my favourite kinds of art to make involves taking nature and seeing it as simple shapes. Buildings are cubes, flowers are circles, hills are curves. Shells are spirals. Tree rings are weird circle bois, and they are some of the best. I've wanted to make a generative art of a tree ring for a long time, but everything I made kept sucking (scroll to the bottom if you don't believe me. Shit was bad bad). I finally made something I like, I thought it might be neat to write a little bit about The Process™️, since it involves both JavaScript and murderous little knives. 
