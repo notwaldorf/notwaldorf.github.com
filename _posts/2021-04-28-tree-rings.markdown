@@ -129,7 +129,7 @@ a very clumsy person you best believe I accidentally (and sadly more than once) 
    <br>
     <img alt="a printout of a wobbly set of tree rings" src="/images//treerings/7.webp">
   </div>
-  <p>I started with this generated tree ring. I don't have the digital file anymore because this part went so poorly and made me so mad I probably threw it after a tantrum. I drew some random lines to "represent texture" on the printout and went in with the misplaced attitude of "I'll figure the rest when I carve it", because despite this never working for the last 35 years of my life, it's still something I insist on trying.</p>
+  <p>I started with this generated tree ring. I don't have the digital file anymore because this part went so poorly and made me so mad I probably threw it out after a tantrum. I drew some random lines to "represent texture" on the printout and went in with the misplaced attitude of "I'll figure the rest when I carve it", because despite this never working for the last 35 years of my life, it's still something I insist on trying.</p>
 </div>
 
 <hr>
