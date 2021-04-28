@@ -149,7 +149,7 @@ a very clumsy person you best believe I accidentally (and sadly more than once) 
     <img alt="a photo of a bigger section of a tree ring" src="/images//treerings/12.webp">
   </div>
    <p>I finally took a step back and made a plan, like I should've done in the first place. I imported 
-   the generated tree ring in Procreate, drew a bunch of other lines and cracks on it untik it looked right. 
+   the generated tree ring in Procreate, drew a bunch of other lines and cracks on it until it looked right. 
    At this point it looks *very* different than what we started with, but the foundations are all there: the edges and rings have the same shapes, the cracks are mostly in the same places.</p>
 </div>
 <hr>
