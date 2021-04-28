@@ -31,13 +31,18 @@ draft: true
   .floatie-bit {
     flex-direction: column-reverse;
   }
-  .floatie-bit img {
+  .floatie-bit > img {
     width: 80%;
   }
   .floatie-bit > .img-column {
-    flex-direction: row;
-    width: 60%;
-
+    flex-direction: column;
+    width: 100%;
+    margin-top: var(--spacing-s);
+    align-items: center;
+  }
+  .floatie-bit > .img-column > img {
+    width: 80%;
+    padding-top: var(--spacing-s);
   }
 }
 </style>
@@ -68,7 +73,7 @@ hunched over a laptop because I have the posture of a pretzel and the willpower 
 <div class="floatie-bit">
   <img alt="some close concentric circles, each with jagged edges" src="/images//treerings/1.webp">
   <p>I drew some concentric circles and tried to call it a day. They looked stupid. The circles are kind
-  of jaggedy because I didn't even try to use Perlin noise, that's how lazy I was. If you don't know about Perlin noise, <a href="https://varun.ca/noise/">Varun's article</a> is 😘🤌 and fun. As a side</p>
+  of jaggedy because I didn't even try to use Perlin noise, that's how lazy I was. If you don't know about Perlin noise, <a href="https://varun.ca/noise/">Varun's article</a> is 😘🤌 and fun.</p>
 </div>
 <hr>
 <div class="floatie-bit">
@@ -113,7 +118,9 @@ I don't want to learn. For me, that isn't what generative art is about, that's w
 
 
 # Carve them up
-In parallel, I also started carving linocuts. For context, the scene is: March 2021, in the middle of the pandemic. I am bored senseless, and stabbing squishy rubber with a sharp knife sounds like a great way to spend a Saturday. Also, there's something poetic about literally bleeding for your art because as
+In parallel, I also started making [linocuts](https://en.wikipedia.org/wiki/Linocut). Linocuts are a lot like stamps -- you carve the mirror image of what you want to see, usually into a piece of linoleum using a sharp v-shaped knife. With stamps you press the stamp into an ink pad; with linocuts you roll the ink onto the block, and press the paper onto the inked block to make the impression. 
+
+For context, the scene is: March 2021, in the middle of the pandemic. I am bored senseless, and stabbing squishy rubber with a sharp knife sounds like a great way to spend a Saturday. Also, there's something poetic about literally bleeding for your art because as
 a very clumsy person you best believe I accidentally (and sadly more than once) jammed a knife in my thumb.
 
 <div class="floatie-bit">
@@ -153,5 +160,6 @@ I ended up finishing this as a linocut: it now feels like the human-for-loop col
 I've put up these prints for sale in [my store](https://www.meownica.studio/product/tree-rings) -- they are all hand printed by me, either using black ink on white deckle paper, or with gold ink on a black paper.
 <div class="floatie-bit">
   <img alt="a photo of a bigger section of a tree ring" src="/images//treerings/final1.webp">
+  <br>
   <img alt="a photo of a bigger section of a tree ring" src="/images//treerings/final2.webp">
 </div>
