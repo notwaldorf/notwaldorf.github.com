@@ -145,8 +145,7 @@ What a ride, eh? I'm happy that I did all the generative explorations, because n
 I can just pull up whenever I need to: noisy circles, paint strokes, blobby stroke lines. I am also happy that
 I ended up finishing this as a linocut: it now feels like the human-for-loop collaboration of my dreams.
 
-I've put up these prints for sale in [my store](https://meownica.studio/product/tree-rings) -- they are all 
-hand printed by me, either using black ink on white deckle paper, or with gold ink on a black paper.
+I've put up these prints for sale in [my store](https://www.meownica.studio/product/tree-rings) -- they are all hand printed by me, either using black ink on white deckle paper, or with gold ink on a black paper.
 <div class="floatie-bit">
   <img alt="a photo of a bigger section of a tree ring" src="/images//treerings/final1.webp">
   <img alt="a photo of a bigger section of a tree ring" src="/images//treerings/final2.webp">
