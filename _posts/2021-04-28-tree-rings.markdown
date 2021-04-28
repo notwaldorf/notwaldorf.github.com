@@ -2,7 +2,6 @@
 layout: post
 title: "From JavaScript to paper: a linocut adventure"
 category: posts
-draft: true
 ---
 <style>
 .floatie-bit {
