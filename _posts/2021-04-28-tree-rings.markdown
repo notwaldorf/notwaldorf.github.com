@@ -118,7 +118,7 @@ know how to say it in JavaScript. All of this is drawing pixels and curves in th
 I don't want to learn. For me, that isn't what generative art is about, that's what traditional mediums are about.
 
 
-# Carve them up
+# Carve 'em up
 In parallel, I also started making [linocuts](https://en.wikipedia.org/wiki/Linocut). Linocuts are a lot like stamps -- you carve the mirror image of what you want to see, usually into a piece of linoleum using a sharp v-shaped knife. With stamps you press the stamp into an ink pad; with linocuts you roll the ink onto the block, and press the paper onto the inked block to make the impression. 
 
 For context, the scene is: March 2021, in the middle of the pandemic. I am bored senseless, and stabbing squishy rubber with a sharp knife sounds like a great way to spend a Saturday. Also, there's something poetic about literally bleeding for your art because as
