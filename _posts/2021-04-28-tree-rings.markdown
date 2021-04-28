@@ -14,6 +14,7 @@ draft: true
   width: 35%;
   flex-shrink: 0;
   vertical-align: middle;
+  border-radius: 10px;
 }
 .floatie-bit > .img-column {
   width: 30%;
@@ -25,6 +26,7 @@ draft: true
 .img-column img {
   width: 90%;
   vertical-align: middle;
+  border-radius: 10px;
 }
 
 @media (max-width: 700px) {
