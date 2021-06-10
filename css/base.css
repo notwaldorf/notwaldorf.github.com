@@ -239,6 +239,13 @@ ul {
   width: 69px;
   text-align: left;
 }
+
+#rainButton {
+  text-align: center;
+  padding: 5px var(--spacing-xxs);
+  margin: 0 var(--spacing) 0 0;
+  width: 18px;
+}
 /**********************
  * Posts
  **********************/
