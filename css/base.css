@@ -166,6 +166,14 @@ ul {
   flex: 1;
   text-align: left;
 }
+
+.prev-next {
+  padding: var(--spacing-l) 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 /**********************
  * Sidebar
  **********************/
