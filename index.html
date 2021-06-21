@@ -1,35 +1,38 @@
 ---
 layout: layout
 title: "About"
+splashtitle: "Monica <br>Dinculescu"
+splashbyline: "I'm an engineer who builds delightful apps. I can advise your company 
+about the web platform, creative user interactions, and usable machine learning."
 ---
 <style>
-  .content {
-    margin-top: 0
+  #cursor{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #e81f76;
+    border-radius: 50%;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 100;
+    margin-top: 30px;
+    margin-left: 30px;
   }
-  .sidebar {
-    background: var(--splash-bg);
-    color: white;
-    margin-bottom: 0;
-    position:absolute;
-    top: 0;
-  }
-  .sidebar a, .sidebar button {color: white}
 </style>
 
-  <div class="splash">
-    <div>
-      <h1>Monica<br>Dinculescu</h1>
-      <h3>creative coder | web engineer</h2>
-      <p>I like to build delightful apps. I can advise your company 
-        about the web platform, creative
-        user interactions, and usable machine learning. </p>
-        <h1>↓</h1>
-    </div>
-  </div>
+<div id="cursor"></div>
+
+<script>
+  document.addEventListener("mousemove", function(event) {
+  const x = event.pageX - 10;
+  const y = event.pageY - 10;
+  const cursor = document.querySelector("#cursor");
+  cursor.style.left = x + "px";
+  cursor.style.top = y + "px";
+});
+</script>
   
-
-  <section class="content">
-
+<section class="content">
   <p>I've just ended an 8 year stint as a Senior Engineer at Google, where I worked on
     making music and art and all sorts of creative interactions with Machine Learning,
     web components and web standards, and the guts of Chromium.
@@ -38,14 +41,19 @@ title: "About"
     on <a href="https://glitch.com/@notwaldorf">Glitch</a>.
   </p>
 
-  <h3 class="rainbow">Writing</h3>
+  <h2>Writing</h2>
   <p>I'm giving it a shot at writing weekly notes. You can browse the full
     <a href="/weaknotes">archive</a>, for as long as I manage to keep it up 😅.
     I also occasionally <a href="/blog">blog</a> about tech things that
     I've learnt or enjoyed, though the frequency of posts has really
-    decreased lately. Here are some recent posts:
+    decreased lately.
   </p>
 
+  <p><br>
+    <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
+  </p>
+
+<!-- 
   <ul class="listing table">
     {% for post in site.posts limit:10 %}
     {% unless post.draft %}
@@ -57,11 +65,9 @@ title: "About"
     {% endfor %}
   </ul>
   
-  <p><br>
-    <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
-  </p>
+   -->
   
-  <h3 class="rainbow">Projects</h3>
+  <h2>Projects</h2>
   <p>I build very small (but cute, I think!)
     <a href="/projects">side projects</a>
     that are either an attempt at "art", or are a thing that I need in my

@@ -15,16 +15,23 @@ layout: body
   </ul>
 </nav>
 
-{{ content }}
+{% if page.splashtitle %}
+<div class="splash">
+  <div>
+    <h1>{{page.splashtitle}}</h1>
+    <p>{{page.splashbyline}}</p>
+    <!-- <h1>↓</h1> -->
+  </div>
+</div>
+{% endif %}
+
+<section class="content">
+  {{ content }}
+</section>
+
 
 <section class="content">
   <div class="footer">
-    <section class="thanks">
-      <span>thanks for reading!</span>
-      <a href="#" class="heart" aria-hidden="true">❤︎</a>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
-        aria-label="Tweet at me!">Tweet</a>
-    </section>
+    TODO
   </div>
 </section>
-<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
