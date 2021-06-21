@@ -32,6 +32,24 @@ in French or Romanian and it looks borked, maybe that's why. */
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/worksans/v9/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K0nXBi8JoI3ZKyHaQQ.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/worksans/v9/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K3vXBi8JoI3ZKyHaQQ.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 .og {
   font-family: og-emoji, sans-serif;
 }
@@ -51,22 +69,28 @@ html {
   --font-size: 20px;
   --font-size-s: 18px;
   --font-size-xs: 14px;
+
+
+  --content-width: 600px;
+  --splash-bg: #FFD0CE; //#864AFF;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background: white;
-  font-family: 'Inconsolata', monospace;
+  font-family: 'Work Sans', monospace;
   color: var(--foreground);
   margin: 0;
+  padding: 0;
 }
+
 p {
   font-size: var(--font-size);
   margin: 0 0 1.5rem;
   line-height: 1.5;
-  letter-spacing: -0.5px; /* It looks very...wide otherwise with this font.*/
 }
+/* 
 .top-line {
   border-top: var(--spacing-xs) solid var(--accent-2);
   position:fixed;
@@ -74,12 +98,58 @@ p {
   left: 0;
   width: 100%;
   z-index: 100;
-}
-.container {
-  padding-top: var(--spacing-l);
-}
+} */
+/* .container {
+  width: 100%;
+  margin: 0 auto;
+} */
+
 ::selection { background: #E0F7FA }
 iframe { max-width: 100% }
+
+/**********************
+ * Splash
+ **********************/
+.splash {
+  background: var(--splash-bg);
+  height: 90vh;
+  width: 100%;
+  color: white;
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.splash > div {
+  max-width: var(--content-width);
+}
+.splash h1 {
+  color: #01FCCB;
+  background-image: none;
+  -webkit-background-clip: none;
+  -webkit-text-fill-color: inherit;
+  font-size: 80px;
+  letter-spacing: 4px;
+  margin: var(--spacing-s) 0;
+  padding: 0;
+}
+.splash h3 {
+  text-transform: uppercase;
+  font-weight: normal;
+  margin: var(--spacing-s) 0;
+  padding: 0;
+  font-size: 20px;
+  letter-spacing: 1px;
+  word-spacing: 4px;
+}
+.splash p {
+  margin-top: var(--spacing-m);
+  font-size: 34px;
+  line-height: 40px;
+}
+
 
 /**********************
  * Copy
@@ -87,7 +157,7 @@ iframe { max-width: 100% }
 h1, h2, h3, h4 {
   font-weight: 700;
   margin: var(--spacing) 0;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Archivo', monospace;
 }
 
 h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar button {
@@ -178,60 +248,32 @@ ul {
  * Sidebar
  **********************/
 .sidebar {
-  position: fixed;
-  margin-left: 50px;
-  width: 150px;
-}
+  width: 100%;
 
-.sidebar .avatar {
-  border-radius: 50%;
-}
-
-.sidebar .avatar:hover {
-  -webkit-animation: avatarzomg 0.9s infinite;
-  -moz-animation: avatarzomg 0.9s infinite;
-  animation: avatarzomg 0.9s infinite;
-}
-
-.sidebar a {
-  border-bottom: none;
-}
-
-.sidebar .meta {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
-  margin-top: var(--spacing-s);
-  height: var(--spacing);
+  margin: 0 auto;
+  padding: var(--spacing) 0;
+  margin-bottom: var(--spacing-l);
 }
 
-.sidebar .meta .icon {
-  margin-left: 2px;
-  margin-right: 2px;
-  font-size: var(--spacing);
-}
-
-.sidebar .sections {
-  margin: var(--spacing-s) 0 0 54px;
-}
-
-.sidebar .sections ul {
+.sidebar > ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: var(--content-width);
+  margin: var(--spacing-s) auto;
 }
-.sidebar .sections li {
+.sidebar > ul > li {
   list-style: none;
-  margin-bottom: var(--spacing-s);
 }
 
-.sidebar .sections a {
-  font-size: var(--font-size-s);
+.sidebar a {
   font-weight: bold;
+  border-bottom: none;
+  font-size: var(--font-size-s);
   margin: 0 var(--spacing) 0 0;
-  padding: 5px var(--spacing-s);
+  xpadding: 5px var(--spacing-xxs);
 }
 
 .sidebar button {
@@ -260,6 +302,9 @@ ul {
 .content {
   max-width: 700px;
   margin: 50px var(--spacing) 50px 250px;
+  margin: 0;
+  padding: 5px var(--spacing);
+  width: inherit;
 }
 
 .content .byline {

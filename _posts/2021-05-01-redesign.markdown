@@ -1,0 +1,23 @@
+---
+layout: post
+title: "I redesigned my site"
+category: posts
+---
+ also even websites get split ends, so it was time for
+a little yearly trim. also i recently helped a friend redesign her site, and it made me think a lot about
+how i would do this exercise as a helpful 3rd party.
+
+# Why
+- i uased to write a lot of blog posts, so my index page was basically a listing of all my posts. Nowadays
+i do less talking and more thinking, so i wanted that to come through.
+- haven't done a lighthouse in a minute and im scared
+
+
+# Things that i like
+- love those gradient titles. want it to remain cute.
+
+# Things I'm over
+- too many links at the top
+- IBM plex mono and friends
+- need to showcase more
+- very white colourless content
