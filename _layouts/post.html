@@ -1,13 +1,32 @@
 ---
-layout: layout
+layout: body
 ---
+<nav class="sidebar">
+  <ul>
+    <li><a href="/about">about</a></li>
+    <li><a href="/weaknotes">weaknotes</a></li>
+    <li><a href="/blog">posts</a></li>
+    <li><a href="/projects">projects</a></li>
+    <li><a href="/talks">talks</a></li>
+    <li><a href="https://meownica.studio">shop</a></li>
+  </ul>
+</nav>
+
+<div class="splash short">
+  <div class="horizontal">
+    <div>
+      <section class="byline">
+        {{ page.date | date: "%B %e, %Y" }}
+      </section>
+
+      <h1>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+      </h1>
+    </div>
+  </div>
+</div>
+
 <section class="content">
-  <section class="byline">
-    {{ page.date | date: "%B %e, %Y" }}
-  </section>
-  <h1>
-    <a href="{{ page.url }}">{{ page.title }}</a>
-  </h1>
   {{ content }}
 
   <div class="prev-next">
@@ -20,14 +39,13 @@ layout: layout
   </div>
 </section>
 
-<section class="content">
-  <div class="footer">
-    <section class="thanks">
-      <span>thanks for reading!</span>
-      <a href="#" class="heart" aria-hidden="true">❤︎</a>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
-        aria-label="Tweet at me!">Tweet</a>
-    </section>
+<div class="footer">
+  <div class="thanks">
+    <span>Thanks for reading!</span>
+    <a href="#" class="heart" aria-hidden="true">❤︎</a>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
+      aria-label="Tweet at me!">Tweet</a>
   </div>
-</section>
+</div>
+
 <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>

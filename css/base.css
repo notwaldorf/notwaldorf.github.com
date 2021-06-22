@@ -5,51 +5,6 @@
   src: url(/fonts/og-dcm-emoji.ttf);
 }
 
-/* Future Monica: I was lazy and only got the Latin ranges, so if you type anything
-in French or Romanian and it looks borked, maybe that's why. */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 400;
-  src: local('IBM Plex Mono'), local('IBMPlexMono'), url(https://fonts.gstatic.com/s/ibmplexmono/v3/-F63fjptAgt5VM-kVkqdyU8n1i8q131nj-o.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
-}
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 700;
-  src: local('IBM Plex Mono Bold'), local('IBMPlexMono-Bold'), url(https://fonts.gstatic.com/s/ibmplexmono/v3/-F6qfjptAgt5VM-kVkqdyU8n3pQPwlBFgsAXHNk.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
-}
-@font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(https://fonts.gstatic.com/s/inconsolata/v18/QldKNThLqRwH-OJ1UHjlKGlZ5qhExfHw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Work Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/worksans/v9/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K0nXBi8JoI3ZKyHaQQ.woff) format('woff');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Work Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/worksans/v9/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K3vXBi8JoI3ZKyHaQQ.woff) format('woff');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 .og {
   font-family: og-emoji, sans-serif;
 }
@@ -64,22 +19,26 @@ html {
   --spacing-m: 36px;
   --spacing-l: 48px;
   --foreground: black;
-  --accent: #ff487a;
-  --accent-2: #7BE4D5;
   --font-size: 20px;
   --font-size-s: 18px;
   --font-size-xs: 14px;
 
+
+  --red-light:#FFEFF0;
+  --red: #FC5043;
+  --yellow: #FEA809;
+  --blue: #0D5DA5;
+
   --content-width: 700px;
-  --splash-bg: #FFD0CE; //#864AFF;
-  --splash-fg: black; //#01FCCB;
+  --splash-bg: var(--red-light);
+  --splash-fg: var(--red);
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background: white;
-  font-family: 'Work Sans', monospace;
+  font-family: 'Rubik', monospace;
   color: var(--foreground);
   margin: 0;
   padding: 0;
@@ -90,29 +49,64 @@ p {
   margin: 0 0 1.5rem;
   line-height: 1.5;
 }
-/* 
-.top-line {
-  border-top: var(--spacing-xs) solid var(--accent-2);
-  position:fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-} */
-/* .container {
-  width: 100%;
-  margin: 0 auto;
-} */
 
-::selection { background: #E0F7FA }
+.hilite {
+  position: relative;
+  background: var(--red);
+  color: white;
+  padding: 0 4px;
+  z-index: 0;
+}
+
+::selection { background: #E1FF25; }
 iframe { max-width: 100% }
+
+/**********************
+ * Gradient blobs
+ **********************/
+ .wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.blob {
+  position: absolute;
+  filter: blur(64px);
+  
+}
+.blob1 {
+  background-color: #D6979D;
+  top: -30px;
+  width: 30vw;
+  height: 50%;
+  opacity: 0.9;
+}
+
+.blob2 {
+  background-color: #f8b68a;
+  top: 20%;
+  width: 40vw;
+  left: 0;
+  height: 60%;
+  opacity: 0.6;
+}
+
+.blob3 {
+  background-color: #a9a2cc;
+  bottom: 0%;
+  right: 0%;
+  width: 30vw;
+  height: 60%;
+  opacity: 0.9;
+}
 
 /**********************
  * Splash
  **********************/
-.splash {
+.splash, .footer {
+  position: relative;
   background: var(--splash-bg);
-  min-height: 70vh;
+  min-height: 50vh;
   width: 100%;
   color: black;
   display: flex;
@@ -121,34 +115,37 @@ iframe { max-width: 100% }
   align-items: center;
 }
 
-.splash > div {
+.splash.short {
+  min-height: 30vh;
+  padding: var(--spacing-m) 0;
+}
+
+.footer {
+  margin-top: var(--spacing-l);
+  min-height: 100px;
+}
+
+.splash > div:first-of-type {
   width: 100%;
   max-width: var(--content-width);
+  position: relative;
 }
+
 .splash h1 {
   color: var(--splash-fg);
   background-image: none;
   -webkit-background-clip: none;
   -webkit-text-fill-color: inherit;
   font-size: 60px;
-  letter-spacing: 4px;
+  line-height: 50px;
   margin: var(--spacing-s) 0;
   padding: 0;
-}
-.splash h3 {
-  text-transform: uppercase;
-  font-weight: normal;
-  margin: var(--spacing-s) 0;
-  padding: 0;
-  font-size: 20px;
-  letter-spacing: 1px;
-  word-spacing: 4px;
-}
-.splash p {
-  margin-top: var(--spacing-m);
-  font-size: 26px;
 }
 
+.splash p {
+  margin-top: var(--spacing-m);
+  font-size: 1.4em;
+}
 
 /**********************
  * Copy
@@ -156,7 +153,7 @@ iframe { max-width: 100% }
 h1, h2, h3, h4 {
   font-weight: 700;
   margin: var(--spacing) 0;
-  font-family: 'Archivo', monospace;
+  xfont-family: 'Montserrat', monospace;
 }
 
 h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar button {
@@ -169,9 +166,6 @@ h1 {
   font-weight: 900;
   margin-top: 0;
   margin-bottom: var(--spacing-l);
-}
-h1.no-butt {
-  margin-bottom: 0;
 }
 
 h2, h3 {
@@ -198,6 +192,12 @@ ul {
 /**********************
  * Party tricks
  **********************/
+ .horizontal {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+ }
 /* Thank you GitHub Universe site for this innovation */
 .rainbow {
   display: inline-block;
@@ -216,7 +216,7 @@ ul {
   height: var(--spacing-s);
   bottom: calc(0px - var(--spacing-s));
   left: 0;
-  border-bottom: 6px solid var(--accent);
+  border-bottom: 6px solid var(--red);
 }
 
 
@@ -227,7 +227,6 @@ ul {
   padding: var(--spacing-l) 0;
   color: var(--accent);
   text-align: center;
-  text-transform: uppercase;
   font-size: var(--font-size-s);
   line-height: var(--spacing);
 }
@@ -235,6 +234,10 @@ ul {
 .footer > .thanks {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--content-width);
+  position: relative;
 }
 
 .footer > .thanks .heart {
@@ -280,31 +283,29 @@ ul {
 }
 
 .sidebar a {
+  position: relative;
   font-weight: bold;
   border-bottom: none;
   font-size: var(--font-size-s);
   margin: 0 var(--spacing) 0 0;
-  xpadding: 5px var(--spacing-xxs);
 }
-.sidebar button {
-  background: none;
-  border: none;
-  box-shadow: none;
-  outline:none;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  font-size: inherit;
-
-  width: 69px;
-  text-align: left;
+.sidebar a:hover {
+  color: black;
+  background: var(--red-light);
+  z-index: 0;
 }
-
-#rainButton {
-  text-align: center;
-  padding: 5px var(--spacing-xxs);
-  margin: 0 var(--spacing) 0 0;
-  width: 18px;
+.sidebar a:hover::before {
+  position: absolute;
+  display: block;
+  left: -20px;
+  top: 10px;
+  content: '';
+  height: 100%;
+  width: 120%;
+  background-image: radial-gradient(var(--red) 25%, var(--red-light) 40%);
+  background-position: 0px 0px;
+  background-size: 6px 6px;
+  z-index: -1;
 }
 /**********************
  * Posts
@@ -318,7 +319,6 @@ ul {
 }
 
 .content .byline {
-  font-weight: 900;
   font-size: var(--font-size-xs);
   color: #777;
   text-transform: uppercase;
@@ -336,6 +336,7 @@ ul {
 .content li {
   margin-bottom: var(--spacing-s);
   margin-left: var(--spacing-s);
+  line-height: 1.5;
 }
 
 .content img:not(.emoji) {
@@ -386,18 +387,6 @@ blockquote p {
   display: inline;
 }
 
-/*.content blockquote cite:before {
-    content: '— ';
-}
-
-.content blockquote cite {
-  display: block;
-  margin-top: .5em;
-  text-align: right;
-  color: #111;
-  font-style: normal;
-}*/
-
 /**********************
 * Posts lists
 *********************/
@@ -440,9 +429,9 @@ blockquote p {
  * Links
  *********************/
 a {
-  color: var(--accent);
-  transition: color .3s ease-in-out;
-	-moz-transition: color .3s ease-in-out;
+  color: var(--red);
+  transition: color .2s ease-in-out;
+	-moz-transition: color .2s ease-in-out;
   text-decoration: underline;
   -webkit-text-decoration-skip: ink;
   text-decoration-skip: ink;
@@ -450,53 +439,7 @@ a {
 }
 
 a:hover, button:hover {
-  -webkit-animation: zomg 3s infinite;
-  -moz-animation: zomg 3s infinite;
-  animation: zomg 3s infinite;
-}
-
-@-webkit-keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-@-moz-keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-@keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-
-@-webkit-keyframes avatarzomg {
-  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); }
-  50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(90deg); }
-}
-@-moz-keyframes avatarzomg {
-  0%, 100% { filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { filter: invert(10%) saturate(500%) hue-rotate(180deg); }
-  50%      { filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { filter: invert(10%) saturate(500%) hue-rotate(90deg); }
-}
-@keyframes avatarzomg {
-  0%, 100% { filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { filter: invert(10%) saturate(500%) hue-rotate(180deg);}
-  50%      { filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { filter: invert(10%) saturate(500%) hue-rotate(90deg);}
+  color: var(--blue);
 }
 
 /**********************
@@ -509,7 +452,7 @@ code {
   font-size: var(--font-size-xs);
   color: black;
   border: 1px solid var(--accent-2);
-  background-color: rgba(123, 228, 213, 0.3); /* accent-2 with opacity */
+  background-color: var(--red-light);
   line-height: 1.5;
   padding: 2px 3px;
 }

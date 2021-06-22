@@ -48,7 +48,7 @@
   <meta property="og:image" content="icons/icon-192x192.png" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
 
 
   <script type="text/javascript">
@@ -77,14 +77,8 @@
 -->
 
 <body>
-  <emoji-rain id="rainmaker"></emoji-rain>
-  <!-- <div class="top-line"></div> -->
   {{ content }}
 </body>
-
-<!-- emoji rain -->
-<link rel="import" async href="/elements/emoji-rain.html">
-<script defer src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
 <script>
   'use strict';
@@ -96,28 +90,6 @@
   link.rel = 'stylesheet';
   link.href = '/css/pygments.css'
   head.appendChild(link);
-
-  // if ('serviceWorker' in navigator) {
-  //   navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(_ => {
-  //     console.log('service worker is cool 🐳', location.origin);
-  //   }).catch(e => {
-  //     console.error('service worker is not so cool 🔥', e);
-  //     throw e;
-  //   });
-  // }
-
-  const rainmaker = document.getElementById('rainmaker');
-  document.getElementById('rainButton').addEventListener('click', rain);
-
-  function rain(event) {
-    if (rainmaker.active) {
-      rainmaker.stop();
-      event.target.innerHTML = "✨";
-    } else {
-      rainmaker.start();
-      event.target.innerHTML = "☔︎";
-    }
-  }
 </script>
 
 </html>

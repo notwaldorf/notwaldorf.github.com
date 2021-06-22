@@ -12,7 +12,7 @@ splashtitle: "Posts"
   {% unless post.draft %}
   {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
   {% if currentdate != thedate %}
-  <h3 class="rainbow">{{ currentdate }}</h3>
+  <h2 class="with-butt">{{ currentdate }}</h2>
   {% capture thedate %}{{currentdate}}{% endcapture %}
   {% endif %}
   <li>

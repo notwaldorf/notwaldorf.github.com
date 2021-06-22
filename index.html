@@ -2,80 +2,40 @@
 layout: layout
 title: "About"
 splashtitle: "Monica <br>Dinculescu"
-splashbyline: "I'm an engineer who builds delightful apps. I can advise your company 
+splashbyline: "I'm a <span class='hilite'>creative engineer</span> who builds delightful apps. I can advise your company 
 about the web platform, creative user interactions, and usable machine learning."
----
+---  
 <style>
-  #cursor{
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: #e81f76;
-    border-radius: 50%;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    z-index: 100;
-    margin-top: 30px;
-    margin-left: 30px;
-  }
+#home_link {display: none !important;}
+
 </style>
+<p>I've just ended an 8 year stint as a Senior Engineer at Google, where I worked on
+  making music and art and all sorts of creative interactions with Machine Learning,
+  web components and web standards, and the guts of Chromium.
+  You can read a bit more about me over <a href="/about">here</a>. Most of
+  my personal code is on <a href="https://github.com/notwaldorf">GitHub</a> or
+  on <a href="https://glitch.com/@notwaldorf">Glitch</a>.
+</p>
 
-<div id="cursor"></div>
+<h2>Writing</h2>
+<p>I'm giving it a shot at writing weekly notes. You can browse the full
+  <a href="/weaknotes">archive</a>, for as long as I manage to keep it up 😅.
+  I also occasionally <a href="/blog">blog</a> about tech things that
+  I've learnt or enjoyed, though the frequency of posts has really
+  decreased lately.
+</p>
 
-<script>
-  document.addEventListener("mousemove", function(event) {
-  const x = event.pageX - 10;
-  const y = event.pageY - 10;
-  const cursor = document.querySelector("#cursor");
-  cursor.style.left = x + "px";
-  cursor.style.top = y + "px";
-});
-</script>
-  
-<section class="content">
-  <p>I've just ended an 8 year stint as a Senior Engineer at Google, where I worked on
-    making music and art and all sorts of creative interactions with Machine Learning,
-    web components and web standards, and the guts of Chromium.
-    You can read a bit more about me over <a href="/about">here</a>. Most of
-    my personal code is on <a href="https://github.com/notwaldorf">GitHub</a> or
-    on <a href="https://glitch.com/@notwaldorf">Glitch</a>.
-  </p>
+<p><br>
+  <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
+</p>
 
-  <h2>Writing</h2>
-  <p>I'm giving it a shot at writing weekly notes. You can browse the full
-    <a href="/weaknotes">archive</a>, for as long as I manage to keep it up 😅.
-    I also occasionally <a href="/blog">blog</a> about tech things that
-    I've learnt or enjoyed, though the frequency of posts has really
-    decreased lately.
-  </p>
+<h2>Projects</h2>
+<p>I build very small (but cute, I think!)
+  <a href="/projects">side projects</a>
+  that are either an attempt at "art", or are a thing that I need in my
+  life and can't find elsewhere (like, practicing ASL fingerspelling,
+  ukulele chords, or uhhhh understanding time keeping in JavaScript).
+</p>
 
-  <p><br>
-    <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
-  </p>
-
-<!-- 
-  <ul class="listing table">
-    {% for post in site.posts limit:10 %}
-    {% unless post.draft %}
-    {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
-    <li>
-      <span>{{ post.date | date: "%B %e, %Y" }}</span> <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endunless %}
-    {% endfor %}
-  </ul>
-  
-   -->
-  
-  <h2>Projects</h2>
-  <p>I build very small (but cute, I think!)
-    <a href="/projects">side projects</a>
-    that are either an attempt at "art", or are a thing that I need in my
-    life and can't find elsewhere (like, practicing ASL fingerspelling,
-    ukulele chords, or uhhhh understanding time keeping in JavaScript).
-  </p>
-
-  <p>I sometimes also give <a href="/talks">talks</a> at conferences, though
-    the pandemic has really thrown a wrench into that.</p> 
-
-</section>
+<p>I sometimes also give <a href="/talks">talks</a> at conferences, though
+  the pandemic has really thrown a wrench into that.</p> 
