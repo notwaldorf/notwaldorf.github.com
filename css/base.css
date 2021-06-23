@@ -30,7 +30,7 @@ html {
   --blue: #0D5DA5;
 
   --content-width: 700px;
-  --splash-bg: var(--red-light);
+  --splash-bg: white;
   --splash-fg: var(--red);
 }
 
@@ -103,9 +103,21 @@ iframe { max-width: 100% }
 /**********************
  * Splash
  **********************/
-.splash, .footer {
+.lines {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+}
+.lines > div {
+  height: 150px;
+  width: 20px;
+  border-right: 2px solid black;
+}
+.splash {
   position: relative;
-  background: var(--splash-bg);
+  margin-top: var(--spacing-l);
   min-height: 50vh;
   width: 100%;
   color: black;
@@ -120,23 +132,18 @@ iframe { max-width: 100% }
   padding: var(--spacing-m) 0;
 }
 
-.footer {
-  margin-top: var(--spacing-l);
-  min-height: 100px;
-}
-
-.splash > div:first-of-type {
-  width: 100%;
-  max-width: var(--content-width);
+.splash > div {
+  background: var(--splash-bg);
+  width: var(--content-width);
   position: relative;
 }
 
 .splash h1 {
-  color: var(--splash-fg);
+  color: black;
   background-image: none;
   -webkit-background-clip: none;
   -webkit-text-fill-color: inherit;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 50px;
   margin: var(--spacing-s) 0;
   padding: 0;
@@ -147,16 +154,38 @@ iframe { max-width: 100% }
   font-size: 1.4em;
 }
 
+
+/**********************
+ * ????
+ **********************/
+.square {
+  width: 200px;
+  height: 200px;
+  background: #FEA809;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.square-dots {
+  height: 100px;
+  width: 300px;
+  background-image: radial-gradient(black 12%, transparent 14%);
+  background-position: 0px 0px;
+  background-size: 20px 20px;
+  position: absolute;
+  top: 140px;
+  left: 40px;
+}
+
 /**********************
  * Copy
  **********************/
 h1, h2, h3, h4 {
   font-weight: 700;
   margin: var(--spacing) 0;
-  xfont-family: 'Montserrat', monospace;
 }
 
-h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar button {
+h1 a, h2 a, h3 a, h4 a, nav a, nav button {
   text-decoration: none;
   color: var(--foreground);
 }
@@ -229,6 +258,17 @@ ul {
   text-align: center;
   font-size: var(--font-size-s);
   line-height: var(--spacing);
+
+  position: relative;
+  background: var(--splash-bg);
+  min-height: 50vh;
+  width: 100%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: var(--spacing-l);
+  min-height: 100px;
 }
 
 .footer > .thanks {
@@ -258,19 +298,17 @@ ul {
 /**********************
  * Sidebar
  **********************/
-.sidebar {
+nav {
   width: 100%;
-
   align-items: center;
   padding: var(--spacing) 0;
   margin-bottom: var(--spacing-l);
-
   background: var(--splash-bg);
   color: black;
   margin-bottom: 0;
 }
 
-.sidebar > ul {
+nav > ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -278,23 +316,23 @@ ul {
   width: var(--content-width);
   margin: var(--spacing-s) auto;
 }
-.sidebar > ul > li {
+nav > ul > li {
   list-style: none;
 }
 
-.sidebar a {
+nav a {
   position: relative;
   font-weight: bold;
   border-bottom: none;
   font-size: var(--font-size-s);
-  margin: 0 var(--spacing) 0 0;
+  margin: 0;
 }
-.sidebar a:hover {
+nav a:hover {
   color: black;
-  background: var(--red-light);
+  background: var(--splash-bg);
   z-index: 0;
 }
-.sidebar a:hover::before {
+nav a:hover::before {
   position: absolute;
   display: block;
   left: -20px;
@@ -302,7 +340,7 @@ ul {
   content: '';
   height: 100%;
   width: 120%;
-  background-image: radial-gradient(var(--red) 25%, var(--red-light) 40%);
+  background-image: radial-gradient(var(--red) 25%, var(--splash-bg) 40%);
   background-position: 0px 0px;
   background-size: 6px 6px;
   z-index: -1;
