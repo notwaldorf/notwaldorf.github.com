@@ -20,7 +20,7 @@ layout: body
       <h1>{{page.splashtitle}}</h1>
       <p>{{page.splashbyline}}</p>
     </div>
-    <div id="birbs"></div>
+    <div id="birbs"><canvas></canvas></div>
   </div>
   <div class="dots"></div>
 </div>
@@ -44,14 +44,49 @@ layout: body
     margin-top: var(--spacing-l);
   }
 </style>
-
-
-<script src="https://cdn.jsdelivr.net/npm/p5@1.3.0/lib/p5.min.js"></script>
 <script>
-  if (window.p5) {
-    new p5(birds, document.getElementById('birbs'));
-  } else {
-    document.getElementById('birbs').style.display = 'none';
+  const p5Polyfill = {
+    PI: Math.PI,
+    HALF_PI: Math.PI / 2,
+    random: (a, b) => {
+      if (a !== undefined && b !== undefined) {
+        return Math.floor(Math.random() * b) + a;
+      } else {
+        // Assume a is an array.
+        const i = Math.floor(Math.random() * a.length);
+        return a[i];
+      }
+    },
+    fill: (c) => context.fillStyle = c,
+    stroke: (c) => context.strokeStyle = c,
+    noFill: () => context.fillStyle = 'transparent',
+    noStroke: () => context.strokeStyle = 'transparent',
+    push: () => context.save(),
+    pop: () => context.restore(),
+    translate: (x,y) => context.translate(x,y),
+    scale: (x,y) => context.scale(x,y),
+    rect: (x,y,w,h) => {
+      context.fillRect(x, y, w, h);
+      context.strokeRect(x, y, w, h);
+    },
+    circle: (x,y,d) => {
+      context.beginPath();
+      context.arc(x, y, d/2, 0, Math.PI * 2, false);
+      context.fill();
+      context.stroke();
+    },
+    arc: (x, y, w, h, start, stop, slice=false) => {
+      context.beginPath();
+      if (!slice) {
+        context.moveTo(x, y);
+      }
+      
+      context.arc(x, y, w/2, start, stop);
+      
+      context.closePath();
+      context.fill();
+      context.stroke();
+    }
   }
 
   function birds(p) {
@@ -63,21 +98,38 @@ layout: body
     ];
     const shapes = [
       'arc-1', 'arc-2', 'arc-3', 'arc-4', 
-      //'circle', 'square',
       'skip','skip',
     ];
     const minCells = Math.floor(p.random(6, 8));
 
-    p.setup = function() {
+    setup();
+
+
+
+    function setup() {
       const rekt = document.getElementById('birbs').getBoundingClientRect();
-      p.createCanvas(rekt.width, rekt.height);
-      p.background('white');
+      const canvas = document.querySelector('#birbs > canvas');
+
+      context = canvas.getContext('2d');
+
+      canvas.style.width = rekt.width + 'px';
+      canvas.style.height = rekt.height + 'px';
+      if(window.devicePixelRatio == 2) {
+        rekt.width *= 2;
+        rekt.height *= 2;
+        context.scale(2, 2);
+      } 
+      canvas.width = rekt.width;
+      canvas.height = rekt.height;
+
+      p.width = rekt.width;
+      p.height = rekt.height;
+      
       p.noStroke();
-      p.noLoop();
-      p.angleMode(p.RADIANS);
+      draw();
     }
 
-    p.draw = function() {
+    function draw() {
       let rows, cols, cellSize;
       if (p.width <= p.height) {
         cols = minCells;
@@ -91,11 +143,14 @@ layout: body
       
       for (let j = 0; j < cols; j++) {
         for (let i = 0; i < rows; i++) {
+          p.noStroke();
           p.fill(p.random(colors));
+          
           const shape = p.random(shapes);
-          p.drawShapeForCell(shape, cellSize, i, j);
+          drawShapeForCell(shape, cellSize, i, j);
         }
       }
+      
 
       // Now force-pick some shapes.
 
@@ -114,17 +169,17 @@ layout: body
       
       // Reset.
       p.fill('white');
-      p.drawShapeForCell('square', cellSize, row, col);
-      p.drawShapeForCell('square', cellSize, row, col + 1);
-      p.drawShapeForCell('square', cellSize, row + 1, col);
-      p.drawShapeForCell('square', cellSize, row + 1, col + 1);
+      drawShapeForCell('square', cellSize, row, col);
+      drawShapeForCell('square', cellSize, row, col + 1);
+      drawShapeForCell('square', cellSize, row + 1, col);
+      drawShapeForCell('square', cellSize, row + 1, col + 1);
 
       p.fill('black');
-      p.drawShapeForCell('arc-3', cellSize, row, col);
-      p.drawShapeForCell('arc-4', cellSize, row, col + 1);
+      drawShapeForCell('arc-3', cellSize, row, col);
+      drawShapeForCell('arc-4', cellSize, row, col + 1);
       //p.fill(p.random(colors));
-      p.drawShapeForCell('arc-2', cellSize, row + 1, col);
-      p.drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
+      drawShapeForCell('arc-2', cellSize, row + 1, col);
+      drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
 
       // Birb.
       // arc-3
@@ -141,13 +196,13 @@ layout: body
       availableCols.splice(availableCols.indexOf(col + 1), 1);
 
       p.fill('white');
-      p.drawShapeForCell('square', cellSize, row, col);
-      p.drawShapeForCell('square', cellSize, row + 1, col);
-      p.drawShapeForCell('square', cellSize, row + 1, col + 1);
+      drawShapeForCell('square', cellSize, row, col);
+      drawShapeForCell('square', cellSize, row + 1, col);
+      drawShapeForCell('square', cellSize, row + 1, col + 1);
       p.fill('black');
-      p.drawShapeForCell('arc-3', cellSize, row, col);
-      p.drawShapeForCell('arc-2', cellSize, row + 1, col);
-      p.drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
+      drawShapeForCell('arc-3', cellSize, row, col);
+      drawShapeForCell('arc-2', cellSize, row + 1, col);
+      drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
 
       // Grass:
       // leaf-1 leaf-2
@@ -160,10 +215,10 @@ layout: body
       }
       // Reset
       p.fill('white');
-      p.drawShapeForCell('square', cellSize, row, col);
-      p.drawShapeForCell('square', cellSize, row, col + 1);
-      p.drawShapeForCell('square', cellSize, row+1, col);
-      p.drawShapeForCell('square', cellSize, row+1, col + 1);
+      drawShapeForCell('square', cellSize, row, col);
+      drawShapeForCell('square', cellSize, row, col + 1);
+      drawShapeForCell('square', cellSize, row+1, col);
+      drawShapeForCell('square', cellSize, row+1, col + 1);
       
       availableRows.splice(availableRows.indexOf(row), 1);
       availableCols.splice(availableCols.indexOf(col), 1);
@@ -171,28 +226,27 @@ layout: body
       availableCols.splice(availableCols.indexOf(col+1), 1);
 
       p.fill('black');
-      p.drawShapeForCell('leaf-1', cellSize, row, col);
-      p.drawShapeForCell('leaf-2', cellSize, row, col+1);
+      drawShapeForCell('leaf-1', cellSize, row, col);
+      drawShapeForCell('leaf-2', cellSize, row, col+1);
       const y = (row+1) * cellSize;
       const x = col * cellSize;
       p.push();
       p.translate(x, y);
       p.rect(cellSize-2, 0, 4, cellSize);
       p.pop();
-
     }
 
-    p.drawShapeForCell = function (shape, cellSize, i, j) {
+    function drawShapeForCell(shape, cellSize, i, j) {
       const y = i * cellSize;
       const x = j * cellSize;
 
       p.push();
       p.translate(x, y);
-      p.drawShape(shape, cellSize);
+      drawShape(shape, cellSize);
       p.pop();
     }
 
-    p.drawShape = function(shape, cellSize, mode=p.PIE) {
+    function drawShape(shape, cellSize, slice=false) {
       const d = cellSize/2;
 
       switch (shape) {
@@ -203,37 +257,41 @@ layout: body
           p.rect(0, 0, cellSize, cellSize);
           break;
         case 'arc-1':
-          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI,mode);
+          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI, slice);
           break;
         case 'arc-2':
           p.translate(cellSize, 0);
           p.scale(-1, 1);
-          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI,mode);
+          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI, slice);
           break;
         case 'arc-3':
           p.translate(0, cellSize);
           p.scale(1, -1);
-          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI,mode);
+          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI, slice);
           break;
         case 'arc-4':
           p.translate(cellSize, cellSize);
           p.scale(-1, -1);
-          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI,mode);
+          p.arc(0, 0, cellSize*2, cellSize*2, 0, p.HALF_PI, slice);
           break;
         case 'skip':
           break;
         case 'leaf-1':
-          p.drawShape('arc-2', cellSize, p.OPEN);
-          p.drawShape('arc-4', cellSize, p.OPEN);
+          drawShape('arc-2', cellSize, true);
+          drawShape('arc-4', cellSize, true);
           break;
         case 'leaf-2':
-          p.drawShape('arc-1', cellSize, p.OPEN);
-          p.drawShape('arc-4', cellSize, p.OPEN);
+          drawShape('arc-1', cellSize, true);
+          drawShape('arc-4', cellSize, true);
           break;
         default:
-          p.arc(d, d, cellSize, cellSize, 180, 270);
           break;
       }
     }
   }
+
+  let context;
+  window.p = p5Polyfill;
+  birds(p);
+
 </script>
