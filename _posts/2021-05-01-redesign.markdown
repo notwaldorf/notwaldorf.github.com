@@ -3,21 +3,19 @@ layout: post
 title: "I redesigned my site"
 category: posts
 ---
- also even websites get split ends, so it was time for
-a little yearly trim. also i recently helped a friend redesign her site, and it made me think a lot about
-how i would do this exercise as a helpful 3rd party.
+The last time I redid my site was 2 years ago. I was really into gradient text and IBM Plex Mono. It was a mild increment over whatever I had before, which was just a cleaned up and colourful version of [Left](https://zachholman.com/left/) from like 6 years prior. Even websites get split ends, so it was time for a yearly haircut. Here's the before and after:
 
 # Why
-- i uased to write a lot of blog posts, so my index page was basically a listing of all my posts. Nowadays
-i do less talking and more thinking, so i wanted that to come through.
-- haven't done a lighthouse in a minute and im scared
+I used to write a lot of blog posts, so my website was very listing focus. Originally my home page was just a listing of my blog posts, but as I started switching teams and working on more things I had to insert some copy. As the pandemic hit, I started writing fewer and fewer posts, so having the one post of 2020 show up as a listing was ridiculous.
 
+Also this year I started focusing a lot more on making generative art and I thought it was sad I wasn't showing that anywhere on the site! The beauty of generative art is that you can just keep generating it over and over again....surely perfect for a website, right?
 
-# Things that i like
-- love those gradient titles. want it to remain cute.
+## Things that I like
+- Loved the idea of the gradient titles. It made a website about JavaScript look cute.
+- I'd be okay throwing out the gradients if I there was a different form of cute.
 
 # Things I'm over
-- too many links at the top
-- IBM plex mono and friends
-- need to showcase more
-- very white colourless content
+- IBM Plex Mono and friends. I still love monospace, but I change my fonts like I do my hair colour, and that is to say: a lot.
+- White, colourless pages. I'd like some splashes of colour!
+
+#
