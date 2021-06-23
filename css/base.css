@@ -149,6 +149,9 @@ iframe { max-width: 100% }
     flex-wrap: wrap;
     justify-content: center;
   }
+  .content {
+    margin-top: var(--spacing-m);
+  }
 }
 
 .splash-copy {
