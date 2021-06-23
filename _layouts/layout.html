@@ -15,8 +15,8 @@ layout: body
 
 {% if page.splashtitle %}
 <div class="splash">
-  <div class="horizontal">
-    <div>
+  <div class="splash-wrapper">
+    <div class="splash-copy">
       <h1>{{page.splashtitle}}</h1>
       <p>{{page.splashbyline}}</p>
     </div>
@@ -41,12 +41,18 @@ layout: body
     min-height: 350px;
     height: 100%;
     white-space: pre;
-    padding-left: var(--spacing-l);
+    margin-top: var(--spacing-l);
   }
 </style>
+
+
 <script src="https://cdn.jsdelivr.net/npm/p5@1.3.0/lib/p5.min.js"></script>
 <script>
-  new p5(birds, document.getElementById('birbs'));
+  if (window.p5) {
+    new p5(birds, document.getElementById('birbs'));
+  } else {
+    document.getElementById('birbs').style.display = 'none';
+  }
 
   function birds(p) {
     const colors = ['#84B4F9', '#1231B5', //blues

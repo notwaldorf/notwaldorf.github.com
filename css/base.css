@@ -41,7 +41,7 @@ body {
   font-family: 'Rubik', monospace;
   color: var(--foreground);
   margin: 0;
-  padding: 0;
+  padding: 1em;
 }
 
 p {
@@ -132,10 +132,28 @@ iframe { max-width: 100% }
   padding: var(--spacing-m) 0;
 }
 
-.splash > div {
+.splash > .splash-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
   background: var(--splash-bg);
   width: var(--content-width);
+  max-width: 100%;
   position: relative;
+}
+
+@media screen and (max-width:600px) {
+  .splash > .splash-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.splash-copy {
+  margin-right: var(--spacing-l);
+  max-width: 50%;
 }
 
 .splash h1 {
@@ -221,12 +239,6 @@ ul {
 /**********************
  * Party tricks
  **********************/
- .horizontal {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   align-items: center;
- }
 /* Thank you GitHub Universe site for this innovation */
 .rainbow {
   display: inline-block;
@@ -312,12 +324,14 @@ nav > ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   width: var(--content-width);
+  max-width: 100%;
   margin: var(--spacing-s) auto;
 }
 nav > ul > li {
   list-style: none;
+  margin: var(--spacing-xs) var(--spacing-s);
 }
 
 nav a {
