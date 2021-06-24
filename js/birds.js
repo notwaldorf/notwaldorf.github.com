@@ -54,7 +54,7 @@ function birds(p) {
     'arc-1', 'arc-2', 'arc-3', 'arc-4', 
     'skip','skip',
   ];
-  const minCells = Math.floor(p.random(4, 7));
+  
 
   setup();
 
@@ -87,6 +87,8 @@ function birds(p) {
   }
 
   function draw() {
+    const minCells = Math.floor(p.random(5, 7));
+
     // Background.
     p.fill('white');
     p.rect(0, 0, p.width, p.height);
@@ -143,8 +145,8 @@ function birds(p) {
     drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
 
     // Birb.
-    // arc-3
-    // arc-2  arc-1.
+    //    arc-3   empty
+    //    arc-2  arc-1.
     row = p.random(availableRows);
     col = p.random(availableCols);
     if (row === undefined || col === undefined) {
@@ -158,12 +160,15 @@ function birds(p) {
 
     p.fill('white');
     drawShapeForCell('square', cellSize, row, col);
+    drawShapeForCell('square', cellSize, row, col + 1);
     drawShapeForCell('square', cellSize, row + 1, col);
     drawShapeForCell('square', cellSize, row + 1, col + 1);
+
     p.fill('black');
     drawShapeForCell('arc-3', cellSize, row, col);
     drawShapeForCell('arc-2', cellSize, row + 1, col);
     drawShapeForCell('arc-1', cellSize, row + 1, col + 1);
+    
 
     // Grass:
     // leaf-1 leaf-2
@@ -198,6 +203,8 @@ function birds(p) {
   }
 
   function drawShapeForCell(shape, cellSize, i, j) {
+    if (i < 0 || j < 0) return;
+
     const y = i * cellSize;
     const x = j * cellSize;
 

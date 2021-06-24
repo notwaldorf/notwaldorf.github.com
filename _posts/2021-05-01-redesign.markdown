@@ -5,15 +5,82 @@ category: posts
 ---
 The last time I redid my site was 2 years ago. I was really into gradient text and IBM Plex Mono. It was a mild increment over whatever I had before, which was just a cleaned up and colourful version of [Left](https://zachholman.com/left/) from like 6 years prior. Even websites get split ends, so it was time for a yearly haircut. Here's the before and after:
 
+<style>
+  .arrow {
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+<div>
+  <img alt="my old website. a column of text, with a navbar at the top, and rainbow h1 headers"
+  src="/images/redesign/before.jpg">
+  <div class="arrow">↓</div>
+  <img alt="my new website. the structure of the site is the same, but below the nav bar there are
+  now 2 columns: the left one has a small blurb about me, the right one has a grid of colourful cells."
+  src="/images/redesign/after.jpg">
+</div>
+
 # Why
-I used to write a lot of blog posts, so my website was very listing focus. Originally my home page was just a listing of my blog posts, but as I started switching teams and working on more things I had to insert some copy. As the pandemic hit, I started writing fewer and fewer posts, so having the one post of 2020 show up as a listing was ridiculous.
+I used to write a lot of blog posts, so my website was very blog focused. Originally the home page was just a listing of posts with some copy sprinkled in. As the pandemic hit, I started writing fewer and fewer posts, so having the one post of 2020 show up as a listing was ridiculous.
 
-Also this year I started focusing a lot more on making generative art and I thought it was sad I wasn't showing that anywhere on the site! The beauty of generative art is that you can just keep generating it over and over again....surely perfect for a website, right?
+On top of that, this year I started focusing a lot more on making generative art and I thought it was sad I wasn't showing that anywhere on the site! The beauty of generative art is that you can just keep generating it over and over again....surely perfect for a website, right?
 
-## Things that need work
-- I like geometric patterns; bright and surprising accents (this ended up being the dots/hatch hover styles)
-- I haven't run a Lighthouse test in robably 4 years, and there were a bunch of problems -- 
-# Things I'm over
-- IBM Plex Mono and friends. I still love monospace, but I change my fonts like I do my hair colour, and that is to say: a lot.
-- White, colourless pages. I'd like some splashes of colour!
-- The emoji rain button. It's a v0 web component, written in Polymer, with a painful v0 polyfill in it that just has no place in 2021, and I have no motivation to update it either. Do a delight in a different way, me. 
+# Colours
+I tried [really hard](https://twitter.com/notwaldorf/status/1407102532992655361?s=20) to add some dreamy pastel blobs randomly in the page. As you can tell from the replies on that tweet, it was the Bad Place. The thing that worked the most was "blurred spans positioned absolutely" which makes browsers and my soul cry. I also didn't want to use images, because I don't speak photoshop and I have no desire to learn it.
+
+With pastels out of the way, I went for the exact opposite: <span class="hilite">bright</span> and 
+<span class="dotted">patterned</span>. I recently worked on a Bauhaus inspired project for HashiConf (which ended up in the end not looking very Bauhaus at all), so I was had a bunch of unused code lying around. [Bauhaus](https://en.wikipedia.org/wiki/Bauhaus) aesthetics are all about grids and bold, simple colours -- I don't know if I did it justice, but I certainly tried.
+
+The blog and weaknotes pages are listings of links which I always struggle with. If all the text is a link, and links are meant to be bright, then most of the page is a bright, unreadable scream of colours. So on these pages, the default href styles are gone, and I added some hatching on hover only. That way there's splotches of colour, but they're mostly out of the way.
+
+# The generative art bits
+I experimented with a bunch of basic generative art algorithms for the pages, like animated [Perlin noise](https://genekogan.com/code/p5js-perlin-noise/) and grid-based randomness. In the end, I did a variation on a pretty standard [Truchet tile](https://en.wikipedia.org/wiki/Truchet_tiles) grid, that you see a lot in beginner generative art tutorials: you have a grid of cells, and each cells can be one of the 4 orientations of a quarter-circle. After staring a bunch at these quarter circles, some started looking like objects: a tulip, a boat, a bird, so I added those in black, so that they pop out.
+
+## An accidental P5 polyfill
+I do all of my generative art in [p5.js](https://p5js.org/) and [canvas-sketch](https://github.com/mattdesl/canvas-sketch) because I want to write the least amount of canvas code I can, and most of the time it's offline and for printing on paper. In this case though it would live on every single page, and p5.js comes in at a couple hundred k, most of which I am not actually using. I didn't want to rewrite all of my code, so I ended up writing a [little small object](https://gist.github.com/notwaldorf/e63ea117011ac059a258776d65b6ffc3) that implements the bits of the p5.js API I was using. Cute eh?
+
+```js
+let context;
+window.p = {
+  PI: Math.PI,
+  HALF_PI: Math.PI / 2,
+  random: (a, b) => {
+    if (a !== undefined && b !== undefined) {
+    return Math.floor(Math.random() * b) + a;
+    } else {
+    // Assume a is an array.
+    const i = Math.floor(Math.random() * a.length);
+    return a[i];
+    }
+  },
+  fill: (c) => context.fillStyle = c,
+  stroke: (c) => context.strokeStyle = c,
+  noFill: () => context.fillStyle = 'transparent',
+  noStroke: () => context.strokeStyle = 'transparent',
+  push: () => context.save(),
+  pop: () => context.restore(),
+  translate: (x,y) => context.translate(x,y),
+  scale: (x,y) => context.scale(x,y),
+  rect: (x,y,w,h) => {
+    context.fillRect(x, y, w, h);
+    context.strokeRect(x, y, w, h);
+  },
+  circle: (x,y,d) => {
+    context.beginPath();
+    context.arc(x, y, d/2, 0, Math.PI * 2, false);
+    context.fill();
+    context.stroke();
+  },
+  arc: (x, y, w, h, start, stop, slice=false) => {
+    context.beginPath();
+    if (!slice) {
+    context.moveTo(x, y);
+    }
+    context.arc(x, y, w/2, start, stop);
+    context.closePath();
+    context.fill();
+    context.stroke();
+  }
+}
+```

@@ -32,8 +32,6 @@ html {
   --blue-light: #84B4F9;
 
   --content-width: 700px;
-  --splash-bg: white;
-  --splash-fg: var(--red);
 }
 
 body {
@@ -100,7 +98,7 @@ iframe { max-width: 100% }
   justify-content: space-between;
   align-items: center;
 
-  background: var(--splash-bg);
+  background: white;
   width: var(--content-width);
   max-width: 100%;
   position: relative;
@@ -188,7 +186,7 @@ h1 a, h2 a, h3 a, h4 a, nav a, nav button {
 h1 {
   font-size: 36px;
   font-weight: 900;
-  margin-top: 0;
+  margin-top: var(--spacing-l);
   margin-bottom: var(--spacing-l);
 }
 
@@ -242,24 +240,10 @@ ul {
  * Footer
  **********************/
 .footer {
-  padding: var(--spacing-l) 0;
-  color: var(--accent);
-  text-align: center;
-  font-size: var(--font-size-s);
-  line-height: var(--spacing);
-
   position: relative;
-  background: var(--splash-bg);
-  min-height: 50vh;
   width: 100%;
   color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: var(--spacing-l);
-  min-height: 100px;
-
-  background: var(--yellow);
+  margin: var(--spacing-l) 0;
 }
 
 .footer > .thanks {
@@ -268,6 +252,7 @@ ul {
   justify-content: space-between;
   width: 100%;
   max-width: var(--content-width);
+  margin: 0 auto;
   position: relative;
 }
 
@@ -294,7 +279,6 @@ nav {
   align-items: center;
   padding: var(--spacing) 0;
   margin-bottom: var(--spacing-l);
-  background: var(--splash-bg);
   color: black;
   margin-bottom: 0;
 }
@@ -322,10 +306,20 @@ nav a {
 }
 nav a:hover {
   color: black;
-  background: var(--splash-bg);
+  background: white;
   z-index: 0;
 }
-nav a:hover::before {
+.dotted {
+  position: relative;
+  color: black;
+  background: white;
+  display: inline-block;
+  width:100px;
+  z-index: auto;
+}
+
+nav a:hover::before, 
+.dotted::before {
   position: absolute;
   display: block;
   left: -20px;
@@ -333,7 +327,7 @@ nav a:hover::before {
   content: '';
   height: 100%;
   width: 120%;
-  background-image: radial-gradient(var(--red) 25%, var(--splash-bg) 40%);
+  background-image: radial-gradient(var(--red) 25%, white 40%);
   background-position: 0px 0px;
   background-size: 6px 6px;
   z-index: -1;
@@ -348,12 +342,6 @@ nav a:hover::before {
   margin-bottom: var(--spacing-l);
   padding: 0;
   width: inherit;
-}
-
-.content .byline {
-  font-size: var(--font-size-xs);
-  color: #777;
-  text-transform: uppercase;
 }
 
 .content ul {
@@ -468,7 +456,7 @@ blockquote p {
   bottom: -10px;
   content: '';
   height: 18px;
-  width: 100px;
+  width: 80%;
   background-image: repeating-linear-gradient(
     -45deg,  var(--blue-light),
     var(--blue-light) 2px,
