@@ -1,24 +1,26 @@
 ---
 layout: layout
+title: "Blog"
+splashtitle: "Posts"
 ---
-<section class="content">
-  <h1 class="no-butt">Posts</h1>
-  <p>You can follow these blog posts via <a href="https://meowni.ca/blog.xml">RSS</a>. This is a different RSS feed than 
-    the one for my <a href="https://meowni.ca/weaknotes.xml">weaknotes</a>, in case you're worried about being spammed.</p>
+<p>You can follow these blog posts via <a href="https://meowni.ca/blog.xml">RSS</a>. This is a different RSS feed than 
+  the one for my <a href="https://meowni.ca/weaknotes.xml">weaknotes</a>, in case you're worried about being spammed.</p>
+<hr>
 
-  <ul class="listing table">
-    {% for post in site.posts %}
-    {% unless post.draft %}
-    {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
-    {% if currentdate != thedate %}
-    <h3 class="rainbow">{{ currentdate }}</h3>
-    {% capture thedate %}{{currentdate}}{% endcapture %}
-    {% endif %}
-    <li>
-      <span>{{ post.date | date: "%B %e, %Y" }}</span> <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endunless %}
-    {% endfor %}
-  </ul>
-  <br /><br />
-</section>
+<ul class="listing fancy table">
+  {% for post in site.posts %}
+  {% unless post.draft %}
+  {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
+  {% if currentdate != thedate %}
+  <li>
+    <h2 class="with-butt">{{ currentdate }}</h2>
+  </li>
+  {% capture thedate %}{{currentdate}}{% endcapture %}
+  {% endif %}
+  <li>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+    <span>{{ post.date | date: "%b %e, %Y" }}</span> 
+  </li>
+  {% endunless %}
+  {% endfor %}
+</ul>

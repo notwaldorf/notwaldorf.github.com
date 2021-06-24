@@ -1,38 +1,45 @@
 ---
 layout: body
 ---
-<header class="sidebar">
-  <a href="/" title="Photo of my face" aria-label="Photo of my face">
-    <img src="/images/avatar.jpg" height="80" width="80" class="avatar" />
-  </a>
+<nav>
+  <ul>
+    <li id="home_link" class="og"><a href="/">🏠</a></li>
+    <li><a href="/about">about</a></li>
+    <li><a href="/weaknotes">weaknotes</a></li>
+    <li><a href="/blog">posts</a></li>
+    <li><a href="/projects">projects</a></li>
+    <li><a href="/talks">talks</a></li>
+    <li><a href="https://meownica.studio" target="_blank" rel="noreferrer">shop</a></li>
+  </ul>
+</nav>
 
-  <div class="sidebar-text">
-    <nav class="sections">
-      <ul>
-        <li><a href="/about">about</a></li>
-        <li><a href="/weaknotes">weaknotes</a></li>
-        <li><a href="/blog">posts</a></li>
-        <li><a href="/projects">projects</a></li>
-        <li><a href="/talks">talks</a></li>
-        <li><a href="https://meownica.studio">shop</a></li>
-        <li>
-          <button id="rainButton" title="emoji-rain" aria-label="emoji-rain" class="og">✨</button>
-        </li>
-      </ul>
-    </nav>
+{% if page.splashtitle %}
+<div class="splash">
+  <div class="splash-wrapper">
+    <div class="splash-copy">
+      <h1>{{page.splashtitle}}</h1>
+      <p>{{page.splashbyline}}</p>
+    </div>
+    <div id="birbs">
+      <canvas></canvas>
+      <div class="birbs-legend">
+        <b>click this art</b> to regenerate it 
+        <button>[<b>?</b>]</button>
+
+        <div class="birbs-note">I made this little piece of art. It is 
+          randomly generated every time you refresh the page. You can also regenerate it
+          however many times you want by clicking on it. Every art is new!
+        </div>
+      </div>
+      
+    </div>
   </div>
-</header>
-
-{{ content }}
+  <div class="dots"></div>
+</div>
+{% endif %}
 
 <section class="content">
-  <div class="footer">
-    <section class="thanks">
-      <span>thanks for reading!</span>
-      <a href="#" class="heart" aria-hidden="true">❤︎</a>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
-        aria-label="Tweet at me!">Tweet</a>
-    </section>
-  </div>
+  {{ content }}
 </section>
-<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+
+<script src="/js/birds.js"></script>

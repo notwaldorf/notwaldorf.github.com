@@ -1,59 +1,44 @@
 ---
 layout: layout
 title: "About"
----
+splashtitle: "Monica <br>Dinculescu"
+splashbyline: "I'm a <b>creative engineer</b> who builds delightful web experiences. 
+I can advise your company about the <b>web platform</b>, performance, 
+creative user interactions, and usable machine learning."
+---  
 <style>
-  .content {
-    margin-top: 0
-  }
+#home_link {display: none !important;}
 
-  .sidebar {
-    margin-bottom: 0
-  }
 </style>
-<section class="content">
-  <h1>Monica Dinculescu</h1>
+<p>I've just ended an 8 year stint as a Senior Engineer at Google, where I worked on
+  making music and art and all sorts of creative interactions with Machine Learning,
+  web components and web standards, and the guts of Chromium.
+  You can read a bit more <a href="/about">about me</a> and my past work. Most of
+  my personal code is on <a href="https://github.com/notwaldorf">GitHub</a> or
+  on <a href="https://glitch.com/@notwaldorf">Glitch</a>.
+</p>
 
-  <p>I've just ended an 8 year stint as a Senior Engineer at Google, where I worked on
-    making music and art and all sorts of creative interactions with Machine Learning,
-    web components and web standards, and the guts of Chromium.
-    You can read a bit more about me over <a href="/about">here</a>. Most of
-    my personal code is on <a href="https://github.com/notwaldorf">GitHub</a> or
-    on <a href="https://glitch.com/@notwaldorf">Glitch</a>.
-  </p>
+<hr>
 
-  <h3 class="rainbow">Writing</h3>
-  <p>I'm giving it a shot at writing weekly notes. You can browse the full
-    <a href="/weaknotes">archive</a>, for as long as I manage to keep it up 😅.
-    I also occasionally <a href="/blog">blog</a> about tech things that
-    I've learnt or enjoyed, though the frequency of posts has really
-    decreased lately. Here are some recent posts:
-  </p>
+<h2>Writing</h2>
+<p>I'm giving it a shot at writing weekly notes. You can browse the full
+  <a href="/weaknotes">archive</a>, for as long as I manage to keep it up 😅.
+  I also occasionally <a href="/blog">blog</a> about tech things that
+  I've learnt or enjoyed, though the frequency of posts has really
+  decreased lately.
+</p>
 
-  <ul class="listing table">
-    {% for post in site.posts limit:10 %}
-    {% unless post.draft %}
-    {% capture currentdate %}{{post.date | date: "%Y"}}{% endcapture %}
-    <li>
-      <span>{{ post.date | date: "%B %e, %Y" }}</span> <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endunless %}
-    {% endfor %}
-  </ul>
-  
-  <p><br>
-    <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
-  </p>
-  
-  <h3 class="rainbow">Projects</h3>
-  <p>I build very small (but cute, I think!)
-    <a href="/projects">side projects</a>
-    that are either an attempt at "art", or are a thing that I need in my
-    life and can't find elsewhere (like, practicing ASL fingerspelling,
-    ukulele chords, or uhhhh understanding time keeping in JavaScript).
-  </p>
+<p><br>
+  <b>RSS feeds</b>: <a href="/atom.xml">the firehose</a> | <a href="/blog.xml">just the blog</a> | <a href="/weaknotes.xml">just the weaknotes</a>.
+</p>
 
-  <p>I sometimes also give <a href="/talks">talks</a> at conferences, though
-    the pandemic has really thrown a wrench into that.</p>
+<h2>Projects</h2>
+<p>I build very small (but cute, I think!)
+  <a href="/projects">side projects</a>
+  that are either an attempt at "art", or are a thing that I need in my
+  life and can't find elsewhere (like, practicing ASL fingerspelling,
+  ukulele chords, or uhhhh understanding time keeping in JavaScript).
+</p>
 
-</section>
+<p>I sometimes also give <a href="/talks">talks</a> at conferences, though
+  the pandemic has really thrown a wrench into that.</p> 

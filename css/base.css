@@ -5,35 +5,9 @@
   src: url(/fonts/og-dcm-emoji.ttf);
 }
 
-/* Future Monica: I was lazy and only got the Latin ranges, so if you type anything
-in French or Romanian and it looks borked, maybe that's why. */
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 400;
-  src: local('IBM Plex Mono'), local('IBMPlexMono'), url(https://fonts.gstatic.com/s/ibmplexmono/v3/-F63fjptAgt5VM-kVkqdyU8n1i8q131nj-o.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
-}
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 700;
-  src: local('IBM Plex Mono Bold'), local('IBMPlexMono-Bold'), url(https://fonts.gstatic.com/s/ibmplexmono/v3/-F6qfjptAgt5VM-kVkqdyU8n3pQPwlBFgsAXHNk.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
-}
-@font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(https://fonts.gstatic.com/s/inconsolata/v18/QldKNThLqRwH-OJ1UHjlKGlZ5qhExfHw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 .og {
   font-family: og-emoji, sans-serif;
+  vertical-align: middle;
 }
 
 * {box-sizing: border-box}
@@ -46,40 +20,156 @@ html {
   --spacing-m: 36px;
   --spacing-l: 48px;
   --foreground: black;
-  --accent: #ff487a;
-  --accent-2: #7BE4D5;
   --font-size: 20px;
   --font-size-s: 18px;
   --font-size-xs: 14px;
+
+
+  --red-light:#FECBCA;
+  --red: #F83735;
+  --yellow: #FAC832;
+  --blue: #1231B5;
+  --blue-light: #84B4F9;
+
+  --content-width: 700px;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background: white;
-  font-family: 'Inconsolata', monospace;
+  font-family: 'Rubik', -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   color: var(--foreground);
   margin: 0;
+  padding: 1em;
 }
+
 p {
   font-size: var(--font-size);
   margin: 0 0 1.5rem;
   line-height: 1.5;
-  letter-spacing: -0.5px; /* It looks very...wide otherwise with this font.*/
 }
-.top-line {
-  border-top: var(--spacing-xs) solid var(--accent-2);
-  position:fixed;
+
+.hilite {
+  position: relative;
+  background: var(--yellow);
+  padding: 0 4px;
+  z-index: 0;
+  border-radius: 2px;
+}
+
+::selection { background: var(--red-light); }
+iframe { max-width: 100% }
+
+/**********************
+ * Splash
+ **********************/
+.lines {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
   top: 0;
   left: 0;
+}
+.lines > div {
+  height: 150px;
+  width: 20px;
+  border-right: 2px solid black;
+}
+.splash {
+  position: relative;
+  min-height: 50vh;
   width: 100%;
-  z-index: 100;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.container {
-  padding-top: var(--spacing-l);
+
+.splash.short {
+  min-height: 30vh;
+  padding: var(--spacing-m) 0;
 }
-::selection { background: #E0F7FA }
-iframe { max-width: 100% }
+
+.splash > .splash-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background: white;
+  width: var(--content-width);
+  max-width: 100%;
+  position: relative;
+}
+
+.splash-copy {
+  margin-right: var(--spacing-l);
+  max-width: 50%;
+}
+
+.splash h1 {
+  color: black;
+  background-image: none;
+  -webkit-background-clip: none;
+  -webkit-text-fill-color: inherit;
+  font-size: 50px;
+  line-height: 50px;
+  margin: var(--spacing-s) 0;
+  padding: 0;
+}
+
+.splash p {
+  margin-top: var(--spacing-m);
+  font-size: 1.4em;
+}
+
+
+/**********************
+ * Splash art
+ **********************/
+ #birbs {
+  min-width: 340px;
+  min-height: 340px;
+  height: 100%;
+  max-width: 90%;
+  margin-top: var(--spacing-l);
+  margin-bottom: var(--spacing-l);
+  overflow: hidden;
+  position: relative;
+}
+
+#birbs canvas {
+  cursor: pointer;
+}
+.birbs-legend button {
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+.birbs-legend button > b {
+  color: var(--red);
+}
+
+.birbs-note {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 80%;
+  padding: var(--spacing-s);
+  background: white;
+  border: 4px solid var(--red);
+  display: none;
+}
+
+.birbs-legend button:hover + .birbs-note {
+  display: block;
+}
 
 /**********************
  * Copy
@@ -87,10 +177,9 @@ iframe { max-width: 100% }
 h1, h2, h3, h4 {
   font-weight: 700;
   margin: var(--spacing) 0;
-  font-family: 'IBM Plex Mono', monospace;
 }
 
-h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar button {
+h1 a, h2 a, h3 a, h4 a, nav a, nav button {
   text-decoration: none;
   color: var(--foreground);
 }
@@ -98,11 +187,8 @@ h1 a, h2 a, h3 a, h4 a, .sidebar a, .sidebar button {
 h1 {
   font-size: 36px;
   font-weight: 900;
-  margin-top: 0;
+  margin-top: var(--spacing-l);
   margin-bottom: var(--spacing-l);
-}
-h1.no-butt {
-  margin-bottom: 0;
 }
 
 h2, h3 {
@@ -112,25 +198,9 @@ h2, h3 {
   margin-top: var(--spacing-l);
   margin-bottom: 30px;
 }
-h2:after {
-  content: "";
-  position: absolute;
-  width: var(--spacing-l);
-  height: var(--spacing-s);
-  bottom: calc(0px - var(--spacing-s));
-  left: 0;
-  border-bottom: 6px solid var(--accent);
-}
 
-/* Thank you GitHub Universe site for this innovation */
-h1, .rainbow {
-  display: inline-block;
-  background-image: linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%);
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
+h2 {
+  font-size: 30px;
 }
 
 ul.listing > h3 {
@@ -143,20 +213,48 @@ ul {
 }
 
 /**********************
+ * Party tricks
+ **********************/
+/* Thank you GitHub Universe site for this innovation */
+.rainbow {
+  display: inline-block;
+  background-image: linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%);
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.with-butt:after {
+  content: "";
+  position: absolute;
+  width: var(--spacing-l);
+  height: var(--spacing-s);
+  bottom: calc(0px - var(--spacing-s));
+  left: 0;
+  border-bottom: 6px solid var(--red);
+}
+
+
+/**********************
  * Footer
  **********************/
 .footer {
-  padding: var(--spacing-l) 0;
-  color: var(--accent);
-  text-align: center;
-  text-transform: uppercase;
-  font-size: var(--font-size-s);
-  line-height: var(--spacing);
+  position: relative;
+  width: 100%;
+  color: black;
+  margin: var(--spacing-l) 0;
 }
 
 .footer > .thanks {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  position: relative;
 }
 
 .footer > .thanks .heart {
@@ -177,96 +275,74 @@ ul {
 /**********************
  * Sidebar
  **********************/
-.sidebar {
-  position: fixed;
-  margin-left: 50px;
-  width: 150px;
-}
-
-.sidebar .avatar {
-  border-radius: 50%;
-}
-
-.sidebar .avatar:hover {
-  -webkit-animation: avatarzomg 0.9s infinite;
-  -moz-animation: avatarzomg 0.9s infinite;
-  animation: avatarzomg 0.9s infinite;
-}
-
-.sidebar a {
-  border-bottom: none;
-}
-
-.sidebar .meta {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+nav {
+  width: 100%;
   align-items: center;
-  margin-top: var(--spacing-s);
-  height: var(--spacing);
+  padding: var(--spacing) 0;
+  margin-bottom: var(--spacing-l);
+  color: black;
+  margin-bottom: 0;
 }
 
-.sidebar .meta .icon {
-  margin-left: 2px;
-  margin-right: 2px;
-  font-size: var(--spacing);
-}
-
-.sidebar .sections {
-  margin: var(--spacing-s) 0 0 54px;
-}
-
-.sidebar .sections ul {
+nav > ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: var(--content-width);
+  max-width: 100%;
+  margin: var(--spacing-s) auto;
 }
-.sidebar .sections li {
+nav > ul > li {
   list-style: none;
-  margin-bottom: var(--spacing-s);
+  margin: var(--spacing-xs) var(--spacing-s);
 }
 
-.sidebar .sections a {
-  font-size: var(--font-size-s);
+nav a {
+  position: relative;
   font-weight: bold;
-  margin: 0 var(--spacing) 0 0;
-  padding: 5px var(--spacing-s);
-}
-
-.sidebar button {
-  background: none;
-  border: none;
-  box-shadow: none;
-  outline:none;
-  cursor: pointer;
+  border-bottom: none;
+  font-size: var(--font-size-s);
   margin: 0;
-  padding: 0;
-  font-size: inherit;
-
-  width: 69px;
-  text-align: left;
+}
+nav a:hover {
+  color: black;
+  background: white;
+  z-index: 0;
+}
+.dotted {
+  position: relative;
+  color: black;
+  background: white;
+  display: inline-block;
+  width:100px;
+  z-index: auto;
 }
 
-#rainButton {
-  text-align: center;
-  padding: 5px var(--spacing-xxs);
-  margin: 0 var(--spacing) 0 0;
-  width: 18px;
+nav a:hover::before, 
+.dotted::before {
+  position: absolute;
+  display: block;
+  left: -20px;
+  top: 10px;
+  content: '';
+  height: 100%;
+  width: 120%;
+  background-image: radial-gradient(var(--red) 25%, white 40%);
+  background-position: 0px 0px;
+  background-size: 6px 6px;
+  z-index: -1;
 }
 /**********************
  * Posts
  **********************/
 .content {
-  max-width: 700px;
-  margin: 50px var(--spacing) 50px 250px;
-}
-
-.content .byline {
-  font-weight: 900;
-  font-size: var(--font-size-xs);
-  color: #777;
-  text-transform: uppercase;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
+  padding: 0;
+  width: inherit;
 }
 
 .content ul {
@@ -281,6 +357,7 @@ ul {
 .content li {
   margin-bottom: var(--spacing-s);
   margin-left: var(--spacing-s);
+  line-height: 1.5;
 }
 
 .content img:not(.emoji) {
@@ -293,7 +370,7 @@ ul {
 }
 
 .content hr {
-  background-color: var(--accent-2);
+  background-color: var(--yellow);
   border: 0px;
   margin: 50px auto;
   width: 50%;
@@ -331,18 +408,6 @@ blockquote p {
   display: inline;
 }
 
-/*.content blockquote cite:before {
-    content: '— ';
-}
-
-.content blockquote cite {
-  display: block;
-  margin-top: .5em;
-  text-align: right;
-  color: #111;
-  font-style: normal;
-}*/
-
 /**********************
 * Posts lists
 *********************/
@@ -350,27 +415,28 @@ blockquote p {
   margin: 0;
   padding: 0;
 }
+
 .content .listing li {
   font-size: var(--font-size-s);
   list-style: none;
   padding: 5px 3px;
   margin: 0;
-  color: #777777;
+  color: black
 }
 
 .content .listing.table li {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.content .listing a {
+.content .listing.fancy a {
   color: black;
   padding-bottom: 2px;
-  border-bottom: 1px dotted #ddd;
   text-decoration: none;
   font-weight: normal;
+  position: relative;
 }
 
 .content .listing li span:not(.talk-title) {
@@ -381,13 +447,33 @@ blockquote p {
   text-transform: uppercase;
 }
 
+.content .listing.fancy a:hover {
+  background: white;
+}
+.content .listing.fancy a:hover::before {
+  position: absolute;
+  display: block;
+  left: -20px;
+  bottom: -10px;
+  content: '';
+  height: 18px;
+  width: 80%;
+  background-image: repeating-linear-gradient(
+    -45deg,  var(--blue-light),
+    var(--blue-light) 2px,
+    white 2px,
+    white 6px
+  );
+  z-index: -1;
+}
+
 /**********************
  * Links
  *********************/
 a {
-  color: var(--accent);
-  transition: color .3s ease-in-out;
-	-moz-transition: color .3s ease-in-out;
+  color: var(--red);
+  transition: color .2s ease-in-out;
+	-moz-transition: color .2s ease-in-out;
   text-decoration: underline;
   -webkit-text-decoration-skip: ink;
   text-decoration-skip: ink;
@@ -395,68 +481,21 @@ a {
 }
 
 a:hover, button:hover {
-  -webkit-animation: zomg 3s infinite;
-  -moz-animation: zomg 3s infinite;
-  animation: zomg 3s infinite;
-}
-
-@-webkit-keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-@-moz-keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-@keyframes zomg {
-  0%, 100% { color: #7ccdea; fill: #7ccdea; }
-  16%      { color: #0074D9; fill: #0074D9; }
-  32%      { color: #2ECC40; fill: #2ECC40;}
-  48%      { color: #FFDC00; fill: #FFDC00;}
-  64%      { color: #B10DC9; fill: #B10DC9;}
-  80%      { color: #FF4136; fill: #FF4136;}
-}
-
-@-webkit-keyframes avatarzomg {
-  0%, 100% { -webkit-filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(180deg); }
-  50%      { -webkit-filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { -webkit-filter: invert(10%) saturate(500%) hue-rotate(90deg); }
-}
-@-moz-keyframes avatarzomg {
-  0%, 100% { filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { filter: invert(10%) saturate(500%) hue-rotate(180deg); }
-  50%      { filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { filter: invert(10%) saturate(500%) hue-rotate(90deg); }
-}
-@keyframes avatarzomg {
-  0%, 100% { filter: invert(0) saturate(100%) hue-rotate(0deg); }
-  25%      { filter: invert(10%) saturate(500%) hue-rotate(180deg);}
-  50%      { filter: invert(10%) saturate(300%) hue-rotate(300deg); }
-  75%      { filter: invert(10%) saturate(500%) hue-rotate(90deg);}
+  color: var(--blue);
 }
 
 /**********************
  * Code
  *********************/
 code {
-  /*background: #b0efe6;
-  outline: 1px solid #7fe5d7;*/
   font-family: SourceCodePro,Consolas,Menlo,Monaco,'Courier New',monospace;
   font-size: var(--font-size-xs);
   color: black;
   border: 1px solid var(--accent-2);
-  background-color: rgba(123, 228, 213, 0.3); /* accent-2 with opacity */
+  background-color: var(--red-light);
   line-height: 1.5;
   padding: 2px 3px;
+
 }
 
 pre {
@@ -466,6 +505,7 @@ pre {
   padding: var(--spacing-s);
   overflow-x: auto;
   overflow-y: hidden;
+  margin-bottom: var(--spacing-m);
 }
 
 pre code {
@@ -498,4 +538,20 @@ h2 code {
   text-decoration: none;
   font-weight: normal;
   border-bottom: 1px dotted var(--accent);
+}
+
+
+
+
+
+
+@media screen and (max-width:600px) {
+  .splash > .splash-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .splash-copy {
+    margin-right: 0;
+    max-width: 100%;
+  }
 }
