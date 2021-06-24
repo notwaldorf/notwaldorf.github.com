@@ -143,6 +143,9 @@ iframe { max-width: 100% }
 #birbs canvas {
   cursor: pointer;
 }
+.birbs-legend {
+  text-align: center;
+}
 .birbs-legend button {
   background: transparent;
   font-family: inherit;
