@@ -71,11 +71,11 @@ function birds(p) {
 
     canvas.style.width = rekt.width + 'px';
     canvas.style.height = rekt.height + 'px';
-    if(window.devicePixelRatio == 2) {
-      rekt.width *= 2;
-      rekt.height *= 2;
-      context.scale(2, 2);
-    } 
+    // get retinaed.
+    rekt.width *= window.devicePixelRatio;
+    rekt.height *= window.devicePixelRatio;
+    context.scale(window.devicePixelRatio, window.devicePixelRatio);
+
     canvas.width = rekt.width;
     canvas.height = rekt.height;
 
