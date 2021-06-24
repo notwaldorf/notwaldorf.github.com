@@ -139,8 +139,9 @@ iframe { max-width: 100% }
   overflow: hidden;
   position: relative;
 }
-.birbs-legend {
-  text-align: center;
+
+#birbs canvas {
+  cursor: pointer;
 }
 .birbs-legend button {
   background: transparent;
@@ -494,6 +495,7 @@ code {
   background-color: var(--red-light);
   line-height: 1.5;
   padding: 2px 3px;
+
 }
 
 pre {
@@ -503,6 +505,7 @@ pre {
   padding: var(--spacing-s);
   overflow-x: auto;
   overflow-y: hidden;
+  margin-bottom: var(--spacing-m);
 }
 
 pre code {
