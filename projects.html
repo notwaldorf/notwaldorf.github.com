@@ -2,124 +2,225 @@
 layout: layout
 title: "Projects"
 splashtitle: "Projects"
-splashbyline: "Here's some things I've webbed. Some of them involve
-emoji. The rest of them probably involve cats. All of them live on the web (get it? webbed? heh.)"
 ---
+<style>
+  p {
+    font-size: var(--font-size-s);
+  }
+  .content .listing.table li > a {
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 40%;
+  }
+  .content .listing.table li > div {
+    flex-grow: 1;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: var(--spacing-xs);
+  }
+  .content .listing.table li > div:before {
+    content: '→ ';
+    font-weight:bold; 
+  }
+  @media screen and (max-width:600px) {
+    .content .listing.table li {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-bottom: var(--spacing-m);
+    }
+    .content .listing.table li > div {
+      margin-left: 0;
+    }
+    .content .listing.table li > a {
+      width: 100% !important;
+      flex-shrink: 0;
+    }
+  }
+</style>
 
-<ul class="listing projects">
-  <h2 class="with-butt">2021</h2>
-  <li><a href="https://reading-notes-rainbow.glitch.me">reading (notes) rainbow</a>: learn how to read notes on a
+<h2 class="with-butt">2021</h2>
+<ul class="listing fancy table projects">
+  <li><a href="https://reading-notes-rainbow.glitch.me">reading (notes) rainbow</a>
+  <div>learn how to read notes on a
     musical staff
-  </li>
+  </div></li>
+</ul>
 
   <h2 class="with-butt">2020</h2>
-  <li><a href="https://fingerspell.glitch.me">fingerspell</a>: practice reading ASL fingerspelling
-    at different speeds</li>
-  <li><a href="https://ukulele-practice.glitch.me">practice your ukulele!</a>: practice
-    chords and strumming on your ukulele</li>
+  <ul class="listing fancy table projects">
+  <li><a href="https://fingerspell.glitch.me">fingerspell</a>
+<div>practice reading ASL fingerspelling
+    at different speeds</div></li>
+  <li><a href="https://ukulele-practice.glitch.me">practice your ukulele!</a>
+  <div>practice chords and strumming on your ukulele</div></li>
+</ul>
 
-  <br>
-  <p>I spent most of the year working with the Trevor Project on classifying suicidal ideation,
+  <p><span class="hilite"> btw</span> I spent most of the year working with the Trevor Project on classifying suicidal ideation,
     and didn't do any side projects because the world was on fire and I didn't
-    feel creative.
-  </p>
-  <h2 class="with-butt">2019</h2>
-  <li><a href="https://metronomes.glitch.me">metronomes in JS</a>: the good, the bad, and the setTimeout.</li>
-  <li><a href="https://allmypetsareassholes.com">all my pets are assholes</a>: i love them, but they are.</li>
-  <li><a href="https://young-beet.glitch.me/">young beet</a>: sometimes i make recipes i need to remember. not a food
-    blog.</li>
-  <li><a href="https://geoglitchies.glitch.me/">geoglitchies</a>: like geocities, but using glitch collections as a
-    webring.</li>
-  <li><a href="https://input-delay.glitch.me/">input-delay</a>: an experiment to see how annoying is too annoying (for
-    typing)</li>
-  <li><a href="https://audio-delay.glitch.me/">audio-delay</a>: an experiment to see how annoying is too annoying (for
-    audio)</li>
-  <li><a href="https://magic-sketchpad.glitch.me/">magic sketchpad</a>: draw things with machine learning!</li>
-  <li><a href="https://midicity-2000.glitch.me/">midi city 2000</a>: we built this city literally out of rock and
-    roll.</li>
-  <li><a href="https://hearing-vera-molnar.glitch.me/">hearing vera molnar</a>: as an ML generated music trio plays, a
-    Vera Molnár painting comes to life.</li>
-  <li><a href="https://unicode-art-gallery.glitch.me/">unicode art gallery</a>: generative unicode art leaning on a
-    wall.</li>
-  <li><a href="https://webmidi-examples.glitch.me/">web midi examples</a>: copy pasteable examples of interacting with
-    the Web MIDI API</li>
-  <li><a href="https://magenta-drum-machine.glitch.me">magenta drum machine</a>: a super simple, little code, drum
-    machine.</li>
+    feel creative.</p>
+  </ul>
 
+  <h2 class="with-butt">2019</h2>
+
+  <ul class="listing fancy table projects">
+  <li><a href="https://metronomes.glitch.me">metronomes in JS</a>
+<div>the good, the bad, and the setTimeout.</div></li>
+  <li><a href="https://allmypetsareassholes.com">all my pets are assholes</a>
+<div>i love them, but they are.</div></li>
+  <li><a href="https://young-beet.glitch.me/">young beet</a>
+<div>sometimes i make recipes i need to remember. not a food
+    blog.</div></li>
+  <li><a href="https://geoglitchies.glitch.me/">geoglitchies</a>
+<div>like geocities, but using glitch collections as a
+    webring.</div></li>
+  <li><a href="https://input-delay.glitch.me/">input-delay</a>
+<div>an experiment to see how annoying is too annoying (for
+    typing)</div></li>
+  <li><a href="https://audio-delay.glitch.me/">audio-delay</a>
+<div>an experiment to see how annoying is too annoying (for
+    audio)</div></li>
+  <li><a href="https://magic-sketchpad.glitch.me/">magic sketchpad</a>
+<div>draw things with machine learning!</div></li>
+  <li><a href="https://midicity-2000.glitch.me/">midi city 2000</a>
+<div>we built this city literally out of rock and
+    roll.</div></li>
+  <li><a href="https://hearing-vera-molnar.glitch.me/">hearing vera molnar</a>
+<div>as an ML generated music trio plays, a
+    Vera Molnár painting comes to life.</div></li>
+  <li><a href="https://unicode-art-gallery.glitch.me/">unicode art gallery</a>
+<div>generative unicode art leaning on a
+    wall.</div></li>
+  <li><a href="https://webmidi-examples.glitch.me/">web midi examples</a>
+<div>copy pasteable examples of interacting with
+    the Web MIDI API</div></li>
+  <li><a href="https://magenta-drum-machine.glitch.me">magenta drum machine</a>
+<div>a super simple, little code, drum
+    machine.</div></li>
+</ul>
 
   <h2 class="with-butt">2018</h2>
-  <li><a href="http://wbr-art.glitch.me/">wbr-art</a>: make "art" with the wbr tag.</li>
-  <li><a href="https://howthee.glitch.me/">#inktober: an experiment</a>: a strange thing.</li>
-  <li><a href="https://piano-scribe.glitch.me/">piano scribe</a>: convert audio to MIDI using Magenta's Onset and
-    Frames moel.</li>
-  <li><a href=" https://readme-to-html.glitch.me/">readme-to-html</a>: use a Glitch project's <code>readme.md</code>
-    file and convert it to an <code>index.html</code></li>
-  <li><a href="https://color-gradient.glitch.me/">colour-gradient</a>: quickly copy-pastable functions for darkening,
-    lightening or blending colours in JavaScript.</li>
-  <li><a href="https://hello-tensorflow.glitch.me/">hello tensorflow</a>: super simple intro to tensorflow.js</li>
-  <li><a href="https://float-layout.glitch.me/">how browsers position floats</a>: well, how do they?</li>
-  <li><a href="https://emoji-garden.glitch.me/">emoji-garden</a>: generate random emoji gardens</li>
-  <li><a href="https://q-learning.glitch.me/">q-learning</a>: a simple reinforcement learning bot that learns how to
-    get to goal </li>
+
+  <ul class="listing fancy table projects">
+  <li><a href="http://wbr-art.glitch.me/">wbr-art</a>
+<div>make "art" with the wbr tag.</div></li>
+  <li><a href="https://howthee.glitch.me/">#inktober
+<div>an experiment</a>
+<div>a strange thing.</div></li>
+  <li><a href="https://piano-scribe.glitch.me/">piano scribe</a>
+<div>convert audio to MIDI using Magenta's Onset and
+    Frames moel.</div></li>
+  <li><a href=" https://readme-to-html.glitch.me/">readme-to-html</a>
+<div>use a Glitch project's <code>readme.md</code>
+    file and convert it to an <code>index.html</code></div></li>
+  <li><a href="https://color-gradient.glitch.me/">colour-gradient</a>
+<div>quickly copy-pastable functions for darkening,
+    lightening or blending colours in JavaScript.</div></li>
+  <li><a href="https://hello-tensorflow.glitch.me/">hello tensorflow</a>
+<div>super simple intro to tensorflow.js</div></li>
+  <li><a href="https://float-layout.glitch.me/">how browsers position floats</a>
+<div>well, how do they?</div></li>
+  <li><a href="https://emoji-garden.glitch.me/">emoji-garden</a>
+<div>generate random emoji gardens</div></li>
+  <li><a href="https://q-learning.glitch.me/">q-learning</a>
+<div>a simple reinforcement learning bot that learns how to
+    get to goal </div></li>
+  </ul>
 
     <h2 class="with-butt">2017</h2>
-  <li><a href="https://meowni.ca/knit-a-stitch">knit-a-stitch</a>: draw a pattern that you want to knit, and get the
-    knitting chart for it!</li>
-  <li><a href="https://font-display.glitch.me/">font-display playground</a>: a small explainer of font-display (with
-    demos)</li>
-  <li><a href="https://meowni.ca/best-bits-of-the-web">best bits of the web</a>: demo that <a
-      href="https://twitter.com/kosamari">Mariko</a> and I used when MC-ing Chrome Dev Summit</li>
-  <li><a href="https://meowni.ca/tokyo-emoji-tour">tokyo emoji tour</a>: photos of IRL emoji found around Tokyo</li>
-  <li><a href="https://github.com/polymerlabs/wizzywid">wizzywid</a>: a visual getting-started-tool for HTML, Custom
-    Elements, and Polymer. <a href="https://polymerlabs.github.io/wizzywid/">[play with it]</a></li>
-  <li><a href="https://github.com/notwaldorf/to_emoji">to_emoji</a>: a Twitter bot that translates every tweet you
-    send it to emoji. <a href="https://twitter.com/to_emoji">[tweet at it!]</a></li>
-  <li><a href="https://github.com/notwaldorf/tiny-care-terminal">tiny-care-terminal</a>: a little terminal dashboard
+    <ul class="listing fancy table projects">
+  <li><a href="https://meowni.ca/knit-a-stitch">knit-a-stitch</a>
+<div>draw a pattern that you want to knit, and get the
+    knitting chart for it!</div></li>
+  <li><a href="https://font-display.glitch.me/">font-display playground</a>
+<div>a small explainer of font-display (with
+    demos)</div></li>
+  <li><a href="https://meowni.ca/best-bits-of-the-web">best bits of the web</a>
+<div>demo that <a
+      href="https://twitter.com/kosamari">Mariko</a> and I used when MC-ing Chrome Dev Summit</div></li>
+  <li><a href="https://meowni.ca/tokyo-emoji-tour">tokyo emoji tour</a>
+<div>photos of IRL emoji found around Tokyo</div></li>
+  <li><a href="https://github.com/polymerlabs/wizzywid">wizzywid</a>
+<div>a visual getting-started-tool for HTML, Custom
+    Elements, and Polymer. <a href="https://polymerlabs.github.io/wizzywid/">[play with it]</a></div></li>
+  <li><a href="https://github.com/notwaldorf/to_emoji">to_emoji</a>
+<div>a Twitter bot that translates every tweet you
+    send it to emoji. <a href="https://twitter.com/to_emoji">[tweet at it!]</a></div></li>
+  <li><a href="https://github.com/notwaldorf/tiny-care-terminal">tiny-care-terminal</a>
+<div>a little terminal dashboard
     that tries to take care of you <a
       href="https://www.theverge.com/2017/4/20/15331050/party-parrot-tweet-monica-dinculescu-terminal-self-care-github">[omg
-      verge article!]</a></li>
-  <li><a href="https://meowni.ca/lazy-image/">&lt;lazy-image&gt;</a>: a custom image element that lets you load
-    resources on demand</li>
-  <li><a href="https://meowni.ca/doodle/">doodle</a>: a pixel doodling board where everything fades away (like a
-    Buddha board)!</li>
+      verge article!]</a></div></li>
+  <li><a href="https://meowni.ca/lazy-image/">&lt;lazy-image&gt;</a>
+<div>a custom image element that lets you load
+    resources on demand</div></li>
+  <li><a href="https://meowni.ca/doodle/">doodle</a>
+<div>a pixel doodling board where everything fades away (like a
+    Buddha board)!</div></li>
   <li><a
-      href="https://chrome.google.com/webstore/detail/picasso-a-google-calendar/ngodfeghffipflmlaehgbklfhkfnklbd">picasso</a>:
-    a pretty Google Calendar theme</li>
-
+      href="https://chrome.google.com/webstore/detail/picasso-a-google-calendar/ngodfeghffipflmlaehgbklfhkfnklbd">picasso</a>
+      <div>a pretty Google Calendar theme</div></li>
+    </ul>
     <h2 class="with-butt">2016</h2>
-  <li><a href="https://meowni.ca/font-style-matcher/">font-style-matcher</a>: helps you match the x-heights and widths
-    of a webfont and a fallback font</li>
-  <li><a href="https://meowni.ca/fierimas/">fierimas</a>: it's like Guy Fieri's Grocery Games but for holiday presents
-  </li>
-  <li><a href="https://github.com/notwaldorf/og-emoji-font">og-emoji-font</a>: emoji font based on the original DoCoMo
-    emoji set</li>
-  <li><a href="http://meowni.ca/literally">literally</a>: literally another slide making thingie</li>
-  <li><a href="http://meowni.ca/emojillate">emojillate</a>: pixellate an image into emoji</li>
-  <li><a href="http://meowni.ca/sparkle">sparkle</a>: pixelate and sparkle an image</li>
-  <li><a href="https://meowni.ca/frankly/">frankly</a>: a Polymer dashboard of issues/PRs for any number of GitHub
-    repos</li>
-  <li><a href="https://mojibrag.firebaseapp.com/">mojibrag</a>: 📢 stuff. Use ✨🙊😂🔥</li>
-  <li><a href="https://github.com/notwaldorf/github-canned-responses">GitHub canned responses</a>: before GitHub
-    shipped them</li>
+
+    <ul class="listing fancy table projects">
+  <li><a href="https://meowni.ca/font-style-matcher/">font-style-matcher</a>
+<div>helps you match the x-heights and widths
+    of a webfont and a fallback font</div></li>
+  <li><a href="https://meowni.ca/fierimas/">fierimas</a>
+<div>it's like Guy Fieri's Grocery Games but for holiday presents
+  </div></li>
+  <li><a href="https://github.com/notwaldorf/og-emoji-font">og-emoji-font</a>
+<div>emoji font based on the original DoCoMo
+    emoji set</div></li>
+  <li><a href="http://meowni.ca/literally">literally</a>
+<div>literally another slide making thingie</div></li>
+  <li><a href="http://meowni.ca/emojillate">emojillate</a>
+<div>pixellate an image into emoji</div></li>
+  <li><a href="http://meowni.ca/sparkle">sparkle</a>
+<div>pixelate and sparkle an image</div></li>
+  <li><a href="https://meowni.ca/frankly/">frankly</a>
+<div>a Polymer dashboard of issues/PRs for any number of GitHub
+    repos</div></li>
+  <li><a href="https://mojibrag.firebaseapp.com/">mojibrag</a>
+<div>📢 stuff. Use ✨🙊😂🔥</div></li>
+  <li><a href="https://github.com/notwaldorf/github-canned-responses">GitHub canned responses</a>
+<div>before GitHub
+    shipped them</div></li>
+    </ul>
 
     <h2 class="with-butt">2015</h2>
-  <li><a href="https://meowni.ca/muster/">muster</a>: a website that lets you play with overlapping patterns</li>
-  <li><a href="https://meowni.ca/is-ie10-dead/">is-ie10-dead</a>: a most exciting countdown, now over</li>
-  <li><a href="https://meowni.ca/emoji-translate/">emoji-translate</a>: an app to translate english to emoji</li>
-  <li><a href="https://caturday-post.herokuapp.com">caturday-post</a>: cat haiku push notifications</li>
-  <li><a href="https://meowni.ca/meowto/">meow-to</a>: a client side URL shortener</li>
-  <li><a href="https://meowni.ca/emoji-rain">emoji-rain</a>: a Polymer element that makes it rain emoji. Like the
-    confetti button to the right</li>
 
+    <ul class="listing fancy table projects">
+  <li><a href="https://meowni.ca/muster/">muster</a>
+<div>a website that lets you play with overlapping patterns</div></li>
+  <li><a href="https://meowni.ca/is-ie10-dead/">is-ie10-dead</a>
+<div>a most exciting countdown, now over</div></li>
+  <li><a href="https://meowni.ca/emoji-translate/">emoji-translate</a>
+<div>an app to translate english to emoji</div></li>
+  <li><a href="https://caturday-post.herokuapp.com">caturday-post</a>
+<div>cat haiku push notifications</div></li>
+  <li><a href="https://meowni.ca/meowto/">meow-to</a>
+<div>a client side URL shortener</div></li>
+  <li><a href="https://meowni.ca/emoji-rain">emoji-rain</a>
+<div>a Polymer element that makes it rain emoji. Like the
+    confetti button to the right</div></li>
+    </ul>
     <h2 class="with-butt">&lt; 2015</h2>
-  <li><a href="https://chrome.google.com/webstore/detail/twemojify/bpolpdilcnncipnflhmniemhplkajgio">twemojify</a>: a
+
+    <ul class="listing fancy table projects">
+  <li><a href="https://chrome.google.com/webstore/detail/twemojify/bpolpdilcnncipnflhmniemhplkajgio">twemojify</a>
+<div>a
     Chrome extension that uses
-    Twitter's twemoji library to fix Chrome's emoji</li>
-  <li><a href="https://github.com/notwaldorf/cat-dns">cat-dns</a>: a DNS server that resolves everything to cats</li>
-  <li><a href="https://github.com/notwaldorf/dear-sir-or-madam">dear sir or madam</a>: a bookmarklet that transforms
-    web pages into ransom notes</li>
-  <li><a href="https://github.com/notwaldorf/ruby-eh">ruby-eh</a>: a bit of ruby that makes your code more Canadian
-  </li>
-  <li><a href="https://meowni.ca/diagramophone/">diagramaphone</a>: a website that lets you code diagrams, because
-    drawing them really sucks</li>
+    Twitter's twemoji library to fix Chrome's emoji</div></li>
+  <li><a href="https://github.com/notwaldorf/cat-dns">cat-dns</a>
+<div>a DNS server that resolves everything to cats</div></li>
+  <li><a href="https://github.com/notwaldorf/dear-sir-or-madam">dear sir or madam</a>
+<div>a bookmarklet that transforms
+    web pages into ransom notes</div></li>
+  <li><a href="https://github.com/notwaldorf/ruby-eh">ruby-eh</a>
+<div>a bit of ruby that makes your code more Canadian
+  </div></li>
+  <li><a href="https://meowni.ca/diagramophone/">diagramaphone</a>
+<div>a website that lets you code diagrams, because
+    drawing them really sucks</div></li>
 </ul>

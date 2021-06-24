@@ -10,12 +10,10 @@ I used to write a lot of blog posts, so my website was very listing focus. Origi
 
 Also this year I started focusing a lot more on making generative art and I thought it was sad I wasn't showing that anywhere on the site! The beauty of generative art is that you can just keep generating it over and over again....surely perfect for a website, right?
 
-## Things that I like
-- Loved the idea of the gradient titles. It made a website about JavaScript look cute.
-- I'd be okay throwing out the gradients if I there was a different form of cute.
-
+## Things that need work
+- I like geometric patterns; bright and surprising accents (this ended up being the dots/hatch hover styles)
+- I haven't run a Lighthouse test in robably 4 years, and there were a bunch of problems -- 
 # Things I'm over
 - IBM Plex Mono and friends. I still love monospace, but I change my fonts like I do my hair colour, and that is to say: a lot.
 - White, colourless pages. I'd like some splashes of colour!
-
-#
+- The emoji rain button. It's a v0 web component, written in Polymer, with a painful v0 polyfill in it that just has no place in 2021, and I have no motivation to update it either. Do a delight in a different way, me. 

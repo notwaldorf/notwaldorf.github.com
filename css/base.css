@@ -7,6 +7,7 @@
 
 .og {
   font-family: og-emoji, sans-serif;
+  vertical-align: middle;
 }
 
 * {box-sizing: border-box}
@@ -24,10 +25,11 @@ html {
   --font-size-xs: 14px;
 
 
-  --red-light:#FFEFF0;
-  --red: #FC5043;
-  --yellow: #FEA809;
-  --blue: #0D5DA5;
+  --red-light:#FECBCA;
+  --red: #F83735;
+  --yellow: #FAC832;
+  --blue: #1231B5;
+  --blue-light: #84B4F9;
 
   --content-width: 700px;
   --splash-bg: white;
@@ -52,53 +54,14 @@ p {
 
 .hilite {
   position: relative;
-  background: var(--red);
-  color: white;
+  background: var(--yellow);
   padding: 0 4px;
   z-index: 0;
+  border-radius: 2px;
 }
 
-::selection { background: #E1FF25; }
+::selection { background: var(--red-light); }
 iframe { max-width: 100% }
-
-/**********************
- * Gradient blobs
- **********************/
- .wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.blob {
-  position: absolute;
-  filter: blur(64px);
-  
-}
-.blob1 {
-  background-color: #D6979D;
-  top: -30px;
-  width: 30vw;
-  height: 50%;
-  opacity: 0.9;
-}
-
-.blob2 {
-  background-color: #f8b68a;
-  top: 20%;
-  width: 40vw;
-  left: 0;
-  height: 60%;
-  opacity: 0.6;
-}
-
-.blob3 {
-  background-color: #a9a2cc;
-  bottom: 0%;
-  right: 0%;
-  width: 30vw;
-  height: 60%;
-  opacity: 0.9;
-}
 
 /**********************
  * Splash
@@ -117,7 +80,6 @@ iframe { max-width: 100% }
 }
 .splash {
   position: relative;
-  margin-top: var(--spacing-l);
   min-height: 50vh;
   width: 100%;
   color: black;
@@ -144,16 +106,6 @@ iframe { max-width: 100% }
   position: relative;
 }
 
-@media screen and (max-width:600px) {
-  .splash > .splash-wrapper {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .content {
-    margin-top: var(--spacing-m);
-  }
-}
-
 .splash-copy {
   margin-right: var(--spacing-l);
   max-width: 50%;
@@ -177,25 +129,47 @@ iframe { max-width: 100% }
 
 
 /**********************
- * ????
+ * Splash art
  **********************/
-.square {
-  width: 200px;
-  height: 200px;
-  background: #FEA809;
-  position: absolute;
-  top: 0;
-  left: 0;
+ #birbs {
+  min-width: 340px;
+  min-height: 340px;
+  height: 100%;
+  max-width: 90%;
+  margin-top: var(--spacing-l);
+  margin-bottom: var(--spacing-l);
+  overflow: hidden;
+  position: relative;
 }
-.square-dots {
-  height: 100px;
-  width: 300px;
-  background-image: radial-gradient(black 12%, transparent 14%);
-  background-position: 0px 0px;
-  background-size: 20px 20px;
+.birbs-legend {
+  text-align: center;
+}
+.birbs-legend button {
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+.birbs-legend button > b {
+  color: var(--red);
+}
+
+.birbs-note {
   position: absolute;
-  top: 140px;
-  left: 40px;
+  top: 30%;
+  left: 10%;
+  width: 80%;
+  padding: var(--spacing-s);
+  background: white;
+  border: 4px solid var(--red);
+  display: none;
+}
+
+.birbs-legend button:hover + .birbs-note {
+  display: block;
 }
 
 /**********************
@@ -284,6 +258,8 @@ ul {
   justify-content: center;
   margin-top: var(--spacing-l);
   min-height: 100px;
+
+  background: var(--yellow);
 }
 
 .footer > .thanks {
@@ -368,7 +344,8 @@ nav a:hover::before {
 .content {
   max-width: var(--content-width);
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
   padding: 0;
   width: inherit;
 }
@@ -404,7 +381,7 @@ nav a:hover::before {
 }
 
 .content hr {
-  background-color: var(--accent-2);
+  background-color: var(--yellow);
   border: 0px;
   margin: 50px auto;
   width: 50%;
@@ -449,11 +426,13 @@ blockquote p {
   margin: 0;
   padding: 0;
 }
+
 .content .listing li {
   font-size: var(--font-size-s);
   list-style: none;
   padding: 5px 3px;
   margin: 0;
+  color: black
 }
 
 .content .listing.table li {
@@ -463,12 +442,12 @@ blockquote p {
   justify-content: space-between;
 }
 
-.content .listing a {
+.content .listing.fancy a {
   color: black;
   padding-bottom: 2px;
-  border-bottom: 1px dotted #ddd;
   text-decoration: none;
   font-weight: normal;
+  position: relative;
 }
 
 .content .listing li span:not(.talk-title) {
@@ -477,6 +456,26 @@ blockquote p {
   letter-spacing: 2px;
   flex-shrink: 0;
   text-transform: uppercase;
+}
+
+.content .listing.fancy a:hover {
+  background: white;
+}
+.content .listing.fancy a:hover::before {
+  position: absolute;
+  display: block;
+  left: -20px;
+  bottom: -10px;
+  content: '';
+  height: 18px;
+  width: 100px;
+  background-image: repeating-linear-gradient(
+    -45deg,  var(--blue-light),
+    var(--blue-light) 2px,
+    white 2px,
+    white 6px
+  );
+  z-index: -1;
 }
 
 /**********************
@@ -500,8 +499,6 @@ a:hover, button:hover {
  * Code
  *********************/
 code {
-  /*background: #b0efe6;
-  outline: 1px solid #7fe5d7;*/
   font-family: SourceCodePro,Consolas,Menlo,Monaco,'Courier New',monospace;
   font-size: var(--font-size-xs);
   color: black;
@@ -550,4 +547,20 @@ h2 code {
   text-decoration: none;
   font-weight: normal;
   border-bottom: 1px dotted var(--accent);
+}
+
+
+
+
+
+
+@media screen and (max-width:600px) {
+  .splash > .splash-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .splash-copy {
+    margin-right: 0;
+    max-width: 100%;
+  }
 }
