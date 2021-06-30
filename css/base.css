@@ -142,6 +142,7 @@ iframe { max-width: 100% }
 
 #birbs canvas {
   cursor: pointer;
+  user-select: none;
 }
 .birbs-legend {
   text-align: center;
