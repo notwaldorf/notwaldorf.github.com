@@ -390,7 +390,7 @@ p.chunk {
   padding: var(--spacing-s) var(--spacing);
 }
 
-blockquote {
+blockquote, .blockquote {
   background: #E0F7FA;
   margin: 30px var(--spacing-l);
   padding: 14px var(--spacing-s);
