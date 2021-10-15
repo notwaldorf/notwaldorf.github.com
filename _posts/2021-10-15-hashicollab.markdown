@@ -49,7 +49,7 @@ draft: true
 }
 </style>
 
-A couple of months ago my friend [Jana](https://twitter.com/janaboruta) organized [HashiConf Europe](https://hashiconf.com/europe/), and asked me to work on generating custom artwork for each of their speakers. This was my first experience with creating art for someone else, and especially art that had to match someone else’s artistic guidelines. I’ve said this before, but I live and nap by the idea that rules (and editing) are at the core of the artistic process and not having to do that myself was <span class="hilite">brilliant</span>. I wanted to write a bit about it because a) I did a bunch of work that I'm really proud of and I never got to talk about it and b) I am vain and I want to talk about it.
+A couple of months ago my friend [Jana](https://twitter.com/janaboruta) helped organize [HashiConf Europe](https://hashiconf.com/europe/), and asked me to work on generating custom artwork for each of their speakers. This was my first experience with creating art for someone else, and especially art that had to match someone else’s artistic guidelines. I’ve said this before, but I live and nap by the idea that rules (and editing) are at the core of the artistic process and not having to do that myself was <span class="hilite">brilliant</span>. I wanted to write a bit about it because a) I did a bunch of work that I'm really proud of and I never got to talk about it and b) I am vain and I want to talk about it.
 
 This was the final poster:
 
@@ -109,7 +109,7 @@ When I think of geometric posters, I (and everyone who's ever looked at a design
 </div>
 <hr>
 <div class="floatie-bit">
-  <img alt="a grid of mostly rectangles, a couple of lines and a triangle that are mostly positioned towards the top right corner">
+  <img alt="a grid of mostly rectangles, a couple of lines and a triangle that are mostly positioned towards the top right corner" src="/images/hashicollab/v1_5.webp">
   <p>Random shapes in random places but channeling <a href="https://en.wikipedia.org/wiki/Suprematism">Suprematism</a>. I LOVE this style and I would LOVE to use it again, and I very well might.
 </p>
 </div>
@@ -124,7 +124,7 @@ When I think of geometric posters, I (and everyone who's ever looked at a design
 At this point I also considered some data-based art, but I didn't have enough interesting data that I could aggregate based on a name and an abstract alone. Anyway, did you notice how a lot of the iterations in this bunch are fairly standard generative-art approaches? Like, nothing here was novel, and I intended it that way: I wanted to figure out what the team had in mind, and the only way I knew how to do that was to use some common language we all knew, which is "things we've seen before".
 
 ## v2: Grids of letters
-What came out from the previous explorations was that they liked the letter grid the most, but not as it was.At this point I also learnt that a specific colour (like, blue) is associated with a particular product (in blue's case that product is [Vagrant](https://www.vagrantup.com/)) that a speaker is giving a talk about. Each of these products have a primary and a slightly lighter secondary colour, which is why below you'll see I stopped mixing different product colours together.
+What came out from the previous explorations was that they liked the letter grid the most, but not as it was. At this point I also learnt that a specific colour (like, blue) is associated with a particular product (in blue's case that product is [Vagrant](https://www.vagrantup.com/)) that a speaker is giving a talk about. Each of these products have a primary and a slightly lighter secondary colour, which is why below you'll see I stopped mixing different product colours together.
 
 <hr>
 <div class="floatie-bit">
