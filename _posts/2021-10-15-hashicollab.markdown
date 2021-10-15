@@ -2,7 +2,6 @@
 layout: post
 title: "A HashiConf art collab"
 category: posts
-draft: true
 ---
 <style>
 .floatie-bit {
@@ -151,7 +150,7 @@ What came out from the previous explorations was that they liked the letter grid
 <hr>
 <div class="floatie-bit">
   <img alt="a grid of squaares, with some of the cells being a letter in the name" src="/images/hashicollab/v2_1.webp">
-  <p>Grids of squares with letters. A bit boring, a bit "not a fan of cutting off letters in principle". This image is really good at showing the letter distribution algorithm that all the grids are using: it's mostly centered around the center horizontal line, and then spreads out randomly outwards and downwards from there.
+  <p>Grids of squares with letters. A bit boring, a bit "not a fan of cutting off letters on principle". This image is really good at showing the letter distribution algorithm that all the grids are using: it's mostly centered around the center horizontal line, and then spreads out randomly outwards and downwards from there.
 </p>
 </div>
 <hr>
