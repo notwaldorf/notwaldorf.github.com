@@ -183,6 +183,6 @@ From here it was just a matter of designing the poster layout around it, and mak
 
 Most importantly, I made something that is in 46 humans’ hands. I hope they liked it!!!
 
-I would love to do this again, so if you’re a conference or a company that thinks was a 
-cool idea and want to do this with your speakers or employees, [send me an email](mailto:mdinculescu@gmail.com)! I’ve got way more ideas where this came from and nothing to do with them.
+I would love to do this again, so if you’re a conference or a company that thinks this was a 
+cool idea and want to do this for <i>your</i> speakers or employees, [send me an email](mailto:mdinculescu@gmail.com) ! I’ve got way more ideas where this came from and nothing to do with them.
 
