@@ -558,4 +558,7 @@ h2 code {
     margin-right: 0;
     max-width: 100%;
   }
+  blockquote, .blockquote {
+    margin: 30px 0;
+  }
 }
