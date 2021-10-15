@@ -34,7 +34,11 @@ draft: true
     flex-direction: column-reverse;
   }
   .floatie-bit > img {
+    margin-top: 24px;
     width: 80%;
+  }
+  .floatie-bit > p {
+    padding-left: 0;
   }
   .floatie-bit > .img-column {
     flex-direction: column;
