@@ -1,0 +1,46 @@
+.floatie-bit {
+display: flex;
+flex-direction: row;
+}
+.floatie-bit > p { margin: auto; padding-left: 24px; flex: 1}
+.floatie-bit > img {
+width: 35%;
+flex-shrink: 0;
+vertical-align: middle;
+border-radius: 10px;
+}
+.floatie-bit > .img-column {
+width: 30%;
+flex-shrink: 0;
+display: flex;
+flex-direction: column;
+margin-right: var(--spacing-s);
+} 
+.img-column img {
+width: 90%;
+vertical-align: middle;
+border-radius: 10px;
+}
+
+@media (max-width: 700px) {
+.floatie-bit {
+    flex-direction: column-reverse;
+}
+.floatie-bit > img {
+    margin-top: 24px;
+    width: 80%;
+}
+.floatie-bit > p {
+    padding-left: 0;
+}
+.floatie-bit > .img-column {
+    flex-direction: column;
+    width: 100%;
+    margin-top: var(--spacing-s);
+    align-items: center;
+}
+.floatie-bit > .img-column > img {
+    width: 80%;
+    padding-top: var(--spacing-s);
+}
+}
