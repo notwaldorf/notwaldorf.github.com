@@ -2,7 +2,6 @@
 layout: post
 title: "Doing the work"
 category: posts
-draft: true
 ---
 <link type="text/css" rel="stylesheet" href="/css/floatie-bits.css">
 
