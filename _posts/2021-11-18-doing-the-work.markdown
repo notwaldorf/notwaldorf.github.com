@@ -27,18 +27,18 @@ Adam also told me [an anecdote](https://austinkleon.com/2020/12/10/quantity-lead
 
 Amazingly, it didn't feel obvious to me last month, even though in 2018 I went through a **very** similar existential crisis and "solved" it by churning out [a whole inktober project](/posts/inktober/).
 
-## Doing the work
+## Now do the work
 This is your sign that if you're feeling equally down about a skill you expect, or want, to be better at, you should probably sit down and make a plan about how to level up. For me, it looked like this:
 
 <div class="floatie-bit">
   <img alt="a grid of 3 columns, 4 rows, where each cell is shaded with something like vertical lines, a cross hatch, dots, squiggly lines, etc." src="/images/2021-11/plotter.webp">
-  <p><b>Step 1</b>. Improve the basics: get better at writing JavaScript that looks like art; have more basics that I can use out of the box without having to think about them. Look at all the ways I can now fill boxes, when before I could only fill them with solid colours or gradients!</p>
+  <p><b>Step 1</b>. Improve the basics: get better at writing JavaScript that I can then use when I do make art; have a better set of basic utilities and examples. Look at all the ways I can now fill boxes, when before I could only fill them with solid colours or gradients!</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
   <img alt="a grid of 8x8 cells where each cell is filled with a random number of squiggly lines" src="/images/2021-11/1.webp">
-  <p><b>Step 2</b>. Keep churning things. I start with a fixed grid, and filled every cell with every new shading function I just wrote, to see which look cool together.</p>
+  <p><b>Step 2</b>. Keep churning things. I started with a fixed grid, and filled every cell with every new shading style I wrote, to see which look cool together.</p>
 </div>
 <hr>
 
