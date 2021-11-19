@@ -24,7 +24,7 @@ border-radius: 10px;
 
 @media (max-width: 700px) {
 .floatie-bit {
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 .floatie-bit > img {
     margin-top: 24px;
