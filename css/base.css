@@ -529,19 +529,20 @@ h2 code {
  * Table of contents
  *********************/
 #markdown-toc {
-  list-style-type: none;
   margin: 0;
-  border-left: var(--spacing-xs) solid var(--accent);
+  border-left: var(--spacing-xs) solid var(--yellow);
   padding-left: var(--spacing-s);
+}
+#markdown-toc, #markdown-toc ul {
+  list-style-type: none;
+  font-size: 16px;
 }
 #markdown-toc li {
   line-height: 1;
 }
 #markdown-toc a:link, #markdown-toc a:visited {
   color: inherit;
-  text-decoration: none;
   font-weight: normal;
-  border-bottom: 1px dotted var(--accent);
 }
 
 
