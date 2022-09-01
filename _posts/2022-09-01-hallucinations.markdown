@@ -13,7 +13,14 @@ img {
 img:hover{
   transform: scale(1.5);
   z-index: 1000;
-}</style>
+}
+@media (max-width: 700px) {
+.floatie-bit > img {
+    margin-top: 0;
+    margin-bottom: 24px;
+}  
+}
+</style>
 
 Wow, long time no blog, eh? Since last I've darkened your feeds with an update, I've been up to a bunch of work/consulting/art/nonsense (primarily Fallout 4; shout out to SteamDecks), to different degrees of success. Since getting off the hamster wheel that is "working for the <s>man</s>Sundar", I've started measuring my self-worth less in terms of internet popularity and more on (and this is true), percent of time spent on naps, and so I've become less interested in talking about myself on the internet (she says, writing a paragraph about herself on the internet). I promise that whatever work I've been doing isn't more interesting than the season of Love Island that just ended, which is waaaaay better edited than my blog posts. Related: Davide? Gross. Grosssssss. 
 
