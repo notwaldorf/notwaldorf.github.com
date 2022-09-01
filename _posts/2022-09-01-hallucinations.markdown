@@ -33,7 +33,7 @@ This post ended up being long af, so here's a table of contents:
 ## Boring uses of interesting models 
 I use these models for a very specific thing, and that is as a brainstorming partner/collaborator. This also shouldn't surprise you: I've been going off on using ML for co-creation since the days of working on [Magenta](https://magenta.tensorflow.org/), which was truly a project that forged my views on the topic (shoutout to the smarter-than-me people on the team that let me absorb their well articulated opinions). I think that the most interesting place for ML models in an artist's life is as a tool that specifically **enables**, and doesn't **replace**, creativity. 
 
-What I mean by that is that I find DALL-E generations like "dogs playing poker", "donald trump but as a cheeseburger" or "my dog but as a van gogh painting" impressive, but kind of boring: yes, the output is funny, but no, I don't fall asleep thinking about the deep meaning of an orange cheeseburger with a balding head and very small hands. This is consistent with how I look at the use of music models like the [Music Transformer](https://magenta.github.io/listen-to-transformer/#a1_50693.mid): absolutely impressive compositions, best suited for an elevator. This isn't the fault of the model, nor its users, and I am truly not shitting on these outputs (unless they're for NFTs; always here to shit on NFTs): I think both background music and memes have a value in society, as do procedural tv shows (Criminal Minds is literally my favourite ever, and I weeped when Netflix removed it), computer generated or not. But personally, as an artist, I feel fairly emotionally detached from them, as I'm pretty sure their authors are. 
+What I mean by that is that I find DALL-E generations like "dogs playing poker", "Donald Trump but as a cheeseburger" or "my dog but as a Van Gogh painting" impressive, but kind of boring: yes, the output is funny, but no, I don't fall asleep thinking about the deep meaning of an orange cheeseburger with a balding head and very small hands. This is consistent with how I look at the use of music models like the [Music Transformer](https://magenta.github.io/listen-to-transformer/#a1_50693.mid): absolutely impressive compositions, best suited for an elevator. This isn't the fault of the model, nor its users, and I am truly not shitting on these outputs (unless they're for NFTs; always here to shit on NFTs 🙃): I think both background music and memes have a value in society, as do procedural TV shows (Criminal Minds is literally my favourite ever, and I weeped when Netflix removed it), computer generated or not. But personally, as an artist, I feel fairly emotionally detached from them, as I'm pretty sure their authors do. 
 
 The exact same models, when used in a thoughtful and creative way lead to absolutely brilliant things; the ones that make you say "fuck, I wish **I** had thought of that". Yacht's [album](https://www.wired.com/story/how-yacht-used-machine-learning-to-create-their-new-album/?bxid=5cec28c424c17c4c6463a7e9) made with hard creative rules and machine learning is a wonderful example, as is Karen X. Cheng's use of DALL-E to imagine the scene [beyond Girl with a Pearl Earring](https://twitter.com/karenxcheng/status/1552720889489154048?s=20&t=62SQKCGZANvOlSjOjYMTig). This is the bit that I care about.
 
@@ -42,13 +42,13 @@ As an artist who is trying to carve a place for myself in the art world (and for
 ## The (barely scientific) method
 
 ### Models
-I used the 3 models I have access to:
+I used the 4 models I have access to:
 - [DALL-E](https://openai.com/dall-e-2/), via the OpenAI website
 - [Stable Diffusion](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb), via the collab
-- [MidJourney](https://www.midjourney.com/home/), via their Discord bot.
+- [MidJourney](https://www.midjourney.com/home/), via their Discord bot
 - [DALL-E mini](https://huggingface.co/spaces/dalle-mini/dalle-mini), via the HuggingFace interface. 
 
-I tried to get a Googler to help me run the prompts on [Imagen](https://imagen.research.google/), but I got no bites, so I have no idea how it fits into this story. I also decided not to use [DALL-E mini](https://huggingface.co/spaces/dalle-mini/dalle-mini) after the first prompt, because the results were unhinged enough that I didn't think I would find them interesting for this experiment (you'll see).
+I tried to get a Googler to help me run the prompts on [Imagen](https://imagen.research.google/), but I got no bites, so I have no idea how it fits into this story. 
 
 ### Cherry-picking outputs
 I cherry-picked 4 images for each model as follows:
