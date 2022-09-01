@@ -52,8 +52,8 @@ I tried to get a Googler to help me run the prompts on [Imagen](https://imagen.r
 
 ### Cherry-picking outputs
 I cherry-picked 4 images for each model as follows:
-- DALL-E: Because using it costs real moneydollars these days, I decided to backfit this experiment to  prompts I've already saved several images for (crucially: this means that I thought the prompt gave interesting enough results for me to care; this is 100% not true of every prompt I try). I also ran each prompt one more time to generate 4 more outputs, and then picked the best 3 out of those The top left result is always the one I liked the most.
-- Stable Diffusion: cherry picked 4 results out of about 9. I also tried to include genuinely shit results (look out for the toucan prompt, woof), and they're sorted left to right, top to bottom based on personal preference
+- DALL-E: Because using it costs real moneydollars these days, I decided to backfit this experiment to  prompts I've already saved several images for (crucially: this means that I thought the prompt gave interesting enough results for me to care; this is 100% not true of every prompt I try). I also ran each prompt one more time to generate 4 more outputs, and then picked the best 3 out of those. The top left result is always the one I liked the most.
+- Stable Diffusion: cherry picked 4 results out of about 9. I also tried to include genuinely shit results (look out for the toucan prompt, woof).
 - MidJourney: I ran each prompt twice (getting 8 outputs in total), and then I picked the best 4. I didn't try any parameters or tricks other than just using the prompt itself.
 
 I tried to be as honest as possible with the results I'm showing, because I don't have a dog in this race. I just want something useful *for me*, wherever it comes from. You can zoom over the results to see them slightly bigger.
@@ -62,13 +62,13 @@ I tried to be as honest as possible with the results I'm showing, because I don'
 The prompts I used are for stuff I am actively working on, so they're a bit weird, slightly personal, and in some cases, oddly disturbing. Please don't steal the prompts or the outputs from me; I can't stop you (such is life on the internet), but it will break my heart. 
 
 I'll have some more details for each prompt, and how I picked "the most interesting to me", but the two big rubrics I looked for were:
-1. Did this output interpret the prompt?
-2. Would I use this output "in an art" (this is very wishy washy and not scientific; trust me, I get that)
+1. Did this model interpret the prompt?
+2. Would I use one of the model's generations "in an art" (this is very wishy-washy and not scientific; trust me, I get that)
 
 Keep in mind that:
 - I understand that in some cases if I spent more time working on the prompt, I might get better results. The way I work is that I don't try to force things into existing -- if they don't work out, I shelve them for a better time.
 - Some results are really weird and unsettling, and they've made me dislike my prompt. This isn't the models' faults, or their authors, nor do I have "bad feels" towards the models; it just means I've
-accidentally created an uncanny valley and I need to back away from it until I have a better idea of what I actually want from a model.
+accidentally created an uncanny valley and I need to back away from it until I have a better idea of what I actually want from a model. Or maybe not use bees ever again.
 
 ## Results
 I picked 4 prompts, each of which covering a different area I am interested in:
@@ -102,7 +102,7 @@ What I am looking for: Something that I can actually carve into linoleum and mak
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/1_mini.png">
-  <p><b>DALL-E mini</b>. The results are kind of right if you squint really hard, but not at all what I'm looking for.</p>
+  <p><b>DALL-E mini</b>. The results are kind of okay if you squint really hard, but not at all what I'm looking for. I just got laser eyes; I'm not about to go back to squinting.</p>
 </div>
 
 ### 2. "Lithograph of an orchid where each flower has a small skull inside"
