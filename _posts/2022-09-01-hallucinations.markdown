@@ -18,6 +18,7 @@ img:hover{
 .floatie-bit > img {
     margin-top: 0;
     margin-bottom: 24px;
+    width: 100%;
 }  
 }
 </style>
@@ -204,3 +205,4 @@ In terms of model-specific lessons (knowing that it's based on my weird experien
 - Stable Diffusion works surprisingly well for something I can run off a collab
 - I don't have a gut feeling as to why, but pretty much everyone except for Stable Diffusion is confused by what a linocut is (this is only interesting to me, someone who works on linocuts)
 - DALL-E mini really understands what toucans want (JK)
+
