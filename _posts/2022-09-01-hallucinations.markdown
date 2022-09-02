@@ -44,7 +44,7 @@ This is consistent with how I look at the use of music models like the [Music Tr
 
 The exact same models, when used in a thoughtful and creative way lead to absolutely brilliant things; the ones that make you say "fuck, I wish **I** had thought of that". Yacht's [album](https://www.wired.com/story/how-yacht-used-machine-learning-to-create-their-new-album/?bxid=5cec28c424c17c4c6463a7e9) made with hard creative rules and machine learning is a wonderful example, as is Karen X. Cheng's use of DALL-E to imagine the scene [beyond Girl with a Pearl Earring](https://twitter.com/karenxcheng/status/1552720889489154048?s=20&t=62SQKCGZANvOlSjOjYMTig). This is the bit that I care about.
 
-I've been trying to post updates about how I personally use these models on my [artstagram](https://www.instagram.com/meownica.studio/) on how I've been using them (often with a commentary about the process), but as a recent craft fair that just rejected me had to say: I'm quite shit at the socials. Have this blog post instead?
+I've been trying to post updates about how I personally use these models on my [artstagram](https://www.instagram.com/meownica.studio/) (often with a commentary about the process), but as a recent craft fair that just rejected me had to say: I'm quite shit at the socials. Have this blog post instead?
 
 ## The (barely scientific) method
 
@@ -60,7 +60,7 @@ I tried to get a Googler to help me run the prompts on [Imagen](https://imagen.r
 ### Cherry-picking outputs
 I cherry-picked 4 images for each model as follows:
 - DALL-E: Because using it costs real moneydollars these days, I decided to backfit this experiment to  prompts I've already saved several images for (crucially: this means that I thought the prompt gave interesting enough results for me to care; this is 100% not true of every prompt I try). I also ran each prompt one more time to generate 4 more outputs, and then picked the best 3 out of those. The top left result is always the one I liked the most.
-- Stable Diffusion: cherry picked 4 results out of about 9. I also tried to include genuinely shit results (look out for the toucan prompt, woof).
+- Stable Diffusion: cherry picked 4 results out of about 9. 
 - MidJourney: I ran each prompt twice (getting 8 outputs in total), and then I picked the best 4. I didn't try any parameters or tricks other than just using the prompt itself.
 
 I tried to be as honest as possible with the results I'm showing, because I don't have a dog in this race. I just want something useful *for me*, wherever it comes from. You can zoom over the results to see them slightly bigger.
