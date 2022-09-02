@@ -124,7 +124,7 @@ What I am looking for: any semblance of an orchid not looking like an orchid. Th
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/2_mj.png">
-  <p><b>MidJourney</b>. I mean, 10/10. These are the spooky orchid boys of my dreams! This prompt came up because I went to an orchid exhibition, and I thought so many of the little flowers looked like skulls or aliens. This was **exactly** what I had in mind. </p>
+  <p><b>MidJourney</b>. I mean, 10/10. These are the spooky orchid boys of my dreams! This prompt came up because I went to an orchid exhibition, and I thought so many of the little flowers looked like skulls or aliens. This was <b>exactly</b> what I had in mind. </p>
 </div>
 <hr>
 
@@ -135,8 +135,8 @@ What I am looking for: any semblance of an orchid not looking like an orchid. Th
   working.</p>
 </div>
 
-### 3. "Erik johansson photograph of a woman hair that is a literal bee hive"
-I love surrealism. I was watching this 60s movie where a bunch of women had beehive hairdos, and this is how my brain operates: "wouldn't it be interesting if"? I don't know what I was expecting to get, but it wasn't any of this (though as someone who understands how these models work, I understand **exactly** how we got here). I chose Erik Johansson because surreal photography is his jam, and it helped stir DALL-E towards more of the right vibes at the time. Unfortunately, I got **really** creeped out by most of the results (from all models), and it's really soured up this prompt for me (for now).
+### 3. "Erik Johansson photograph of a woman[sic] hair that is a literal bee hive"
+I love surrealism. I was watching this 60s movie where a bunch of women had beehive hairdos, and this is how my brain operates: "wouldn't it be interesting if"? I don't know what I was expecting to get, but it wasn't any of this (though as someone who understands how these models work, in retrospect I understand **exactly** how we got here). I chose [Erik Johansson](https://www.erikjo.com/work) because surreal photography is his jam, and it helped stir DALL-E towards more of the right vibes at the time. Unfortunately, I got **really** creeped out by most of the results (from all models tbh), and it's really soured up this prompt for me.
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/3_dalle.png">
@@ -160,10 +160,11 @@ I love surrealism. I was watching this 60s movie where a bunch of women had beeh
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/3_mini.png">
   <p><b>DALL-E mini</b>. Poor model, this is the worst of the bunch, and I expected it. DALL-E mini
-  isn't very good at realism; it gives very noisy people, or faces. That, combined with (my bad) sheer
+  isn't very good at realism; it gives very noisy people, or faces, and then shoves them through a potato. That, combined with (my bad) sheer
   creepiness of the prompt leads to a literal nightmare.</p>
 </div>
 
+<br>
 I cannot apologize enough to these models for making them go through this. You at least could've scrolled past this section; they, the poor darlings, couldn't.
 
 ### 4. "A toucan wearing a 60s apron, sitting on a mid century modern armchair, talking on a rotary phone, retrofuturism"
