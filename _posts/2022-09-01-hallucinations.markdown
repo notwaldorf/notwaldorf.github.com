@@ -172,7 +172,8 @@ And now, a palette cleanser. I had been doing some reading and learnt that DALL-
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/4_dalle.png">
-  <p><b>DALL-E</b>. I expected DALL-E to do well, and it delivers. The toucan on the phone is there, the 60s vibe is there, the apron is dubiously missing but we'll give it a pass.</p>
+  <p><b>DALL-E</b>. I expected DALL-E to do well, and it did. The toucan on the phone is there, the 60s vibe is there, the apron is dubiously missing but we'll give it a pass. It's got the fuzziness of old,
+  spacey, retrofuturism posters (though the prompt has absolutely no actual futurism in it)</p>
 </div>
 <hr>
 
@@ -191,7 +192,7 @@ And now, a palette cleanser. I had been doing some reading and learnt that DALL-
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/4_mini.png">
-  <p><b>DALL-E mini</b>. This is the first time I a) love this model the most and b) wish that it produced higher resolution images. Look at the aprons! Look at the furniture! In terms of concept, it's absolute perfection.</p>
+  <p><b>DALL-E mini</b>. This is the first time I a) love this model the most and b) wish that it produced higher resolution images. Look at the aprons! Look at the furniture! In terms of concept, it's absolute perfection. In terms of execution, an absolute potato.</p>
 </div>
 
 ## What have I learned?
