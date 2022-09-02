@@ -2,7 +2,7 @@
 layout: post
 title: "Hallucinating with art models"
 subtitle: "or: How I stopped worrying and learned to love the lithograph of an orchid where each flower has a small skull inside, but only sometimes."
-img: "/images/gen-models/header.png"
+img: "/images/gen-models/header.webp"
 category: posts
 draft: true
 ---
@@ -84,32 +84,32 @@ I picked 4 prompts, each of which covering a different area I am interested in:
 3. A hard to imagine concept that **doesn't** exist in real life but makes sense linguistically (can it hallucinate a surrealism?)
 4. Multiple concepts that exist in real life, glued together in a way that doesn't make sense linguistically nor does it exist it real life (can it be weird?)
 
-I apologize in advance for #3; it's a bad place.
+I apologize in advance for #3 -- it's a bad place -- and for the alt text on these images. Summarizing robot art is harder than I thought.
 
 ### 1. "Linocut print of a girl bundled up in bed with a stack of books and a cat"
 What I am looking for: Something that I can actually carve into linoleum and make prints out of, so sharp lines that I don't have to spend too much time cleaning up is ideal. The suprise winner in this category was Stable Diffusion who despite not interpreting the prompt correctly, came up with the most interesting results (in my opinion, etc)
 
 <hr>
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/1_dalle.png">
+  <img alt="a grid of 2x2 images each showing a black and white drawing of a woman in bed with a cat and a stack of books. each image is slightly different but the idea is the same" src="/images/gen-models/1_dalle.webp">
   <p><b>DALL-E</b>. Composition is great (100% gets the prompt), but completely misses the mark on "linocut". I tried to work this into a useable drawing to carve, but because it uses fairly sketchy lines and fills, it ended up being way more work than I wanted.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/1_sd.png">
+  <img alt="a grid of 2x2 images showing sharp and crisp lines of, in order: a woman with a scarf in a library, reading a stack of books. a angry looking cat surrounded by books. a yellow cat on a pink background, wrapped around a stack of books. a cat wearing a scarf next to a smaller cat on top of a stack of books. " src="/images/gen-models/1_sd.webp">
   <p><b>Stable diffusion</b>. Composition is pretty good but doesn't actually interpret the prompt well. The "linocut" part is really well done -- I find it amazing that the top left image actually has a signature and a title outside of the print! Despite not getting the point, the top right result is my dream come true and what I'll end up using.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/1_mj.png">
+  <img alt="a grid of 2x2 images of simpler lines, in order: a woman with a blanket that looks a bit like a cat, with a background of books. an abstract looking cat head on top of a stack of books. sharp lines of a simplified cat head on top of a stack of books. a very abstract shape that is maybe a bed, in front of a background of books that are just white rectangles with thick outlines" src="/images/gen-models/1_mj.webp">
   <p><b>MidJourney</b>. Also kind of misses the prompt, and doesn't have as many details as the Stable Diffusion results. I really like the bottom left the most, but I don't think it screams "cat with books" enough for me to use.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/1_mini.png">
+  <img alt="a grid of 2x2 images where if you try really really hard it maybe looks like a woman in bed, next to stacks of books" src="/images/gen-models/1_mini.webp">
   <p><b>DALL-E mini</b>. The results are kind of okay if you squint really hard, but not at all what I'm looking for. I just got laser eyes; I'm not about to go back to squinting.</p>
 </div>
 
@@ -118,27 +118,27 @@ What I am looking for: any semblance of an orchid not looking like an orchid. Th
 
 <hr>
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/2_dalle.png">
+  <img alt="4 images, where each image is a drawing of a skull in black pencil, with an orchid coming either out of an eye socket, or wrapped around the skull" src="/images/gen-models/2_dalle.webp">
   <p><b>DALL-E</b>. I remember I tried many combinations of writing "a skull inside each flower", and
   all I could ever get out of DALL-E was an orchid next to, or coming out of, a skull. I get bored after about half an hour of failing at a prompt; I'm sure there is a way to write this to get what I'm looking for, but I didn't figure it out, and I lost interest.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/2_sd.png">
+  <img alt="2 images of pink orchids on a different coloured background. an image of an illustration style of a skull with an orchid coming out of the middle of the skull. a vertically wrapped skull in front of the leaves of an orchid" src="/images/gen-models/2_sd.webp">
   <p><b>Stable diffusion</b>. This one struggled with the prompt too. The bottom two results are really
   pretty, and in particular prettier than the equivalent (and misunderstood) DALL-E results, but still not even in the ballpark of what I was looking for</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/2_mj.png">
+  <img alt="oof, this is a hard one. 3 of the images looks like the outline or general shape of an orchid, but in the middle some of the details resemble a skull. the fourth is a skull, but instead of the eye sockets and mouth, the shapes look like the petals of an orchid" src="/images/gen-models/2_mj.webp">
   <p><b>MidJourney</b>. I mean, 10/10. These are the spooky orchid boys of my dreams! This prompt came up because I went to an orchid exhibition, and I thought so many of the little flowers looked like skulls or aliens. This was <b>exactly</b> what I had in mind. </p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/2_mini.png">
+  <img alt="4 fairly noisy aimages of an orchid next to a skull. the orchids all have leaves as well." src="/images/gen-models/2_mini.webp">
   <p><b>DALL-E mini</b>. Suffers from the same prompt problems as the other models, which makes me think
   that whatever special tweaks MidJourney does to get "creativity" out of a prompt are absolutely
   working.</p>
@@ -149,26 +149,26 @@ I love surrealism. I was watching this 60s movie where a bunch of women had beeh
 
 <hr>
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/3_dalle.png">
+  <img alt="4 images of women's heads with either bees coming out of the hair, or the hair literally made out of bee cocoons. it's really unsettling" src="/images/gen-models/3_dalle.webp">
   <p><b>DALL-E</b>. The uncanny valley of literal bee hives turns out to be deep. The top left image one is the nicest, possibly because a) it doesn't have a face and b) it only has casual bees. It is maybe the closest to what I wanted (out of all the outputs), but it doesn't make me feel great looking at it. </p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/3_sd.png">
+  <img alt="2 images of a very realistic woman, with a honeycomb or bee cocoons instead of hair. 1 image of a drawing of a woman with a body of honeycomb, next to a really big bee. one image of a closeup of a very realistic woman face that is staring aggresively, with just bees around it" src="/images/gen-models/3_sd.webp">
   <p><b>Stable diffusion</b>. The people. They look like people. I don't like it. I think the top right one is the least disturbing?</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/3_mj.png">
+  <img alt="very illustrative, non realistic styles of a pretty woman's face, either wearing a scarf, or whose hair transitions gently into a small honeycomb" src="/images/gen-models/3_mj.webp">
   <p><b>MidJourney</b>. I find it incredibly fascinating that out of 8 images, they all have the same very specific style. Erik Johannson rarely uses people in his photography -- why is this very specific
   woman coming up? Also, I think the cutesy, not really photographic style really helps these outputs, tbh. </p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/3_mini.png">
+  <img alt="4 very unsettling images, that are fairly blurry. you can see the vague shape of a woman's head (sometimes including her torso), and the hair warps into a really horrible and realistic honeycomb. it truly looks creepy" src="/images/gen-models/3_mini.webp">
   <p><b>DALL-E mini</b>. Poor model, this is the worst of the bunch, and I expected it. DALL-E mini
   isn't very good at realism; it gives very noisy people, or faces, and then shoves them through a potato. That, combined with (my bad) sheer
   creepiness of the prompt leads to a literal nightmare.</p>
@@ -182,26 +182,26 @@ And now, a palette cleanser. I had been doing some reading and learnt that DALL-
 
 <hr>
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/4_dalle.png">
+  <img alt="4 images of a very realistic and colourful toucan, sitting on a variety of chairs, using a rotary phone. the images look like 3d sort of artwork" src="/images/gen-models/4_dalle.webp">
   <p><b>DALL-E</b>. I expected DALL-E to do well, and it did. The toucan on the phone is there, the 60s vibe is there, the apron is dubiously missing but we'll give it a pass. It's got the fuzziness of old,
   spacey, retrofuturism posters (though the prompt has absolutely no actual futurism in it)</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/4_sd.png">
+  <img alt="4 flat illustration style images, of a toucan on a chair. on one there's a phone. on another the toucan is sitting in front of a typewriter. on another the toucan is sideways, drinking a glass of whiskey" src="/images/gen-models/4_sd.webp">
   <p><b>Stable diffusion</b>. This isn't bad either. The art style is a little flatter (what is retrofuturism even?), but it's toucans doing their thing, some better than others.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/4_mj.png">
+  <img alt="4 very blobby illustrations of a toucan's head. the illustrations are rich in colour, with gradients, but the toucans themselves are very abstract looking, and don't have anything other than an equally abstract looking arm chair" src="/images/gen-models/4_mj.webp">
   <p><b>MidJourney</b>. If you've ever played with MidJourney, this will strike you as having "very MidJourney vibes". This grainy, round style I see often, and I quite like. However, while it captures the style really nicely, the prompt is sort of a wash past the toucan.</p>
 </div>
 <hr>
 
 <div class="floatie-bit">
-  <img alt="" src="/images/gen-models/4_mini.png">
+  <img alt="two of the images have a toucan bird, sitting on very recognizabley 60s armchairs. the other two images have a human body with a toucan head; the body is wearing a colourful apron and is sitting in front of some 60s furniture. these last 2 images have more of a photograph or collage feel than of a drawing." src="/images/gen-models/4_mini.webp">
   <p><b>DALL-E mini</b>. This is the first time I a) love this model the most and b) wish that it produced higher resolution images. Look at the aprons! Look at the furniture! In terms of concept, it's absolute perfection. In terms of execution, an absolute potato.</p>
 </div>
 
@@ -216,3 +216,5 @@ In terms of model-specific lessons (knowing that it's based on my weird experien
 - DALL-E mini really understands what toucans want (JK)
 - I should maybe steer clear of bees.
 
+<hr>
+Thanks to [Adam](https://twitter.com/mrmrs_) for helping me rework the intro, and giving me a subtitle; I can't believe I missed a Strangelove opp.
