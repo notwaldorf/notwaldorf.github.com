@@ -195,6 +195,10 @@ h1 {
   margin-bottom: var(--spacing-l);
 }
 
+.subtitle {
+  font-size: 26px;
+}
+
 h2, h3 {
   font-size: 26px;
   font-weight: 900;

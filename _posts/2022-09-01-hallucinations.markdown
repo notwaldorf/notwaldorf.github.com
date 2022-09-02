@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Hallucinating with art models"
+subtitle: "or: How I stopped worrying and learned to love the lithograph of an orchid where each flower has a small skull inside, but only sometimes."
 category: posts
 draft: true
 ---
@@ -23,22 +24,26 @@ img:hover{
 }
 </style>
 
-Wow, long time no blog, eh? Since last I've darkened your feeds with an update, I've been up to a bunch of work/consulting/art/nonsense (primarily Fallout 4; shout out to SteamDecks), to different degrees of success. Since getting off the hamster wheel that is "working for the <s>man</s>Sundar", I've started measuring my self-worth less in terms of internet popularity and more on (and this is true), percent of time spent on naps, and so I've become less interested in talking about myself on the internet (she says, writing a paragraph about herself on the internet). I promise that whatever work I've been doing isn't more interesting than the season of Love Island that just ended, which is waaaaay better edited than my blog posts. Related: Davide? Gross. Grosssssss. 
+Wow, long time, no posts! Anyway, about them text-to-art generative models going about, eh? Surprising nobody: I am extremely into them. I've been using [DALL-E](https://openai.com/dall-e-2/) and [MidJourney](https://www.midjourney.com/home/) since they came out, and even though tons has been written about them, I wanted to give a slightly different overview: the perspective of someone who isn't interested that much in their realism skills. 
 
-Anyway, back on track: these text-to-art generative models going about. Surprising nobody, I am extremely into them. I've been using [DALL-E](https://openai.com/dall-e-2/) and [MidJourney](https://www.midjourney.com/home/) since spring and I wanted to give a slightly different overview, from the perspective of someone who isn't interested in their realism skills. I've been trying to post updates on my [artstagram](https://www.instagram.com/meownica.studio/), but as a recent craft fair that just rejected me had to say: I'm quite shit at the socials. 
+I think that the most compelling place for ML models in an artist's life is as a tool that specifically **enables**, and doesn't **replace**, creativity. Machine Learning is amazing at doing something very specific, lots of times, really fast. It's great at telling me if an image is a cat or a dog. It's also great at generating one hundred half-dog-half-cats, in different positions, so that I can bypass the dozens of hours I would spend sketching out half-dog-half-cats for a painting that's *actually* about the nuclear apocalypse.  
 
-This post ended up being long af, so here's a table of contents:
+I've seen a lot of examples of which model is best at painting "The otter with the pearl earring", but I haven't seen a lot of comparisons of these models in terms of their potential for creativity-- likely because "creativity" is not really quantifiable. I wanted to do this for myself, if anything so that I can figure out how to use my money and credits better, but thought that I might as well put it out there in case anyone else was curious.
+
+This post ended up being looooong, so here's a Table of Contents:
 * TOC
 {:toc}
 
 ## Boring uses of interesting models 
-I use these models for a very specific thing, and that is as a brainstorming partner/collaborator. This also shouldn't surprise you: I've been going off on using ML for co-creation since the days of working on [Magenta](https://magenta.tensorflow.org/), which was truly a project that forged my views on the topic (shoutout to the smarter-than-me people on the team that let me absorb their well articulated opinions). I think that the most interesting place for ML models in an artist's life is as a tool that specifically **enables**, and doesn't **replace**, creativity. 
+I use these new models for a very specific thing, and that is as a brainstorming partner/collaborator. This shouldn't surprise you: I've been going off on using ML for co-creation since the days of working on [Magenta](https://magenta.tensorflow.org/), which was the project that forged my views on the topic (shoutout to the smarter-than-me people on the team that let me absorb their well articulated opinions). 
 
-What I mean by that is that I find DALL-E generations like "dogs playing poker", "Donald Trump but as a cheeseburger" or "my dog but as a Van Gogh painting" impressive, but kind of boring: yes, the output is funny, but no, I don't fall asleep thinking about the deep meaning of an orange cheeseburger with a balding head and very small hands. This is consistent with how I look at the use of music models like the [Music Transformer](https://magenta.github.io/listen-to-transformer/#a1_50693.mid): absolutely impressive compositions, best suited for an elevator. This isn't the fault of the model, nor its users, and I am truly not shitting on these outputs (unless they're for NFTs; always here to shit on NFTs 🙃): I think both background music and memes have a value in society, as do procedural TV shows (Criminal Minds is literally my favourite ever, and I weeped when Netflix removed it), computer generated or not. But personally, as an artist, I feel fairly emotionally detached from them, as I'm pretty sure their authors do. 
+I tend to find DALL-E generations like "dogs playing poker" or "Donald Trump but as a cheeseburger" impressive, but kind of boring: yes, the output is funny, but no, I don't fall asleep thinking about the deep meaning of an orange cheeseburger with a balding head and very small hands. As an artist who is trying to carve a place for myself in the art world (and for these models in my art), I want them to be my co-creators, my partners in crime, but not take over and compromise my style. I want us to brainstorm together, come up with ideas, and then (in most cases), mold this draft into something that I can look at and say "yeah, that looks like something I made". 
+
+This is consistent with how I look at the use of music models like the [Music Transformer](https://magenta.github.io/listen-to-transformer/#a1_50693.mid): absolutely impressive compositions, best suited for an elevator. This isn't the fault of the model, nor its users, and I am truly not shitting on these outputs (unless they're for NFTs; always here to shit on NFTs 🙃): I think both background music and memes have a value in society, as do procedural TV shows (they're filming new Criminal Minds!!!), computer generated or not. But personally, as an artist, I feel fairly emotionally detached from them, as I'm pretty sure their authors do. 
 
 The exact same models, when used in a thoughtful and creative way lead to absolutely brilliant things; the ones that make you say "fuck, I wish **I** had thought of that". Yacht's [album](https://www.wired.com/story/how-yacht-used-machine-learning-to-create-their-new-album/?bxid=5cec28c424c17c4c6463a7e9) made with hard creative rules and machine learning is a wonderful example, as is Karen X. Cheng's use of DALL-E to imagine the scene [beyond Girl with a Pearl Earring](https://twitter.com/karenxcheng/status/1552720889489154048?s=20&t=62SQKCGZANvOlSjOjYMTig). This is the bit that I care about.
 
-As an artist who is trying to carve a place for myself in the art world (and for these models in my art), I want them to be my co-creators, my partners in crime, but not take over and compromise my style. I want us to brainstorm together, come up with ideas, and then (in most cases), mold this draft into something that I can look at and say "yeah, that looks like something I made". I've seen a lot of "is DALL-E or Imagen better at ducks with human legs", but I haven't seen a lot of comparison of these models in terms of their creativity (likely because it's not really quantifiable), so I wanted to do this for myself. Then I spent like two hours on it and thought I might as well put it out there in case anyone else was curious.
+I've been trying to post updates about how I personally use these models on my [artstagram](https://www.instagram.com/meownica.studio/) on how I've been using them (often with a commentary about the process), but as a recent craft fair that just rejected me had to say: I'm quite shit at the socials. Have this blog post instead?
 
 ## The (barely scientific) method
 
@@ -59,7 +64,7 @@ I cherry-picked 4 images for each model as follows:
 
 I tried to be as honest as possible with the results I'm showing, because I don't have a dog in this race. I just want something useful *for me*, wherever it comes from. You can zoom over the results to see them slightly bigger.
 
-### What I looked for
+### What I look for
 The prompts I used are for stuff I am actively working on, so they're a bit weird, slightly personal, and in some cases, oddly disturbing. Please don't steal the prompts or the outputs from me; I can't stop you (such is life on the internet), but it will break my heart. 
 
 I'll have some more details for each prompt, and how I picked "the most interesting to me", but the two big rubrics I looked for were:
@@ -209,4 +214,5 @@ In terms of model-specific lessons (knowing that it's based on my weird experien
 - Stable Diffusion works surprisingly well for something I can run off a collab
 - I don't have a gut feeling as to why, but pretty much everyone except for Stable Diffusion is confused by what a linocut is (this is only interesting to me, someone who works on linocuts)
 - DALL-E mini really understands what toucans want (JK)
+- I should maybe steer clear of bees.
 
