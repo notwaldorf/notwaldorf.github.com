@@ -4,7 +4,6 @@ title: "Hallucinating with art models"
 subtitle: "or: How I stopped worrying and learned to love the lithograph of an orchid where each flower has a small skull inside, but only sometimes."
 img: "/images/gen-models/header.webp"
 category: posts
-draft: true
 ---
 <link type="text/css" rel="stylesheet" href="/css/floatie-bits.css">
 <style>
