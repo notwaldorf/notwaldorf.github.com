@@ -2,16 +2,17 @@
 layout: post
 title: "Hallucinating with art models"
 subtitle: "or: How I stopped worrying and learned to love the lithograph of an orchid where each flower has a small skull inside, but only sometimes."
+img: "/images/gen-models/header.png"
 category: posts
 draft: true
 ---
 <link type="text/css" rel="stylesheet" href="/css/floatie-bits.css">
 <style>
-img {
+.floatie-bit img {
   object-fit:cover;
   transition: transform 0.3s ease-in-out;
   cursor: zoom-in}
-img:hover{
+.floatie-bit img:hover{
   transform: scale(1.5);
   z-index: 1000;
 }
@@ -189,8 +190,7 @@ And now, a palette cleanser. I had been doing some reading and learnt that DALL-
 
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/4_sd.png">
-  <p><b>Stable diffusion</b>. I'm not sure what went wrong here. I think the retrofuturism might be 
-  muddying the waters a little bit, but all in all: it's toucans doing their thing, some better than others.</p>
+  <p><b>Stable diffusion</b>. This isn't bad either. The art style is a little flatter (what is retrofuturism even?), but it's toucans doing their thing, some better than others.</p>
 </div>
 <hr>
 

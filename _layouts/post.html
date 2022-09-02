@@ -25,8 +25,11 @@ layout: body
         {% if page.subtitle %}
         <div class="subtitle">{{ page.subtitle }}</div>
         {% endif %}
-        
       </div>
+
+      {% if page.img %}
+        <img style="width:100%;padding-top:var(--spacing-l);" alt="post header image" src={{page.img}}>
+      {% endif %}
     </div>
   </div>
 </div>
