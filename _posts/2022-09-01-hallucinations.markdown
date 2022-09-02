@@ -83,6 +83,7 @@ I apologize in advance for #3; it's a bad place.
 ### 1. "Linocut print of a girl bundled up in bed with a stack of books and a cat"
 What I am looking for: Something that I can actually carve into linoleum and make prints out of, so sharp lines that I don't have to spend too much time cleaning up is ideal. The suprise winner in this category was Stable Diffusion who despite not interpreting the prompt correctly, came up with the most interesting results (in my opinion, etc)
 
+<hr>
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/1_dalle.png">
   <p><b>DALL-E</b>. Composition is great (100% gets the prompt), but completely misses the mark on "linocut". I tried to work this into a useable drawing to carve, but because it uses fairly sketchy lines and fills, it ended up being way more work than I wanted.</p>
@@ -109,6 +110,7 @@ What I am looking for: Something that I can actually carve into linoleum and mak
 ### 2. "Lithograph of an orchid where each flower has a small skull inside"
 What I am looking for: any semblance of an orchid not looking like an orchid. The "lithograph" part was a very loose requirement -- I just wanted it to feel "pencilly" without looking like a child drew it, which is what DALL-E often does for "pencil drawing". I spent a *lot* of time on this prompt with DALL-E (including looking up the technical biology terms for "the bit inside an orchid flower"), and I never got anything at all correct. It wasn't until this blog post when I went to other models that I regained hope! MidJourney, man!
 
+<hr>
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/2_dalle.png">
   <p><b>DALL-E</b>. I remember I tried many combinations of writing "a skull inside each flower", and
@@ -139,6 +141,7 @@ What I am looking for: any semblance of an orchid not looking like an orchid. Th
 ### 3. "Erik Johansson photograph of a woman[sic] hair that is a literal bee hive"
 I love surrealism. I was watching this 60s movie where a bunch of women had beehive hairdos, and this is how my brain operates: "wouldn't it be interesting if"? I don't know what I was expecting to get, but it wasn't any of this (though as someone who understands how these models work, in retrospect I understand **exactly** how we got here). I chose [Erik Johansson](https://www.erikjo.com/work) because surreal photography is his jam, and it helped stir DALL-E towards more of the right vibes at the time. Unfortunately, I got **really** creeped out by most of the results (from all models tbh), and it's really soured up this prompt for me.
 
+<hr>
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/3_dalle.png">
   <p><b>DALL-E</b>. The uncanny valley of literal bee hives turns out to be deep. The top left image one is the nicest, possibly because a) it doesn't have a face and b) it only has casual bees. It is maybe the closest to what I wanted (out of all the outputs), but it doesn't make me feel great looking at it. </p>
@@ -164,13 +167,14 @@ I love surrealism. I was watching this 60s movie where a bunch of women had beeh
   isn't very good at realism; it gives very noisy people, or faces, and then shoves them through a potato. That, combined with (my bad) sheer
   creepiness of the prompt leads to a literal nightmare.</p>
 </div>
+<hr>
 
-<br>
 I cannot apologize enough to these models for making them go through this. You at least could've scrolled past this section; they, the poor darlings, couldn't.
 
 ### 4. "A toucan wearing a 60s apron, sitting on a mid century modern armchair, talking on a rotary phone, retrofuturism"
 And now, a palette cleanser. I had been doing some reading and learnt that DALL-E really likes commas and stacking up contexts, so that's why this prompt is so detailed.
 
+<hr>
 <div class="floatie-bit">
   <img alt="" src="/images/gen-models/4_dalle.png">
   <p><b>DALL-E</b>. I expected DALL-E to do well, and it did. The toucan on the phone is there, the 60s vibe is there, the apron is dubiously missing but we'll give it a pass. It's got the fuzziness of old,
