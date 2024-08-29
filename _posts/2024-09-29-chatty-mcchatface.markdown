@@ -2,7 +2,6 @@
 layout: post
 title: "A swim with a chat bot"
 category: posts
-draft: true
 ---
 I have 4 (rounded up) beefs with language-y AI bots that have resulted in me sort of avoiding them altogether:
 1. They have the personality of a middle manager who writes Google Docs all day that nobody wants to read
