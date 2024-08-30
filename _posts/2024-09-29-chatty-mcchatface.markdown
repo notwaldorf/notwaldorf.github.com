@@ -35,7 +35,7 @@ I could've stopped here, but mad with this newly acquired power, and lazy beyond
 That resulted in the exact code I copy pasted to my website, along with another 1179 word (no joke) essay about the ONE line of code it changed that I left unread.
 
 ## Towelling off
-I know this blog post has the vibe of an excessively proud mother whose dog just did its first  poo away from the expensive rug, and tbh it isn't far from that. The bar was very low. I expected this to be a shit show, and it wasn't, and I got so excited about this fairly basic task a very large (and probably expensively trained) model completed. 
+I know this blog post has the vibe of an excessively proud mother whose dog just did its first  poo away from the expensive rug, and tbh it isn't far from that. The bar was very low. I expected this to be a shit show, and it wasn't, and I got so excited about this fairly basic task a very large (and probably expensively trained) model completed. I'm not _really_ worried it's showing signs to replace me, but I _am_ hoping it can help with some of the tedium programming requires.
 
 Can't wait to return to reality and regret this blog post in 2 months when the rest of the AI bots overthrow the US election and continue teaching the children to put Elmer's glue on pizza.
 
