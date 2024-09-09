@@ -70,6 +70,7 @@ button {
   cursor: pointer;
   font-weight: bold;
   border-bottom: 2px solid var(--red);
+  color: black;
 }
 tr.full td button {
   margin-right: 24px;
