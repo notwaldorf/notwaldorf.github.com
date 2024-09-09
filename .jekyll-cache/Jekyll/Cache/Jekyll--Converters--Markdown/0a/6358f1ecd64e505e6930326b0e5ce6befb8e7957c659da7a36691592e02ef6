@@ -1,0 +1,101 @@
+I"0!<p>Because that would be crazy. Crazy is in the next blog post.</p>
+
+<p>I’ve had to write a sizeable chunk of (fairly mediocre) Objective-C code recently, and I’ve formed the following opinions:</p>
+
+<ul>
+  <li>It’s easier if you just get over the thing with the brackets</li>
+  <li>Event listeners are sooper cool</li>
+  <li>Standard Cocoa controls are great if you want them to look exactly like Apple wants them to look like</li>
+  <li>If you disagree with the above point, you’re going to have to play subclass bingo</li>
+</ul>
+
+<h2 id="subclass-bingo">Subclass bingo</h2>
+<p>You’re a subclass bingo winner when you’ve made a custom class out of all of the NSControls. If this sounds ridiculous, it just means you haven’t tried hard enough.</p>
+
+<p>I started playing subclass bingo at the same time I started mumbling Cocoa, which was two months ago; I relied on the internet a lot for help. Sometimes the internet let me down, as it is wont to do, and then I had to ask actual humans things that in retrospect were fairly trivial. To save you from bringing a pox on both your houses, here are three (3) custom controls that you might one day look for.</p>
+
+<p>All of them live in the <a href="http://www.chromium.org/Home">Chromium</a> code zoo now. Token feeding and photography sessions are held three times a day, weather permitting.</p>
+
+<h2 id="nsbutton-with-custom-padding">NSButton with custom padding</h2>
+<p>By default, if you have an NSButton that has an image and a title, these will be squished right next to each other. This doesn’t always look very pretty. By default, we get the thing on the left. We want the thing on the right.</p>
+
+<p><img src="/images/2014-01-30-button-padding.png" alt="NSButton with padding" /></p>
+
+<p>The way we’re going to fix this is by creating a custom <code class="language-plaintext highlighter-rouge">NSButtonCell</code>, and overriding its <code class="language-plaintext highlighter-rouge">-drawTitle</code> method (I actually mean <code class="language-plaintext highlighter-rouge">-drawTitle:withFrame:inView:</code>, but I’m going to keep dropping the other parameters to make things look less scary. You can find everything in the <a href="https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/classes/NSButtonCell_Class/Reference/Reference.html">docs</a>, which are quite lovely).</p>
+
+<p>If you also want to give your button a left margin (I did. I wanted that), you can also override <code class="language-plaintext highlighter-rouge">-drawImage</code> and add some spacing in there. The only thing you need to keep in mind is that because you’re adding all this spacing to the cell, you’ll need to manually update <code class="language-plaintext highlighter-rouge">-cellSize</code>, so that the correct value gets returned and your title isn’t cut off.</p>
+
+<p>The full implementation is <a href="https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/ui/cocoa/browser/profile_chooser_controller.mm&amp;l=345">here</a>, and its use is <a href="https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/ui/cocoa/browser/profile_chooser_controller.mm&amp;l=402">here</a>. The important bits are:</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">- (NSRect)drawTitle:(NSAttributedString*)title
+          withFrame:(NSRect)frame
+             inView:(NSView*)controlView {
+  // This is the text's origin, which is from the left margin of the button.
+  // If you add a left margin in -drawImage, you have to add it here as well.
+  frame.origin.x += spacing_;
+  return [super drawTitle:title withFrame:frame inView:controlView];
+}
+- (NSSize)cellSize {
+  NSSize buttonSize = [super cellSize];
+  buttonSize.width += spacing_;
+  return buttonSize;
+}</code></pre></figure>
+
+<h2 id="nsbutton-with-a-transparent-background-color">NSButton with a transparent background color</h2>
+<p>Setting a normal, opaque background on a button is easy. You can do something like <code class="language-plaintext highlighter-rouge">[[button cell] setBackgroundColor:[NSColor blueColor]]</code>, however this only works for borderless buttons and opaque backgrounds. If we want to draw a transparent background, we have to take drawing into our own hands and override <code class="language-plaintext highlighter-rouge">-drawRect</code>. Custom painting? You’re well on your way to a subclass bingo! Keep in mind this isn’t the cheapest operation (it gets called literally all the time), so don’t get too ambitious in there.</p>
+
+<p>The full implementation is <a href="https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/ui/cocoa/browser/profile_chooser_controller.mm&amp;l=150">here</a>, but the main method is:</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">- (void)drawRect:(NSRect)dirtyRect {
+  NSColor* backgroundColor = [NSColor colorWithCalibratedWhite:0 alpha:0.1f];
+  [backgroundColor setFill];
+  // P.S. NSRectFill(...) won't work, and will ignore the alpha. I tried.
+  NSRectFillUsingOperation(dirtyRect, NSCompositeSourceAtop);
+  [super drawRect:dirtyRect];
+}</code></pre></figure>
+
+<p>Bonus points to Cocoa for using the word “atop”.</p>
+
+<h2 id="otter-intermission">Otter intermission</h2>
+<p>I bet you feel pretty pleased with how you’re doing in subclass bingo right now. Here’s a gif of an  otter who probably just subclassed a slider.
+<img src="http://i.imgur.com/nUIe0yQ.gif" alt="otter" /></p>
+
+<h2 id="nsbutton-that-changes-its-background-on-hover">NSButton that changes its background on hover</h2>
+<p>Disclaimer: in Chromium, using a raw <code class="language-plaintext highlighter-rouge">NSTrackingArea</code> is a pretty big <a href="http://www.chromium.org/developers/coding-style/cocoa-dos-and-donts">don’t</a>, because it’s leaky and leads to weird crashes. We also don’t tend to use raw pointers like the code below either, because ain’t nobody got time for segfaults. Instead, we use <a href="https://code.google.com/p/chromium/codesearch#chromium/src/base/mac/scoped_nsobject.h">scoped_nsobjects</a>, which are the badass Objective-C flavours of scoped_ptrs. Refcounting 4 lyfe &lt;3.</p>
+
+<p>The code as used in Chromium is <a href="https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/ui/cocoa/browser/profile_chooser_controller.mm&amp;l=392">here</a>. I’m going to make the crazy assumption that you, dear reader, aren’t using this in Chromium, so below is a regular-world variant. I can tell you that it compiles and runs, but I am not ready at this point to make any guarantees about the irregularities in the space-time continuum it might cause. Worst case, you’ll have to release that <code class="language-plaintext highlighter-rouge">NSTrackingArea</code> when you’re done with it (e.g. in the button’s <code class="language-plaintext highlighter-rouge">-dealloc</code>).</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">@interface HoverBackgroundButton : NSButton
+@end
+@implementation HoverBackgroundButton
+- (id)initWithFrame:(NSRect)frameRect {
+  if ((self = [super initWithFrame:frameRect])) {
+    [self setBordered:NO];
+    // Bonus code for you. NSMomentaryChangeButton means that the pressed
+    // style of the button is the same as the active one.
+    // Also, look: font change!
+    [self setFont:[NSFont labelFontOfSize:14]];
+    [self setButtonType:NSMomentaryChangeButton];
+    [[self cell] setBackgroundColor:[NSColor whiteColor]];
+    [self sizeToFit];  // &lt;--- We need this so that [self bounds] is a thing.
+    // Add a tracking area so that we can show/hide the button when hovering.
+    NSTrackingArea* trackingArea = [[NSTrackingArea alloc]
+      initWithRect:[self bounds]
+           options:NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways
+             owner:self userInfo:nil];
+    [self addTrackingArea:trackingArea];
+  }
+  return self;
+}
+- (void)mouseEntered:(NSEvent*)event {
+  // Boom.
+  [[self cell] setBackgroundColor:[NSColor blueColor]];
+}
+- (void)mouseExited:(NSEvent*)event {
+  [[self cell] setBackgroundColor:[NSColor whiteColor]];
+}
+@end</code></pre></figure>
+
+<h2 id="the-end">The end</h2>
+<p>You’ve made it. Congratulations! Please let me know if/when you win at subclass bingo (though it’s unclear there are any winners), and I will send you another otter gif.</p>
+:ET

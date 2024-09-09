@@ -1,0 +1,200 @@
+I"1L<p>One of the beefs (and there aren’t many) that I have with CSS is that it has a very weak
+opinion about style encapsulation. That opinion is basically “well, name your classes well” or else bad
+things happen. Know this: I come from C++, land of rules and disappointed compilers; this hand waviness drives me crazy.</p>
+
+<p>This matters because now you have to trust the people that write your css libraries
+to have common sense. If my website needs two kinds of fancy buttons, which live in  <code class="language-plaintext highlighter-rouge">shiny-button.css</code> and <code class="language-plaintext highlighter-rouge">bouncy-button.css</code>, which are both libraries
+written by silly people who want me to use the <code class="language-plaintext highlighter-rouge">.button</code> class to get their style,
+I’m hosed.</p>
+
+<h2 id="enter-the-shadow-dom">Enter the Shadow DOM</h2>
+<p>The <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/">Shadow DOM</a> fixes this problem by building a little castle (a dome, get it?) around each custom element, locking in its implementation and styles. This is a proper castle, with a proper moat, so now styles can’t get in and out of it. This means that if <code class="language-plaintext highlighter-rouge">&lt;shiny-button&gt;</code> was a custom element instead of a pile of CSS, its <code class="language-plaintext highlighter-rouge">.button</code> class was scoped to the element itself, and wouldn’t stomp over <code class="language-plaintext highlighter-rouge">&lt;bouncy-button&gt;</code>’s similarly creatively named <code class="language-plaintext highlighter-rouge">.button</code> class.</p>
+
+<p>This shouldn’t surprise you too much, as native elements have been doing this in secret for yeaaaaars. <code class="language-plaintext highlighter-rouge">&lt;input type=date&gt;</code> styles the date picker somehow, but you’ve never worried what class names it might use to do so. You know why? Because you can’t get to its castle, that’s why.</p>
+
+<h2 id="the-struggle-is-real">The struggle is real</h2>
+<p>So what happens if you <em>do</em> want to style <code class="language-plaintext highlighter-rouge">&lt;shiny-button&gt;</code>? What if it’s a perfectly
+respectable button, but it uses Helvetica as its font and you really need it to be Comic Sans because Helvetica is <em>so</em> 2014?</p>
+
+<p>You can always style the <em>host</em> of the element. Think of the host as the castle walls; it’s the thing that holds all the actual contents of the custom element. It still plays by CSS rules, so some of the styles you set on the <em>host</em> could
+actually trickle down to some child elements. For example:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">tomato</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="c">/* this will apply to any text in the button,
+   * unless a specific child overrides it */</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>What you don’t get to do is peek at the implementation of the <code class="language-plaintext highlighter-rouge">&lt;shiny-button&gt;</code> and decide you don’t need one of the nested
+<code class="language-plaintext highlighter-rouge">div</code>s it uses. Again, these are the same rules that <code class="language-plaintext highlighter-rouge">&lt;input type=date&gt;</code> plays by: you can change the <code class="language-plaintext highlighter-rouge">input</code>’s text to be red, but that date picker is what it is (hella ugly).</p>
+
+<p>When the Shadow DOM was first introduced, people anticipated this styling problem and took the “bring an AK-47 to a knife fight” approach by giving every developer <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/#toc-style-cat-hat">dragons</a>. These dragons are called <code class="language-plaintext highlighter-rouge">/deep/</code> and <code class="language-plaintext highlighter-rouge">::shadow</code>, and let you cross the moat and tear the shit out of any castle. You
+could style anything you wanted in your custom element, because ain’t nobody stopping
+dragons. It’s like that moat isn’t even there:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span> <span class="o">/</span><span class="nt">deep</span><span class="o">/</span> <span class="nt">fancy-div</span><span class="nc">.fancy-class</span> <span class="o">&gt;</span> <span class="nc">.button</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>However, as we know from Game of Thrones, you eventually discover that if you have a dragon, it’s going to start eating all your goats and people will regret giving you a dragon.</p>
+
+<p>So we deprecated <code class="language-plaintext highlighter-rouge">/deep/</code> and <code class="language-plaintext highlighter-rouge">::shadow</code> and web developers around the world panicked.</p>
+
+<h2 id="bridges-instead-of-dragons">Bridges instead of dragons</h2>
+<p>The correct answer to “say, how do I cross this moat?” isn’t “lol a dragon”.
+It’s a bridge. We’ve been using bridges to cross waters for like 3000 years. Dragons aren’t even real, man.</p>
+
+<p>CSS variables (aka custom properties) do exactly that. They’re hooks that the developer of a <code class="language-plaintext highlighter-rouge">&lt;shiny-button&gt;</code> has left all over the code,
+so that you can change that particular style. Now you, as the user of a custom element no
+longer need to know <em>how</em> that element is implemented. You are given the list of things you can style, and you’re set.</p>
+
+<p>The code examples use Polymer, which is what I work on, and what I use to write custom elements. The full code, if you want to play along, is <a href="http://jsbin.com/qubila/edit?html,output">here</a> (there’s an embedded JSBin at the bottom of this post, but you know, spoilers).</p>
+
+<h2 id="first-a-shiny-button">First, a shiny button</h2>
+<p>So, here’s our button. It has a bunch of nested silly things, because why not. Who knows how the native <code class="language-plaintext highlighter-rouge">&lt;input&gt;</code> actually looks like. Maybe it’s <code class="language-plaintext highlighter-rouge">divs</code> all the way down. Maybe it’s spiders. It’s probably spiders.</p>
+
+<p>Everything inside <code class="language-plaintext highlighter-rouge">.container</code>, including <code class="language-plaintext highlighter-rouge">.container</code> itself is inside the Shadow Castle, so it can’t be reached:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dom-module</span> <span class="na">id=</span><span class="s">"shiny-button"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;template&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+      <span class="nd">:host</span>      <span class="p">{</span> <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;}</span>
+      <span class="nc">.container</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="no">cornflowerblue</span><span class="p">;</span> <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="p">}</span>
+      <span class="nc">.icon</span>      <span class="p">{</span> <span class="nl">font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span> <span class="p">}</span>
+      <span class="nc">.text-in-the-shadow-dom</span> <span class="p">{</span> <span class="nl">font-weight</span><span class="p">:</span> <span class="m">900</span><span class="p">;</span> <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon"</span><span class="nt">&gt;</span>♡<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"user-text"</span><span class="nt">&gt;&lt;content&gt;&lt;/content&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"text-in-the-shadow-dom"</span><span class="nt">&gt;</span>!!!<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/template&gt;</span>
+  <span class="nt">&lt;script&gt;</span>
+    <span class="nx">Polymer</span><span class="p">({</span> <span class="na">is</span><span class="p">:</span> <span class="dl">'</span><span class="s1">shiny-button</span><span class="dl">'</span> <span class="p">});</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/dom-module&gt;</span>
+...
+<span class="c">&lt;!-- somewhere in an index.html, you'd use it like so: --&gt;</span>
+<span class="nt">&lt;shiny-button&gt;</span>hallo hai<span class="nt">&lt;/shiny-button&gt;</span>
+</code></pre></div></div>
+<p>The <code class="language-plaintext highlighter-rouge">&lt;shiny-button</code>&gt; looks like the thing on the left. Pretty meh. We’ll do better. We’ll style it
+to be the thing on the right, without any 🐲🐲🐲.</p>
+
+<p><img width="312" alt="screen shot 2015-08-11 at 3 34 51 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212530/97d07e7c-403e-11e5-867e-656ee1fd3cb7.png" /></p>
+
+<h2 id="what-can-you-style-right-now">What can you style right now?</h2>
+<p>We can only style the <em>host</em> of the element – this is everything outside the <code class="language-plaintext highlighter-rouge">.container</code> class, but inside
+the shiny button. You know, the walls of the castle.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span><span class="nc">.fancy</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Lato"</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To see the difference between the host and the container, we can give the button itself a different
+background than the <code class="language-plaintext highlighter-rouge">.container</code>. The red corners you see are part of the host; the blue parts are
+the <code class="language-plaintext highlighter-rouge">.container</code>.</p>
+
+<p><img width="142" alt="screen shot 2015-08-11 at 3 23 20 pm" src="https://cloud.githubusercontent.com/assets/1369170/9212326/ed035506-403c-11e5-848a-9b35bbdc8fce.png" /></p>
+
+<p>Of course, none of these styles will work, because these <code class="language-plaintext highlighter-rouge">divs</code> are well inside the castle:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span><span class="nc">.fancy</span> <span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">pink</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">shiny-button</span><span class="nc">.fancy</span> <span class="nc">.text-in-the-shadow-dom</span> <span class="p">{</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="and-now-some-bridges">And now: some bridges</h2>
+<p>We probably want to change the button’s background color, so we’ll create a variable for it, called <code class="language-plaintext highlighter-rouge">--shiny-button-background</code>. Some things:</p>
+
+<ul>
+  <li>every Polymer custom property needs to start with a <code class="language-plaintext highlighter-rouge">--</code>, so that Polymer knows you’re not just typing gibberish.</li>
+  <li>I like to include the element name as a prefix to the custom property; I find it useful to remind me what I’m actually styling.</li>
+  <li>I also like documenting these somewhere in a giant docs blurb, so that the element’s users know what to expect. Polymer’s <a href="https://github.com/PolymerElements/paper-checkbox/blob/master/paper-checkbox.html#L34">paper-checkbox</a> is a nice example of this (because I wrote it, obvs).</li>
+</ul>
+
+<p>Now that we know a custom property is available, this is how we would use it, inside the custom element:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+  <span class="c">/* cornflowerblue is a default colour, in case the user doesn't
+   * provide one. You could omit it if it's being inherited from above */</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--shiny-button-background</span><span class="p">,</span> <span class="no">cornflowerblue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>You can think of <code class="language-plaintext highlighter-rouge">var</code> like an eval, which says “apply the value of this custom property, whatever that value is”. And this is how you, the user of the element would actually give it a value:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span><span class="nc">.fancy</span> <span class="p">{</span>
+  <span class="c">/* see how much this looks like a normal css property? i.e.
+  background: #E91E63; */</span>
+  <span class="py">--shiny-button-background</span><span class="p">:</span> <span class="m">#E91E63</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>You can add all sorts of hooks for these kinds of “one-off” custom properties. Eventually you will realize that if the thing that should be styled is too generic (the background container of the button) there’s waaaaay too many CSS properties to expose one by one. In that case, you can use a <em>mixin</em>, which is like a bag of properties that should all be applied at once. By default this bag is empty, so nothing gets applied when defining the custom element:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.icon</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="err">@apply(--shiny-button-icon);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>But the user of the element could start adding things to the bag like this:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">shiny-button</span><span class="nc">.fancy</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Lato"</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="m">300</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+  <span class="py">--shiny-button-background</span><span class="p">:</span> <span class="m">#E91E63</span><span class="p">;</span>
+
+  <span class="c">/* this is the mixin! the colon and the semicolon are both important */</span>
+  <span class="py">--shiny-button-icon</span><span class="p">:</span> <span class="err">{</span>
+    <span class="n">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">text-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">1px</span> <span class="m">#880E4F</span><span class="p">;</span>
+  <span class="p">}</span><span class="o">;</span>
+<span class="err">}</span>
+</code></pre></div></div>
+<p><br />
+Some tips:</p>
+
+<ul>
+  <li>the mixin is only relevant to the selector it’s being applied to (modulo CSS inheritance rules). As an element author
+  it’s your responsability to name this mixin in a way that conveys this. In the example above, <code class="language-plaintext highlighter-rouge">--shiny-button-icon</code>
+  implies you’re styling the icon of the button. If instead you’re applying that style to the text, for example,
+  you’re being a bad element author, and your users will shame you on social media.</li>
+  <li>mixins aren’t a panacea. If you look at the <a href="https://github.com/PolymerElements/paper-checkbox/blob/master/paper-checkbox.html#L34">paper-checkbox</a>
+  example I mentioned before, you’ll notice no mixins at all! This is because the element is fairly restricting, and
+  there’s only so many things you can possibly care about styling. That’s when I tend to prefer individual custom properties vs a mixin.</li>
+</ul>
+
+<p>That’s it, that’s all! We can style ALL the things now, AND get style encapsulation,
+and not sacrifice any goats to dragons. Aren’t web components amazing? (Yes they are).</p>
+
+<p><br /></p>
+
+<p>Here’s the JSBin if you want to play with it:
+<a class="jsbin-embed" href="http://jsbin.com/qubila/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.2"></script></p>
+
+<h1 id="hear-me-talk-about-this">Hear me talk about this</h1>
+<p>I gave this talk at the Polymer <a href="https://www.polymer-project.org/summit">summit</a>. Hurray, the metaphor is spreading!</p>
+
+<h2 id="video">Video</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IbOaJwqLgog" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="slides">Slides</h2>
+<script async="" class="speakerdeck-embed" data-id="9c0e7a1b528a4293b63e09f1e3c04044" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
+:ET

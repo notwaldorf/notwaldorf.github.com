@@ -1,0 +1,30 @@
+I"�<p>Back in the day when I worked on Polymer I got used to relying on a bunch of useful CSS classes
+that at the time we called <a href="https://github.com/PolymerElements/iron-flex-layout/blob/master/iron-flex-layout-classes.js">iron-flex-layout</a>.
+They were there partly because flexbox was a sadness on IE and you needed to say everything 3 times to maybe
+get it right twice, and add some
+very special <code class="language-plaintext highlighter-rouge">flex-basis: 0.000000001px</code>
+“bug fixes” that tbh nobody should ever have to write by hand. But they were also there because it’s kind of nice to say <code class="language-plaintext highlighter-rouge">&lt;div class="horizontal"&gt;</code>
+and for it to just work.</p>
+
+<p>Some years later, it’s now 2020, and flexbox is really good everywhere! We don’t need <code class="language-plaintext highlighter-rouge">iron-flex-layout</code> anymore, but tbh I still
+want to say <code class="language-plaintext highlighter-rouge">&lt;div class="horizontal"&gt;</code> and for it to just work.</p>
+
+<p>I know there are tons of CSS frameworks out there like <a href="https://tachyons.io/">tachyons</a> that can do this for me, but most of these frameworks
+do <em>too much</em> for me. I don’t work on large projects that need design systems, and I don’t want every possible padding and margin and colour and flexbox configuration in the world. I just
+want the ones that I know I end up using in every project. So here is <code class="language-plaintext highlighter-rouge">monica.css</code>: my very own CSS framework, which I copy paste at the beginning of every CSS file and take it from there. It’s already minified and bundled (because you copy pasted it) so dare I say: fast loading and efficient? 🙃</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span> <span class="p">{</span><span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">}</span>
+<span class="o">[</span><span class="nt">hidden</span><span class="o">]</span> <span class="p">{</span><span class="nl">display</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">}</span>
+<span class="o">[</span><span class="nt">disabled</span><span class="o">]</span> <span class="p">{</span><span class="nl">pointer-events</span><span class="p">:</span><span class="nb">none</span><span class="p">;</span> <span class="nl">opacity</span><span class="p">:</span> <span class="m">0.3</span><span class="p">}</span>
+<span class="nc">.horizontal</span> <span class="p">{</span><span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">row</span><span class="p">;</span> <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">}</span>
+<span class="nc">.vertical</span> <span class="p">{</span><span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">}</span>
+<span class="nc">.center</span> <span class="p">{</span><span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">}</span>
+<span class="nc">.flex</span> <span class="p">{</span><span class="nl">flex</span><span class="p">:</span> <span class="m">1</span><span class="p">}</span>
+<span class="nt">html</span> <span class="p">{</span>
+  <span class="py">--spacing-xs</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span>
+  <span class="py">--spacing</span><span class="p">:</span> <span class="m">24px</span><span class="p">;</span>
+  <span class="py">--spacing-s</span><span class="p">:</span> <span class="m">12px</span><span class="p">;</span>
+  <span class="py">--spacing-m</span><span class="p">:</span> <span class="m">36px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

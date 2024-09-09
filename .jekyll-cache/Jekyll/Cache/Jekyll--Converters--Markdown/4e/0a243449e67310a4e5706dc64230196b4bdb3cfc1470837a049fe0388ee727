@@ -1,0 +1,95 @@
+I"�<p>You know the scenes in Friends when Ross starts talking about dinosaurs
+and he’s SUPER excited but everyone else is losing the will to live?
+This is basically that, only instead of dinosaurs, it’s emoji, and unlike Ross,
+I have never successfully befriended a monkey.</p>
+
+<p>Last month, my coworker casually told me he still has a 2001 era DoCoMo phone, which is
+one of the first phones to have emoji (🤓🤓🤓: emoji first appeared in 1999, on DoCoMo phones,
+and DoCoMo phones alone). So I got ahold of this phone. Which charged, turned on
+and most importantly, TOTALLY had OG emoji:</p>
+
+<div style="width:100%">
+<img src="/images/2016-09-28/all-1.jpg" width="30%" style="display:inline" />
+<img src="/images/2016-09-28/all-2.jpg" width="30%" style="display:inline" />
+<img src="/images/2016-09-28/all-3.jpg" width="30%" style="display:inline" />
+<br /><br /><br />
+</div>
+
+<p>I spent the whole day being unproductive and sending emoji messages to people:</p>
+
+<div style="width:100%">
+<img src="/images/2016-09-28/msg-1.jpg" width="30%" style="display:inline" />
+<img src="/images/2016-09-28/msg-2.jpg" width="30%" style="display:inline" />
+<img src="/images/2016-09-28/msg-3.jpg" width="30%" style="display:inline" />
+</div>
+
+<h2 id="svgs">SVGs</h2>
+
+<p>I then took a 10 hour flight to Europe and, for lack of better things to do
+while watching every movie that came out this year, I drew every one of those emoji as a sprite.
+166 emoji in total, 12x12px each, in one of six colors. This was my first time doing pixels
+sprites, so I obviously fucked it up: I ended up with a bunch of random sprite sheets,
+each with a random number of sprites in it, which was a bit of a mess. Thankfully,
+<a href="https://twitter.com/amandaglosson">Amanda Glosson</a>, reigning queen of pixels, wrote me a script to transmogrify my mess into
+individual svgs. <strong>These</strong> individual SVGs, to be exact:</p>
+
+<iframe src="/images/2016-09-28/svgs.html" width="100%" onload="this.height=this.contentDocument.body.getBoundingClientRect().height + 20" frameborder="0"></iframe>
+
+<p>LOOK HOW PRETTY THEY ARE! <span class="og">💓</span></p>
+
+<h2 id="a-wild-font-appears">A wild font appears</h2>
+<p>The reason why I made those SVGs was partly because Captain America: Civil War is unbearably
+boring, but partly because I wanted to make a font and use it everywhere like
+an emoji hipster.</p>
+
+<p>So then I did. I used <a href="http://app.fontastic.me/">Fontastic</a> to make the font – it’s black and white, because at 
+the time of writing this, colour fonts weren’t supported on the web (tbh, even a year later, when colour 
+fonts <em>are</em> supported, I still couldn’t tell you how to make on). I
+also mapped the original emoji glyph to one of the current existing emoji code points,
+based on <a href="http://unicode.org/emoji/charts/full-emoji-list.html">this</a> list, because let’s be honest, some of them were mysterious.
+Do you know what <span class="og">💥</span> means? It’s 💥. And
+<span class="og">💦</span> is 💦. 12 pixels ain’t a lot of pixels, friends.</p>
+
+<style>
+.emoji-sample {
+  font-size: 24px;
+  letter-spacing: 6px;
+  line-height: 30px !important;
+  word-wrap: break-word;
+}
+</style>
+
+<p>Here the 166 emoji as they look today:</p>
+<div>
+<p class="emoji-sample">❤💔💓💕😃😖😞😵😠🎵♨💠💋✨💡💢👊💣🎶💤❗⁉‼💥💦💧💨〰️➰⤴⤵↗↘↖↙☀️☁️☔️⛄⚡️🌀🌁🌂♈️♉️♊️♋️♌️♍️♎️♏️♐️♑️♒️♓️🎽⚾️⛳🎾⚽️🎿🏀🏁📟🚃Ⓜ🚄🚗🚙🚌🚢✈️🏠🏢🏣🏥🏦🏧🏨🏪⛽🅿🚥🚻🍴☕🍸🍺🍔👠✂️🎤🎥🎠🎧🎨🎩🎪🎫🚬🚭📷👜📖🎀🎁🎂☎︎📱📝📺🎮💿♥♠♦♣👀👂✊✌️✋👣👟👓🌑🌔🌓🌙🌕🐶🐱⛵🎄📲📩📠✉︎💴🆓🆔↩🆑🔍🆕🚩➿#️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🆗</p>
+</div>
+
+<p>And here’s the same list, using the DoCoMo emoji font:</p>
+<div>
+<p class="og emoji-sample">❤💔💓💕😃😖😞😵😠🎵♨💠💋✨💡💢👊💣🎶💤❗⁉‼💥💦💧💨〰️➰⤴⤵↗↘↖↙☀☁︎☔︎⛄⚡︎🌀🌁🌂♈︎♉︎♊︎♋︎♌︎♍︎♎︎♏︎♐︎♑︎♒︎♓︎🎽⚾︎⛳🎾⚽︎🎿🏀🏁📟🚃Ⓜ🚄🚗🚙🚌🚢✈️🏠🏢🏣🏥🏦🏧🏨🏪⛽🅿🚥🚻🍴☕🍸🍺🍔👠✂︎🎤🎥🎠🎧🎨🎩🎪🎫🚬🚭📷👜📖🎀🎁🎂☎︎📱📝📺🎮💿♥♠♦♣👀👂✊✌︎✋👣👟👓🌑🌔🌓🌙🌕🐶🐱⛵🎄📲📩📠✉︎💴🆓🆔↩🆑🔍🆕🚩➿#0123456789🆗</p>
+</div>
+
+<p>There’s some OG emoji that don’t even exist today!:</p>
+<p class="og emoji-sample">abcde</p>
+
+<h2>Boom! <span class="og" style="font-weight:normal;">💣</span></h2>
+
+<p>If you want to use it, you can download the font <a href="/fonts/og-dcm-emoji.ttf">here</a>, and use
+it as a <code class="language-plaintext highlighter-rouge">font-face</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@font-face {
+  font-family: og-emoji;
+  src: url(/fonts/og-dcm-emoji.ttf);
+}
+.og {
+  font-family: og-emoji, sans-serif;
+}
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">'og'</span><span class="nt">&gt;</span>💥<span class="nt">&lt;/span&gt;</span>
+</code></pre></div></div>
+
+<p>If you’re going to use it, maybe give me some credit, because I spent an unhealthy
+amount of time on it. Also, if you’re
+DoCoMo, please don’t sue me. Emojineering comes only from the <span class="og">❤</span>.</p>
+
+<h1 class="og" style="font-weight:normal;">✌︎ ✨ 🐱 💋 🆗</h1>
+:ET

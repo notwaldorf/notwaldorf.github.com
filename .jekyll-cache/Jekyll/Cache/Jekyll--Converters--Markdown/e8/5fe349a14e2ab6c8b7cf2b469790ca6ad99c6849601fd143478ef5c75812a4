@@ -1,0 +1,270 @@
+I"�b<style>
+.content img:not(.emoji) {
+  border: 1px solid #efefef;
+  margin: 24px 0;
+}
+</style>
+
+<p>The Meownica Web App Workflow™ goes like this:</p>
+<ol>
+  <li>Write bad code until the file is too long</li>
+  <li>Refactor that code into some web components</li>
+  <li>Repeat steps 1-2 until done</li>
+  <li>Realize you forgot to do the PWA dance, so your app is scoring 45 on <a href="https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en">Lighthouse</a></li>
+  <li>Make it into a PWA by doing basically the same steps every time.</li>
+</ol>
+
+<p>I’m not joking about step 5. It’s all a bunch of fairly simple boilerplate and
+party tricks, that I copy paste from a couple of apps. This time I decided to make
+them into a checklist. This checklist is keen on the <code class="language-plaintext highlighter-rouge">polymer cli</code>, because I
+usually write apps that use Polymer. If you don’t, you can replace the <code class="language-plaintext highlighter-rouge">polymer cli</code> with your favourite bundler/service-worker generator!</p>
+
+<p>If you just want the checklist, <a href="https://meowni.ca/posts/polymer-pwa-checklist/#checklist">here</a> it is. If you want to see <em>how</em> I made this checklist and how the <a href="https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en">Lighthouse</a> score improved as I checked more items off, jump to the <a href="#step-by-step">case-study</a>!</p>
+
+<ul id="markdown-toc">
+  <li><a href="#checklist" id="markdown-toc-checklist">Checklist</a></li>
+  <li><a href="#step-by-step" id="markdown-toc-step-by-step">Step by step</a>    <ul>
+      <li><a href="#1--add-a-manifestjson" id="markdown-toc-1--add-a-manifestjson">1. 📝 Add a manifest.json</a></li>
+      <li><a href="#2--bundle-with-the-polymer-cli" id="markdown-toc-2--bundle-with-the-polymer-cli">2. 🏃 Bundle with the Polymer CLI</a></li>
+      <li><a href="#3--add-a-service-worker" id="markdown-toc-3--add-a-service-worker">3. 🤖 Add a Service Worker</a></li>
+      <li><a href="#4--fix-first-paint" id="markdown-toc-4--fix-first-paint">4. 🎨 Fix first paint</a></li>
+    </ul>
+  </li>
+  <li><a href="#-" id="markdown-toc--">🆗 🆒</a></li>
+</ul>
+
+<h2 id="checklist">Checklist</h2>
+<p><input type="checkbox" /> generate icons (sizes: 48x48, 96x96, 144x144, 192x192, 512x512) <a href="https://github.com/PolymerLabs/indie-catalog/tree/master/icons">[example]</a><br />
+<input type="checkbox" /> add a <code class="language-plaintext highlighter-rouge">manifest.json</code> <a href="https://github.com/Polymer/shop/blob/master/manifest.json">[example]</a><br />
+<input type="checkbox" /> add the rest of the manifesty things to your index.html <a href="https://github.com/PolymerLabs/indie-catalog/blob/master/index.html#L14">[example]</a><br />
+<input type="checkbox" /> add the <a href="https://github.com/Polymer/polymer-cli">polymer cli</a>: <code class="language-plaintext highlighter-rouge">npm install -g polymer-cli</code><br />
+<input type="checkbox" /> add a <code class="language-plaintext highlighter-rouge">polymer.json</code> <a href="https://github.com/Polymer/shop/blob/master/polymer.json">[example]</a><br />
+<input type="checkbox" /> run <code class="language-plaintext highlighter-rouge">polymer build</code><br />
+<input type="checkbox" /> register your Service Worker <a href="https://github.com/PolymerLabs/indie-catalog/blob/master/index.html#L102">[example]</a>. If you have a complicated app setup or caching strategy, you might want to generate a <a href="https://github.com/Polymer/shop/blob/master/sw-precache-config.js"><code class="language-plaintext highlighter-rouge">sw-precache-config.js</code></a> file.<br />
+<input type="checkbox" /> add fallback content while your main element is updating <a href="https://github.com/PolymerLabs/indie-catalog/blob/master/index.html#L84">[example]</a>. As a general rule, I try to match this fallback content very closely to what the first paint of the element will actually be, so that there’s no visual jank<br />
+<input type="checkbox" /> make sure that your page renders something without JavaScript <a href="https://github.com/PolymerLabs/indie-catalog/blob/master/index.html#L90">[example]</a></p>
+
+<p>Provided your app isn’t outrageously big (think: the only thing that will make
+loading 10MB of JavaScript up front better, is not loading 10MB of JavaScript), this should help put you somewhere in the green scores on Lighthouse.</p>
+
+<h2 id="step-by-step">Step by step</h2>
+<p>So, here’s the post-game analysis of what I did to make  <a href="https://github.com/polymerlabs/indie-catalog">indie-catalog</a> into a PWA with a pretty decent Lighthouse score. I didn’t take it all the way to 💯, because the last 5-10 points always end
+up being very app specific, and that kind of sorcery is best left for a different blog post.</p>
+
+<p>It doesn’t particularly matter what my app does – you can think of it as a generic Polymer 2.0 app, with a bunch of Polymer elements, that I have done nothing special to. It doesn’t have a Service
+Worker, it doesn’t lazy load anything, it doesn’t bundle or minify any of the loaded code. Its Lighthouse
+score is an absolute tragedy (minus that a11y score 🙌):</p>
+
+<p><img alt="initial Lighthouse score" src="/images/2017-07-26/before-score.png" /></p>
+
+<p>The PWA section details point to the very straight forward problem of “you have no Service Worker, what did you expect”. TBH, exactly this.
+<img alt="initial Lighthouse PWA section" src="/images/2017-07-26/before-pwa.png" /></p>
+
+<p>Performance wise, the app is really slow. Because it doesn’t minify any if its sources, it
+has to download a lot of things, a lot of times, which is a horrifying experience on 3G:
+<img alt="initial Lighthouse performance section" src="/images/2017-07-26/before-perf.png" /></p>
+
+<h3 id="1--add-a-manifestjson">1. 📝 Add a manifest.json</h3>
+<p>This is easy Lighthouse points. This is a <code class="language-plaintext highlighter-rouge">manifest.json</code> skeleton that I use; replace
+your app name and theme colour:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"short_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shorter"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"start_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"standalone"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"theme_color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#fbbc05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"background_color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#fbbc05"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"icons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"icons/icon-192x192.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sizes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192x192"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image/png"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"icons/icon-512x512.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sizes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"512x512"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image/png"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Then, load it in your <code class="language-plaintext highlighter-rouge">index.html</code>, along with this other absolutely fantastic
+platform-specific copy pasta. I’m sure there’s a script out there that
+does it for you, but I’ve become so good at copy pasting it that it really doesn’t
+matter. Also, it’s not like you do it more than once an app:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"icon"</span> <span class="na">href=</span><span class="s">"icons/favicon.ico"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- See https://goo.gl/OOhYW5 --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"manifest"</span> <span class="na">href=</span><span class="s">"manifest.json"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- See https://goo.gl/qRE0vM --&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"theme-color"</span> <span class="na">content=</span><span class="s">"#fbbc05"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Add to homescreen for Chrome on Android. Fallback for manifest.json --&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"mobile-web-app-capable"</span> <span class="na">content=</span><span class="s">"yes"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"application-name"</span> <span class="na">content=</span><span class="s">"indie-catalog"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Add to homescreen for Safari on iOS --&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"apple-mobile-web-app-capable"</span> <span class="na">content=</span><span class="s">"yes"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"apple-mobile-web-app-status-bar-style"</span> <span class="na">content=</span><span class="s">"black-translucent"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"apple-mobile-web-app-title"</span> <span class="na">content=</span><span class="s">"indie-catalog"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Homescreen icons --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon"</span> <span class="na">href=</span><span class="s">"icons/icon-48x48.png"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon"</span> <span class="na">sizes=</span><span class="s">"96x96"</span> <span class="na">href=</span><span class="s">"icons/icon-96x96.png"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon"</span> <span class="na">sizes=</span><span class="s">"144x144"</span> <span class="na">href=</span><span class="s">"icons/icon-144x144.png"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon"</span> <span class="na">sizes=</span><span class="s">"192x192"</span> <span class="na">href=</span><span class="s">"icons/icon-192x192.png"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Tile icon for Windows 8 (144x144 + tile color) --&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"msapplication-TileImage"</span> <span class="na">content=</span><span class="s">"icons/icon-144x144.png"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"msapplication-TileColor"</span> <span class="na">content=</span><span class="s">"#fbbc05"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"msapplication-tap-highlight"</span> <span class="na">content=</span><span class="s">"no"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>The shitty part of this is that you have to generate your icons at 5 different sizes.
+But, I told you, it’s easy 💰: once you do this, your PWA score will jump quite a bit (from <strong>45</strong> to <strong>64</strong>):</p>
+
+<p><img alt="lighthouse score" src="/images/2017-07-26/after-manifest-and-icons.png" /></p>
+
+<h3 id="2--bundle-with-the-polymer-cli">2. 🏃 Bundle with the Polymer CLI</h3>
+<p>I use the <code class="language-plaintext highlighter-rouge">polymer cli</code> because it bundles and minifies my sources, and generates a Service Worker for free, and basically solves all of my PWA problems. To install it, run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g polymer-cli
+</code></pre></div></div>
+
+<p>In order to make it go, you need to create a <code class="language-plaintext highlighter-rouge">polymer.json</code> file. Here is my starting skeleton:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"entrypoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.html"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fragments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"some-element.html"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"maybe-another-element.html"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"sources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"src/**/*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"images/**/*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"i-dont-know-your-directory-structure"</span><span class="w">
+    </span><span class="s2">"bower.json"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"extraDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"manifest.json"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bower_components/webcomponentsjs/*"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"builds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"preset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es5-bundled"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"preset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es6-bundled"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"polymer-2"</span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Remove the <code class="language-plaintext highlighter-rouge">lint</code> rule if you don’t want to lint your code. Check the CLI’s
+<a href="https://github.com/Polymer/polymer-cli">docs</a> or Polymer shop-app’s <a href="https://github.com/Polymer/shop/blob/master/polymer.json">polymer.json</a>
+for more inspiration.
+If you don’t plan on conditionally serving different bundles to different browsers
+(ahem, IE11), you can also remove the <code class="language-plaintext highlighter-rouge">es5</code> preset.</p>
+
+<p>Once you have that, run <code class="language-plaintext highlighter-rouge">polymer build</code>, and start serving out of your <code class="language-plaintext highlighter-rouge">build/es6-bundled</code>
+directory. Eventually, this will be the directory you’ll actually serve out, so
+do a gulp dance or something. 💃🎉🎁.</p>
+
+<p>Polymer CLI works best if your <code class="language-plaintext highlighter-rouge">index.html</code> doesn’t have a bunch of imports in it (like <a href="https://github.com/PolymerLabs/indie-catalog/blob/beab690c1552c8bf7f247a1adbc5b9e45ed5940f/index.html#L39">this</a>). If that’s the case, rather than trying to fight the CLI, I recommend re-structuring
+your app in an app-shelly way, like <a href="https://github.com/PolymerLabs/indie-catalog/blob/630b114c5244a7e80d9a33ce51317c00d4c25829/index.html#L56">this</a>. I’ve learnt not to fight the tools.</p>
+
+<p>Anyway, at this point, our Lighthouse score is going to get a little bit worse. Even though this looks bad,
+it actually makes sense: we converted our many little downloads into one giant
+bundle that we have to wait for, so whatever incremental updates we had are
+gone (don’t worry, we fix, we fix). And we still haven’t actually added a Service Worker:
+<img alt="lighthouse score" src="/images/2017-07-26/after-bundle.png" /></p>
+
+<p>Brief intermission: I (actually <a href="https://twitter.com/patrickhulce">Patrick Hulce</a>) accidentally unearthed a Lighthouse bug, and
+significantly improved the performance score by moving a script from the head
+to the body. This is prooobably an accident and will be fixed in the future,
+but let’s document it for posterity anyway:
+<img alt="lighthouse score" src="/images/2017-07-26/script-fix-score.png" /></p>
+
+<h3 id="3--add-a-service-worker">3. 🤖 Add a Service Worker</h3>
+<p>The <code class="language-plaintext highlighter-rouge">polymer cli</code>, bless its soul, actually generated a <code class="language-plaintext highlighter-rouge">service-worker.js</code> file for
+us, we just haven’t added it anywhere, like our <code class="language-plaintext highlighter-rouge">index.html</code>:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="dl">'</span><span class="s1">serviceWorker</span><span class="dl">'</span> <span class="k">in</span> <span class="nb">navigator</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">load</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="dl">'</span><span class="s1">service-worker.js</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>With this change, Lighthouse is deeeeelighted:</p>
+
+<p><img alt="lighthouse score" src="/images/2017-07-26/after-sw-score.png" /></p>
+
+<p>The PWA score has improved a lot! It can actually go all the way to 91, but I’m
+a) serving from localhost which doesn’t redirect HTTP traffic correctly, and b)
+there’s a <a href="https://github.com/GoogleChrome/lighthouse/issues/2688">bug</a> that’s
+screwing me out of some money dollars:
+<img alt="lighthouse score" src="/images/2017-07-26/after-sw-pwa.png" /></p>
+
+<p>The perf score has improved a lot, because Service Workers are caching machines
+whos job is to help with perf, but our bundle size is still affecting our first paint.
+Look at those screenshots! We wait almost 2.7s before we paint some yellow
+on the screen! Surely we can do better:
+<img alt="lighthouse score" src="/images/2017-07-26/after-sw-perf.png" /></p>
+
+<h3 id="4--fix-first-paint">4. 🎨 Fix first paint</h3>
+<p>In that screenshot again, we’re getting some
+content back pretty fast (the white -&gt; gray transition at 886 ms), but then we show
+nothing while the main element, <code class="language-plaintext highlighter-rouge">&lt;cat-alog&gt;</code>, is upgrading. To get around that,
+I like to add fallback content in the light DOM of that main element. This works
+because <code class="language-plaintext highlighter-rouge">&lt;cat-alog&gt;</code> doesn’t have any slots, so once it upgrades, any content between
+its opening and closing tags is nuked:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+  <span class="o">[</span><span class="nt">unresolved</span><span class="o">]</span> <span class="nt">p</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;x-app</span> <span class="na">unresolved</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- This content would be blown away when
+  x-app upgrades, because x-app has no slots --&gt;</span>
+  <span class="nt">&lt;p&gt;</span>🙏 pls hold while fetching content<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/x-app&gt;</span>
+</code></pre></div></div>
+
+<p>Usually I try to <a href="https://github.com/PolymerLabs/indie-catalog/blob/master/index.html#L85">match</a> this fallback content to what the element paints
+once it upgrades. It’s a little annoying because you can’t always share styles,
+but most of the time (in my opinion) results in a better experience.</p>
+
+<p>For extra bonus points, we can remove that <code class="language-plaintext highlighter-rouge">unresolved</code> attribute when
+the element upgrades:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ready</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">.</span><span class="nx">ready</span><span class="p">();</span>
+    <span class="nx">Polymer</span><span class="p">.</span><span class="nx">RenderStatus</span><span class="p">.</span><span class="nx">afterNextRender</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">unresolved</span><span class="dl">'</span><span class="p">);</span>
+      <span class="cm">/* Other lazy code here */</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This last change ends up putting us in the 💚green💚 on Lighthouse!</p>
+
+<p>The performance of the app is looking pretty great, since we basically
+moved first paint to that first downloaded byte:
+<img alt="lighthouse score" src="/images/2017-07-26/final-perf.png" /></p>
+
+<h2 id="-">🆗 🆒</h2>
+
+<p>Final score on the deployed site is a satisfying <strong>A-</strong> across the board:
+<img alt="lighthouse score" src="/images/2017-07-26/final-score.png" /></p>
+
+<p>I didn’t try to win the Lighthouse jackpot, because I wanted to see how
+far I would get with using <em>just</em> the Lighthouse instructions and score, without inspecting any of the performance/network tabs in the Dev Tools. My next step would probably be
+to see whether lazy loading parts of my app will help, and a long and introspective
+look at the Dev Tools Network tabs, to see what downloads I could delay.</p>
+
+<p>Anyway,
+I hope this helped, and that it showed that getting a good Lighthouse score is
+mostly ceremony and hardly any goat sacrifices. ❤️</p>
+:ET

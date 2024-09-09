@@ -1,0 +1,191 @@
+I"CZ<p>So testing, right? We should do it. The thing is, testing is hard, and good testing
+is <em>reaaaaaaally</em> hard, and tbh I’m pretty bad at testing. So I end up not
+testing my apps, and then I feel guilty about it, but I’ll stop you now:
+you can’t run guilt on Travis. If this sounds familiar, then this blog post is for you.</p>
+
+<p>I did a little song-and-dance that sets up <a href="https://github.com/GoogleChrome/puppeteer">Puppeteer</a>*
+, takes screenshots of your app (like, all the routes you care about), and
+then compares them to the “golden” ones. If they match, your test passes!
+Yes, it only works on Chrome. No, it’s not
+actually unit testing. Yes, it’s literally just counting pixels but you know what?
+It counts them in both a wide and a narrow viewport size and any testing is better
+than no testing at all; fight me.</p>
+
+<p>* Puppeteer is an <code class="language-plaintext highlighter-rouge">npm</code> library that lets you control Chrome. You know, like a puppet.
+In particular, Puppeteer makes
+  it super easy to take screenshots (and click on things in your page). It’s
+  like a waaaaaaay less infuriating Selenium, but infinitely harder to spell.</p>
+
+<p>This post looks long because I’ve put all the code I have so
+that you can copy paste it. Skip to the <a href="#the-thing-that-does-the-diffing">good</a> part
+if you already know how to test.</p>
+
+<h2 id="do-the-npm">Do the npm</h2>
+<p>If you want to test things with Puppeteer, you have to setup a thing for the
+tests, a server that launches your site, and then Puppeteer to look
+at that site. I have this in my <code class="language-plaintext highlighter-rouge">package.json</code> to wrangle these things:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"chai"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.1.2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"mocha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"puppeteer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pixelmatch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.0.2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"polyserve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.23.0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>Explanation:</p>
+<ul>
+  <li>I chose Mocha/Chai for testing because that’s what I’m used to. You can
+literally use any other testing framework you’re comfortable with; I don’t think it matters.</li>
+  <li><a href="https://github.com/mapbox/pixelmatch"><code class="language-plaintext highlighter-rouge">Pixelmatch</code></a> is the thing that diffs
+two images and tells you how many pixels they differ by. It’s super awesome 🏆.</li>
+  <li><a href="https://github.com/Polymer/polyserve"><code class="language-plaintext highlighter-rouge">Polyserve</code></a> is what I use as a local
+server. You can use Python or Express or whatever you cool kids use. I’ll
+point out in the code where it’s Polyserve specific (literally 2 lines), and you
+can sub in your favourite server there.</li>
+</ul>
+
+<h2 id="set-up-your-test">Set up your test</h2>
+<p>In order to tell Puppeteer to investigate your site, you need to:</p>
+<ol>
+  <li>start a test suite</li>
+  <li>that sets up a local server</li>
+  <li>and in each test tells Puppeteer to do something.</li>
+</ol>
+
+<p>My setup looks like this:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">puppeteer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">puppeteer</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">expect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">chai</span><span class="dl">'</span><span class="p">).</span><span class="nx">expect</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">{</span><span class="nx">startServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">polyserve</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">👀 screenshots are correct</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">polyserve</span><span class="p">,</span> <span class="nx">browser</span><span class="p">,</span> <span class="nx">page</span><span class="p">;</span>
+
+  <span class="c1">// This is ran when the suite starts up.</span>
+  <span class="nx">before</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// This is where you would substitute your python or Express server or whatever.</span>
+    <span class="nx">polyserve</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">startServer</span><span class="p">({</span><span class="na">port</span><span class="p">:</span><span class="mi">4000</span><span class="p">});</span>
+
+    <span class="c1">// Create the test directory if needed. This and the goldenDir</span>
+    <span class="c1">// variables are global somewhere.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">testDir</span><span class="p">))</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">testDir</span><span class="p">);</span>
+
+    <span class="c1">// And its wide screen/small screen subdirectories.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/wide`</span><span class="p">))</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/wide`</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/narrow`</span><span class="p">))</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/narrow`</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="c1">// This is ran when the suite is done. Stop your server here.</span>
+  <span class="nx">after</span><span class="p">((</span><span class="nx">done</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">polyserve</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">done</span><span class="p">));</span>
+
+  <span class="c1">// This is ran before every test. It's where you start a clean browser.</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">puppeteer</span><span class="p">.</span><span class="nx">launch</span><span class="p">();</span>
+    <span class="nx">page</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">newPage</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="c1">// This is ran after every test; clean up after your browser.</span>
+  <span class="nx">afterEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">close</span><span class="p">());</span>
+
+  <span class="c1">// Wide screen tests!</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">wide screen</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">page</span><span class="p">.</span><span class="nx">setViewport</span><span class="p">({</span><span class="na">width</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">600</span><span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">/view1</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">takeAndCompareScreenshot</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="dl">'</span><span class="s1">view1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">wide</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="c1">// And your other routes, 404, etc.</span>
+  <span class="p">});</span>
+
+  <span class="c1">// Narrow screen tests are the same, but with a different viewport.</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">narrow screen</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">page</span><span class="p">.</span><span class="nx">setViewport</span><span class="p">({</span><span class="na">width</span><span class="p">:</span> <span class="mi">375</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">667</span><span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">/view1</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">takeAndCompareScreenshot</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="dl">'</span><span class="s1">view1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">narrow</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="c1">// And your other routes, 404, etc.</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>You can test all sort of things here, by the way. Puppeteer lets you interact
+with the page (click on buttons, links, etc), so maybe you want to trigger
+different UI states before you screenshot them (like narrow view <em>but also</em> with
+  the navigation drawer opened).</p>
+
+<h2 id="filling-in-the-blanks">Filling in the blanks</h2>
+<p>All the heavy lifting (which isn’t very heavy tbh) is done in <code class="language-plaintext highlighter-rouge">takeAndCompareScreenshot</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// - page is a reference to the Puppeteer page.</span>
+<span class="c1">// - route is the path you're loading, which I'm using to name the file.</span>
+<span class="c1">// - filePrefix is either "wide" or "narrow", since I'm automatically testing both.</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">takeAndCompareScreenshot</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="nx">route</span><span class="p">,</span> <span class="nx">filePrefix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If you didn't specify a file, use the name of the route.</span>
+  <span class="kd">let</span> <span class="nx">fileName</span> <span class="o">=</span> <span class="nx">filePrefix</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span> <span class="o">+</span> <span class="p">(</span><span class="nx">route</span> <span class="p">?</span> <span class="nx">route</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">index</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="c1">// Start the browser, go to that page, and take a screenshot.</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">goto</span><span class="p">(</span><span class="s2">`http://127.0.0.1:4000/</span><span class="p">${</span><span class="nx">route</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">screenshot</span><span class="p">({</span><span class="na">path</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">fileName</span><span class="p">}</span><span class="s2">.png`</span><span class="p">});</span>
+
+  <span class="c1">// Test to see if it's right.</span>
+  <span class="k">return</span> <span class="nx">compareScreenshots</span><span class="p">(</span><span class="nx">fileName</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="getting-the-golden-screenshots">Getting the golden screenshots</h3>
+<p>This bit is easy. Make a different test suite (just make sure you don’t run it every time you
+run your tests), and run the <code class="language-plaintext highlighter-rouge">page.goto</code> and <code class="language-plaintext highlighter-rouge">page.screenshot</code> lines for all
+the routes you’re testing. I recommend doing the viewport dance too, to get both the
+wide and narrow screen ones <em>for freeeeee</em> (I am using just the viewport
+  size here, because that’s how my app works. Puppeteer lets yo do <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageemulateoptions">device emulation</a>
+  and all sorts of other goodness, so just read the docs). Put all these screenshots in a place; I put mine in
+  a folder called <code class="language-plaintext highlighter-rouge">test/screenshots-golden/</code>.</p>
+
+<h3 id="the-thing-that-does-the-diffing">The thing that does the diffing</h3>
+<p>This is the logic in <code class="language-plaintext highlighter-rouge">compareScreenshots</code>, and it’s basically straight
+out of the <a href="https://github.com/mapbox/pixelmatch#nodejs"><code class="language-plaintext highlighter-rouge">Pixelmatch</code> docs</a>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">compareScreenshots</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">img1</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">testDir</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">fileName</span><span class="p">}</span><span class="s2">.png`</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="k">new</span> <span class="nx">PNG</span><span class="p">()).</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">parsed</span><span class="dl">'</span><span class="p">,</span> <span class="nx">doneReading</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">img2</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">goldenDir</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">fileName</span><span class="p">}</span><span class="s2">.png`</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="k">new</span> <span class="nx">PNG</span><span class="p">()).</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">parsed</span><span class="dl">'</span><span class="p">,</span> <span class="nx">doneReading</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">filesRead</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">doneReading</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Wait until both files are read.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">++</span><span class="nx">filesRead</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+      <span class="c1">// The files should be the same size.</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">img1</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image widths are the same</span><span class="dl">'</span><span class="p">).</span><span class="nx">equal</span><span class="p">(</span><span class="nx">img2</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">img1</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="dl">'</span><span class="s1">image heights are the same</span><span class="dl">'</span><span class="p">).</span><span class="nx">equal</span><span class="p">(</span><span class="nx">img2</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+      <span class="c1">// Do the visual diff.</span>
+      <span class="kd">const</span> <span class="nx">diff</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PNG</span><span class="p">({</span><span class="na">width</span><span class="p">:</span> <span class="nx">img1</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="nx">img2</span><span class="p">.</span><span class="nx">height</span><span class="p">});</span>
+      <span class="kd">const</span> <span class="nx">numDiffPixels</span> <span class="o">=</span> <span class="nx">pixelmatch</span><span class="p">(</span>
+          <span class="nx">img1</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">img2</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">diff</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">img1</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">img1</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
+          <span class="p">{</span><span class="na">threshold</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">});</span>
+
+      <span class="c1">// The files should look the same.</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">numDiffPixels</span><span class="p">,</span> <span class="dl">'</span><span class="s1">number of different pixels</span><span class="dl">'</span><span class="p">).</span><span class="nx">equal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="nx">resolve</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="-its-all-worth-it">💯 It’s all worth it</h2>
+<p>Now, when you run your tests (<code class="language-plaintext highlighter-rouge">mocha test/ --timeout 5000</code> in my case), you get
+something like this:</p>
+
+<p><img width="340" alt="10/10 passing tests" src="https://user-images.githubusercontent.com/1369170/35607089-624a2f28-0607-11e8-9448-0af2c40fe31a.png" /></p>
+
+<p>And if it fails, you get an error and the number of pixels you’re off by.</p>
+
+<h2 id="️">⭐️</h2>
+<p>Now go on, navigate to all your routes and test your stuff, and thank me
+with a photo of your dog.</p>
+:ET

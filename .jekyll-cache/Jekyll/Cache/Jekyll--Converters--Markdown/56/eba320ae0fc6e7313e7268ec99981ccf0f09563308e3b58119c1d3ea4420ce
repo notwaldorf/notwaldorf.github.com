@@ -1,0 +1,110 @@
+I"�"<p><code class="language-plaintext highlighter-rouge">lldb</code> stands for Llama-DB, and is a database of llamas you can use to debug programs
+compiled with <code class="language-plaintext highlighter-rouge">clang</code> (lldb is to clang like gdb is to gcc). If you already know how to use <code class="language-plaintext highlighter-rouge">gdb</code>, then
+here’s a <a href="https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html">translation</a> of the common commands.</p>
+
+<p><strong>Disclaimer</strong>: There is a <em>ton</em> of tutorials and pages about all of the
+awesome features and commands of <code class="language-plaintext highlighter-rouge">lldb</code>, and how to become a debugging pro.
+This is not that. This is the smallest set of things you need to read
+to answer the question “what’s making this shit crash”. That’s it.</p>
+
+<h2 id="step-1-make-it-go">Step 1. Make it go</h2>
+
+<p>If you want to pass a bunch of arguments to your executable <code class="language-plaintext highlighter-rouge">moose</code>, use</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>´ ▽｀<span class="o">)</span>.。ｏ♡ src on fix/moose-crash ☀ ❥ lldb <span class="nt">--</span> moose arg1 arg2
+Current executable <span class="nb">set </span>to <span class="s1">'moose'</span> <span class="o">(</span>x86_64<span class="o">)</span>.</code></pre></figure>
+
+<p>If you don’t have arguments, <code class="language-plaintext highlighter-rouge">lldb foo</code> is enough. This just tells <code class="language-plaintext highlighter-rouge">lldb</code>
+which executable to care about, but it won’t actually start the process for you.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> run    <span class="nt">--</span><span class="o">&gt;</span> Start or re-start your process
+<span class="o">(</span>lldb<span class="o">)</span> <span class="nb">exit</span>   <span class="nt">--</span><span class="o">&gt;</span> Stop your process.</code></pre></figure>
+
+<h2 id="step-2-make-it-crash">Step 2. Make it crash</h2>
+<p>Since we (me) are investigating a crash, the first thing you need is a stack trace that
+tells you where the crash is. So, start your process in <code class="language-plaintext highlighter-rouge">lldb</code>, make it crash, and we’ll take it
+from there.</p>
+
+<p>Side bar: I literally typed this blog out while sorting out a crash in the
+sign-in bits of Chromium, so all my screenshots are Chromium code. Do not panic.
+Your code can crash just as well if you give it enough time and attention.</p>
+
+<p>Once you hit your crash, <code class="language-plaintext highlighter-rouge">lldb</code> tells you something like this.
+<img src="/images/2014-06-23/crash.png" alt="lldb crash" /></p>
+
+<p>I can’t tell you how excited I am at that little arrow. It <em>almost</em> looks non-intimidating. Almost.</p>
+
+<h2 id="step-3-breakpoints-its-hammer-time">Step 3. Breakpoints! It’s hammer time</h2>
+<p>The first thing I did was set a breakpoint at that line to figure out
+what’s going on right before things got crashy (because I’m sure you’re dying to
+know, my crash was happening because we hit that <code class="language-plaintext highlighter-rouge">DCHECK</code> which reads
+“the item should always be signed in” and, spoilers, it isn’t)</p>
+
+<p>To set a breakpoint in a file at a specific line:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> breakpoint <span class="nb">set</span> <span class="nt">--file</span> profile_chooser_controller.mm <span class="nt">--line</span> 1509</code></pre></figure>
+
+<p>Awesome discovery: you don’t have to give the full path to the file (which in
+Chromium is a nightmare). Also, there’s autocomplete, so <code class="language-plaintext highlighter-rouge">profile_&lt;tab&gt;</code> gives you
+suggestions and happy feelings.</p>
+
+<p>At this point, I pressed enter a bunch of times (as you do), which ended up
+setting that breakpoint 4 times (as it does). So don’t do that. If you ignored that
+bit of advice, here’s some helpful breakpoint-related things you can talk to <code class="language-plaintext highlighter-rouge">lldb</code> about:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> breakpoint list     <span class="nt">--</span><span class="o">&gt;</span> numbered list of all dem breakpoints
+<span class="o">(</span>lldb<span class="o">)</span> breakpoint <span class="nb">help</span>     <span class="nt">--</span><span class="o">&gt;</span> this is surprisingly not scary!
+<span class="o">(</span>lldb<span class="o">)</span> breakpoint delete 4 <span class="nt">--</span><span class="o">&gt;</span> deletes the 4th breakpoint
+<span class="o">(</span>lldb<span class="o">)</span> breakpoint delete   <span class="nt">--</span><span class="o">&gt;</span> deletes ALL the things. but warns you first.</code></pre></figure>
+
+<p>If you don’t like typing, all these commands have super l33t
+shortcuts like <code class="language-plaintext highlighter-rouge">br s -f moose.c -l 12</code>. This intimidates me seven ways to Sunday,
+since I’ve <em>just</em> learnt how to set a breakpoint, and I had to do it on the command
+line and I like UIs, but if that’s your jam,
+<a href="https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html">here</a> is that list.
+Go forth and conquer.</p>
+
+<p>If you’ve already started your executable and forgot to set a breakpoint, it’s OK!
+Just <code class="language-plaintext highlighter-rouge">Ctrl+C</code> in <code class="language-plaintext highlighter-rouge">lldb</code> to pause your program and clean up your room before
+your friends come over. When you’re done, type <code class="language-plaintext highlighter-rouge">continue</code> to resume your process. Amazing!</p>
+
+<h2 id="intermission-playing-with-stack-traces">Intermission: Playing with stack traces</h2>
+<p>Current status: we’ve run our code, we’ve hit the breakpoint. <code class="language-plaintext highlighter-rouge">lldb</code> rewards you
+with a snippet of code around that point. Dat arrow. ❤︎</p>
+
+<p><img src="/images/2014-06-23/breakpoint.png" alt="lldb breakpoint" /></p>
+
+<p>More things that you can probably want to do here:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> thread backtrace    <span class="nt">--</span><span class="o">&gt;</span> stack trace of how we got here
+<span class="o">(</span>lldb<span class="o">)</span> up                  <span class="nt">--</span><span class="o">&gt;</span> move up the stack trace to your parent callee</code></pre></figure>
+
+<h2 id="step-4-poke-at-things">Step 4: Poke at things</h2>
+<p>Once you’re paused, you can inspect the value of a variable in that scope. You
+probably want to do that because 90% of the time a thing that shouldn’t be null
+is null, because C++.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> frame variable viewMode_</code></pre></figure>
+
+<p>To step through things, get in the llama car, close the door, and start navimagating:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>lldb<span class="o">)</span> step   <span class="nt">--</span><span class="o">&gt;</span> step into the call at this line. Alias <span class="k">for</span> <span class="s1">'thread step-inst'</span>
+<span class="o">(</span>lldb<span class="o">)</span> next   <span class="nt">--</span><span class="o">&gt;</span> skip to the next line. Alias <span class="k">for</span> <span class="s1">'thread step-in'</span>
+<span class="o">(</span>lldb<span class="o">)</span> finish <span class="nt">--</span><span class="o">&gt;</span> step out of this call. Terrible <span class="nb">alias </span><span class="k">for</span> <span class="s1">'thread step-out'</span></code></pre></figure>
+
+<p>If at any point you want to restart your process, just type <code class="language-plaintext highlighter-rouge">run</code> again. Don’t worry,
+it’s not destructive – you’ll be asked to confirm if you really want to blow
+away the frame you’re in. Bam!</p>
+
+<h3 id="thats-it">That’s it!</h3>
+<p>For realsies! You and <code class="language-plaintext highlighter-rouge">lldb</code> should probably get friendship bracelets now.</p>
+<pre>
+  　∩∩
+　（ﾟωﾟ）  .。ｏ♡
+　　│ │
+　　│ └─┐○
+　　 ヽ　　　丿
+　　　∥￣∥
+</pre>
+<p>　　　</p>
+:ET

@@ -1,0 +1,92 @@
+I"�<p>One of the first things you stumble on when you start using TensorFlow.js is
+that sometimes you need your data as a Tensor, and sometimes you need it
+as a JavaScript number. Maybe it’s for logging it, maybe it’s for displaying
+it somewhere during training, maybe it’s because you don’t trust the robots
+to be better than you at math.</p>
+
+<p>This is a quick post that tries to clarify why doing this <strong>synchronously</strong>
+is probably bad and will leave your UI really janky. <a href="https://twitter.com/nsthorat">Nikhil</a>
+(who like, birthed TensorFlow.js, bless) was kind enough to explain this to me recently, so I figured
+I’d return the favour, with fewer meeps and more mistakes.</p>
+
+<h2 id="downloading-and-uploading">Downloading and Uploading</h2>
+<p>When you create a Tensor, it lives on the CPU. The mere fact that it’s a Tensor
+doesn’t automatically move that data into its GPU mansion – it needs to be used in a WebGL
+program. (I’m playing fast and loose here with the words GPU and CPU btw, so
+hold back the pedantics: when I say “it lives on the CPU” I mean “in main memory,
+where the CPU processes stuff”; the GPU has it‘s own memory, that’s where it
+processes stuff, and that’s where that data has to get transferred to.
+It’s fine. You know I know.)</p>
+
+<p>You <strong>upload</strong> the tensor to the GPU when you call one of the <code class="language-plaintext highlighter-rouge">tf.</code> operations on it.
+Tensor operations are matrix math, and matrix math is really fast on the GPU,
+so every time you call something like <code class="language-plaintext highlighter-rouge">sum</code> or <code class="language-plaintext highlighter-rouge">sqrt</code> on a Tensor, TensorFlow.js
+creates a little <a href="https://js.tensorflow.org/tutorials/custom-webgl-op.html">WebGL operation</a>,
+and sends it to the backend. Whatever data lived on the CPU is now
+“uploaded” to the GPU (to a WebGL texture).</p>
+
+<p>You <strong>download</strong> a Tensor when you want to get that data from the GPU back onto
+the CPU. The data now lives in a WebGL texture, so TensorFlow.js needs to call
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/readPixels"><code class="language-plaintext highlighter-rouge">readPixels</code></a>
+to … read… those pixels… from the texture and convert them back into something you can use.
+Here’s the problem: calling <code class="language-plaintext highlighter-rouge">readPixels</code> is fundamentally a blocking operation: when you
+ask the GPU to give you data, you <em>have</em> to wait for it to respond; this means
+you can’t really do anything else on the screen while this is happening, like
+paint any animations.</p>
+
+<p>TL;DR:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const a = tf.tensor();  // a is on the CPU.
+const b = a.sqrt();     // Upload a's data to the GPU.
+const c = a.dataSync(); // Download a's data from the GPU to the CPU.
+</code></pre></div></div>
+
+<p>So the problems here are:</p>
+
+<ul>
+  <li>calling <code class="language-plaintext highlighter-rouge">readPixels</code> will make your UI janky.</li>
+  <li>downloading and uploading from the GPU isn’t free, so doing this over and over
+is bad news bears.</li>
+  <li>downloading from the GPU synchronously over and over is a 2-in-1 and
+will probably murder your favourite pet.</li>
+</ul>
+
+<h2 id="how-it-works">How it works</h2>
+<p>If you read the latest <a href="https://js.tensorflow.org/api/0.15.1/"><code class="language-plaintext highlighter-rouge">0.15.1</code></a> docs,
+you’ll discover that there are at least 4 ways of “downloading” your tensor:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">aTensor.array()</code> – asynchronous, and keeps the shape of the tensor (so it returns a nested array)</li>
+  <li><code class="language-plaintext highlighter-rouge">aTensor.arraySync()</code> – same as above but <strong>synchronous</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">aTensor.data()</code> – asynchronous and doesn’t keep the shape of the tensor (and returns a fancy <code class="language-plaintext highlighter-rouge">Float32Array</code> like type)</li>
+  <li><code class="language-plaintext highlighter-rouge">aTensor.dataSync()</code> – same as above but <strong>synchronous</strong></li>
+</ul>
+
+<p>Out of these, I personally prefer the new <code class="language-plaintext highlighter-rouge">array</code> flavours, since I think about my
+tensors based on their dimensions, so when they get flattened I get confused.</p>
+
+<p>The difference between the sync and async versions is that:</p>
+<ul>
+  <li>for the sync methods, TensorFlow.js just goes ahead and calls <code class="language-plaintext highlighter-rouge">readPixels</code>,
+which instantly blocks and causes sadness.</li>
+  <li>for the async methods, it creates a <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/fenceSync">“fence”</a> (think of it like a fancy WebGL <code class="language-plaintext highlighter-rouge">setTimeout</code>),
+and then calls a different method, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/getBufferSubData"><code class="language-plaintext highlighter-rouge">getBufferSubData</code></a>
+when that fence is hit. Unlike <code class="language-plaintext highlighter-rouge">readPixels</code>, this doesn’t block the UI thread
+and it won’t cause sadness.</li>
+</ul>
+
+<p>If you, like me, have strange hobbies and want to find this in the actual
+TensorFlow.js source code, check out the <code class="language-plaintext highlighter-rouge">read</code> and <code class="language-plaintext highlighter-rouge">readSync</code> methods in
+<a href="https://github.com/tensorflow/tfjs-core/blob/master/src/kernels/backend_webgl.ts">this file</a>.</p>
+
+<h2 id="what-to-do">What to do</h2>
+<p>My advice is:</p>
+<ul>
+  <li>if you have to download your data, try to do it once, asynchronously. Do this
+at the end, after all your GPU computations are done.</li>
+  <li>reach towards the <strong>async</strong> versions first – that way, even though the
+operation is expensive, it won’t block the UI and you can do other non-janky
+things like letting the user scroll on the page.</li>
+  <li>if you really really pinky swear have to use the sync version, just take
+another look at the code and see if you can’t move that call somewhere else
+where it can by async.</li>
+</ul>
+:ET

@@ -1,0 +1,161 @@
+I"4<ul>
+<li>
+  <span style="color: white;">phantom
+  <span style="border-bottom:1px solid black;">underlines</span>. isn't this
+  <span style="border-bottom:1px solid black;">amaaaaaazing.</span>
+  </span>
+</li>
+<li><span style="color: white;">i love waiting for 8 seconds and seeing this.</span></li>
+<li>
+  <span style="color: white;">look at it. srsly.
+  <span style="border-bottom:1px solid black;">looooook</span>at it.
+  </span>
+</li>
+</ul>
+
+<p>I spent a week traveling around Taiwan, on my awesome free roaming 2G data plan, and friends,
+we need to talk about your web fonts. Also cats. They really love cats there.
+Anyway, the thing about 2G is that I fully understand
+that it will take me 10 seconds to load a page. What sucks is the fresh rage of
+the following 4 seconds
+where instead of content I get phantom underlines, waiting for
+a slightly-different-sans-serif to download.</p>
+
+<p>Listen: it doesn’t have to be this way. You can lazy load your font. It’s 4 lines
+of JavaScript. 7 if you’re being ambitious.</p>
+
+<h2 id="why-should-you-care">Why should you care</h2>
+<p>I’ve been brainwashed to <em>really</em> care about first paint performance (thanks Chrome Dev Rel 😘),
+and I’ve become a big fan of the “do less &amp; be lazy” approach to building things.
+What this means is that if something is not on your critical path, it probably doesn’t
+need to be the first thing you paint on a page.</p>
+
+<p>Now think about fonts: is the critical path <em>showing</em> text, or <em>styling</em> it? I’d
+argue that unless your app is in the 1% it’s-all-a-magical-visual-experience bucket (in which case
+  this post is not for you), or we’re just talking about the fancy title on your site (which fine, can 
+  be slow to paint or whatever), 
+it’s probably trying to communicate some content, and ugly content (that you prettify after) is better than no content.</p>
+
+<p>(Real talk: if you don’t think rendering text is a critical path, you’re whack and we need to have a chat.)</p>
+
+<p>There are two things you can run into when loading a web font:</p>
+
+<ul>
+  <li><strong>FOIC</strong> (“flash of invisible content”) – when your browser sees that
+you’re trying to use a font it doesn’t have it paints all the text in
+invisible ink, waits, and when it finally gets the font, it re-paints and re-layouts the text correctly.
+<a href="https://cloud.githubusercontent.com/assets/1369170/19876828/0aa7d0d6-9f97-11e6-86c8-b7e2c80a9986.gif">[see a gif of this]</a></li>
+</ul>
+
+<p>I hate this with the fire of a thousand suns, because instead of looking at actual content,
+I’m looking at bullets and underlines and random text you forgot to style. Neat-o.</p>
+
+<ul>
+  <li><strong>FOUC</strong> (“flash of unstyled content”) – Chrome stops waiting for a web font after 3 seconds (and, recently, after 0 seconds on 2G). What this means is instead of showing you invisible ink, it paints the text in your fallback
+font. When your web font is finally downloaded, it then re-paints the already displayed text with the new font.
+<a href="https://cloud.githubusercontent.com/assets/1369170/19876827/0aa5c8d6-9f97-11e6-81a2-13fa35f6bbc9.gif">[see a gif of this]</a></li>
+</ul>
+
+<p><strong>Side note</strong>: on iPhones, this timeout doesn’t exist, so you basically only get a FOIC – you wait the entire
+time to get from “no text” to “all the text”, with no intermediate bail out state.</p>
+
+<p>(<a href="http://output.jsbin.com/felocuh">Here</a> is the code that I used for these demos,
+with GPRS and 2G throttling respectively in Chrome. This demo will look super snappy
+on LTE. Everything is super snappy on LTE.)</p>
+
+<h2 id="reading-material">Reading material</h2>
+<p>A lot of people have written about web fonts, and I’m not trying to re-write their
+posts. Chrome in particularly has been working a lot on improving this, by
+decreasing the web font download timeout to 0s on 2G, and working on the <code class="language-plaintext highlighter-rouge">font-display</code> spec.</p>
+
+<p>Here are some links I like:</p>
+
+<ul>
+  <li>the <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization">anatomy of a web font</a> and the
+<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization#webfonts_and_the_critical_rendering_path">dance</a> that a browser does to use a web font</li>
+  <li><a href="https://developers.google.com/web/updates/2016/02/font-display"><code class="language-plaintext highlighter-rouge">font-display</code></a>
+options, and how it affects how fonts load</li>
+  <li><a href="https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/7s4-eQTAxqs/SoahsGpMAQAJ"><code class="language-plaintext highlighter-rouge">font-display: optional</code></a> and why it’s awesome (tl; dr: if you can’t do it fast, don’t do it at all)</li>
+  <li>minimizing <a href="https://jakearchibald.com/2014/minimising-font-downloads/">font downloads</a> by limiting
+the range of characters you’re loading</li>
+  <li>why we should care about web fonts and how to minimize FOIT using JavaScript and a library called <a href="http://helenvholmes.com/writing/type-is-your-right">Font Face Observer</a></li>
+  <li>voltron solution <a href="https://jeremenichelli.github.io/2016/05/font-loading-strategy-static-generated-sites/">combining</a> FontFaceObserver, async loading a font bundle and web storage</li>
+</ul>
+
+<h2 id="lazy-loading-a-font">Lazy loading a font</h2>
+<p>Personally, I would use <code class="language-plaintext highlighter-rouge">font-display: optional</code> everywhere, but that doesn’t really work anywhere yet.
+In the meantime, here are 2 super simple ways to lazy load a web font.
+Again, I don’t really mind having a FOUC, since it feels like progressive enhancement to me:
+display the content as soon as you can, and progressively style it after.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;style&gt;</span>
+    <span class="nt">body</span> <span class="p">{</span>
+      <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Arima Madurai'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>...<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="c1">// Do this only after we've displayed the initial text.</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://fonts.googleapis.com/css?family=Arima+Madurai:300,400,500</span><span class="dl">'</span><span class="p">;</span>
+    <span class="nx">loadFont</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>  <span class="c1">// hold tight, i tell you below.</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>There’s basically two ways in which you can implement that <code class="language-plaintext highlighter-rouge">loadFont</code>:</p>
+
+<h3 id="load-the-stylesheet-blocking">Load the stylesheet (blocking)</h3>
+<p>This is the simplest way and works great for a simple page. But! Since loading/parsing
+a stylesheet blocks parsing/painting, this doesn’t play nicely if you’re loading a bunch
+of other modules after the document has loaded, since they will be delayed. [<a href="http://output.jsbin.com/cijokog">demo</a>]</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">link</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">rel</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stylesheet</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="xhr-the-stylesheet-asynchronous">XHR the stylesheet (asynchronous)</h3>
+<p>If you care about synchronicity (and tbh you probably should), you can do an async
+XMLHttpRequest and create a style node with the result. [<a href="http://output.jsbin.com/veqiyuy">demo</a>]</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">style</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">style</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">style</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">style</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>For bonus points, you can take this <a href="https://github.com/GoogleChrome/devsummit/blob/master/scripts/utils.js#L34">one step further</a> and
+rather than creating an inline <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code>,
+append a <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> like in the previous method, since the browser cache is already
+primed. If you trust your browser cache. I trust no one.</p>
+
+<p>This is obviously not perfect. It will give you a FOUC on a fast LTE connection,
+even though if you did nothing, like in the first demo, it wouldn’t. The point is that
+not all of your audience is on an LTE connection, and I want you to think about them
+when you’re working on a site. If you want to
+minimize this FOUC, <a href="https://twitter.com/helenvholmes">Helen Holmes</a> gave an AMAZING <a href="https://www.youtube.com/watch?v=emLfXChvVPQ">talk</a> recently about web typography and performance, where she mentions how you
+can try to match the x-heights of your fallback font to your target font, so that the FOUC is gentler.</p>
+
+<p><strong>Update</strong>: I’ve built a <a href="https://meowni.ca/font-style-matcher/">font-style-matcher</a> that lets you do this matching of the x-heights and widths of the web font and fallback font! Go check it out, it’s preeeeetty sweet.</p>
+
+<h2 id="tl-dr">TL; DR</h2>
+<p>Web fonts are okay. They make your blog prettier. They’re also slow and kind of an
+annoying experience, but if you need to use them, use them. Just remember that it’s
+also your responsibility to make your site load super fast, and if you don’t,
+it’s totes fair game for people (me) to whine about it on Twitter.</p>
+
+<p><br /><br /></p>
+
+<p>(🍹 to <a href="https://twitter.com/aerotwist">Paul Lewis</a> who had to sit through all
+my questions and explain basic browser things to me. Again.)</p>
+:ET

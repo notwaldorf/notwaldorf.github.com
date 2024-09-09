@@ -1,0 +1,76 @@
+I"�<style>
+  iframe {
+    height: 640px;
+    width: 100%;
+    margin: 0 auto;
+    border: 5px solid #E0F7FA;
+    border-radius: 3px;
+  }
+</style>
+
+<p><strong>Machine Learning (ML)</strong> is the dope new thing that everyone’s talking about, because it’s really good
+at learning from data so that it can predict similar things in the future. Doing ML by hand is pretty annoying
+since it usually involves matrix math which is zero fun in JavaScript (or if you ask me: anywhere 😅).
+Thankfully, <a href="https://js.tensorflow.org/">TensorFlow.js</a> is here to help! It’s
+an open source library that has a lot of built-in Machine Learning-y things like models and algorithms so that
+you don’t have to write them from scratch.</p>
+
+<h2 id="is-your-problem-a-machine-learning-problem">Is your problem a Machine Learning problem?</h2>
+
+<p>Machine learning is good at classifying and labelling data. The premise of every machine learning problem is:</p>
+
+<ul>
+  <li>Someone gives us some data that was generated according to a <strong>secret</strong> formula. This data could be a bunch of points (that are generated based on some math equation), but could also be fun, like images (the secret formula could be “some of these images are chihuahuas and some are
+<a href="https://mashable.com/2016/03/10/dog-or-muffin-meme/#LjBd4.e9lgqJ">blueberry muffins</a>) or bus schedules.</li>
+  <li>By looking at this data we were given, we approximate the secret formula so that we can correctly predict a future data point. For example, if we’re given a photo, we will eventually be able to confidently say whether it’s a dog or a muffin.</li>
+</ul>
+
+<h2 id="a-fun-demo">A fun demo!</h2>
+
+<p>If you want to get started, predicting numbers tends to be easier than
+predicting images, so in this example we’re trying to fit a curve to a bunch of
+data (this is the same example from the
+<a href="https://js.tensorflow.org/tutorials/fit-curve.html">TensorFlow</a>
+site but with waaaaay more code comments and a prettier graph).</p>
+
+<p>We are given a bunch of points (for <code class="language-plaintext highlighter-rouge">x</code> between -1 and 1, calculate a <code class="language-plaintext highlighter-rouge">y</code> according to
+<code class="language-plaintext highlighter-rouge">y = a * x^3 + b * x^2 + c * x + d</code> – we know this is the secret formula but we don’t know the
+values of those <code class="language-plaintext highlighter-rouge">a,b,c,d</code> coefficients.)
+Our goal is to learn these coefficients, so that if we’re given a new <code class="language-plaintext highlighter-rouge">x</code> value, we can say what the <code class="language-plaintext highlighter-rouge">y</code> value should be.</p>
+
+<p>The <strong>blue</strong> dots are the training points we were given. The <strong>red</strong> dots would be our guesses,
+based on our initial, default coefficients (hella incorrect!). Once you click the <code class="language-plaintext highlighter-rouge">train</code>
+button, the <strong>green</strong> dots show how our coefficients are getting better. After you see the default
+example, check what happens if you change the shape of the data, or we are given fewer data points or fewer iterations!</p>
+
+<iframe src="https://hello-tensorflow.glitch.me/index.html#demo-content" frameborder="0" scrolling="no"></iframe>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>Most machine learning algorithms follow this pattern:</p>
+
+<ul>
+  <li>We have to figure out the <strong>“features”</strong> of the secret formula that generated the data we were given, so that we
+can learn them. In my opinion, this is like 80% of the complexity of solving an ML problem. In this example, we were told the shape of the secret formula (it’s a cubic!), so the features we have to learn are the coefficients in the polynomial. For something more
+complex like the “is this a dog or a blueberry muffin” problem, we’d have to look at pixels and colours and formations and what
+makes a dog a dog and not a muffin.</li>
+  <li>Once we figure out these features (in our case, those <code class="language-plaintext highlighter-rouge">a,b,c,d</code> coefficients), we initialize them to some random values. We could now use them to make
+predictions, but they would be teeeeeerrible because they’re just random.</li>
+  <li>(I’m just going to use our actual example from now on and
+not dogs)</li>
+  <li>We start looking at every piece <code class="language-plaintext highlighter-rouge">(x,y)</code> of training data we were given. We take the <code class="language-plaintext highlighter-rouge">x</code> value, and based on these coefficients we have estimated, we predict what the <code class="language-plaintext highlighter-rouge">y</code> value would be.
+We then look at the correct <code class="language-plaintext highlighter-rouge">y</code> value from the original training data, calculate the
+difference between the two, and then adjust our coefficients so that our predicted value gets closer to the correct one.</li>
+  <li>(this, with more math sprinkled in is called “stochastic gradient descent”. “Stochastic” means probabilistic, and
+“gradient descent” should make you think of walking down a hill, towards a sink hole – the higher the hill, the bigger the prediction error, which is why you want to descend towards the error-free hole.)</li>
+  <li>This part of code is actually pretty messy (because matrices and derivatives), and TensorFlow does this for us!</li>
+  <li>We keep doing this until we use up all the data, and then repeat the entire process so that we iterate over the same data over
+and over again until at the end we’ve pretty much learnt the coefficients!</li>
+</ul>
+
+<h2 id="the-code">The code</h2>
+
+<p>You can look at the code for the demo <a href="https://glitch.com/edit/#!/hello-tensorflow?path=script.js:95:10">on Glitch</a>. I tried to comment
+most lines of the code with either what the algorithm or TensorFlow are doing (especially when
+TensorFlow is actually doing a looooot of heavy lifting behind the scenes). I hope it helps!</p>
+:ET

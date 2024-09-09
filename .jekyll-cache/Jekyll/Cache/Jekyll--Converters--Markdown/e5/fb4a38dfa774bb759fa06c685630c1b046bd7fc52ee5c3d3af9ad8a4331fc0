@@ -1,0 +1,12 @@
+I"6<p><a href="https://magenta.tensorflow.org">Magenta.js</a> is a JavaScript library that helps you generate art and music
+on the web. It’s also the team that I work on now! One of the things that I do
+whenever I join a new team is learn a bunch of things, and then make a bunch of
+tutorials that past Monica would’ve loved to stumble over. This is one of them!</p>
+
+<p>In this tutorial, we’ll talk about the music generation bits in
+<code class="language-plaintext highlighter-rouge">@magenta/music</code> (one of the several libraries in Magenta.js) –
+how to make your browser sing, and in particular, how to make your browser
+sing <em>like you</em>!. The tutorial is interactive, and introductory
+and <a href="https://hello-magenta.glitch.me/">on Glitch</a>. Go play with
+all the examples, and have fun! 💕</p>
+:ET

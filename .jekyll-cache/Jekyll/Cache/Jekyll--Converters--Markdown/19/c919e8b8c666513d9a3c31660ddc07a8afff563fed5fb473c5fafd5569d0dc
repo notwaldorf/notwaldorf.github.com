@@ -1,0 +1,114 @@
+I"�3<p>But only if your family is code.</p>
+
+<p>So this is a bit of a terrible blog post because a) it’s about a really obscure atrocity that happens in C++ (as opposed to the common atrocities that happen in C++ on the regs) and b) there are not enough funnies in the world to make up for it. I recommend skipping it if you’ve just eaten, are feeling light-headed, or don’t want to make eye contact with C++. As a general policy, you should probably never make eye contact with C++. It can smell fear.</p>
+
+<h2 id="programmer-meet-static-initializers">Programmer, meet static initializers</h2>
+<p>We’re going to be talking about static class objects, or objects defined in a global/unnamed namespace, such as these fellas:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">namespace</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">kSquirrel</span> <span class="o">=</span> <span class="s">"sad squirrel"</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">const</span> <span class="n">Superhero</span> <span class="n">batman</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// or</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+  <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">panda_</span> <span class="o">=</span> <span class="s">"also a sad panda"</span><span class="p">;</span>  
+<span class="p">}</span></code></pre></figure>
+
+<p><em>Static initialization</em> is the dance we do when creating these objects. This is not a dance we do when we initialize things with <em>constant</em> data (like <code class="language-plaintext highlighter-rouge">static int x = 42</code>); the compiler sees that the thing after the <code class="language-plaintext highlighter-rouge">=</code> is constant and can’t change, so it can inline it. However, if you try to initialize a variable by running code (e.g. <code class="language-plaintext highlighter-rouge">static int x = foo()</code>), then this is not a constant anymore, and it will result in a static initializer. In C++11, I think <code class="language-plaintext highlighter-rouge">constexpr</code> will let you hint to the compiler that the thing after the equal is a constant expression, if it is that, so it can compute it at compile-time. I don’t get to use a lot of C++11, so this is still about nightmares of C++ past, and I don’t think <code class="language-plaintext highlighter-rouge">constexpr</code> will do away with all of the murders anyway. Finally, the compiler promises you to run all the static initializers before the body of <code class="language-plaintext highlighter-rouge">main()</code> is executed. That, unfortunately, doesn’t mean much.</p>
+
+<h2 id="why-static-initializers-are-bad-news-bears">Why static initializers are bad news bears</h2>
+<p>As Douglas Adams, the inventor of C++ said, static initializers have “made a lot of people very angry and been widely regarded as a bad move”. Apart from being hard to spell, they tend to throw up on your shoes:</p>
+
+<ul>
+  <li>Static variables in the same <em>compilation unit</em> (or the same file) will be constructed in the order they are defined. This means that this code is predictable, and always does exactly what you think it does. This is also the last of the good news:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">namespace</span> <span class="p">{</span>
+<span class="k">static</span> <span class="n">Superhero</span> <span class="n">batman</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">Superhero</span> <span class="n">robin</span> <span class="o">=</span> <span class="n">batman</span><span class="p">.</span><span class="n">getSidekick</span><span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Static variables in <em>different</em> translation units are constructed in an undefined order. This is so terrible it has its own name: the <a href="http://www.parashift.com/c++-faq/static-init-order.html">static initialization order fiasco</a>. It goes like this:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++">  <span class="c1">// In x.cpp:</span>
+  <span class="k">static</span> <span class="n">Superhero</span> <span class="n">batman</span><span class="p">;</span>
+
+  <span class="c1">// In y.cpp:</span>
+  <span class="k">static</span> <span class="n">Superhero</span> <span class="nf">robin</span><span class="p">(</span><span class="n">batman</span><span class="p">.</span><span class="n">getSidekick</span><span class="p">());</span>
+  <span class="c1">// If that wasn't believable, imagine it was something like:</span>
+  <span class="c1">// static Superhero robin(BestSuperhero::batman);</span>
+  <span class="c1">// where BestSuperhero is a namespace or a static class and</span>
+  <span class="c1">// you call batman.getSidekick() in robin's constructor.</span>
+  </code></pre></figure>
+
+<p>Yup. That’s it. Whether <code class="language-plaintext highlighter-rouge">x.cpp</code> or <code class="language-plaintext highlighter-rouge">y.cpp</code> gets compiled first is not defined (because C++), which means if <code class="language-plaintext highlighter-rouge">y.cpp</code> gets compiled first, <code class="language-plaintext highlighter-rouge">batman</code> hasn’t been constructed. You know what happens when you call <code class="language-plaintext highlighter-rouge">getSidekick()</code> on an uninitialized object? Regrets happen.</p>
+
+<ul>
+  <li>We’re not done yet. Why have insanely terrible code when you can have insanely terrible EXPENSIVE code! Evan Martin has a really, really good <a href="http://neugierig.org/software/chromium/notes/2011/08/static-initializers.html">post</a> about this, but the tl;dr is that because the static initializers need to happen before <code class="language-plaintext highlighter-rouge">main()</code>, that code needs to be paged, which leads to disk seeks, which leads to awful startup performance. Seriously, read Evan’s post because it’s amazing.</li>
+</ul>
+
+<h2 id="spotting-static-initializers-in-the-wild-an-incomplete-manual">Spotting static initializers in the wild: an incomplete manual</h2>
+<p>Here are some examples of things that are and aren’t static initializers, so
+that at least we know what we’re looking for before we try to fix them.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// Both of these are ok, because 0 is a compile time constant, so it can't</span>
+<span class="c1">// change. The const doesn't make a difference; it's the thing after</span>
+<span class="c1">// the = sign that makes the difference.</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Below, both the pointer and the chars in the string are const, so the</span>
+<span class="c1">// compiler will treat this as a compile-time constant. So this is ok</span>
+<span class="c1">// because both the thing before and after the = sign are constant.</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">panda</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"happy panda"</span><span class="p">;</span>
+
+<span class="c1">// This, however, calls a constructor, so it's not ok.</span>
+<span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">sad_panda</span> <span class="o">=</span> <span class="s">"sad panda"</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="c1">// This is not ok, because the thing after the = sign isn't a const,</span>
+<span class="c1">// so it can change before b is initialized.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>  
+
+<span class="c1">// This has to call the Muppet() constructor, and who knows what that</span>
+<span class="c1">// does, so it's definitely not a const, and a case of the static initializers.</span>
+<span class="k">static</span> <span class="n">Muppet</span> <span class="n">waldorf</span><span class="p">;</span></code></pre></figure>
+
+<h2 id="thems-the-breaks">Them’s the breaks</h2>
+<p>There’s a couple of ways in which you can fix this, some better than others:</p>
+
+<ul>
+  <li>The best static initializer is no static initializer, so try const-ing all your things away. This will take you as far as defining an array of strings, for which you can’t pray the initializer away. (Trivia: Praying The Const Away™ is what I call a <code class="language-plaintext highlighter-rouge">const_cast</code>)</li>
+  <li>Place all your globals in the same compilation unit (i.e. a massive <code class="language-plaintext highlighter-rouge">constants.cpp</code> file). You can certainly try this, but if your project is the giant Snuffleupagus that Chrome is, you might be laughed at</li>
+  <li>Place the static globals inside the function that needs them (or, if they’re the village bicycle, make a getter for them), and define them as function-static variables. Then you know they will be initialized only once, the first time that function is called. Whenever it is called</li>
+</ul>
+
+<p>That last bullet sounds like black magic, so here’s an example. This is the static initializer that we are trying to fix. Convince yourself that this code is no good:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">namespace</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">bucket</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"apples"</span><span class="p">,</span> <span class="s">"pears"</span><span class="p">,</span> <span class="s">"meerkats"</span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetBucketThing</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We can fix it by moving <code class="language-plaintext highlighter-rouge">bucket</code> into <code class="language-plaintext highlighter-rouge">GetBucketThing()</code>:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">GetBucketThing</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Sure, it's a non-trivial constructor, but it will get called once,</span>
+  <span class="c1">// the first time GetBucketThing() gets called, which will be at runtime</span>
+  <span class="c1">// and therefore a-ok.</span>
+  <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">bucket</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"apples"</span><span class="p">,</span> <span class="s">"pears"</span><span class="p">,</span> <span class="s">"meerkats"</span><span class="p">};</span>
+  <span class="k">return</span> <span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Yup. That’s pretty much it. If you want more reading on the topic, here’s a neat chromium-dev <a href="https://groups.google.com/a/chromium.org/forum/#!topic/chromium-dev/p6h3HC8Wro4">thread</a> discussing this in more details (and talking about when these static globals are actually cleaned up).</p>
+
+<h2 id="mmmmkay">Mmmmkay.</h2>
+<p>I don’t know why you’ve made it this far. Maybe you thought there was going to be a joke or a prize at the end. There isn’t. There’s just this gif, and you could’ve just scrolled down for it.</p>
+
+<p><img src="https://media.giphy.com/media/3boPPdHk2ueo8/giphy.gif" alt="puppy" /></p>
+:ET

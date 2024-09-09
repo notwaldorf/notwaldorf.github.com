@@ -1,0 +1,89 @@
+I"e<p>My one policy about blogging is “write the blog post you wanted to find in the search results”.
+I spent an inordinate amount of time yesterday trying to get <code class="language-plaintext highlighter-rouge">typedoc</code> to only show the docs
+for the files I’m actually exporting in my library, and didn’t find anything
+on the internet to help me, so here is the blog post I wanted to read.</p>
+
+<h2 id="the-problem">The problem</h2>
+<p>You are working on a JS library. You author your source in TypeScript. You have
+an <code class="language-plaintext highlighter-rouge">index.ts</code> file that exports only some of your source files. You would like
+your generated docs from <code class="language-plaintext highlighter-rouge">typedoc</code> to only have docs for <em>those</em> files (Why? So
+that people don’t open issues along the lines of “I see the docs for function <code class="language-plaintext highlighter-rouge">foo</code>,
+but I can’t see how to call it, pls export it”. Sweet child, if that
+function was meant to be public it probably would’ve been. That function is
+actually 3 spiders in a trench coat).</p>
+
+<p>That is, you would like your Table of Contents to show this:
+<img width="500" alt="toc only shows 5 entries" src="https://user-images.githubusercontent.com/1369170/75011632-f396cb80-5434-11ea-97c7-708a94e932fe.png" /></p>
+
+<p>and not this:
+<img width="500" alt="toc shows every file under the sun" src="https://user-images.githubusercontent.com/1369170/75011626-f09bdb00-5434-11ea-859b-ab195c5f1b47.png" /></p>
+
+<h2 id="things-that-arent-solutions">Things that aren’t solutions</h2>
+<p>In the order that I’ve tried them:</p>
+<ul>
+  <li>the <code class="language-plaintext highlighter-rouge">--mode modules</code> flag: the word “modules” is a lie here and really just means
+“under a namespace” not like… ES6 modules (<a href="https://github.com/TypeStrong/typedoc/issues/109">tracking issue</a>)</li>
+  <li>the <code class="language-plaintext highlighter-rouge">--excludeNotExported</code> flag: it helps to generate docs for only the
+exported <em>functions</em>, but not files</li>
+  <li>the <code class="language-plaintext highlighter-rouge">-excludePrivate</code> flag: same as above</li>
+  <li>the <code class="language-plaintext highlighter-rouge">--exclude</code> flag: this is nice in theory, but I have like 30+ private
+files that shouldn’t be documented and only like 5 top level exports, so that regex
+will suck. Also, my experience is that next time someone adds a file they want or
+don’t want documented they won’t know to add it to this list and we’re back to having a problem</li>
+  <li>the <code class="language-plaintext highlighter-rouge">--toc</code> flag. I honestly don’t know what it does, but for me, it did nothing 100% of the time</li>
+  <li>thinking this should presently work in <code class="language-plaintext highlighter-rouge">typedoc</code>. Here is the <a href="https://github.com/TypeStrong/typedoc/issues/639">tracking issue</a>
+and the <a href="https://github.com/TypeStrong/typedoc/pull/1184">open PR</a> that might fix it.</li>
+</ul>
+
+<h2 id="my-solution">My “solution”</h2>
+<p>I’m less bothered that the docs for the private files get generated at all,
+and more bothered that they’re linked in the main page TOC and thus discoverable.
+So my “solution” that “fixes” it is: inject some JavaScript that hides all the files that aren’t
+exported in the top level <code class="language-plaintext highlighter-rouge">index.ts</code>. It’s gross, but it’s good enough (Also: the
+title of my autobiography).</p>
+
+<p><strong>Disclaimer</strong>: This works for for my library (here’s the <a href="https://github.com/tensorflow/magenta-js/pull/409/files#diff-1853dafcee10b39c22a19539ff8fd11cR67">PR</a> I’m blessing our code
+with this horror), but for your particular setup it might need some changes. I
+speak very broken bash, so I probably can’t help you with those changes.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Variables I have:</span>
+<span class="c"># Where your source is. We call the script from a different</span>
+<span class="c"># place than the index.ts but maybe you don't.</span>
+<span class="nv">srcDir</span><span class="o">=</span><span class="s2">"..."</span>
+
+<span class="c"># Where you generate the docs. This could be a /docs folder, or a temp one</span>
+<span class="c"># because you're going to push to the GitHub gh-pages branch.</span>
+<span class="c"># I don't know what you do, I only know what we do (the latter).</span>
+<span class="nv">docsDir</span><span class="o">=</span><span class="s2">"..."</span>
+
+<span class="c"># The root index.ts file has a bunch of "export * from './foo';" lines.</span>
+<span class="c"># Parse those lines into a space separated list of names. It's ok that</span>
+<span class="c"># they're space separated, we'll split them in JS,</span>
+<span class="c"># this is all a horror anyway. You might have to touch these regexes, sry.</span>
+<span class="nv">exports</span><span class="o">=</span><span class="sb">`</span><span class="nb">sed</span> <span class="nt">-n</span> <span class="s2">"s/export </span><span class="se">\*</span><span class="s2"> from '.</span><span class="se">\/\(</span><span class="s2">.*</span><span class="se">\)</span><span class="s2">';/</span><span class="se">\1</span><span class="s2">/p"</span> <span class="nv">$srcDir</span>/src/index.ts<span class="sb">`</span>
+
+<span class="c"># If your theme uses a different td class name than the one below,</span>
+<span class="c"># inspecting it and update it in the selector. Also my names had</span>
+<span class="c"># a bunch of extra quotes, hence the replacing, yours might not.</span>
+<span class="c"># This is why I don't want to maintain this.</span>
+<span class="nv">scriptToFixTheToc</span><span class="o">=</span><span class="s2">"&lt;script&gt; </span><span class="se">\</span><span class="s2">
+const toc = </span><span class="se">\"</span><span class="nv">$exports</span><span class="se">\"</span><span class="s2">.split(' '); </span><span class="se">\</span><span class="s2">
+const links = document.querySelectorAll('.tsd-kind-external-module'); </span><span class="se">\</span><span class="s2">
+for (let i = 0; i &lt; links.length; i++) { </span><span class="se">\</span><span class="s2">
+  const name = links[i].textContent.trim().replace(/</span><span class="se">\"</span><span class="s2">/g, ''); </span><span class="se">\</span><span class="s2">
+  if (toc.indexOf(name) === -1) { </span><span class="se">\</span><span class="s2">
+    links[i].parentNode.removeChild(links[i]); </span><span class="se">\</span><span class="s2">
+  } </span><span class="se">\</span><span class="s2">
+} </span><span class="se">\</span><span class="s2">
+&lt;/script&gt;"</span>
+
+<span class="c"># Inject that script in the index.html.</span>
+<span class="nb">echo</span> <span class="nv">$scriptToFixTheToc</span> <span class="o">&gt;&gt;</span> <span class="nv">$docsDir</span>/index.html
+
+<span class="c"># Pray.</span>
+</code></pre></div></div>
+
+<p><br />
+<br />
+Like sands through the hourglass so are the hacks of our lives.</p>
+:ET

@@ -1,0 +1,56 @@
+I"@ <h2 id="stats-a-preamble">Stats: a preamble</h2>
+<p>I’ve been reading too much about March Madness brackets, so I thought I had to run some numbers around here like the cool kids do. Get your umbrella out, it’s about to rain cold facts.</p>
+
+<p>In the history of time, <a href="http://www.ohloh.net/p/chrome">Chromium</a> has had 205,095 commits made by 1,943 contributors representing 7,431,088 lines of code. In the last 30 days, there have been 5021 commits, by 637 contributors, including 53 new hoomans.</p>
+
+<p>I did some advanced Nate Silver analysis here for you, and that’s at least 167 commits and 1+ new committers a day. On average, that’s at least 7 commits an hour. Every hour. All of the hours.</p>
+
+<p>That’s an imperial ton of new code being added, by what it seems like new people. Imagine if everyone could commit code willy-nilly. Are you imagining a minefield? You should.</p>
+
+<h2 id="code-reviews-ftw">Code reviews ftw</h2>
+<p>Good news for our browser using audience! Chromium isn’t a minefield, and on top of it, has pretty awesome looking code. This comes from the fact that any code changes need to be reviewed and blessed before they can land on the master branch. More eyes means less bugs means you’re less likely to commit broken code and break the internet. And you really don’t want to break the internet.</p>
+
+<p>Even if you have tests, and everything is going your way, you can write correct, but genuinely shitty code. 7 million lines of kinda-shitty code is not something anyone wants to work with, and are worth investing a little time in fixing.</p>
+
+<p>Code reviews also bring up the bus factor, which is my favourite sinister nerd metaphor. You know, the <em>buuuuuus</em> factor. The number of people that can get run over by a bus on a team before that team is royally and epically screwed. If all the code that you write has been closely read by a different person, then you’re probably ok getting run over by a bus every once in a while. But still, you probably shouldn’t. Who would feed your cat?</p>
+
+<h2 id="consistent-code-is-the-best-code">Consistent code is the best code</h2>
+<p>Code <a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml">style guides</a> are sooper neat, and are a huge part of code reviews, because ain’t nobody got time to argue about braces. You can spend that time arguing about imperative vs. functional languages, which is a much better use of everyone’s time. Having a strict and detailed style guide means that, even though it’s probably going to piss off some very opinionated people, all of the code will look the same, all the time, regardless of who wrote it. You can jump into any area of Chromium and feel at home, because nobody went crazy with the whitespace.</p>
+
+<p>And trust me, it only takes a week to get over the wrong kind of braces.</p>
+
+<h2 id="dont-be-scared">Don’t be scared</h2>
+<p>We’ve reached the point in the blog post where I confess I am a terrible code reviewer. I am incredibly scared of reviewing code I haven’t written. Guess what: in the case of Chromium, that’s most of it.</p>
+
+<p>Reviewers are usually picked from a list of <a href="http://dev.chromium.org/developers/owners-files">owners</a>, which is a group of people that is intimate enough with that area of code that they’ve taken it out to dinner a couple of times. They’re the ones that have the final say on whether the code is ok, and who make sure that little neighbourhood of code isn’t a minefield. Even if you’re not an owner, your team mates will probably ask you for a first review of their code, to make the owners’ lives easier. You will be tempted to panic and not want to take responsibility for it. You will be tempted to run away from confrontation and agree with all of their changes.</p>
+
+<p>Don’t. It doesn’t help anyone, and it will be like you’re not even there. You were asked for a review because people trust your judgement and value your opinion. So give it. The worst thing that can happen is that they will disagree, and you will have a polite conversation about it. The best thing that can happen is amazingly awesome code. So, have a little courage, and be the little reviewer that could.</p>
+
+<h2 id="dont-be-a-jerk">Don’t be a jerk</h2>
+<p>Jerks are the worst code reviewers. Generally, people tend to get very defensive when faced with criticism, and they’ll get exponentially more defensive if that criticism comes in a harsh, patronizing voice. Defensive people aren’t open to discussions, and it will make the review experience painful for everyone.</p>
+
+<p>Don’t be a control freak either. You might disagree with the names of variables and functions, but unless you have good suggestions, you might want to consider conceding those points.</p>
+
+<p>The moral here is: the code you’re reviewing was written by a smart human. Treat them like one.</p>
+
+<h2 id="what-makes-a-great-code-reviewer">What makes a <em>great</em> code reviewer</h2>
+<p>Good code reviewers are diligent: they enforce the style guide, they make sure you’ve documented the new code, and they aren’t scared of  making you shave a yak or four if that’s needed (this includes both yaks that you have conjured and the ones you’ve accidentally stumbled upon).</p>
+
+<p>Even better reviewers will try to help the author of the code learn. This is a very hard stack of plates to balance: on one hand you don’t want to be lazy and offer really vague advice that will waste the programmer’s time, and on the other hand you don’t want to spoon-feed them every single character of code. I don’t think there’s a magic formula here: this comes with experience, and with your knowledge of the person you’re reviewing.</p>
+
+<p>The best code reviewers are usually right, and always humble. They’ll always admit when they’re wrong and they’ll back away from points that are too annoying (“yes, the way I suggested is better, but I see your point that it’s way, way too much effort, and I agree it’s not worth it”).</p>
+
+<h2 id="code-reviews-are-kind-of-social">Code reviews are kind of social</h2>
+<p>A neat/fun thing that happens even in a project as big as Chromium is that programmers and reviewers will form specific reviewing relationships.</p>
+
+<p>My favourite reviewer used to leave pretty vague comments when the general approach of one of my patches was bad. At first the comments didn’t make any sense, but because I didn’t want to look dumb, I’d spend four hours trying to figure out what they meant. Somebody who isn’t me would probably just go back and ask for a clarification, and that would define their reviewing relationship. However, I kind of really enjoy this sort of code sherlocking, because by the time I figured out what they meant, I would have learned a whole bunch of new things, fixed my code, replaced it with badass code, and would be genuinely excited. And that’s why they’re <em>my</em> favourite reviewer, but not necessarily the best reviewer. Our styles just match really well.</p>
+
+<h2 id="how-to-level-up-as-a-code-reviewer">How to level up as a code reviewer</h2>
+<p>First, become comfortable with the style guide. The first thing you should do for every review is go through all of the new code, and find all the nits. Is the indentation ok? Do the variable names follow the naming convention? Have new functions or parameters been documented correctly?</p>
+
+<p>Once you’re done with that, ask yourself if you understand what the code does. If you can’t, the next person won’t either. It’s easy to think you’re dumb and the code is great, but that’s almost never true. Does the new code make sense where it is? Should it be in a different class? Should it be a class or a helper function? Is this code duplicated anywhere else?</p>
+
+<p>Make sure that if the code can be tested (this, sadly, isn’t always true), it is tested. Don’t be afraid to ask for tests if they’re not there.</p>
+
+<p>Finally, ask yourself if tomorrow you’d be comfortable fixing a bug in the code. If it looks scary or confusing to you, it will probably look scary or confusing to everybody else. Remember: only you can prevent forest fires!</p>
+:ET

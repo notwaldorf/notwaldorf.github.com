@@ -1,0 +1,143 @@
+I"-<p>You know that scene in The Rock where Nicolas Cage is super dreamy (like he is)
+and decides his life mission is to look for VX poison gas and save San Francisco (like he would)?
+That’s baaaasically me, if by “look for VX poison gas” you mean “nerd out on emoji”, and
+by “save San Francisco” you mean “and tell everyone about it”.
+I mean, you clicked on this link, what did you think was going to happen?</p>
+
+<h2>🍿 How did we get so lucky?</h2>
+
+<p>An <a href="https://en.wikipedia.org/wiki/Emoji">emoji</a> is a coloured <a href="https://en.wikipedia.org/wiki/Glyph">glyph</a>. They appeared around 1999 in Japan, where each mobile carrier implemented their own variants, and people
+were sending them around in text messages. This was a bit of a mess, as
+you can imagine proprietary formats interacting with other proprietary formats to be, so in 2000
+there was a proposal to standardize them. It wasn’t until 2009, though, that emoji got specced
+in Unicode 5.2 <span style="color:#7ccdea;">#blessed</span>.</p>
+
+<p><a href="http://unicode.org/reports/tr51/">Spec</a> trivia: each emoji has a <a href="http://unicode.org/reports/tr51/#Design_Guidelines">design guideline</a>
+and name, which is a description/suggestion of what the
+emoji should look like. This is why 💁,for example, often gets in trouble for being
+labelled as <em>Information Desk Person</em>, but is actually just a sassy lady: it’s the
+implementation of the emoji that doesn’t match its original description, not the
+other way around. If you take sassy lady away from me though, there will be words.</p>
+
+<p>My favourite description is
+<em>Clockwise Rightwards and Leftwards
+Open Circle Arrows With Circled One Overlay</em> (or 🔂 for short), which shows true dedication to typing.</p>
+
+<p>Emoji does not have a plural in Japanese, so stop trying to make <em>emojis</em> happen.</p>
+
+<h2 style="border-left-color:#fbcd46;">🙀 What is an emoji even</h2>
+
+<p>Every emoji is represented by a <code class="language-plaintext highlighter-rouge">code point</code> (a hexadecimal number, zero-padded up to at least four digits, like U+26C4).
+Because all JavaScript strings are internally (i.e. in browsers) represented in UTF-16, this means that each <a href="https://en.wikipedia.org/wiki/Code_point">code point</a>, in turn, can be represented by one or more 16-bit <code class="language-plaintext highlighter-rouge">code unit</code>.</p>
+
+<p>Some emoji are boring (or in the <a href="https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane">basic</a> unicode plane), which means one glyph is represented by one <code class="language-plaintext highlighter-rouge">code unit</code>.
+ ☃ for example is <code class="language-plaintext highlighter-rouge">U+2603</code> (you’d write this as <code class="language-plaintext highlighter-rouge">\u2603</code> in the codes). In JavaScript, to find out how many code units represent an emoji, you can query its length:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"☃".length    // returns 1
+"🐼".length    // returns 2
+</code></pre></div></div>
+
+<p>To find out what the code units actually are, you can look them up:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"☃".charCodeAt(0).toString(16)    // returns 2603.
+"🐼".charCodeAt(0).toString(16)    // returns d83d
+"🐼".charCodeAt(1).toString(16)    // returns dc3c
+</code></pre></div></div>
+
+<p>Let’s talk about panda! 🐼 lives in the “astral” plane (it’s officially
+called a <a href="https://en.wikipedia.org/wiki/Plane_(Unicode)#Supplementary_Multilingual_Plane">supplementary</a> plane, but that’s boring), which means its
+code point has more than four digits, and is represented by <em>two</em> code units. This
+is called a <code class="language-plaintext highlighter-rouge">surrogate pair</code>. As we saw above, 🐼 is made up of two
+surrogates, <code class="language-plaintext highlighter-rouge">U+D83D</code> and <code class="language-plaintext highlighter-rouge">U+DC3C</code>.</p>
+
+<p>My favourite emoji (thank you for asking!) is the dancer from the Android set. Look
+at this blob. Look at all the shits it doesn’t give. It’s so happy. We should all be like this blob.</p>
+
+<p><img width="60" alt="the dancer as implemented on android, a beautiful blob with a rose in its teeth" src="https://cloud.githubusercontent.com/assets/1369170/14198590/c07a7d14-f790-11e5-9d95-499731513ab3.png" /></p>
+
+<h2 style="border-left-color:#f19fd9;">🙋 What about emoji modifiers?</h2>
+
+<p>🇨🇦 and 👍🏿 and 👨‍👨‍👧‍👧 are also
+“astral” plane emojis, only they’re made out of 2+ surrogate pairs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"👍🏿".length    // returns 4
+"🇨🇦".length    // returns 4
+"👨‍👨‍👧‍👧".length    // lol returns 11 (2*4 for each person + 3 connectors)
+</code></pre></div></div>
+
+<p>If you type this (in April 2016) in something like Atom (or even Atom’s dev tools) though,
+you’ll notice something weird. Instead of getting a black thumbs up, or the Canadian flag, you get this (I had to highlight the Canadian flag bit, because the glyphs are white):</p>
+
+<p><img width="129" alt="a yellow thumbs up with a dark brown square; two boxes, each with the letters C and A; 4 separate heads in a line" src="https://cloud.githubusercontent.com/assets/1369170/14193347/def54478-f758-11e5-95ca-bc8b5988874c.png" /></p>
+
+<p>Whoaaaa, what’s going on there? (This is a trick question. I’ma tell you what’s going on there.)</p>
+
+<p>The <a href="http://unicode.org/reports/tr51/#Flags">flags</a> are built around a weird (and annoying to implement) rule: the
+surrogate pairs (called <code class="language-plaintext highlighter-rouge">regional indicators</code>) spell out the country code (so
+🇨🇦 is actually <code class="language-plaintext highlighter-rouge">[C][A]</code>). Skin colours are similar, but a little simpler:
+they’re made out a special emoji <a href="http://unicode.org/reports/tr51/#Subject_Emoji_Modifiers">base</a> + one of the 6 special colour <a href="http://unicode.org/reports/tr51/#Emoji_Modifiers_Table">modifiers</a>. The couples/multi
+families are a <a href="http://www.unicode.org/emoji/charts/emoji-zwj-sequences.html">sequence</a> of characters, that together make one emoji.</p>
+
+<h2 style="border-left-color:#a77be3;">👾 So what does Chrome do?</h2>
+<p>Okay, cool! We figured out what code units we need for 🇨🇦, now, let’s figure
+out how to render them!</p>
+
+<p>First, Chrome uses a text shaper called <a href="http://harfbuzz.org/">Harfbuzz</a>. Text shapers
+take Unicode code points and convert them to glyph indices (basically saying “you’re going to 
+have to draw glyphs 23 and 74”) – and guess what we have! Unicode
+code points! The text shaper is the one that knows how to look at this stream
+of code units and surrogate pairs and figure out which are standalone, which
+are weirdo flags, and which are modifiers. Once it’s done with it, it comes
+up with the glyph and the position where to draw it. If you think about a couple,
+👩‍❤️‍👩, all surrogate pairs need to be drawn on
+top of each other, so that the spacing around the final glyph adds up.</p>
+
+<p>This glyph and its size/position eventually goes to <a href="https://en.wikipedia.org/wiki/Skia_Graphics_Engine">Skia</a>,
+Chrome’s graphics engine. It is the one that paints the right thing on the screen (<a href="https://code.google.com/p/chromium/codesearch#chromium/src/third_party/skia/src/ports/SkFontHost_mac.cpp&amp;l=1257">here</a> is that code).</p>
+
+<h2 style="border-left-color:#5b86f7;">🖌 What about fonts?</h2>
+
+<p>Fonts, boy, them’s a pickle. There’s basically one font per platform that
+actually knows how to draw emoji (unless you went out of your way to
+install extra ones). All the other fonts just rent the emoji from it.
+These fonts are AppleColorEmoji (OS X), Segoe UI Symbol/Emoji (Windows),
+NotoColorEmoji (Android) and I don’t know what Linux does, but it’s probably
+black and white and who cares, I hear you can run bash on Windows now. I’m going to keep talking about the Apple font, because that’s
+the code path I worked on in Chrome, but Windows works very similarly.</p>
+
+<p>So let’s say you have this:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"font-family: 'Comic Sans MS', sans-serif;"</span><span class="nt">&gt;</span>😻<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Chrome (specifically <a href="https://en.wikipedia.org/wiki/Blink_(web_engine)">Blink</a>) will first look up the glyph corresponding to 😻 in the Comic Sans font.
+It won’t find it, so it will first try the web <code class="language-plaintext highlighter-rouge">fallback</code> font, the default
+platform sans-serif (I think on OS X this is Helvetica, and it’s probably
+Arial on Windows). That also doesn’t have the glyph (remember, only one font
+knows how to draw cats with heart eyes), so Chrome knows to fallback to
+<code class="language-plaintext highlighter-rouge">AppleColorEmoji</code> by looking at the glyph: it’s 32 bits and it has an emoji presentation,
+so it must be an emoji. <a href="https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/mac/FontCacheMac.mm&amp;q=fontcachemac&amp;sq=package:chromium&amp;type=cs&amp;l=91">Here</a>’s the code
+where that happens (the real work is done <a href="https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/fonts/SymbolsIterator.cpp&amp;q=FontFallbackPriority::EmojiEmoji&amp;sq=package:chromium&amp;type=cs&amp;l=23">here</a> and <a href="https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/platform/text/CharacterEmoji.cpp&amp;q=characteremoji.cpp&amp;sq=package:chromium&amp;type=cs&amp;l=95">here</a>. This entire last file is pretty glorious and useful if you ever need to know if a thing is an emoji or not).</p>
+
+<p>Cool, so now Chrome knows to ask AppleColorEmoji for the cat, takes that glyph,
+passes it to Skia, and paints it
+in the right position, and everything is fine. Cool cool cool.</p>
+
+<p>Remember though how in Atom, you see <img width="53" alt="a yellow thumbs up with a dark brown square" style="display:inline-block;" src="https://cloud.githubusercontent.com/assets/1369170/14195194/5704b2a2-f76b-11e5-922c-d4753861d55f.png" />
+ instead? What’s up with that?
+Atom is built on Chromium soooo it should work, right?</p>
+
+<p>Well as we know, software. This fallback logic I just mentioned was a bit
+broken pre Chrome 50 for flags and modifiers and complicated emoji like that.
+So Chrome got as far as figuring out that there were two different glyphs,
+“thumbs up” and “skin colour”, but not how to fallback to the correct font 
+and draw the compound “black thumbs up” glyph. So that’s why you got them separately. That’s
+been fixed now! Yay!</p>
+
+<h2 style="border-left-color:#ed2f20;">💥🙌✨💝</h2>
+
+<p>Congratulations! Now you too can be Nicolas Cage and shout at people about
+emoji trivia! Wasn’t this fun?</p>
+
+<p><img src="https://media.giphy.com/media/RrVzUOXldFe8M/giphy.gif" alt="nicolas cage y'all" /></p>
+:ET
