@@ -4,19 +4,26 @@ title: "Books"
 splashtitle: "Book reviews"
 ---
 
-I've been trying to write reviews for every book I've read. 
-You can follow these here, on [goodreads](https://www.goodreads.com/user/show/27136484-monica), or as an
-[RSS feed](https://www.goodreads.com/review/list_rss/27136484?shelf=read).
+Since 2019-ish I've been trying to write reviews for every book I read. 
+You can follow these here, on [Goodreads](https://www.goodreads.com/user/show/27136484-monica), or as an
+[RSS feed](https://www.goodreads.com/review/list_rss/27136484?shelf=read). I used to try 
+to only read "good" literary fiction, but life is short, I am tired, and now that mix is eclectic. I try to be fair in reviews and not take away stars because a book is trash (in my universe, both Sally Rooney and Fourth Wing can get 5 stars).
 
 <style>
 table {
   display: grid;
   border-collapse: collapse;
-  grid-template-columns: 2.5fr 2fr 1fr 0.7fr 0.7fr;
   gap: 4px;
   max-width: 100%;
   overflow: scroll;
 }
+table.small {
+  grid-template-columns: 1fr 8fr;
+}
+table.all {
+  grid-template-columns: 2.5fr 2fr 1fr 0.7fr 0.7fr;
+}
+
 thead,
 tbody,
 tr {
@@ -38,7 +45,7 @@ th {
   text-align: left;
   font-size: 16px;
 }
-td {
+table.all td {
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -76,7 +83,7 @@ tr.full td button {
   margin-right: 24px;
 }
 @media screen and (max-width:600px) {
-  table {
+  table.all {
     grid-template-columns: 1fr 1fr 0.5fr 0.7fr 0.7fr;
   }
   tr.full td {
@@ -102,7 +109,41 @@ tr.full td button {
     navigator.clipboard.writeText(copyText);
   }
 </script>
-<table>
+
+
+Ratings explained:
+<table class="small">
+<tbody>
+<tr>
+  <td>5 / 5</td>
+  <td>Loved it a lot, would reread</td>
+</tr>
+<tr>
+  <td>4 / 5</td>
+  <td>I liked it, but I probably won't reread it again</td>
+</tr>
+<tr>
+  <td>3 / 5</td>
+  <td>It was fine. It wasn't amazing but it was a fun read and I don't regret reading it</td>
+</tr>
+<tr>
+  <td>2 / 5</td>
+  <td>I didn't like this *at all* and I'll probably say it was badly written</td>
+</tr>
+<tr>
+  <td>1 / 5</td>
+  <td>This book literally pissed me off</td>
+</tr>
+<tr>
+  <td>n / a</td>
+  <td>I didn't feel comfortable rating this book because it was either about facts, or I didn't finish it (which doesn't necessarily mean I didn't love it; I'm looking at you John Banville.)
+  </td>
+</tr>
+</tbody>
+</table>
+
+<br>
+<table class="all">
   <thead>
     <tr>
       <th>Title</th>
@@ -120,9 +161,12 @@ tr.full td button {
       </td>
       <td>{{ book.author }}</td>
       <td class="small">{{ book.read }}</td>
-      <td class="center stars"><b>{{ book.rating }}</b> / 5
-      <!-- {%- assign n = book.rating -%}
-      {% for i in (1..n) %}★{% endfor %}{% for i in (n..4) %}☆{% endfor %} -->
+      <td class="center stars">
+        {% if book.rating != 0 %}
+          <b>{{ book.rating }}</b> / 5
+        {% else %}
+          n/a
+        {% endif %}
       </td>
       <td class="center read">
         {% if book.review != "" %}
