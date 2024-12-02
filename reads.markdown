@@ -148,7 +148,7 @@ Ratings explained:
     <tr>
       <th>Title</th>
       <th>Author</th>
-      <th>Read</th>
+      <th>Finished</th>
       <th>Rating</th>
       <th>Review</th>
     </tr>
