@@ -7,7 +7,7 @@ splashtitle: "Book reviews"
 Since 2019-ish I've been trying to write reviews for every book I read. 
 You can follow these here, on [Goodreads](https://www.goodreads.com/user/show/27136484-monica), or as an
 [RSS feed](https://www.goodreads.com/review/list_rss/27136484?shelf=read). I used to try 
-to only read "good" literary fiction, but life is short, I am tired, and now that mix is eclectic. I try to be fair in reviews and not take away stars because a book is trash (in my universe, both Sally Rooney and Fourth Wing can get 5 stars).
+to only read "good" literary fiction, but life is short, I am tired, and now that mix is eclectic. I try to be fair in reviews and not take away stars because a book is trash (in my universe, both Sally Rooney and Fourth Wing can get 5 stars). You'll notice I mostly read 3 stars and up: I've become very good at selecting what I read and it's rare I'll find complete misses.
 
 <style>
 table {
@@ -141,7 +141,6 @@ Ratings explained:
 </tr>
 </tbody>
 </table>
-
 <br>
 <table class="all">
   <thead>
@@ -169,7 +168,7 @@ Ratings explained:
         {% endif %}
       </td>
       <td class="center read">
-        {% if book.review != "" %}
+        {% if book.review != "" and  book.review != "None"%}
           <button onclick="toggleReview(this)">read ▿</button>
         {% else %}
           n/a
@@ -188,3 +187,62 @@ Ratings explained:
     {% endfor %}
   </tbody>
 </table>
+
+<script>
+  // Navigate to https://www.goodreads.com/review/list/27136484-monica?page=1&print=true&shelf=read&sort=date_read&view=table
+  // Paste this code in.
+
+  function doit() {
+    const all = document.querySelectorAll('#booksBody tr')
+    const result = [];
+    all.forEach(a => {
+      result.push(parseRow(a));
+    });
+    logFormatted(result.join("\n"))
+  }
+  function logFormatted(strings, ...values) {
+    console.log(String.raw({ raw: strings }, ...values));
+  }
+  function parseRow(a) {
+    const id = a.querySelector('.field.cover > .value .tooltipTrigger').dataset.resourceId
+    const title = a.querySelector('.field.title > .value').textContent.trim()
+    const author = a.querySelector('.field.author > .value').textContent.replace('*', '').trim()
+    const rating = a.querySelectorAll('.field.rating > .value .p10').length 
+
+    const realDate = new Date(a.querySelector('.field.date_read > .value').textContent.trim())
+    const prettyDate = formatDate(realDate)
+
+    const reviews = a.querySelectorAll('.field.review > .value > span')
+    let review = reviews[0].textContent;
+    if (reviews.length == 2) {
+      review = reviews[1].textContent;
+    }
+    
+    const output = `- gr_id: ${id}
+  title: "${title}"
+  author: ${author}
+  rating: ${rating}
+  read: ${prettyDate}
+  review: "${review}"`;
+
+  return output
+  //console.log(output)
+
+  function formatDate(dateStr) {
+  // Parse the input date string
+  const date = new Date(dateStr);
+  
+  // Get year, month, and day
+  const year = date.getFullYear();
+  // getMonth() returns 0-11, so add 1 and pad with leading zero if needed
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  // getDate() returns day of month, pad with leading zero if needed
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  // Return formatted date string
+  return `${year}/${month}/${day}`;
+  }
+}
+
+
+</script>
