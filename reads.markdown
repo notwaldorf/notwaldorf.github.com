@@ -10,6 +10,10 @@ You can follow these here, on [Goodreads](https://www.goodreads.com/user/show/27
 to only read "good" literary fiction, but life is short, I am tired, and now that mix is eclectic. I try to be fair in reviews and not take away stars because a book is trash (in my universe, both Sally Rooney and Fourth Wing can get 5 stars). You'll notice I mostly read 3 stars and up: I've become very good at selecting what I read and it's rare I'll find complete misses.
 
 <style>
+.horizontal {
+  display: flex;
+  gap:10px;
+}
 table {
   display: grid;
   border-collapse: collapse;
@@ -21,7 +25,7 @@ table.small {
   grid-template-columns: 1fr 8fr;
 }
 table.all {
-  grid-template-columns: 2.5fr 2fr 1fr 0.7fr 0.7fr;
+  grid-template-columns: 2.5fr 1fr 0.7fr 0.7fr;
 }
 
 thead,
@@ -42,7 +46,7 @@ td.center {
 }
 th {
   border-bottom: 3px solid black;
-  text-align: left;
+  text-align: center;
   font-size: 16px;
 }
 table.all td {
@@ -67,6 +71,12 @@ tr.full td {
   font-size: 16px;
   line-height: 1.5;
 }
+
+td img {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 80px;
+}
 button {
   background: transparent;
   font-family: inherit;
@@ -84,7 +94,7 @@ tr.full td button {
 }
 @media screen and (max-width:600px) {
   table.all {
-    grid-template-columns: 1fr 1fr 0.5fr 0.7fr 0.7fr;
+    grid-template-columns: 2fr 0.5fr 0.7fr 0.7fr;
   }
   tr.full td {
     max-width: 80%;
@@ -146,7 +156,6 @@ Ratings explained:
   <thead>
     <tr>
       <th>Title</th>
-      <th>Author</th>
       <th>Finished</th>
       <th>Rating</th>
       <th>Review</th>
@@ -155,10 +164,15 @@ Ratings explained:
   <tbody>
     {% for book in site.data.books %}
     <tr>
-      <td><a href="https://www.goodreads.com/book/show/{{ book.gr_id }}" target="_blank">
-      {{ book.title }} </a>
+      <td class="horizontal">
+      {% if book.image %}<img src="{{ book.image }}">{% endif %}
+        <div>
+          <a href="https://www.goodreads.com/book/show/{{ book.gr_id }}" target="_blank">
+            {{ book.title }}
+          </a>
+          <div>{{ book.author }}</div>
+        </div>
       </td>
-      <td>{{ book.author }}</td>
       <td class="small">{{ book.read }}</td>
       <td class="center stars">
         {% if book.rating != 0 %}
@@ -187,62 +201,3 @@ Ratings explained:
     {% endfor %}
   </tbody>
 </table>
-
-<script>
-  // Navigate to https://www.goodreads.com/review/list/27136484-monica?page=1&print=true&shelf=read&sort=date_read&view=table
-  // Paste this code in.
-
-  function doit() {
-    const all = document.querySelectorAll('#booksBody tr')
-    const result = [];
-    all.forEach(a => {
-      result.push(parseRow(a));
-    });
-    logFormatted(result.join("\n"))
-  }
-  function logFormatted(strings, ...values) {
-    console.log(String.raw({ raw: strings }, ...values));
-  }
-  function parseRow(a) {
-    const id = a.querySelector('.field.cover > .value .tooltipTrigger').dataset.resourceId
-    const title = a.querySelector('.field.title > .value').textContent.trim()
-    const author = a.querySelector('.field.author > .value').textContent.replace('*', '').trim()
-    const rating = a.querySelectorAll('.field.rating > .value .p10').length 
-
-    const realDate = new Date(a.querySelector('.field.date_read > .value').textContent.trim())
-    const prettyDate = formatDate(realDate)
-
-    const reviews = a.querySelectorAll('.field.review > .value > span')
-    let review = reviews[0].textContent;
-    if (reviews.length == 2) {
-      review = reviews[1].textContent;
-    }
-    
-    const output = `- gr_id: ${id}
-  title: "${title}"
-  author: ${author}
-  rating: ${rating}
-  read: ${prettyDate}
-  review: "${review}"`;
-
-  return output
-  //console.log(output)
-
-  function formatDate(dateStr) {
-  // Parse the input date string
-  const date = new Date(dateStr);
-  
-  // Get year, month, and day
-  const year = date.getFullYear();
-  // getMonth() returns 0-11, so add 1 and pad with leading zero if needed
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  // getDate() returns day of month, pad with leading zero if needed
-  const day = String(date.getDate()).padStart(2, '0');
-  
-  // Return formatted date string
-  return `${year}/${month}/${day}`;
-  }
-}
-
-
-</script>

@@ -103,6 +103,7 @@ def parse_rss(input_path, output_path):
         rating = item.findtext('user_rating', '').strip()
         read_at = parse_date(item.findtext('user_read_at', '').strip())
         review = clean_html(item.findtext('user_review', '').strip())
+        image = item.findtext('book_large_image_url', '').strip()
 
         new_lines.append(f'- gr_id: {book_id}')
         new_lines.append(f'  title: "{yaml_str(title)}"')
@@ -111,6 +112,8 @@ def parse_rss(input_path, output_path):
             new_lines.append(f'  rating: {rating}')
         if read_at:
             new_lines.append(f'  read: {read_at}')
+        if image:
+            new_lines.append(f'  image: {image}')
         if review:
             new_lines.append(f'  review: "{yaml_str(review)}"')
         new_lines.append('')  # blank line between entries
@@ -121,9 +124,17 @@ def parse_rss(input_path, output_path):
         print("No new books to add.")
         return
 
-    # Append new entries to the existing file
-    with open(output_path, 'a', encoding='utf-8') as f:
-        f.write('\n'.join(new_lines))
+    # Prepend new entries to the existing file
+    existing_content = ""
+    if os.path.exists(output_path):
+        with open(output_path, "r", encoding="utf-8") as f:
+            existing_content = f.read()
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(new_lines))
+        if existing_content:
+            f.write("\n")
+            f.write(existing_content)
 
     print(f"Done. Added {new_count} new books → {output_path}")
 
