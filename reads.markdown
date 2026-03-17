@@ -27,6 +27,10 @@ table.small {
 table.all {
   grid-template-columns: 2.5fr 1fr 0.7fr 0.7fr;
 }
+table.stats {
+  grid-template-columns: 80px 80px 100px 100px;
+}
+table.stats td { text-align: center; }
 
 thead,
 tbody,
@@ -120,8 +124,30 @@ tr.full td button {
   }
 </script>
 
+<h3>Some stats for the nerds (me)</h3>
+<table class="stats">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Books read</th>
+      <th>Average rating</th>
+      <th>Standard deviation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2025</td><td>40</td><td>3.31</td><td>0.86</td></tr>
+    <tr><td>2024</td><td>43</td><td>3.41</td><td>0.76</td></tr>
+    <tr><td>2023</td><td>62</td><td>3.30</td><td>0.79</td></tr>
+    <tr><td>2022</td><td>31</td><td>3.59</td><td>1.15</td></tr>
+    <tr><td>2021</td><td>45</td><td>3.59</td><td>1.00</td></tr>
+    <tr><td>2021</td><td>31</td><td>3.79</td><td>0.92</td></tr>
+    <tr><td>2021</td><td>28</td><td>3.50</td><td>1.04</td></tr>
+  </tbody>
+</table>
 
-Ratings explained:
+
+
+<h3>Ratings explained</h3>
 <table class="small">
 <tbody>
 <tr>
@@ -152,6 +178,8 @@ Ratings explained:
 </tbody>
 </table>
 <br>
+
+<h3>The firehose</h3>
 <table class="all">
   <thead>
     <tr>
