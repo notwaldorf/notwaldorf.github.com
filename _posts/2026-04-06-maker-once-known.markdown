@@ -2,7 +2,6 @@
 layout: post
 title: "Maker once known"
 category: posts
-draft: true
 ---
 Thinking about resuscitating regular written updates. Reasons, in order of honesty: 
 1. vanity
