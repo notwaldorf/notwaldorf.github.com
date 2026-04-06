@@ -303,7 +303,7 @@ nav > ul {
 }
 nav > ul > li {
   list-style: none;
-  margin: var(--spacing-xs);
+  margin: 4px var(--spacing-s);
 }
 
 nav a {
