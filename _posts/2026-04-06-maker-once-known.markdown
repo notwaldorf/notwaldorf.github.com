@@ -8,6 +8,8 @@ Thinking about resuscitating regular written updates. Reasons, in order of hones
 2. it might pressure me into actually doing something worth reporting on
 3. writing is a part of my brain that has been gathering dust and I am becoming increasingly concerned this is turning me into a bore.
 
+---
+
 Found an interesting framework for evaluating art via Instagram Reels, which I realize is *not* the most dignified source for deep aesthetic theory but here we are. Three Ns: **Novelty**, **Nuance** (alternatively "craftsmanship," but that starts with C), **Narrative**. Big find for me because I have long harbored the opinion that Ellsworth Kelly sucks and now I can tell you, with some structural backing, that imo he fails all three. Simultaneously. Kind of impressive if you think about it.
 
 ---
