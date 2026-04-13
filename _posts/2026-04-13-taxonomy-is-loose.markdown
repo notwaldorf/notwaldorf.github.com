@@ -2,7 +2,6 @@
 layout: post
 title: "The taxonomy is loose"
 category: posts
-draft: true
 ---
 There's something good going on with music these days. Romance by [Fontaines D.C.](https://fontainesdc.com/) is a perfect album. I have listened to it almost every single day for weeks and have not gotten sick of it once,  which is -- and I mean this clinically -- a medical miracle. Jack White is on SNL. The Strokes are touring. There is a band called [Angine de poitrine](https://www.youtube.com/watch?v=0Ssi-9wS1so) who are the most aggressively anti-AI band I can imagine existing, out here doing absolutely Weird Shit™, and I don't even normally listen to math rock like this but I am so glad someone is making it. My current theory (slash hopeful prayer) is that the best thing we are going to get out of all this AI slop era is the good bands dusting themselves off and getting back in the van. We have the robots writing our emails and apparently that is enough. That is exactly the kind of low-grade existential dread that makes people pick up a guitar again, and honestly good, great, more of this please.
 
