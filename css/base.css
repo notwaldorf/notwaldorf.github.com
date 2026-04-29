@@ -557,7 +557,6 @@ h2 code {
 @media screen and (max-width:600px) {
   .splash > .splash-wrapper {
     flex-wrap: wrap;
-    justify-content: center;
   }
   .splash-copy {
     margin-right: 0;
