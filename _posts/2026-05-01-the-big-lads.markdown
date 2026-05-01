@@ -2,7 +2,6 @@
 layout: post
 title: "The big lads"
 category: posts
-draft: true
 ---
 A Ritz-Carlton hotel in California closed an entrance after a hummingbird [made a nest](https://www.reddit.com/r/BeAmazed/comments/1stlxlz/a_hummingbird_built_a_nest_on_a_hotel_door_handle/) on a door handle and, amidst all the daily ambient horror of simply being a person with a phone in 2026, it is nice to be reminded of the kinds of small lives we still agree to make room for. 
 
