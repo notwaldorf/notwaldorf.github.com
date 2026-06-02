@@ -19,7 +19,7 @@ A definitive ordering of Diet Coke products, which I should preface by saying I 
 3. Cans. 
 4. Glass bottles.
 5. The can I dropped on the floor of an elevator in Vegas this weekend which in the two feet between my hand and the floor achieved a flatness so total, so absolute, that it felt less like an accident of physics than a deliberate decision. The carbonation didn't so much escape as it elected to leave. No fizz. None.
-6. 2 liter bottles, 30 minutes hour after opening.
+6. 2 liter bottles, 30 minutes after opening.
 
 ---
 I've developed a small, normal, completely healthy hyperfixation with the Strokes. I saw them in concert last month, then Julian Casablancas did some deeply Julian shit at Coachella, then I listened to The New Abnormal every day for two weeks like it was medication. I don't like their two new songs. I am holding out a delusional, load-bearing hope that Julian is in fact trolling us; that "Reality Awaits," and by the time the album comes out he'll have peeled off the awful autotune, and the whole thing will turn out to be an elaborate bit he played on us, the sheeple, who deserved it.
