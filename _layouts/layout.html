@@ -2,34 +2,19 @@
 layout: body
 ---
 {% include nav.html %}
+{% assign fname = page.name | split: '.' | first | append: '.md' %}
 
-{% if page.splashtitle %}
-<div class="splash">
-  <div class="splash-wrapper">
-    <div class="splash-copy">
-      <h1>{{page.splashtitle}}</h1>
-      <p>{{page.splashbyline}}</p>
-    </div>
-    <div id="birbs">
-      <canvas></canvas>
-      <div class="birbs-legend">
-        <b>click this art</b> to regenerate it 
-        <button>[<b>?</b>]</button>
-
-        <div class="birbs-note">I made this little piece of art. It is 
-          randomly generated every time you refresh the page. You can also regenerate it
-          however many times you want by clicking on it. Every art is new!
-        </div>
-      </div>
-      
-    </div>
+<div class="deskwrap">
+  <div class="window {{page.thin}}" id="win-main">
+    {% include titlebar.html file=fname href="/" label="Close to desktop" %}
+    {% if page.splashtitle %}
+    <header class="win-hero">
+      <h1>{{ page.splashtitle }}</h1>
+      {% if page.splashbyline %}<p class="byline">{{ page.splashbyline }}</p>{% endif %}
+    </header>
+    {% endif %}
+    <section class="content">
+      {{ content }}
+    </section>
   </div>
-  <div class="dots"></div>
 </div>
-{% endif %}
-
-<section class="content">
-  {{ content }}
-</section>
-
-<script src="/js/birds.js"></script>

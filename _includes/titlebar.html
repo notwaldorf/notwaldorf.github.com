@@ -1,0 +1,11 @@
+{% comment %} Window title bar. Params: file, href, label, closable.
+   Pass closable=true to render a working close box (an <a> to `href`). {% endcomment %}
+<div class="titlebar">
+  <span class="tb-box tb-left" aria-hidden="true"></span>
+  <span class="ttl">{{ include.file }}</span>
+  {% if include.closable %}
+  <a class="tb-box tb-x" href="{{ include.href | default: '/' }}" aria-label="{{ include.label | default: 'Close' }}" title="{{ include.label | default: 'Close' }}"><svg viewBox="0 0 16 16" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></a>
+  {% else %}
+  <span class="tb-box tb-spacer" aria-hidden="true"></span>
+  {% endif %}
+</div>

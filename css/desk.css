@@ -1,0 +1,389 @@
+/* ============================================================
+   desk.css — "desk" theme CHROME (windows, menu bar, panels,
+   mobile). Loaded AFTER base.css. Sets the mono font once on
+   <body>; every chrome + content element inherits it.
+   Pairs with js/desk.js (progressive enhancement).
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* structural palette — the Mac (default) theme */
+  --desk-bg: oklch(0.9 0.02 80);
+  --dot: oklch(0.45 0.02 80 / 0.16);
+  --paper: oklch(0.99 0.004 95);
+  --paper-2: oklch(0.96 0.006 95);
+  --ink: oklch(0.23 0.012 270);
+  --ink-soft: oklch(0.48 0.012 270);
+  --ink-faint: oklch(0.66 0.01 270);
+  --hair: oklch(0.23 0.012 270);
+  --win-shadow: 2px 2px 0 oklch(0.2 0.02 280 / 0.16), 7px 11px 28px oklch(0.2 0.02 280 / 0.16);
+  --mono: "Roboto Mono", ui-monospace, monospace;
+}
+
+/* ---- desktop surface (owns <body>; sets the one font everything inherits) ---- */
+html { font-size: 16px; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--mono);
+  color: var(--ink);
+  background: var(--desk-bg);
+  background-image: radial-gradient(var(--dot) 1.1px, transparent 1.2px);
+  background-size: 15px 15px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* accent + everything derived from it (recomputes per theme via the vars above) */
+  --accent: #EC5B87;
+  --accent-soft: color-mix(in srgb, var(--accent) 15%, transparent);
+  --desk-bg:var(--accent-soft);
+}
+
+/* accent picker — shines in the Mac theme; the retro themes set their own accent below */
+body[data-accent="red"]  { --accent: #EC5B87; }
+body[data-accent="blue"] { --accent: #4BB8DB; }
+body[data-accent="gold"] { --accent: #F9B518; }
+body[data-accent="teal"] { --accent: #00C47B; }
+
+/* ---- THEMES (structural palette; retro ones also pin their signature accent) ---- */
+body[data-theme="cga"] {
+  --desk-bg: #000; --dot: rgba(85,255,255,.18);
+  --paper: #000; --paper-2: #0c0c0c;
+  --ink: #55ffff; --ink-soft: #d6d6d6; --ink-faint: #8f8f8f;
+  --hair: #ff55ff;
+  --win-shadow: 0 0 0 1px #ff55ff, 6px 6px 0 rgba(255,85,255,.28);
+  --accent: #ff55ff;
+}
+body[data-theme="msdos"] {
+  --desk-bg: #0000a8; --dot: rgba(255,255,255,.10);
+  --paper: #0000a8; --paper-2: #0a0ac4;
+  --ink: #e8e8e8; --ink-soft: #5bd7ff; --ink-faint: #8aa9e0;
+  --hair: #54ffff;
+  --win-shadow: 0 0 0 1px #54ffff, 5px 5px 0 rgba(0,0,0,.45);
+  --accent: #ffff54;
+}
+body[data-theme="ttc"] {
+  --desk-bg: #03120a; --dot: rgba(51,255,110,.14);
+  --paper: #05160d; --paper-2: #0a2113;
+  --ink: #3bff77; --ink-soft: #1fcf5c; --ink-faint: #149647;
+  --hair: #2fdf6a;
+  --win-shadow: 0 0 0 1px rgba(59,255,119,.30), 0 0 22px rgba(40,255,110,.16);
+  --accent: #6dffa0;
+}
+body[data-wall="grid"] { background-image: linear-gradient(to right, var(--dot) 1px, transparent 1px), linear-gradient(to bottom, var(--dot) 1px, transparent 1px); background-size: 22px 22px; }
+body[data-wall="plain"] { background-image: none; }
+
+/* ============================================================
+   MENU BAR  (_includes/nav.html)
+   ============================================================ */
+#menubar {
+  position: fixed; top: 0; left: 0; right: 0; height: 30px; z-index: 9000;
+  display: flex; align-items: stretch; padding: 0 6px;
+  background: var(--paper); border-bottom: 1.5px solid var(--hair);
+  box-shadow: 0 1px 0 oklch(0.2 0.02 280 / 0.07);
+  overflow-x: auto; scrollbar-width: none;
+}
+#menubar::-webkit-scrollbar { display: none; }
+#menubar .mi {
+  display: inline-flex; align-items: center; padding: 0 12px;
+  font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none;
+  white-space: nowrap; border: none; background: none; cursor: pointer; letter-spacing: 0.1px;
+  min-width: 40px;
+}
+#menubar .mi.star { font-size: 15px; color: var(--accent); padding: 0 11px; }
+#menubar .mi.home { font-size: 15px; padding: 0 9px; }
+#menubar .mi:hover, #menubar .mi.cur { background: var(--ink); color: var(--paper); }
+#menubar .mi.star:hover { background: var(--accent); color: var(--paper); }
+#menubar .mi .ext { font-size: 10px; opacity: 0.6; margin-left: 3px; }
+#menubar .spacer { flex: 1 0 14px; }
+#menubar #clock {
+  display: inline-flex; align-items: center; padding: 0 12px 0 8px;
+  font-size: 12px; cursor: default; white-space: nowrap;
+}
+/* desktop: section links flow inline; the "menu" toggle is mobile-only */
+#menubar .menu-toggle { display: none; }
+#menubar .mi-group { display: contents; }
+
+/* ============================================================
+   DESKTOP + WINDOW
+   ============================================================ */
+#desktop { padding: 30px 0 0; min-height: 100vh; }
+.deskwrap { display: flex; justify-content: center; padding: clamp(20px, 4vw, 54px) clamp(14px, 4vw, 54px) 80px; }
+
+.window {
+  width: min(840px, 100%);
+  background: var(--paper);
+  border: 1.5px solid var(--hair); border-radius: 6px;
+  box-shadow: var(--win-shadow);
+  overflow: hidden;
+  position: relative; z-index: 6; /* windows sit above the desk icons (z-index 5) */
+}
+.window.thin {
+   width: min(500px, 60%);
+} 
+
+/* ---- home: two windows that overlap a little (so they read as movable) ---- */
+.deskwrap-home {
+  display: flex; justify-content: center; align-items: flex-start;
+  max-width: 1000px; margin-inline: auto;
+}
+.deskwrap-home .window { flex: 0 0 auto; }
+.win-about { position: relative; z-index: 7; width: min(600px, 50vw); }
+.win-posts { position: relative; z-index: 6; width: min(460px, 49vw); margin-left: -54px; margin-top: 44px; }
+/* the home title sits in a narrower window, but stays the same scale */
+.win-about .win-hero h1 { font-size: var(--fs-h1); }
+
+/* ---- post: the article opens on top of the unchanged /writes listing window.
+   Both windows share one grid cell, so the listing keeps the exact width and
+   position it has on /writes — opening a post never makes it jump. ---- */
+.deskwrap-post { position: relative; display: grid; grid-template-columns: 1fr; justify-items: center; }
+.deskwrap-post > .window { grid-area: 1 / 1; align-self: start; }
+.win-listing-bg {
+  width: min(840px, 100%); z-index: 6;
+  pointer-events: none; /* it's the backdrop; the article on top takes interaction */
+}
+.win-post-fg {
+  z-index: 7; width: min(840px, 100%);
+  transform: translate(30px, 30px); /* cascade: open 30px down + right of the writes.md window */
+}
+.titlebar {
+  height: 25px; display: flex; align-items: center; gap: 8px; padding: 0 8px;
+  border-bottom: 1.5px solid var(--hair); position: relative; cursor: grab;
+  touch-action: none; /* let a touch on the titlebar drag the window, not scroll */
+  background: repeating-linear-gradient(to bottom, var(--hair) 0 1px, transparent 1px 3px);
+}
+.titlebar:active { cursor: grabbing; }
+/* title-bar boxes. Left + spacer are decorative; only .tb-x is clickable (closable windows). */
+.titlebar .tb-box {
+  width: 14px; height: 14px; flex: none; border: 1.5px solid var(--hair);
+  background: var(--paper); border-radius: 3px; position: relative; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none; color: var(--ink);
+}
+.titlebar .tb-spacer { visibility: hidden; }
+.titlebar .tb-x { cursor: pointer; }
+.titlebar .tb-x:hover { background: var(--paper-2); }
+.titlebar .tb-x svg { display: block; }
+.titlebar .ttl {
+  margin: 0 auto; font-size: 12.5px; font-weight: 600; letter-spacing: 0.2px;
+  background: var(--paper); padding: 1px 14px; border-radius: 3px; position: relative; z-index: 1;
+  max-width: 76%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.window:not(.active) .titlebar .ttl { color: var(--ink-faint); }
+
+/* hero inside window (from splashtitle) — terminal prompt style.
+   Shares the content's box model so its left edge lines up with the body. */
+.win-hero {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px clamp(22px, 5%, 40px) 0;
+}
+.win-hero .eyebrow { font-size: var(--fs-meta); letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.win-hero h1 {
+  font-weight: 700; font-size: var(--fs-h1); line-height: 1.08; margin: 0;
+  letter-spacing: -0.5px; color: var(--ink);
+}
+.win-hero h1::before { content: "> "; color: var(--accent); }
+/* blinking cursor after the title, terminal-style */
+/* .win-hero h1::after {
+  content: ""; display: inline-block; width: 0.56em; height: 6px;
+  margin-left: 0.12em; vertical-align: -0.16em; background: var(--accent);
+  xanimation: cursor-blink 1.1s steps(1) infinite;
+} */
+.win-hero h1 a { color: inherit; text-decoration: none; font-weight: inherit; }
+.win-hero h1 a:hover { color: var(--accent); }
+/* byline is just body text in the hero (legacy class kept only for layout spacing) */
+.win-hero .byline { font-size: var(--fs-body); line-height: var(--lh-body); margin: 16px 0 0; max-width: 56ch; }
+
+/* tighten the gap between hero and the content that follows it */
+.win-hero + .content { padding-top: 22px; }
+@keyframes cursor-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .win-hero h1::after { animation: none; } }
+
+/* the “all posts →” link under the recent list */
+a.all {font-size: var(--fs-meta); color: var(--accent); text-decoration: none; white-space: nowrap; }
+a.all:hover { text-decoration: underline; }
+@media (max-width: 600px) { .section-tiles { grid-template-columns: repeat(2, 1fr); } }
+
+/* little folder glyph, shared by every tile */
+.fold {
+  width: 34px; height: 25px; border: 1.8px solid var(--hair); border-radius: 2px 5px 5px 5px;
+  background: var(--accent-soft); position: relative;
+}
+.fold::before {
+  content: ""; position: absolute; top: -5px; left: -1px; width: 15px; height: 6px;
+  border: 1.8px solid var(--hair); border-bottom: none; border-radius: 3px 4px 0 0; background: var(--accent-soft);
+}
+
+/* 404 */
+.err-line { font-size: var(--fs-meta); color: var(--ink-soft); margin: 0 0 18px; }
+
+/* ============================================================
+   DESKTOP CORNER ICONS (charm)
+   ============================================================ */
+.desk-icons {
+  position: fixed; top: 44px; left: 18px; z-index: 5;
+  display: flex; flex-direction: column; gap: 16px; align-items: center;
+}
+.desk-icons a { text-decoration: none; color: var(--ink); }
+.dicon { width: 74px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.dicon .hd { width: 44px; height: 32px; background: var(--paper); border: 2px solid var(--hair); border-radius: 4px; position: relative; filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16)); }
+.dicon .hd::before { content: ""; position: absolute; left: 8px; right: 8px; top: 11px; height: 3px; background: var(--hair); border-radius: 2px; }
+.dicon .hd::after { content: ""; position: absolute; right: 9px; top: 19px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.dicon .lbl { font-size: 11px; font-weight: 500; background: var(--desk-bg); padding: 1px 5px; border-radius: 3px; }
+
+/* paint-palette glyph for the Art icon */
+.dicon .palette {
+   width: 44px; height: 34px; background: var(--paper); border: 2px solid var(--hair);
+  border-radius: 4px; position: relative;
+  filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16));
+}
+.dicon .palette::before {
+  content: ""; position: absolute; left: 8px; top: 9px; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 12px -1px 0 var(--ink), 22px 4px 0 var(--ink), 4px 11px 0 var(--ink);
+}
+
+/* Nokia-screen glyph for the Snake icon */
+.dicon .snake {
+  width: 44px; height: 34px; background: var(--paper); border: 2px solid var(--hair);
+  border-radius: 4px; position: relative;
+  filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16));
+}
+.dicon .snake::before {
+  content: ""; position: absolute; left: 8px; top: 9px; width: 4px; height: 4px; background: var(--ink);
+  box-shadow: 6px 0 0 var(--ink), 12px 0 0 var(--ink), 12px 6px 0 var(--ink), 12px 12px 0 var(--ink), 6px 12px 0 var(--ink);
+}
+.dicon .snake::after {
+  content: ""; position: absolute; right: 8px; top: 8px; width: 4px; height: 4px;
+  background: var(--hair); border-radius: 50%;
+}
+/* icons stay pinned to the desk at every desktop width; only true mobile hides them */
+
+/* ============================================================
+   FLOATING WINDOWS (generative art)
+   ============================================================ */
+.floatwin { position: fixed; z-index: 80; }
+.art-window { width: 392px; }
+.art-body { padding: 14px; }
+#birbs {
+  width: 100%; height: 320px; border: 1.5px solid var(--hair); border-radius: 4px;
+  overflow: hidden; cursor: pointer; background: #fff;
+}
+#birbs > canvas { display: block; width: 100%; height: 100%; user-select: none; }
+.art-legend { font-size: var(--fs-meta); color: var(--ink-soft); text-align: center; margin: 11px 0 2px; }
+.art-legend b { color: var(--accent); }
+@media (max-width: 759px) {
+  .art-window { left: 12px !important; right: 12px; width: auto !important; }
+  #birbs { height: 260px; }
+}
+
+/* snake game window (Nokia-style) */
+.snake-window { width: 256px; }
+.snake-body { padding: 14px; }
+#snake-canvas {
+  width: 100%; display: block; image-rendering: pixelated;
+  border: 1.5px solid var(--hair); border-radius: 4px; background: white;
+  cursor: pointer; touch-action: none;
+}
+.snake-legend { font-size: var(--fs-meta); color: var(--ink-soft); text-align: center; margin: 11px 0 2px; }
+.snake-legend b { color: var(--accent); }
+@media (max-width: 759px) {
+  .snake-window { left: 12px !important; right: 12px; width: auto !important; }
+}
+
+/* ============================================================
+   CONTROL PANEL  (✦)
+   ============================================================ */
+.cp-scrim { position: fixed; inset: 0; z-index: 9500; background: oklch(0.2 0.02 280 / 0); transition: background 0.22s ease; display: flex; align-items: flex-start; justify-content: center; }
+.cp-scrim.in { background: oklch(0.2 0.02 280 / 0.28); }
+.cp {
+  margin-top: 52px; width: 300px; background: var(--paper);
+  border: 1.5px solid var(--hair); border-radius: 6px; position: relative;
+  box-shadow: var(--win-shadow);
+  transform: translateY(-8px); opacity: 0; transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.cp-scrim.in .cp { transform: translateY(0); opacity: 1; }
+.cp .titlebar { cursor: default; }
+.cp-body { padding: 18px 20px 20px; }
+.cp-group { margin-bottom: 18px; }
+/* accent picker only applies on the Mac theme; dim it when a retro theme is on */
+.cp-group.is-disabled { opacity: 0.4; pointer-events: none; }
+.cp-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 9px; }
+.cp-sw-row { display: flex; gap: 10px; }
+.cp-sw { width: 26px; height: 26px; border-radius: 50%; border: 1.6px solid var(--hair); cursor: pointer; padding: 0; }
+.cp-sw.on { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.6px var(--hair); }
+.cp-seg-row { display: flex; }
+.cp-seg { flex: 1; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink); border: 1.5px solid var(--hair); background: var(--paper); padding: 6px 8px; cursor: pointer; }
+.cp-seg + .cp-seg { border-left: none; }
+.cp-seg:first-child { border-radius: 6px 0 0 6px; }
+.cp-seg:last-child { border-radius: 0 6px 6px 0; }
+.cp-seg.on { background: var(--ink); color: var(--paper); }
+.cp-foot { font-size: 10px; color: var(--ink-faint); text-align: center; line-height: 1.5; }
+
+/* ============================================================
+   MOBILE  (< 760px) — same desktop approach, just tighter.
+   Keep the menu bar, the dotted desk, and real window chrome;
+   windows float on the desk with a little padding around them.
+   ============================================================ */
+.m-statusbar { display: none; }
+
+@media (max-width: 759px) {
+  body { display: flex; flex-direction: column; padding-top: 30px; } /* padding clears the fixed menu bar */
+  #desktop { padding: 0; }
+  .deskwrap { display: block; padding: 14px 8px 56px; }
+
+  /* desktop icons sit in a centered row on the desk, above the first window */
+  .desk-icons {
+    display: flex; position: static; order: -1;
+    flex-direction: row; flex-wrap: wrap; justify-content: center;
+    gap: 22px; top: auto; left: auto; padding: 14px 12px 2px;
+  }
+
+  /* menu bar: only ✦ / 🏠 / menu (+ clock) show; section links live in the dropdown */
+  #menubar { padding: 0 4px; overflow: visible; }
+  #menubar .menu-toggle { display: inline-flex; }
+  #menubar .mi-group {
+    display: none; position: absolute; top: 100%; left: 4px;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    min-width: 188px; max-height: 78vh; overflow-y: auto;
+    background: var(--paper); border: 1.5px solid var(--hair);
+    border-radius: 0 0 8px 8px; box-shadow: var(--win-shadow);
+    padding: 5px; z-index: 9001;
+  }
+  #menubar .mi-group.open { display: flex; }
+  #menubar .mi-group .mi { height: auto; padding: 11px 14px; font-size: 15px; border-radius: 5px; justify-content: flex-start; }
+
+  .window { width: 100%; }
+
+  /* shorter hero/content padding on small screens (hero + body share the
+     same horizontal padding so their left edges keep lining up) */
+  .win-hero { padding: 50px clamp(16px, 5%, 40px) 30px; }
+  .win-hero + .content { padding-top: 18px; }
+  .content { padding: 26px clamp(16px, 5%, 40px) 26px; }
+
+  /* home: stack the two windows with a gap; each keeps its own chrome */
+  .deskwrap-home { display: flex; flex-direction: column; gap: 14px; max-width: none; }
+  .deskwrap-home .window { width: 100%; }
+  .win-about, .win-posts { width: 100%; margin: 0; }
+
+  /* post: drop the behind-listing, show only the article window */
+  .deskwrap-post { padding-top: 0; }
+  .win-listing-bg { display: none; }
+  .win-post-fg { width: 100%; margin: 0; transform: none; }
+
+  /* control panel becomes a center sheet on a phone */
+  .cp-scrim { align-items: center; }
+  .cp { margin: 0; width: 100%; border-radius: 18px 18px 0 0; transform: translateY(100%); }
+  .cp-scrim.in .cp { transform: translateY(0); }
+}
+
+/* page-to-page slide (modern browsers; ignored elsewhere) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+  ::view-transition-new(root) { animation: vt-in 0.26s ease both; }
+}
+@keyframes vt-out { to { opacity: 0; transform: translateX(-3%); } }
+@keyframes vt-in { from { opacity: 0; transform: translateX(4%); } }

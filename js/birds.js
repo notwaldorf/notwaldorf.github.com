@@ -262,4 +262,7 @@ function birds(p) {
 // first and I like p5.js but not on this page.
 let context;
 window.p = p5Polyfill;
-birds(p);
+// Expose so the desk theme can open it on demand (in the Art window).
+window.birds = birds;
+// Only auto-run if a #birbs canvas is already on the page (legacy splash).
+if (document.getElementById('birbs')) birds(p);

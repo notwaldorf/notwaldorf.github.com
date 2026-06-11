@@ -3,46 +3,55 @@ layout: body
 ---
 {% include nav.html %}
 
-<div class="splash short">
-  <div class="splash-wrapper">
-    <div>
-      <section class="byline">
-        {{ page.date | date: "%B %e, %Y" }}
-      </section>
+<div class="deskwrap deskwrap-post">
 
-      <div>
-        <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
-        {% if page.subtitle %}
-        <div class="subtitle">{{ page.subtitle }}</div>
-        {% endif %}
+  <!-- the posts listing behind the article -->
+  <div class="window win-listing-bg" id="win-listing" aria-hidden="true">
+    {% include titlebar.html file="writes.md" href="/writes" label="All posts" %}
+    <header class="win-hero"><h1>Posts</h1></header>
+    <section class="content">
+      <p>You can follow these blog posts via <a href="/atom.xml">RSS</a>.</p>
+      <hr>
+      <ul class="listing fancy table">
+        {% for post in site.posts %}
+        {% unless post.draft %}
+        {% capture y %}{{ post.date | date: "%Y" }}{% endcapture %}
+        {% if y != lastyear %}<li><h2>{{ y }}</h2></li>{% capture lastyear %}{{ y }}{% endcapture %}{% endif %}
+        <li><a href="{{ post.url }}">{{ post.title }}</a><span>{{ post.date | date: "%b %e, %Y" }}</span></li>
+        {% endunless %}
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <!-- the article, on top -->
+  <div class="window win-post-fg" id="win-post">
+    {% assign pname = page.slug | append: '.md' %}
+    {% include titlebar.html file=pname href="/writes" label="Back to Posts" closable=true %}
+    <header class="win-hero">
+      <div class="eyebrow">Writing · {{ page.date | date: "%b %e, %Y" }}</div>
+      <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+      {% if page.subtitle %}<p class="byline">{{ page.subtitle }}</p>{% endif %}
+    </header>
+
+    {% if page.img %}<img style="width:100%;display:block;" alt="post header image" src="{{ page.img }}">{% endif %}
+
+    <section class="content">
+      {{ content }}
+
+      <div class="prev-next">
+        {% if page.previous.url %}<a href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>{% endif %}
+        {% if page.next.url %}<a href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>{% endif %}
       </div>
 
-      {% if page.img %}
-        <img style="width:100%;padding-top:var(--spacing-l);" alt="post header image" src={{page.img}}>
-      {% endif %}
-    </div>
+      <div class="footer">
+        <div class="thanks">
+          <span>Thanks for reading! <span class="og" style="color: var(--accent)">❤︎</span></span>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
 
-<section class="content">
-  {{ content }}
-
-  <div class="prev-next">
-    {% if page.previous.url %}
-      <a href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
-    {% endif %}
-    {% if page.next.url %}
-      <a href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
-    {% endif %}
-  </div>
-</section>
-
-<div class="footer">
-  <div class="thanks">
-    <span>Thanks for reading! <span class="og" style="color: var(--red)">❤︎</span></span>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-via="notwaldorf" title="Tweet at me!"
-      aria-label="Tweet at me!">Tweet</a>
-  </div>
 </div>
 
 <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
