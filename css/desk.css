@@ -148,7 +148,7 @@ body[data-wall="plain"] { background-image: none; }
   transform: translate(30px, 30px); /* cascade: open 30px down + right of the writes.md window */
 }
 .titlebar {
-  height: 25px; display: flex; align-items: center; gap: 8px; padding: 0 8px;
+  height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 8px;
   border-bottom: 1.5px solid var(--hair); position: relative; cursor: grab;
   touch-action: none; /* let a touch on the titlebar drag the window, not scroll */
   background: repeating-linear-gradient(to bottom, var(--hair) 0 1px, transparent 1px 3px);
@@ -156,7 +156,7 @@ body[data-wall="plain"] { background-image: none; }
 .titlebar:active { cursor: grabbing; }
 /* title-bar boxes. Left + spacer are decorative; only .tb-x is clickable (closable windows). */
 .titlebar .tb-box {
-  width: 14px; height: 14px; flex: none; border: 1.5px solid var(--hair);
+  width: 20px; height: 20px; flex: none; border: 1.5px solid var(--hair);
   background: var(--paper); border-radius: 3px; position: relative; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
   text-decoration: none; color: var(--ink);
