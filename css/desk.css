@@ -227,26 +227,24 @@ a.all:hover { text-decoration: underline; }
   position: fixed; top: 44px; left: 18px; z-index: 5;
   display: flex; flex-direction: column; gap: 16px; align-items: center;
 }
-.desk-icons a { text-decoration: none; color: var(--ink); }
+.desk-icons a { text-decoration: none; color: var(--ink); fill: var(--hair); }
 .dicon { width: 74px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
 .dicon .hd { width: 44px; height: 32px; background: var(--paper); border: 2px solid var(--hair); border-radius: 4px; position: relative; filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16)); }
 .dicon .hd::before { content: ""; position: absolute; left: 8px; right: 8px; top: 11px; height: 3px; background: var(--hair); border-radius: 2px; }
 .dicon .hd::after { content: ""; position: absolute; right: 9px; top: 19px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .dicon .lbl { font-size: 11px; font-weight: 500; background: var(--desk-bg); padding: 1px 5px; border-radius: 3px; }
 
-/* paint-palette glyph for the Art icon */
-.dicon .palette {
-   width: 44px; height: 34px; background: var(--paper); border: 2px solid var(--hair);
-  border-radius: 4px; position: relative;
+.dicon .rect {
+  width: 44px; height: 34px; 
+  background: var(--paper); border: 2px solid var(--hair);
+  border-radius: 4px; 
+  position: relative;
   filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16));
-}
-.dicon .palette::before {
-  content: ""; position: absolute; left: 8px; top: 9px; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--ink);
-  box-shadow: 12px -1px 0 var(--ink), 22px 4px 0 var(--ink), 4px 11px 0 var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Nokia-screen glyph for the Snake icon */
 .dicon .snake {
   width: 44px; height: 34px; background: var(--paper); border: 2px solid var(--hair);
   border-radius: 4px; position: relative;
@@ -338,7 +336,7 @@ a.all:hover { text-decoration: underline; }
   /* desktop icons sit in a centered row on the desk, above the first window */
   .desk-icons {
     display: flex; position: static; order: -1;
-    flex-direction: row; flex-wrap: wrap; justify-content: center;
+    flex-direction: row; flex-wrap: wrap; justify-content: flex-start;
     gap: 22px; top: auto; left: auto; padding: 14px 12px 2px;
   }
 
