@@ -15,7 +15,7 @@
   //   theme: localStorage.getItem("desk.theme") || "mac",
   // };
   const store = {
-    accent: "red",
+    accent: "teal",
     wall: "dots", 
     theme: "mac",
   };
@@ -24,7 +24,7 @@
     red:  { a: "#EC5B87", ink: "oklch(0.5 0.2 25)",  soft: "oklch(0.93 0.05 25)" },
     blue: { a: "#4BB8DB", ink: "oklch(0.45 0.18 265)", soft: "oklch(0.93 0.04 265)" },
     gold: { a: "#F9B518", ink: "oklch(0.52 0.13 85)", soft: "oklch(0.93 0.05 85)" },
-    teal: { a: "#00C47B", ink: "oklch(0.5 0.1 185)",  soft: "oklch(0.93 0.04 185)" },
+    teal: { a: "#438F64", ink: "oklch(0.5 0.1 185)",  soft: "oklch(0.93 0.04 185)" },
     // rainbow drives a solid mid-spectrum colour for fills/borders/selection;
     // the > prompts, prose links and the <hr> go full-spectrum via CSS below.
     rainbow: { a: "#A166AB", ink: "#7B3F86", soft: "oklch(0.93 0.045 330)" },
@@ -95,7 +95,7 @@
               <button class="cp-sw" data-acc="red"  style="background:#FE81AC"></button>
               <button class="cp-sw" data-acc="blue" style="background:#4BB8DB"></button>
               <button class="cp-sw" data-acc="gold" style="background:#F9B518"></button>
-              <button class="cp-sw" data-acc="teal" style="background:#00C47B"></button>
+              <button class="cp-sw" data-acc="teal" style="background:#438F64"></button>
               <button class="cp-sw" data-acc="rainbow" style="background:linear-gradient(135deg,#F79533,#EF4E7B,#A166AB,#1098AD,#6DBA82)"></button>
             </div>
           </div>

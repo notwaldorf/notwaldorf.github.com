@@ -35,7 +35,7 @@ body {
   text-rendering: optimizeLegibility;
 
   /* accent + everything derived from it (recomputes per theme via the vars above) */
-  --accent: #EC5B87;
+  --accent: #438F64;
   --accent-soft: color-mix(in srgb, var(--accent) 15%, transparent);
   --desk-bg:var(--accent-soft);
 }
@@ -44,7 +44,7 @@ body {
 body[data-accent="red"]  { --accent: #EC5B87; }
 body[data-accent="blue"] { --accent: #4BB8DB; }
 body[data-accent="gold"] { --accent: #F9B518; }
-body[data-accent="teal"] { --accent: #00C47B; }
+body[data-accent="teal"] { --accent: #438F64; }
 
 /* ---- THEMES (structural palette; retro ones also pin their signature accent) ---- */
 body[data-theme="cga"] {
