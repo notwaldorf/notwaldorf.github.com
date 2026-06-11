@@ -283,6 +283,24 @@ a.all:hover { text-decoration: underline; }
 }
 .snake-legend { font-size: var(--fs-meta); color: var(--ink-soft); text-align: center; margin: 11px 0 2px; }
 .snake-legend b { color: var(--accent); }
+/* tap d-pad for touch play */
+.snake-dpad {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+  width: 168px; margin: 12px auto 2px;
+}
+.dpad-btn {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 46px; font-size: 15px; line-height: 1; color: var(--ink);
+  background: var(--paper); border: 1.5px solid var(--hair); border-radius: 5px;
+  box-shadow: 1px 1px 0 oklch(0.2 0.02 280 / 0.16);
+  touch-action: manipulation; user-select: none;
+}
+.dpad-btn:active { transform: translate(1px, 1px); box-shadow: none; background: var(--accent-soft); }
+.dpad-up    { grid-column: 2; grid-row: 1; }
+.dpad-left  { grid-column: 1; grid-row: 2; }
+.dpad-down  { grid-column: 2; grid-row: 2; }
+.dpad-right { grid-column: 3; grid-row: 2; }
 @media (max-width: 759px) {
   .snake-window { left: 12px !important; right: 12px; width: auto !important; }
 }

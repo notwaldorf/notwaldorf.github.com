@@ -226,6 +226,13 @@
       </div>
       <div class="snake-body">
         <canvas id="snake-canvas" width="224" height="168"></canvas>
+        <div class="snake-dpad" aria-label="Direction pad">
+          <button type="button" class="dpad-btn dpad-up" data-dir="up" aria-label="Up">&#9650;</button>
+          <button type="button" class="dpad-btn dpad-left" data-dir="left" aria-label="Left">&#9664;</button>
+          <button type="button" class="dpad-btn dpad-right" data-dir="right" aria-label="Right">&#9654;</button>
+          <button type="button" class="dpad-btn dpad-down" data-dir="down" aria-label="Down">&#9660;</button>
+        </div>
+
         <p class="snake-legend"><b>arrows / swipe</b> &middot; score <span id="snake-score">0</span></p>
       </div>`;
     const w = Math.min(256, window.innerWidth - 24);
@@ -319,6 +326,17 @@
       tsx = tsy = null;
     }, { passive: true });
     canvas.addEventListener("click", () => { if (dead) reset(); });
+
+    const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+    win.querySelectorAll(".dpad-btn").forEach((btn) => {
+      btn.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        const d = DIRS[btn.dataset.dir];
+        if (d) setDir(d[0], d[1]);
+      });
+    });
+
+    
     reset();
     loop = setInterval(() => {
       if (!document.body.contains(canvas)) { clearInterval(loop); document.removeEventListener("keydown", onKey); return; }
