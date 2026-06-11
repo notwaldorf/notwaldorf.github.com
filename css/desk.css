@@ -229,9 +229,6 @@ a.all:hover { text-decoration: underline; }
 }
 .desk-icons a { text-decoration: none; color: var(--ink); fill: var(--hair); }
 .dicon { width: 74px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-.dicon .hd { width: 44px; height: 32px; background: var(--paper); border: 2px solid var(--hair); border-radius: 4px; position: relative; filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16)); }
-.dicon .hd::before { content: ""; position: absolute; left: 8px; right: 8px; top: 11px; height: 3px; background: var(--hair); border-radius: 2px; }
-.dicon .hd::after { content: ""; position: absolute; right: 9px; top: 19px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .dicon .lbl { font-size: 11px; font-weight: 500; background: var(--desk-bg); padding: 1px 5px; border-radius: 3px; }
 
 .dicon .rect {
@@ -239,7 +236,6 @@ a.all:hover { text-decoration: underline; }
   background: var(--paper); border: 2px solid var(--hair);
   border-radius: 4px; 
   position: relative;
-  filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,7 +244,6 @@ a.all:hover { text-decoration: underline; }
 .dicon .snake {
   width: 44px; height: 34px; background: var(--paper); border: 2px solid var(--hair);
   border-radius: 4px; position: relative;
-  filter: drop-shadow(1px 1px 0 oklch(0.2 0.02 280 / 0.16));
 }
 .dicon .snake::before {
   content: ""; position: absolute; left: 8px; top: 9px; width: 4px; height: 4px; background: var(--ink);
