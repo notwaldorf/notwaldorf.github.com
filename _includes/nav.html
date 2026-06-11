@@ -1,11 +1,19 @@
-<nav>
-  <ul>
-    <li id="home_link" class="og"><a href="/">🏠</a></li>
-    <li><a href="/is">about</a></li>
-    <li><a href="https://meownica.studio" target="_blank" rel="noreferrer">art</a></li>
-    <li><a href="/reads">reading</a></li>
-    <li><a href="/writes">writing</a></li>
-    <li><a href="/makes">projects</a></li>
-    <li><a href="/talks">talks</a></li>
-  </ul>
-</nav>
+<!-- `.cur` is set by comparing page.url so the active section highlights.
+     On mobile the section links collapse into the "menu" dropdown (#mi-group). -->
+<div id="menubar">
+  <button class="mi star og" data-control type="button" aria-label="Control Panel" title="Control Panel">✨</button>
+  <a class="mi home og" href="/" aria-label="Home">🏠</a>
+  <button class="mi menu-toggle" data-menu type="button" aria-expanded="false" aria-controls="mi-group">menu</button>
+  <nav class="mi-group" id="mi-group">
+    <a class="mi {% if page.url == '/is' or page.url == '/about/' %}cur{% endif %}" href="/is">about</a>
+    <a class="mi" href="https://meownica.studio" target="_blank" rel="noreferrer">art<span class="ext">↗</span></a>
+    <a class="mi {% if page.url == '/reads' %}cur{% endif %}" href="/reads">reading</a>
+    <a class="mi {% if page.url == '/writes' or page.layout == 'post' %}cur{% endif %}" href="/writes">writing</a>
+    <a class="mi {% if page.url == '/makes' %}cur{% endif %}" href="/makes">projects</a>
+    <a class="mi {% if page.url == '/talks' %}cur{% endif %}" href="/talks">talks</a>
+  </nav>
+  <span class="spacer"></span>
+  <a class="mi email og" href="mailto:mdinculescu@gmail.com" aria-label="Email">✉︎</a>
+
+  <span id="clock">--:--</span>
+</div>

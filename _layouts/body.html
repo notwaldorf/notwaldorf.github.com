@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
   <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
   <link rel="stylesheet" href="/css/base.css" type="text/css" media="screen, projection" />
+  <!-- desk theme: chrome that wraps the content. Loaded AFTER base.css. -->
+  <link rel="stylesheet" href="/css/desk.css" type="text/css" />
 
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
   <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -21,7 +23,7 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- See https://goo.gl/qRE0vM -->
-  <meta name="theme-color" content="#7BE4D5">
+  <meta name="theme-color" content="#EC5B87">
 
   <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -37,7 +39,7 @@
 
   <!-- Tile icon for Windows 8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="images/manifest/icon-192x192.png">
-  <meta name="msapplication-TileColor" content="#7BE4D5">
+  <meta name="msapplication-TileColor" content="#EC5B87">
   <meta name="msapplication-tap-highlight" content="no">
 
   <!-- Default twitter cards -->
@@ -48,7 +50,7 @@
   <meta property="og:image" content="icons/icon-192x192.png" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 
   <script type="text/javascript">
@@ -76,13 +78,28 @@
 
 -->
 
-<body>
-  {{ content }}
+<body data-site="{{ site.name }}" data-page="{% if page.url == '/' %}home{% endif %}">
+  <div id="desktop">
+    {{ content }}
+  </div>
+
+  <!-- desktop icons: generative art + a little snake game -->
+  <div class="desk-icons">
+    <a href="#" class="dicon" data-art title="Open the generative art">
+      <span class="palette"></span>
+      <span class="lbl">birds.exe</span>
+    </a>
+    <a href="#" class="dicon" data-snake title="Play snake">
+      <span class="snake"></span>
+      <span class="lbl">snake.exe</span></a>
+  </div>
 </body>
 
-<script>
-  'use strict';
 
+<!-- What if we stopped using pygments now that we don't write tech blogs? 
+ Leave it here in case we need it again though! xoxo, past monica.
+ <script>
+  'use strict';
   // Load the pygments stylesheet so that it's not render blocking.
   var head = document.head;
   var link = document.createElement('link');
@@ -90,6 +107,9 @@
   link.rel = 'stylesheet';
   link.href = '/css/pygments.css'
   head.appendChild(link);
-</script>
+</script> -->
+
+<script src="/js/birds.js"></script>
+<script src="/js/desk.js"></script>
 
 </html>

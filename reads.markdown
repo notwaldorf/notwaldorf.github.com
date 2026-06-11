@@ -26,6 +26,7 @@ table.small {
 }
 table.all {
   grid-template-columns: 2.5fr 1fr 0.7fr 0.7fr;
+  font-size: var(--fs-meta);
 }
 table.stats {
   grid-template-columns: 80px 80px 100px 100px;
@@ -40,26 +41,26 @@ tr {
 
 th,
 td {
-  font-size: 14px;
+  font-size: inherit;
 }
 td.small {
-  font-size: 14px;
+  font-size: var(--fs-meta);
 }
 td.center {
   text-align: center;
 }
 th {
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid var(--ink);
   text-align: center;
-  font-size: 16px;
+  font-size: var(--fs-meta);
 }
 table.all td {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 td a:link, td a:visited {
-  color: black;
-  text-decoration-color: var(--red);
+  color: var(--ink);
+  text-decoration-color: var(--accent);
   text-decoration-thickness: .125em;
 }
 tr.full {
@@ -72,7 +73,7 @@ tr.full td {
   grid-column: 1 / -1;
   padding: 20px 40px;
   border-left: 3px solid #ddd;
-  font-size: 16px;
+  font-size: inherit;
   line-height: 1.5;
 }
 
@@ -84,24 +85,27 @@ td img {
 button {
   background: transparent;
   font-family: inherit;
-  font-size: 14px;
+  font-size: inherit;
   margin: 0;
   padding: 0;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  border-bottom: 2px solid var(--red);
-  color: black;
+  border-bottom: 2px solid var(--accent);
+  color: var(--ink);
 }
 tr.full td button {
   margin-right: 24px;
 }
 @media screen and (max-width:600px) {
+  table.stats {
+    grid-template-columns: 60px 70px 80px 80px;
+  }
   table.all {
     grid-template-columns: 2fr 0.5fr 0.7fr 0.7fr;
   }
   tr.full td {
-    max-width: 80%;
+    max-width: 100%;
     padding: 16px;
   }
 }
@@ -151,27 +155,27 @@ tr.full td button {
 <table class="small">
 <tbody>
 <tr>
-  <td>5 / 5</td>
+  <td><b>5/5</b></td>
   <td>Loved it a lot, would reread</td>
 </tr>
 <tr>
-  <td>4 / 5</td>
+  <td><b>4/5</b></td>
   <td>I liked it, but I probably won't reread it again</td>
 </tr>
 <tr>
-  <td>3 / 5</td>
+  <td><b>3/5</b></td>
   <td>It was fine. It wasn't amazing but it was a fun read and I don't regret reading it</td>
 </tr>
 <tr>
-  <td>2 / 5</td>
+  <td><b>2/5</b></td>
   <td>I didn't like this *at all* and I'll probably say it was badly written</td>
 </tr>
 <tr>
-  <td>1 / 5</td>
+  <td><b>1/5</b></td>
   <td>This book literally pissed me off</td>
 </tr>
 <tr>
-  <td>n / a</td>
+  <td>n/a</td>
   <td>I didn't feel comfortable rating this book because it was either about facts, or I didn't finish it (which doesn't necessarily mean I didn't love it; I'm looking at you John Banville.)
   </td>
 </tr>
@@ -204,13 +208,13 @@ tr.full td button {
       <td class="small">{{ book.read }}</td>
       <td class="center stars">
         {% if book.rating != 0 %}
-          <b>{{ book.rating }}</b> / 5
+          <b>{{ book.rating }}</b>/5
         {% else %}
           n/a
         {% endif %}
       </td>
       <td class="center read">
-        {% if book.review != "" and  book.review != "None"%}
+        {% if book.review and book.review != "" and book.review != "None"%}
           <button onclick="toggleReview(this)">read ▿</button>
         {% else %}
           n/a

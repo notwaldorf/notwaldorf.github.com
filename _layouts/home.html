@@ -1,0 +1,39 @@
+---
+layout: body
+---
+{% include nav.html %}
+
+<div class="deskwrap deskwrap-home">
+
+  <div class="window win-about" id="win-about">
+    {% include titlebar.html file="about.md" href="/is" label="About" %}
+    {% if page.splashtitle %}
+    <header class="win-hero">
+      <h1>{{ page.splashtitle }}</h1>
+      {% if page.splashbyline %}<p class="byline">{{ page.splashbyline }}</p>{% endif %}
+    </header>
+    {% endif %}
+    <section class="content">
+      {{ content }}
+    </section>
+  </div>
+
+  <div class="window win-posts" id="win-posts">
+    {% include titlebar.html file="recent.md" href="/writes" label="All posts" %}
+    <section class="content">
+      <h2>Recent posts</h2>
+      <ul class="listing fancy table">
+        {% for post in site.posts limit:6 %}
+        {% unless post.draft %}
+        <li>
+          <a href="{{ post.url }}">{{ post.title }}</a>
+          <span>{{ post.date | date: "%b %e, %Y" }}</span>
+        </li>
+        {% endunless %}
+        {% endfor %}
+      </ul>
+      <p><br><a class="all" href="/writes">all posts &rarr;</a></p>
+    </section>
+  </div>
+
+</div>
