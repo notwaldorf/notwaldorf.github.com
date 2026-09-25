@@ -134,6 +134,18 @@ body[data-wall="plain"] { background-image: none; }
 /* the home title sits in a narrower window, but stays the same scale */
 .win-about .win-hero h1 { font-size: var(--fs-h1); }
 
+/* ---- tools: three folder windows scattered across the desk, overlapping a
+   little so they read as movable Finder windows ---- */
+.deskwrap-tools {
+  display: block; position: relative;
+  max-width: 1000px; margin-inline: auto; min-height: 640px;
+}
+.deskwrap-tools .window { position: absolute; }
+.win-tool-art   { top: 18px;  left: 20px;  width: 440px; z-index: 6; }
+.win-tool-music { top: 158px; left: 430px; width: 450px; z-index: 8; }
+.win-tool-life  { top: 268px; left: 130px; width: 420px; z-index: 7; }
+.deskwrap-tools .content { padding: 22px clamp(16px, 4%, 28px) 26px; }
+
 /* ---- post: the article opens on top of the unchanged /writes listing window.
    Both windows share one grid cell, so the listing keeps the exact width and
    position it has on /writes — opening a post never makes it jump. ---- */
@@ -216,6 +228,24 @@ a.all:hover { text-decoration: underline; }
   content: ""; position: absolute; top: -5px; left: -1px; width: 15px; height: 6px;
   border: 1.8px solid var(--hair); border-bottom: none; border-radius: 3px 4px 0 0; background: var(--accent-soft);
 }
+
+/* desktop-style folder grid: icons snap to a real, aligned grid (like a file
+   manager) rather than reflowing to each label's width */
+.tool-folders {
+  list-style: none; margin: 0; padding: 4px 0;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 26px 12px; justify-items: center;
+}
+.tool-folders li { margin: 0; }
+.tool-folders a {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; text-decoration: none; color: var(--ink);
+  padding: 6px 4px; border-radius: 5px;
+}
+.tool-folders a:hover { background: var(--accent-soft); }
+.tool-folders a:hover .fold { transform: translateY(-2px); }
+.tool-folders .fold { transition: transform 0.12s ease; }
+.tool-folders .lbl { font-size: var(--fs-meta); line-height: 1.25; white-space: nowrap; }
 
 /* 404 */
 .err-line { font-size: var(--fs-meta); color: var(--ink-soft); margin: 0 0 18px; }
@@ -379,6 +409,10 @@ a.all:hover { text-decoration: underline; }
   .deskwrap-home { display: flex; flex-direction: column; gap: 14px; max-width: none; }
   .deskwrap-home .window { width: 100%; }
   .win-about, .win-posts { width: 100%; margin: 0; }
+
+  /* tools: stack the three folder windows, no scatter */
+  .deskwrap-tools { display: flex; flex-direction: column; gap: 14px; max-width: none; min-height: 0; }
+  .deskwrap-tools .window { position: static; width: 100%; margin: 0; top: auto; left: auto; }
 
   /* post: drop the behind-listing, show only the article window */
   .deskwrap-post { padding-top: 0; }

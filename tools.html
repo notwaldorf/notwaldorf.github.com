@@ -1,79 +1,41 @@
 ---
-layout: layout
+layout: body
 title: "Tools"
-splashtitle: "Tools"
 ---
-<style>
-  p {
-    font-size: var(--font-size-s);
-  }
-  .content .listing.table li > a {
-    flex-shrink: 0;
-    flex-grow: 0;
-    width: 40%;
-  }
-  .content .listing.table li > div {
-    flex-grow: 1;
-    text-transform: none;
-    letter-spacing: 0;
-    margin-left: var(--spacing-xs);
-  }
-  .content .listing.table li > div:before {
-    content: '→ ';
-    font-weight:bold;
-  }
-  @media screen and (max-width:600px) {
-    .content .listing.table li {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin-bottom: var(--spacing-m);
-    }
-    .content .listing.table li > div {
-      margin-left: 0;
-    }
-    .content .listing.table li > a {
-      width: 100% !important;
-      flex-shrink: 0;
-    }
-  }
-</style>
+{% include nav.html %}
 
-<p>One thing AI is good at is building personal tools. Here's what I've been using lately.</p>
+<div class="deskwrap deskwrap-tools">
 
-<h2 class="with-butt">art</h2>
-<ul class="listing table projects">
-  <li><a href="https://meowni.ca/underpainting">underpainting</a>
-    <div>prep work for new paintings</div>
-  </li>
-  <li><a href="https://meowni.ca/riso">riso</a>
-    <div>i want to print more posters</div>
-  </li>
-</ul>
+  <div class="window win-tool win-tool-art">
+    {% include titlebar.html file="art" href="/tools" label="art" %}
+    <section class="content">
+      <ul class="tool-folders">
+        <li><a href="https://meowni.ca/underpainting"><span class="fold"></span><span class="lbl">underpainting</span></a></li>
+        <li><a href="https://meowni.ca/riso"><span class="fold"></span><span class="lbl">riso</span></a></li>
+      </ul>
+    </section>
+  </div>
 
-<h2 class="with-butt">music</h2>
-<ul class="listing table projects">
-  <li><a href="https://meowni.ca/album-roulette">album roulette</a>
-    <div>pick a random album to listen to</div>
-  </li>
-  <li><a href="https://meowni.ca/glitch/music-morsels/">music morsels</a>
-    <div>music homework</div>
-  </li>
-</ul>
+  <div class="window win-tool win-tool-music">
+    {% include titlebar.html file="music" href="/tools" label="music" %}
+    <section class="content">
+      <ul class="tool-folders">
+        <li><a href="https://meowni.ca/album-roulette"><span class="fold"></span><span class="lbl">album roulette</span></a></li>
+        <li><a href="https://meowni.ca/glitch/music-morsels/"><span class="fold"></span><span class="lbl">music morsels</span></a></li>
+      </ul>
+    </section>
+  </div>
 
-<h2 class="with-butt">life</h2>
-<ul class="listing table projects">
-  <li><a href="https://meowni.ca/chillroute">chill route</a>
-    <div>i don't like driving fast</div>
-  </li>
-  <li><a href="https://meowni.ca/games">games</a>
-    <div>i don't like mandatory ads</div>
-  </li>
+  <div class="window win-tool win-tool-life">
+    {% include titlebar.html file="life" href="/tools" label="life" %}
+    <section class="content">
+      <ul class="tool-folders">
+        <li><a href="https://meowni.ca/chillroute"><span class="fold"></span><span class="lbl">chill route</span></a></li>
+        <li><a href="https://meowni.ca/games"><span class="fold"></span><span class="lbl">games</span></a></li>
+        <li><a href="https://meowni.ca/score-keeper"><span class="fold"></span><span class="lbl">score keeper</span></a></li>
+        <li><a href="https://meowni.ca/glitch/fingerspell"><span class="fold"></span><span class="lbl">fingerspell</span></a></li>
+      </ul>
+    </section>
+  </div>
 
-  <li><a href="https://meowni.ca/score-keeper">score keeper</a>
-    <div>i like card games in pubs</div>
-  </li>
-  <li><a href="https://meowni.ca/glitch/fingerspell">fingerspell</a>
-    <div>aspirational</div>
-  </li>
-</ul>
-</ul>
+</div>
