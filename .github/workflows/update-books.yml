@@ -1,0 +1,37 @@
+name: Update books from Goodreads
+
+on:
+  workflow_dispatch: # run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-books
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The script only uses the standard library, so there's nothing to install.
+      - name: Fetch Goodreads RSS and merge into _data/books.yaml
+        run: python parse-goodreads.py
+
+      - name: Commit and push if books.yaml changed
+        run: |
+          if git diff --quiet -- _data/books.yaml; then
+            echo "No new books."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/books.yaml
+          git commit -m "Update books from Goodreads"
+          git push
