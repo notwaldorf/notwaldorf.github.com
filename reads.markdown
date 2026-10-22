@@ -156,7 +156,7 @@ tr.full td button {
 <tbody>
 <tr>
   <td><b>5/5</b></td>
-  <td>Loved it a lot, would reread</td>
+  <td>Loved it a lot, would reread. I am not precious with 5 stars</td>
 </tr>
 <tr>
   <td><b>4/5</b></td>
