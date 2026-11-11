@@ -21,7 +21,9 @@ jobs:
           python-version: "3.12"
 
       # The script only uses the standard library, so there's nothing to install.
-      - name: Fetch Goodreads RSS and merge into _data/books.yaml
+      - name: Scrape Goodreads read shelf and merge into _data/books.yaml
+        env:
+          GOODREADS_COOKIE: ${{ secrets.GOODREADS_COOKIE }}
         run: python parse-goodreads.py
 
       - name: Commit and push if books.yaml changed

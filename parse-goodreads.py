@@ -1,21 +1,33 @@
 #!/usr/bin/env python3
 """
-Parse a Goodreads RSS feed and merge new books into an existing YAML file.
+Scrape a Goodreads "read" shelf and merge new books into an existing YAML file.
 Books already in the file (matched by gr_id) are never overwritten.
 
+Goodreads killed the no-key RSS feed, so this logs in with a session cookie and
+parses the shelf HTML instead. The cookie is read from the GOODREADS_COOKIE
+environment variable (the full `name=value; name=value; ...` Cookie header copied
+from a logged-in browser session). Never commit it — store it as a secret.
+
 Usage:
-    python parse_goodreads_rss.py
+    GOODREADS_COOKIE="..." python parse-goodreads.py
 """
 
 import os
 import re
+import html as htmllib
 import urllib.request
-import xml.etree.ElementTree as ET
 from datetime import datetime
 
 
-RSS_URL = "https://www.goodreads.com/review/list_rss/27136484?shelf=read"
+GOODREADS_USER_ID = "27136484"
 OUTPUT_FILE = "_data/books.yaml"
+PER_PAGE = 100
+MAX_PAGES = 50  # safety bound so a bug can't loop forever
+
+SHELF_URL = (
+    "https://www.goodreads.com/review/list/{user}"
+    "?shelf=read&sort=date_read&order=d&per_page={per_page}&page={page}"
+)
 
 
 def clean_html(text):
@@ -23,17 +35,17 @@ def clean_html(text):
         return ''
     text = re.sub(r'<br\s*/?>', ' ', text)
     text = re.sub(r'<[^>]+>', '', text)
-    text = text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>') \
-               .replace('&quot;', '"').replace('&#39;', "'")
+    text = htmllib.unescape(text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
 
 def parse_date(date_str):
+    """Convert Goodreads 'Nov 10, 2026' into '2026/11/10'."""
     if not date_str:
         return ''
     try:
-        dt = datetime.strptime(date_str.strip(), '%a, %d %b %Y %H:%M:%S %z')
+        dt = datetime.strptime(date_str.strip(), '%b %d, %Y')
         return dt.strftime('%Y/%m/%d')
     except ValueError:
         return ''
@@ -43,15 +55,94 @@ def yaml_str(s):
     return s.replace('\\', '\\\\').replace('"', '\\"')
 
 
-def load_content(source):
-    if source.startswith('http://') or source.startswith('https://'):
-        print(f"Fetching {source} ...")
-        req = urllib.request.Request(source, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            return response.read().decode('utf-8')
-    else:
-        with open(source, 'r', encoding='utf-8') as f:
-            return f.read()
+def fetch_shelf_page(page, cookie):
+    url = SHELF_URL.format(user=GOODREADS_USER_ID, per_page=PER_PAGE, page=page)
+    print(f"Fetching {url} ...")
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+        'Cookie': cookie,
+    })
+    with urllib.request.urlopen(req) as response:
+        html = response.read().decode('utf-8')
+    if '/user/sign_in' in response.geturl():
+        raise SystemExit(
+            "Goodreads redirected to sign-in: the cookie is missing or expired. "
+            "Refresh GOODREADS_COOKIE from a logged-in browser session."
+        )
+    return html
+
+
+def field_value(row, name):
+    """Return the inner HTML of a `<td class="field NAME">...<div class="value">HERE</div>."""
+    m = re.search(
+        r'class="field ' + re.escape(name) + r'"[^>]*>.*?class="value"[^>]*>(.*?)</div>',
+        row, re.S)
+    return m.group(1) if m else ''
+
+
+def large_image_url(cover_html):
+    m = re.search(r'<img[^>]*src="([^"]+)"', cover_html)
+    if not m:
+        return ''
+    url = m.group(1)
+    # Strip the thumbnail size suffix (._SX50_ / ._SY75_ / ...) to get the large cover.
+    url = re.sub(r'\._S[XY]\d+_(?=\.\w+$)', '', url)
+    return url
+
+
+def parse_review(row, review_id):
+    """Prefer the full (hidden) review text; fall back to the truncated container."""
+    for span_id in (f'freeTextreview{review_id}', f'freeTextContainerreview{review_id}'):
+        m = re.search(r'id="' + re.escape(span_id) + r'"[^>]*>(.*?)</span>', row, re.S)
+        if m:
+            return clean_html(m.group(1))
+    return ''
+
+
+def parse_books(html):
+    books = []
+    # Each book is a <tr id="review_NNN" class="bookalike review"> ... </tr>
+    rows = re.split(r'<tr id="review_', html)[1:]
+    for raw in rows:
+        review_id_m = re.match(r'(\d+)"', raw)
+        if not review_id_m:
+            continue
+        review_id = review_id_m.group(1)
+        row = raw  # row text runs until the next split; good enough for field regexes
+
+        title_cell = field_value(row, 'title')
+        book_id_m = re.search(r'/book/show/(\d+)', title_cell)
+        if not book_id_m:
+            continue
+        book_id = book_id_m.group(1)
+
+        title_raw = clean_html(title_cell)
+        # Strip series info like "(Series Name, #1)"
+        title = re.sub(r'\s*\([^)]*#\d+[^)]*\)\s*$', '', title_raw).strip()
+
+        # The author anchor text is already "Lastname, Firstname"; taking just the
+        # link drops the trailing <span>*</span> "Goodreads Author" marker.
+        author_m = re.search(r'/author/show/[^"]*">(.*?)</a>', field_value(row, 'author'), re.S)
+        author = clean_html(author_m.group(1)) if author_m else ''
+
+        rating_m = re.search(r'data-rating="(\d+)', field_value(row, 'rating'))
+        rating = rating_m.group(1) if rating_m else '0'
+
+        date_m = re.search(r'class="date_read_value">(.*?)</span>', field_value(row, 'date_read'), re.S)
+        read_at = parse_date(clean_html(date_m.group(1))) if date_m else ''
+        image = large_image_url(field_value(row, 'cover'))
+        review = parse_review(row, review_id)
+
+        books.append({
+            'gr_id': book_id,
+            'title': title,
+            'author': author,
+            'rating': rating,
+            'read': read_at,
+            'image': image,
+            'review': review,
+        })
+    return books
 
 
 def load_existing_ids(output_path):
@@ -67,77 +158,72 @@ def load_existing_ids(output_path):
     return existing_ids
 
 
-def parse_rss(input_path, output_path):
-    content = load_content(input_path)
+def format_book(b):
+    lines = [
+        f'- gr_id: {b["gr_id"]}',
+        f'  title: "{yaml_str(b["title"])}"',
+        f'  author: {b["author"]}',
+    ]
+    if b['rating'] and b['rating'] != '0':
+        lines.append(f'  rating: {b["rating"]}')
+    if b['read']:
+        lines.append(f'  read: {b["read"]}')
+    if b['image']:
+        lines.append(f'  image: {b["image"]}')
+    if b['review']:
+        lines.append(f'  review: "{yaml_str(b["review"])}"')
+    lines.append('')  # blank line between entries
+    return lines
 
-    # Remove the problematic xhtml:meta tag and namespace before parsing
-    content = re.sub(r'<xhtml:meta[^>]*/>', '', content)
-    content = re.sub(r'xmlns:xhtml="[^"]*"', '', content)
 
-    tree = ET.fromstring(content)
-    channel = tree.find('channel')
-    items = channel.findall('item')
+def main():
+    cookie = os.environ.get('GOODREADS_COOKIE', '').strip()
+    if not cookie:
+        raise SystemExit("GOODREADS_COOKIE is not set.")
 
-    existing_ids = load_existing_ids(output_path)
-    print(f"Found {len(existing_ids)} existing books in {output_path}")
+    existing_ids = load_existing_ids(OUTPUT_FILE)
+    print(f"Found {len(existing_ids)} existing books in {OUTPUT_FILE}")
 
     new_lines = []
     new_count = 0
 
-    for item in items:
-        book_id = item.findtext('book_id', '').strip()
-        if book_id in existing_ids:
-            continue  # skip duplicates
+    for page in range(1, MAX_PAGES + 1):
+        books = parse_books(fetch_shelf_page(page, cookie))
+        if not books:
+            break  # no more pages
 
-        title_raw = item.findtext('title', '').strip()
-        # Strip series info like "(Series Name, #1)"
-        title = re.sub(r'\s*\([^)]*#\d+[^)]*\)\s*$', '', title_raw).strip()
+        page_new = 0
+        for b in books:
+            if b['gr_id'] in existing_ids:
+                continue
+            existing_ids.add(b['gr_id'])
+            new_lines.extend(format_book(b))
+            page_new += 1
+            new_count += 1
 
-        author = item.findtext('author_name', '').strip()
-        # Convert "Firstname Lastname" to "Lastname, Firstname"
-        if author and ',' not in author:
-            parts = author.rsplit(' ', 1)
-            if len(parts) == 2:
-                author = f"{parts[1]}, {parts[0]}"
-
-        rating = item.findtext('user_rating', '').strip()
-        read_at = parse_date(item.findtext('user_read_at', '').strip())
-        review = clean_html(item.findtext('user_review', '').strip())
-        image = item.findtext('book_large_image_url', '').strip()
-
-        new_lines.append(f'- gr_id: {book_id}')
-        new_lines.append(f'  title: "{yaml_str(title)}"')
-        new_lines.append(f'  author: {author}')
-        if rating:
-            new_lines.append(f'  rating: {rating}')
-        if read_at:
-            new_lines.append(f'  read: {read_at}')
-        if image:
-            new_lines.append(f'  image: {image}')
-        if review:
-            new_lines.append(f'  review: "{yaml_str(review)}"')
-        new_lines.append('')  # blank line between entries
-
-        new_count += 1
+        print(f"Page {page}: {len(books)} books, {page_new} new")
+        # Shelf is sorted newest-read first, so once a whole page is already
+        # known there's nothing newer further down — stop.
+        if page_new == 0:
+            break
 
     if new_count == 0:
         print("No new books to add.")
         return
 
-    # Prepend new entries to the existing file
     existing_content = ""
-    if os.path.exists(output_path):
-        with open(output_path, "r", encoding="utf-8") as f:
+    if os.path.exists(OUTPUT_FILE):
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
             existing_content = f.read()
 
-    with open(output_path, "w", encoding="utf-8") as f:
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("\n".join(new_lines))
         if existing_content:
             f.write("\n")
             f.write(existing_content)
 
-    print(f"Done. Added {new_count} new books → {output_path}")
+    print(f"Done. Added {new_count} new books → {OUTPUT_FILE}")
 
 
 if __name__ == '__main__':
-    parse_rss(RSS_URL, OUTPUT_FILE)
+    main()
