@@ -6,7 +6,7 @@ splashtitle: "Book reviews"
 
 Since 2019-ish I've been trying to write reviews for every book I read. 
 You can follow these here, on [Goodreads](https://www.goodreads.com/user/show/27136484-monica), or as an
-[RSS feed](https://www.goodreads.com/review/list_rss/27136484?shelf=read). I used to try 
+[RSS feed](/reads.xml). I used to try
 to only read "good" literary fiction, but life is short, I am tired, and now that mix is eclectic. I try to be fair in reviews and not take away stars because a book is trash (in my universe, both Sally Rooney and Fourth Wing can get 5 stars). You'll notice I mostly read 3 stars and up: I've become very good at selecting what I read and it's rare I'll find complete misses.
 
 <style>
