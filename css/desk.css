@@ -397,7 +397,9 @@ a.all:hover { text-decoration: underline; }
   #menubar .mi-group.open { display: flex; }
   #menubar .mi-group .mi { height: auto; padding: 11px 14px; font-size: 15px; border-radius: 5px; justify-content: flex-start; }
 
-  .window { width: 100%; }
+  /* .thin windows (e.g. 404) are desktop-only narrow; go full width on a phone.
+     Needs the .thin selector too, or .window.thin's higher specificity wins. */
+  .window, .window.thin { width: 100%; }
 
   /* shorter hero/content padding on small screens (hero + body share the
      same horizontal padding so their left edges keep lining up) */
