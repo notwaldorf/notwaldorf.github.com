@@ -80,7 +80,8 @@ tr.full td {
 td img {
   margin: 0 !important;
   padding: 0 !important;
-  height: 80px;
+  width: 54px;
+  height: auto;
 }
 button {
   background: transparent;
